@@ -1,0 +1,84 @@
+//*********************************************************************
+//*** Sql de busqueda de activos
+//***
+//*********************************************************************
+
+SELECT [AF_BC]
+      ,[Nombre_Activo]
+      ,(SELECT Desc_Tipo_Vale_Resg FROM siga_cat_tipo_vale_resg WHERE Id_Tipo_Vale_Resg=activo.Id_Tipo_Vale_Resg) tipo
+      ,(SELECT Nom_Area FROM siga_catareas WHERE Id_Area=activo.Id_Area) as area
+      ,activo.Num_Empleado
+      ,activo.Nombre_Completo
+      ,convert(date, Fech_Inser, 105) as fec
+      ,(SELECT [Nombre_Usuario] FROM siga_usuarios WHERE Id_Usuario=activo.Usr_Inser) usuarioAlta
+      ,[Fech_Mod]
+      ,(SELECT [Nombre_Usuario] FROM siga_usuarios WHERE Id_Usuario=activo.Usr_Inser) usuarioModifica
+      ,[Estatus_Reg]
+      ,(SELECT desc_Clase FROM siga_cat_clase WHERE Id_Clase=ACTIVO.[Id_Clase]) CLASE
+      ,(SELECT [Desc_Clasificacion] FROM siga_cat_clasificacion WHERE Id_Clasificacion=activo.Id_Clasificacion) clasificación
+      ,(SELECT [Desc_Tipo_Activo] FROM [siga_cat_tipo_activo] WHERE Id_Tipo_Activo = activo.Id_Tipo_Activo) [Id_Tipo_Activo]
+      ,[DescCorta]
+      ,[DescLarga]
+      ,(SELECT Desc_Ubic_Prim FROM siga_cat_ubic_prim WHERE Id_Ubic_Prim= ACTIVO.Id_Ubic_Prim ) Ubic_Prim
+      ,(SELECT Desc_Ubic_Sec FROM siga_cat_ubic_sec WHERE Id_Ubic_sec=activo.Id_Ubic_Sec) Ubic_Sec
+      ,(SELECT Desc_Motivo_Alta FROM siga_cat_motivo_alta WHERE Id_Motivo_Alta=ACTIVO.Id_Motivo_Alta) Motivo_Alta
+      ,(SELECT Desc_Familia FROM siga_cat_familia WHERE Id_Familia=activo.Id_Familia) Familia
+      ,(SELECT Desc_Subfamilia FROM siga_cat_subfamilia where Id_Subfamilia=activo.Id_Subfamilia) SubFamilia
+      ,[Marca]
+      ,[Modelo]
+      ,[NumSerie]
+      ,chs.email
+      ,chs.email_cfdi
+      ,[Id_Activo]
+FROM siga_activos as activo (nolock)
+LEFT JOIN empleados_chs CHS (nolock) on chs.num_empleado=activo.Num_Empleado
+WHERE Id_Area=2
+--and activo.Num_Empleado=2733
+--and Id_Activo=10333
+and Estatus_Reg <> 3
+and Id_Activo NOT IN (select Id_Activo from siga_baja_activo)
+AND activo.Num_Empleado NOT IN (0,99999)
+--AND activo.Num_Empleado IN (3107,3123)
+--and chs.email ='0'
+order by activo.Num_Empleado, tipo
+
+
+//*********************************************************************
+//*** Sql de busqueda de activos primara fase
+//***
+//*********************************************************************
+
+SELECT activo.Num_Empleado, activo.Nombre_Completo, activo.Nombre_Activo, activo.AF_BC, activo.Nombre_Activo
+FROM siga_activos activo
+LEFT JOIN siga_cat_familia familia on familia.Id_Familia=activo.Id_Familia
+LEFT JOIN siga_cat_subfamilia sub ON  sub.Id_Subfamilia= activo.Id_Subfamilia
+WHERE activo.Id_Area=2
+AND activo.Estatus_Reg <> 3
+AND Id_Activo NOT IN (select Id_Activo from siga_baja_activo)
+AND activo.Id_Familia IN (54,55,44,47)
+AND activo.Num_Empleado NOT IN (0,99999)
+AND activo.Id_Subfamilia not in (155,156, 158,159,180,181)
+AND Num_Empleado IN (SELECT num_empleado FROM empleados_chs WHERE puesto not like '%gerente%' AND puesto not like '%jefe%' AND puesto not like '%director%')
+AND Num_Empleado NOT IN (2,42,903)
+AND activo.Id_Activo not in (32876)
+
+//*********************************************************************
+//*** Sql de busqueda de activos primera fase
+//***
+//*********************************************************************
+
+SELECT activo.Num_Empleado,activo.Id_Activo, activo.AF_BC,activo.Nombre_Completo, activo.Nombre_Activo,activo.Marca, activo.Modelo, activo.NumSerie, activo.DescLarga, prov.NombreProveedor, prov.MontoFactura
+FROM siga_activos activo
+LEFT JOIN siga_activo_proveedor prov ON prov.id_Activo=activo.Id_Activo
+LEFT JOIN siga_cat_familia familia on familia.Id_Familia=activo.Id_Familia
+LEFT JOIN siga_cat_subfamilia sub ON  sub.Id_Subfamilia= activo.Id_Subfamilia
+WHERE activo.Id_Area=2
+AND activo.Estatus_Reg <> 3
+AND activo.Id_Activo NOT IN (select Id_Activo from siga_baja_activo)
+AND activo.Id_Familia IN (54,55,44,47)
+AND activo.Num_Empleado NOT IN (0,99999)
+AND activo.Id_Subfamilia not in (155,156, 158,159,180,181)
+AND Num_Empleado NOT IN (SELECT num_empleado FROM empleados_chs WHERE puesto not like '%gerente%' AND puesto not like '%jefe%' AND puesto not like '%director%')
+AND Num_Empleado NOT IN (2,42,903)
+AND activo.Id_Activo not in (32876)
+

@@ -1,0 +1,32 @@
+2025-02-04 8:20:26 -->Codigo->IMSSP Error -> SQLSTATE[IMSSP]: An error occurred translating the query string to UTF-16: No hay ninguna asignación en la página de códigos de múltiples bytes de destino para el carácter Unicode.
+. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query(' select * from ...')
+#1 C:\inetpub\expuestos\SIGA\datos\connect\Proveedor.Class.php(112): SqlServer->execute(' select * from ...')
+#2 C:\inetpub\expuestos\SIGA\controladores\activos\siga_usuarios\Siga_usuariosController.Class.php(44): Proveedor->execute(' select * from ...')
+#3 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(97): Siga_usuariosController->selectSiga_login(Object(Siga_usuariosDTO))
+#4 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(340): Siga_usuariosFacade->selectSiga_login(Object(Siga_usuariosDTO), '3', '1', '31269', '', '53', '')
+#5 {main} Query->  select * from tcausr where nombre=rtrim(ltrim('ESALDAÑA')) and pwd=rtrim(ltrim('ESLABON')) 
+
+2025-02-04 8:20:26 -->Codigo->IMSSP Error -> SQLSTATE[IMSSP]: An error occurred translating the query string to UTF-16: No hay ninguna asignación en la página de códigos de múltiples bytes de destino para el carácter Unicode.
+. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query(' select * from ...')
+#1 C:\inetpub\expuestos\SIGA\datos\connect\Proveedor.Class.php(112): SqlServer->execute(' select * from ...')
+#2 C:\inetpub\expuestos\SIGA\controladores\activos\siga_usuarios\Siga_usuariosController.Class.php(46): Proveedor->execute(' select * from ...')
+#3 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(97): Siga_usuariosController->selectSiga_login(Object(Siga_usuariosDTO))
+#4 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(340): Siga_usuariosFacade->selectSiga_login(Object(Siga_usuariosDTO), '3', '1', '31269', '', '53', '')
+#5 {main} Query->  select * from tcausr where nombre=rtrim(ltrim('ESALDAÑA')) and pwd=rtrim(ltrim('ESLABON')) 
+
+2025-02-04 8:21:02 -->Codigo->IMSSP Error -> SQLSTATE[IMSSP]: An error occurred translating the query string to UTF-16: No hay ninguna asignación en la página de códigos de múltiples bytes de destino para el carácter Unicode.
+. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query(' select * from ...')
+#1 C:\inetpub\expuestos\SIGA\datos\connect\Proveedor.Class.php(112): SqlServer->execute(' select * from ...')
+#2 C:\inetpub\expuestos\SIGA\controladores\activos\siga_usuarios\Siga_usuariosController.Class.php(44): Proveedor->execute(' select * from ...')
+#3 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(97): Siga_usuariosController->selectSiga_login(Object(Siga_usuariosDTO))
+#4 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(340): Siga_usuariosFacade->selectSiga_login(Object(Siga_usuariosDTO), '3', '1', '31269', '', '53', '')
+#5 {main} Query->  select * from tcausr where nombre=rtrim(ltrim('ESALDAÑA')) and pwd=rtrim(ltrim('ESLABON')) 
+
+2025-02-04 8:21:02 -->Codigo->IMSSP Error -> SQLSTATE[IMSSP]: An error occurred translating the query string to UTF-16: No hay ninguna asignación en la página de códigos de múltiples bytes de destino para el carácter Unicode.
+. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query(' select * from ...')
+#1 C:\inetpub\expuestos\SIGA\datos\connect\Proveedor.Class.php(112): SqlServer->execute(' select * from ...')
+#2 C:\inetpub\expuestos\SIGA\controladores\activos\siga_usuarios\Siga_usuariosController.Class.php(46): Proveedor->execute(' select * from ...')
+#3 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(97): Siga_usuariosController->selectSiga_login(Object(Siga_usuariosDTO))
+#4 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(340): Siga_usuariosFacade->selectSiga_login(Object(Siga_usuariosDTO), '3', '1', '31269', '', '53', '')
+#5 {main} Query->  select * from tcausr where nombre=rtrim(ltrim('ESALDAÑA')) and pwd=rtrim(ltrim('ESLABON')) 
+

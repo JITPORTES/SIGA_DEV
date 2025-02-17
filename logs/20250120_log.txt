@@ -1,0 +1,88 @@
+2025-01-20 11:02:16 -->Codigo->40001 Error -> SQLSTATE[40001]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]La transacción (id. de proceso 69) quedó en interbloqueo en bloqueo recursos con otro proceso y fue elegida como sujeto del interbloqueo. Ejecute de nuevo la transacción. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query('select * from (...')
+#1 C:\inetpub\expuestos\SIGA\datos\connect\Proveedor.Class.php(112): SqlServer->execute('select * from (...')
+#2 C:\inetpub\expuestos\SIGA\modelos\activos\dao\siga_solicitud_tickets\Siga_solicitud_ticketsDAO.Class.php(1388): Proveedor->execute('select * from (...')
+#3 C:\inetpub\expuestos\SIGA\controladores\activos\siga_solicitud_tickets\Siga_solicitud_ticketsController.Class.php(3099): Siga_solicitud_ticketsDAO->llenarDataTable('17', Array, Array, '0', '10', Array, '2', Object(Siga_solicitud_ticketsDTO), NULL, '1007', NULL, NULL, NULL, NULL, NULL)
+#4 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_solicitud_tickets\Siga_solicitud_ticketsFacade.Class.php(476): Siga_solicitud_ticketsController->llenarDataTable('17', Array, Array, '0', '10', Array, '2', Object(Siga_solicitud_ticketsDTO), NULL, '1007', NULL, NULL, NULL, NULL, NULL)
+#5 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_solicitud_tickets\Siga_solicitud_ticketsFacade.Class.php(864): Siga_solicitud_ticketsFacade->llenarDataTable('17', Array, Array, '0', '10', Array, '2', Object(Siga_solicitud_ticketsDTO), NULL, '1007', NULL, NULL, NULL, NULL, NULL)
+#6 {main} Query-> select * from (SELECT 
+		ST.Nombre_Ejecutante,
+		ST.AF_BC_Ext, ST.Iniciar_SLA_Juridico, FORMAT(ST.Fecha_Inicio_SLA_Juridico,'dd/MM/yyyy hh:mm:ss') as Fecha_Inicio_SLA_Juridico, ST.Justificacion_Pausa_SLA, ST.Estatus_SLA, ST.Usr_Inicia_SLA_Juridico, ST.Nombre_Act_Ext, ST.Marca_Act_Ext, ST.Modelo_Act_Ext, ST.No_Serie_Act_Ext, 
+		case when ST.Id_Activo is not null then 
+			(select top 1 Desc_Estatus from siga_cat_estatus where siga_cat_estatus.Id_Estatus=(select Id_Situacion_Activo from siga_activos ACT where ST.Id_Activo=ACT.Id_Activo)) 
+		else
+			(select top 1 Desc_Estatus from siga_cat_estatus where siga_cat_estatus.Id_Estatus=ST.Id_Est_Equipo) 
+		end as Estatus_final_equipo,
+		A.AF_BC,A.Nombre_Activo, A.Marca, A.Modelo, A.NumSerie,UP.Desc_Ubic_Prim,US.Desc_Ubic_Sec,ST.Id_Solicitud,ST.Asist_Especial,ST.Id_Activo, '[Nombre Activo: '+rtrim(ltrim(A.Nombre_Activo))+'] '+'[AF/BC: '+rtrim(ltrim(A.AF_BC))+'] '+'[Ubicaci&oacute;n Primaria: '+rtrim(ltrim(UP.Desc_Ubic_Prim))+'] '+'[Ubicaci&oacute;n Secundaria: '+rtrim(ltrim(US.Desc_Ubic_Sec))+'] '+'[Usuario Responsable: '+rtrim(ltrim(A.Nombre_Completo))+']' as Activo,ST.Estatus_Proceso as Id_Estatus_Proceso, ST.Id_Usuario,concat((select U.Nombre_Usuario from siga_usuarios U where ST.Id_Usuario=U.Id_Usuario),' / ',(select U.Nombre_Usuario from siga_usuarios U where ST.Id_Gestor=U.Id_Usuario)) Nombre_Usuario,CA.Nom_Area,ST.Id_Area,ST.Seccion,ST.Titulo,ST.Id_Categoria,ST.Id_Subcategoria,SCMR.Desc_Categoria,SCTS.Desc_Subcategoria,ST.Desc_Motivo_Reporte,ST.Prioridad,ST.Url_archivo,ST.Fech_Inser,CONVERT(VARCHAR(10),ST.Fech_Inser,103) +' '+SUBSTRING(CONVERT(VARCHAR(20), ST.Fech_Inser, 9), 13, 5)+' '+SUBSTRING(CONVERT(VARCHAR(30), ST.Fech_Inser, 9), 25, 2) as Fecha,
+		
+				CONVERT(VARCHAR(10),ST.Fech_Solicitud,103) +' '+SUBSTRING(CONVERT(VARCHAR(20), ST.Fech_Solicitud, 9), 13, 5)+' '+SUBSTRING(CONVERT(VARCHAR(30), ST.Fech_Solicitud, 9), 25, 2) as Fecha_Solicitud, 
+				FORMAT(ST.Fech_Seguimiento,'dd/MM/yyyy hh:mm:ss') as Fecha_Seguimiento,
+				FORMAT(ST.Fech_Espera_Cierre,'dd/MM/yyyy hh:mm:ss') as Fecha_Esp_Cierre,
+				FORMAT(ST.Fech_Cierre,'dd/MM/yyyy hh:mm:ss') as Fecha_Cierre,
+			
+		ST.Usr_Inser,ST.Fech_Mod,ST.Usr_Mod,ST.Estatus_Reg
+		,(select count(*) from siga_sla_ticket SLA where SLA.proceso_ticket=1 and  SLA.Estatus_Reg<>3 and SLA.Id_Solicitud=ST.Id_Solicitud) as SLAs_Enviados_Nuevo_Ticket
+		,(select count(*) from siga_sla_ticket SLA where SLA.proceso_ticket=2 and  SLA.Estatus_Reg<>3 and SLA.Id_Solicitud=ST.Id_Solicitud) as SLAs_Enviados_Seg_Ticket
+		,(select C.Desc_Seccion from siga_cat_ticket_seccion C where C.Id_Seccion=ST.Seccion) Nombre_Seccion,Id_Gestor, Id_Gestor_Reasignado
+		,(select U.Nombre_Usuario from siga_usuarios U where ST.Id_Gestor=U.Id_Usuario) Gestor
+		,(select P.Desc_Proceso from siga_cat_ticket_proceso P where P.Id_Estatus_Proceso=ST.Estatus_Proceso) Estatus_Proceso, 
+		ST.TituloCierre, ST.ComentarioCierre,ST.ComentarioCierreGestor,Usr.Nombre_Usuario as Nom_usr_reasignado
+		,ST.Id_Actividad, CASE ST.Asist_Especial when 1 then 'Asistencia Especial' END as A_Especial, CASE ST.Prioridad when 1 then 'Alta' when 2 then 'Media' when 3 then 'Baja' END as Desc_Prioridad,
+		isnull((select count(*) from siga_ticket_calificacion C  where C.Id_Solicitud=ST.Id_Solicitud),0) as Num_Calif,MA.Desc_Motivo_Aparente,MR.Desc_Motivo_Real
+		FROM siga_solicitud_tickets  ST 
+		left join siga_cat_ticket_categoria SCMR on ST.Id_Categoria=SCMR.Id_Categoria 
+		left join siga_cat_ticket_subcategoria SCTS on ST.Id_Subcategoria=SCTS.Id_Subcategoria 
+		left join siga_catareas CA on ST.Id_Area=CA.Id_Area 
+		left join siga_activos A on ST.Id_Activo=A.Id_Activo 
+		left join siga_cat_ubic_prim UP on ST.Id_Ubic_Prim=UP.Id_Ubic_Prim 
+		left join siga_cat_ubic_sec US on ST.Id_Ubic_Sec=US.Id_Ubic_Sec 
+		left join siga_usuarios Usr on ST.Id_Gestor_Reasignado=Usr.Id_Usuario 
+		left join siga_cat_motivo_aparente MA on ST.Id_Motivo_Aparente=MA.Id_Motivo_Aparente
+		left join siga_cat_motivo_real MR on ST.Id_Motivo_Real=MR.Id_Motivo_Real
+		where ST.Estatus_Reg <> '3' 
+		and  ST.Seccion=1007 and   ST.Id_Area=6 and  Id_Solicitud LIKE '%%'  and Estatus_Proceso in(2) ) siga_solicitud_tickets  where (  Id_Solicitud like '%TRÁ%'  or Fecha_Seguimiento like '%TRÁ%'  or A_Especial like '%TRÁ%'  or Desc_Prioridad like '%TRÁ%'  or Nombre_Usuario like '%TRÁ%'  or Gestor like '%TRÁ%'  or Nombre_Seccion like '%TRÁ%'  or Desc_Categoria like '%TRÁ%'  or Desc_Subcategoria like '%TRÁ%'  or Titulo like '%TRÁ%'  or Desc_Motivo_Reporte like '%TRÁ%'  or Nom_Area like '%TRÁ%'  or AF_BC_Ext like '%TRÁ%'  or Nombre_Act_Ext like '%TRÁ%'  or Marca_Act_Ext like '%TRÁ%'  or Modelo_Act_Ext like '%TRÁ%'  or No_Serie_Act_Ext like '%TRÁ%'  or Desc_Ubic_Prim like '%TRÁ%'  or Desc_Ubic_Sec like '%TRÁ%'  or Estatus_Proceso like '%TRÁ%'  )  ORDER BY Id_Solicitud desc  OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY 
+
+2025-01-20 11:02:20 -->Codigo->40001 Error -> SQLSTATE[40001]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]La transacción (id. de proceso 71) quedó en interbloqueo en bloqueo recursos con otro proceso y fue elegida como sujeto del interbloqueo. Ejecute de nuevo la transacción. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query('select * from (...')
+#1 C:\inetpub\expuestos\SIGA\datos\connect\Proveedor.Class.php(112): SqlServer->execute('select * from (...')
+#2 C:\inetpub\expuestos\SIGA\modelos\activos\dao\siga_solicitud_tickets\Siga_solicitud_ticketsDAO.Class.php(1388): Proveedor->execute('select * from (...')
+#3 C:\inetpub\expuestos\SIGA\controladores\activos\siga_solicitud_tickets\Siga_solicitud_ticketsController.Class.php(3099): Siga_solicitud_ticketsDAO->llenarDataTable('18', Array, Array, '0', '10', Array, '2', Object(Siga_solicitud_ticketsDTO), NULL, '1007', NULL, NULL, NULL, NULL, NULL)
+#4 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_solicitud_tickets\Siga_solicitud_ticketsFacade.Class.php(476): Siga_solicitud_ticketsController->llenarDataTable('18', Array, Array, '0', '10', Array, '2', Object(Siga_solicitud_ticketsDTO), NULL, '1007', NULL, NULL, NULL, NULL, NULL)
+#5 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_solicitud_tickets\Siga_solicitud_ticketsFacade.Class.php(864): Siga_solicitud_ticketsFacade->llenarDataTable('18', Array, Array, '0', '10', Array, '2', Object(Siga_solicitud_ticketsDTO), NULL, '1007', NULL, NULL, NULL, NULL, NULL)
+#6 {main} Query-> select * from (SELECT 
+		ST.Nombre_Ejecutante,
+		ST.AF_BC_Ext, ST.Iniciar_SLA_Juridico, FORMAT(ST.Fecha_Inicio_SLA_Juridico,'dd/MM/yyyy hh:mm:ss') as Fecha_Inicio_SLA_Juridico, ST.Justificacion_Pausa_SLA, ST.Estatus_SLA, ST.Usr_Inicia_SLA_Juridico, ST.Nombre_Act_Ext, ST.Marca_Act_Ext, ST.Modelo_Act_Ext, ST.No_Serie_Act_Ext, 
+		case when ST.Id_Activo is not null then 
+			(select top 1 Desc_Estatus from siga_cat_estatus where siga_cat_estatus.Id_Estatus=(select Id_Situacion_Activo from siga_activos ACT where ST.Id_Activo=ACT.Id_Activo)) 
+		else
+			(select top 1 Desc_Estatus from siga_cat_estatus where siga_cat_estatus.Id_Estatus=ST.Id_Est_Equipo) 
+		end as Estatus_final_equipo,
+		A.AF_BC,A.Nombre_Activo, A.Marca, A.Modelo, A.NumSerie,UP.Desc_Ubic_Prim,US.Desc_Ubic_Sec,ST.Id_Solicitud,ST.Asist_Especial,ST.Id_Activo, '[Nombre Activo: '+rtrim(ltrim(A.Nombre_Activo))+'] '+'[AF/BC: '+rtrim(ltrim(A.AF_BC))+'] '+'[Ubicaci&oacute;n Primaria: '+rtrim(ltrim(UP.Desc_Ubic_Prim))+'] '+'[Ubicaci&oacute;n Secundaria: '+rtrim(ltrim(US.Desc_Ubic_Sec))+'] '+'[Usuario Responsable: '+rtrim(ltrim(A.Nombre_Completo))+']' as Activo,ST.Estatus_Proceso as Id_Estatus_Proceso, ST.Id_Usuario,concat((select U.Nombre_Usuario from siga_usuarios U where ST.Id_Usuario=U.Id_Usuario),' / ',(select U.Nombre_Usuario from siga_usuarios U where ST.Id_Gestor=U.Id_Usuario)) Nombre_Usuario,CA.Nom_Area,ST.Id_Area,ST.Seccion,ST.Titulo,ST.Id_Categoria,ST.Id_Subcategoria,SCMR.Desc_Categoria,SCTS.Desc_Subcategoria,ST.Desc_Motivo_Reporte,ST.Prioridad,ST.Url_archivo,ST.Fech_Inser,CONVERT(VARCHAR(10),ST.Fech_Inser,103) +' '+SUBSTRING(CONVERT(VARCHAR(20), ST.Fech_Inser, 9), 13, 5)+' '+SUBSTRING(CONVERT(VARCHAR(30), ST.Fech_Inser, 9), 25, 2) as Fecha,
+		
+				CONVERT(VARCHAR(10),ST.Fech_Solicitud,103) +' '+SUBSTRING(CONVERT(VARCHAR(20), ST.Fech_Solicitud, 9), 13, 5)+' '+SUBSTRING(CONVERT(VARCHAR(30), ST.Fech_Solicitud, 9), 25, 2) as Fecha_Solicitud, 
+				FORMAT(ST.Fech_Seguimiento,'dd/MM/yyyy hh:mm:ss') as Fecha_Seguimiento,
+				FORMAT(ST.Fech_Espera_Cierre,'dd/MM/yyyy hh:mm:ss') as Fecha_Esp_Cierre,
+				FORMAT(ST.Fech_Cierre,'dd/MM/yyyy hh:mm:ss') as Fecha_Cierre,
+			
+		ST.Usr_Inser,ST.Fech_Mod,ST.Usr_Mod,ST.Estatus_Reg
+		,(select count(*) from siga_sla_ticket SLA where SLA.proceso_ticket=1 and  SLA.Estatus_Reg<>3 and SLA.Id_Solicitud=ST.Id_Solicitud) as SLAs_Enviados_Nuevo_Ticket
+		,(select count(*) from siga_sla_ticket SLA where SLA.proceso_ticket=2 and  SLA.Estatus_Reg<>3 and SLA.Id_Solicitud=ST.Id_Solicitud) as SLAs_Enviados_Seg_Ticket
+		,(select C.Desc_Seccion from siga_cat_ticket_seccion C where C.Id_Seccion=ST.Seccion) Nombre_Seccion,Id_Gestor, Id_Gestor_Reasignado
+		,(select U.Nombre_Usuario from siga_usuarios U where ST.Id_Gestor=U.Id_Usuario) Gestor
+		,(select P.Desc_Proceso from siga_cat_ticket_proceso P where P.Id_Estatus_Proceso=ST.Estatus_Proceso) Estatus_Proceso, 
+		ST.TituloCierre, ST.ComentarioCierre,ST.ComentarioCierreGestor,Usr.Nombre_Usuario as Nom_usr_reasignado
+		,ST.Id_Actividad, CASE ST.Asist_Especial when 1 then 'Asistencia Especial' END as A_Especial, CASE ST.Prioridad when 1 then 'Alta' when 2 then 'Media' when 3 then 'Baja' END as Desc_Prioridad,
+		isnull((select count(*) from siga_ticket_calificacion C  where C.Id_Solicitud=ST.Id_Solicitud),0) as Num_Calif,MA.Desc_Motivo_Aparente,MR.Desc_Motivo_Real
+		FROM siga_solicitud_tickets  ST 
+		left join siga_cat_ticket_categoria SCMR on ST.Id_Categoria=SCMR.Id_Categoria 
+		left join siga_cat_ticket_subcategoria SCTS on ST.Id_Subcategoria=SCTS.Id_Subcategoria 
+		left join siga_catareas CA on ST.Id_Area=CA.Id_Area 
+		left join siga_activos A on ST.Id_Activo=A.Id_Activo 
+		left join siga_cat_ubic_prim UP on ST.Id_Ubic_Prim=UP.Id_Ubic_Prim 
+		left join siga_cat_ubic_sec US on ST.Id_Ubic_Sec=US.Id_Ubic_Sec 
+		left join siga_usuarios Usr on ST.Id_Gestor_Reasignado=Usr.Id_Usuario 
+		left join siga_cat_motivo_aparente MA on ST.Id_Motivo_Aparente=MA.Id_Motivo_Aparente
+		left join siga_cat_motivo_real MR on ST.Id_Motivo_Real=MR.Id_Motivo_Real
+		where ST.Estatus_Reg <> '3' 
+		and  ST.Seccion=1007 and   ST.Id_Area=6 and  Id_Solicitud LIKE '%%'  and Estatus_Proceso in(2) ) siga_solicitud_tickets  where (  Id_Solicitud like '%TRÁM%'  or Fecha_Seguimiento like '%TRÁM%'  or A_Especial like '%TRÁM%'  or Desc_Prioridad like '%TRÁM%'  or Nombre_Usuario like '%TRÁM%'  or Gestor like '%TRÁM%'  or Nombre_Seccion like '%TRÁM%'  or Desc_Categoria like '%TRÁM%'  or Desc_Subcategoria like '%TRÁM%'  or Titulo like '%TRÁM%'  or Desc_Motivo_Reporte like '%TRÁM%'  or Nom_Area like '%TRÁM%'  or AF_BC_Ext like '%TRÁM%'  or Nombre_Act_Ext like '%TRÁM%'  or Marca_Act_Ext like '%TRÁM%'  or Modelo_Act_Ext like '%TRÁM%'  or No_Serie_Act_Ext like '%TRÁM%'  or Desc_Ubic_Prim like '%TRÁM%'  or Desc_Ubic_Sec like '%TRÁM%'  or Estatus_Proceso like '%TRÁM%'  )  ORDER BY Id_Solicitud desc  OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY 
+
+OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY 
+

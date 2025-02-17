@@ -1,0 +1,38 @@
+<?php
+
+$sql="
+SELECT [AF_BC]
+      ,[Nombre_Activo]
+      ,(SELECT Desc_Tipo_Vale_Resg FROM siga_cat_tipo_vale_resg WHERE Id_Tipo_Vale_Resg=activo.Id_Tipo_Vale_Resg) tipo
+      ,(SELECT Nom_Area FROM siga_catareas WHERE Id_Area=activo.Id_Area) as area
+      ,activo.Num_Empleado
+      ,activo.Nombre_Completo
+      ,convert(date, Fech_Inser, 105) as fec
+      ,(SELECT [Nombre_Usuario] FROM siga_usuarios WHERE Id_Usuario=activo.Usr_Inser) usuarioAlta
+      ,[Fech_Mod]
+      ,(SELECT [Nombre_Usuario] FROM siga_usuarios WHERE Id_Usuario=activo.Usr_Inser) usuarioModifica
+      ,[Estatus_Reg]
+      ,(SELECT desc_Clase FROM siga_cat_clase WHERE Id_Clase=ACTIVO.[Id_Clase]) CLASE
+      ,(SELECT [Desc_Clasificacion] FROM siga_cat_clasificacion WHERE Id_Clasificacion=activo.Id_Clasificacion) clasificación
+      ,(SELECT [Desc_Tipo_Activo] FROM [siga_cat_tipo_activo] WHERE Id_Tipo_Activo = activo.Id_Tipo_Activo) [Id_Tipo_Activo]
+      ,[DescCorta]
+      ,[DescLarga]
+      ,(SELECT Desc_Ubic_Prim FROM siga_cat_ubic_prim WHERE Id_Ubic_Prim= ACTIVO.Id_Ubic_Prim ) Ubic_Prim
+      ,(SELECT Desc_Ubic_Sec FROM siga_cat_ubic_sec WHERE Id_Ubic_sec=activo.Id_Ubic_Sec) Ubic_Sec
+      ,(SELECT Desc_Motivo_Alta FROM siga_cat_motivo_alta WHERE Id_Motivo_Alta=ACTIVO.Id_Motivo_Alta) Motivo_Alta
+      ,(SELECT Desc_Familia FROM siga_cat_familia WHERE Id_Familia=activo.Id_Familia) Familia
+      ,(SELECT Desc_Subfamilia FROM siga_cat_subfamilia where Id_Subfamilia=activo.Id_Subfamilia) SubFamilia
+      ,[Marca]
+      ,[Modelo]
+      ,[NumSerie]
+      ,[Id_Activo]
+      ,chs.email
+FROM siga_activos as activo (nolock)
+LEFT JOIN empleados_chs CHS on chs.num_empleado=activo.Num_Empleado
+WHERE Id_Area=2
+--and Num_Empleado=3017
+AND Estatus_Reg <> 3
+and Id_Activo NOT IN (select Id_Activo from siga_baja_activo)
+order by activo.Num_Empleado
+";
+

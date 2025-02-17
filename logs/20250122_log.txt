@@ -1,0 +1,333 @@
+2025-01-22 11:12:13 -->Codigo->42000 Error -> SQLSTATE[42000]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]El proveedor OLE DB "CHSTCASOL" del servidor vinculado "CHSTCASOL" no contiene la tabla ""CHS_APPS"."dbo"."empleados_chs"". O bien no existe la tabla o bien el usuario actual no tiene permisos en la tabla. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query(' select num_emp...')
+#1 C:\inetpub\expuestos\SIGA\datos\connect\Proveedor.Class.php(112): SqlServer->execute(' select num_emp...')
+#2 C:\inetpub\expuestos\SIGA\controladores\activos\siga_usuarios\Siga_usuariosController.Class.php(64): Proveedor->execute(' select num_emp...')
+#3 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(97): Siga_usuariosController->selectSiga_login(Object(Siga_usuariosDTO))
+#4 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(340): Siga_usuariosFacade->selectSiga_login(Object(Siga_usuariosDTO), '', '', '', '', '', '')
+#5 {main} Query->  select num_empleado,usuario_sistema_hospitalario from empleados_chs where estatus in('1','3') and usuario_sistema_hospitalario =rtrim(ltrim('PGJ1953')) 
+
+2025-01-22 11:12:16 -->Codigo->42000 Error -> SQLSTATE[42000]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]El proveedor OLE DB "SQLNCLI11" del servidor vinculado "CHSTCASOL" no contiene la tabla ""CHS_APPS"."dbo"."empleados_chs"". O bien no existe la tabla o bien el usuario actual no tiene permisos en la tabla. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query(' select num_emp...')
+#1 C:\inetpub\expuestos\SIGA\datos\connect\Proveedor.Class.php(112): SqlServer->execute(' select num_emp...')
+#2 C:\inetpub\expuestos\SIGA\controladores\activos\siga_usuarios\Siga_usuariosController.Class.php(64): Proveedor->execute(' select num_emp...')
+#3 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(97): Siga_usuariosController->selectSiga_login(Object(Siga_usuariosDTO))
+#4 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(340): Siga_usuariosFacade->selectSiga_login(Object(Siga_usuariosDTO), '', '', '', '', '', '')
+#5 {main} Query->  select num_empleado,usuario_sistema_hospitalario from empleados_chs where estatus in('1','3') and usuario_sistema_hospitalario =rtrim(ltrim('PGJ1953')) 
+
+2025-01-22 11:12:42 -->Codigo->42000 Error -> SQLSTATE[42000]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]El proveedor OLE DB "SQLNCLI11" del servidor vinculado "CHSTCASOL" no contiene la tabla ""CHS_APPS"."dbo"."empleados_chs"". O bien no existe la tabla o bien el usuario actual no tiene permisos en la tabla. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query(' select num_emp...')
+#1 C:\inetpub\expuestos\SIGA\datos\connect\Proveedor.Class.php(112): SqlServer->execute(' select num_emp...')
+#2 C:\inetpub\expuestos\SIGA\controladores\activos\siga_usuarios\Siga_usuariosController.Class.php(64): Proveedor->execute(' select num_emp...')
+#3 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(97): Siga_usuariosController->selectSiga_login(Object(Siga_usuariosDTO))
+#4 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(340): Siga_usuariosFacade->selectSiga_login(Object(Siga_usuariosDTO), '', '', '', '', '', '')
+#5 {main} Query->  select num_empleado,usuario_sistema_hospitalario from empleados_chs where estatus in('1','3') and usuario_sistema_hospitalario =rtrim(ltrim('PGJ1953')) 
+
+2025-01-22 11:12:44 -->Codigo->42000 Error -> SQLSTATE[42000]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]El proveedor OLE DB "SQLNCLI11" del servidor vinculado "CHSTCASOL" no contiene la tabla ""CHS_APPS"."dbo"."empleados_chs"". O bien no existe la tabla o bien el usuario actual no tiene permisos en la tabla. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query(' select num_emp...')
+#1 C:\inetpub\expuestos\SIGA\datos\connect\Proveedor.Class.php(112): SqlServer->execute(' select num_emp...')
+#2 C:\inetpub\expuestos\SIGA\controladores\activos\siga_usuarios\Siga_usuariosController.Class.php(64): Proveedor->execute(' select num_emp...')
+#3 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(97): Siga_usuariosController->selectSiga_login(Object(Siga_usuariosDTO))
+#4 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(340): Siga_usuariosFacade->selectSiga_login(Object(Siga_usuariosDTO), '', '', '', '', '', '')
+#5 {main} Query->  select num_empleado,usuario_sistema_hospitalario from empleados_chs where estatus in('1','3') and usuario_sistema_hospitalario =rtrim(ltrim('PGJ1953')) 
+
+2025-01-22 11:12:52 -->Codigo->42000 Error -> SQLSTATE[42000]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]El proveedor OLE DB "SQLNCLI11" del servidor vinculado "CHSTCASOL" no contiene la tabla ""CHS_APPS"."dbo"."empleados_chs"". O bien no existe la tabla o bien el usuario actual no tiene permisos en la tabla. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query(' select num_emp...')
+#1 C:\inetpub\expuestos\SIGA\datos\connect\Proveedor.Class.php(112): SqlServer->execute(' select num_emp...')
+#2 C:\inetpub\expuestos\SIGA\controladores\activos\siga_usuarios\Siga_usuariosController.Class.php(64): Proveedor->execute(' select num_emp...')
+#3 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(97): Siga_usuariosController->selectSiga_login(Object(Siga_usuariosDTO))
+#4 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(340): Siga_usuariosFacade->selectSiga_login(Object(Siga_usuariosDTO), '', '', '', '', '', '')
+#5 {main} Query->  select num_empleado,usuario_sistema_hospitalario from empleados_chs where estatus in('1','3') and usuario_sistema_hospitalario =rtrim(ltrim('PGJ1953')) 
+
+2025-01-22 11:12:55 -->Codigo->42000 Error -> SQLSTATE[42000]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]El proveedor OLE DB "SQLNCLI11" del servidor vinculado "CHSTCASOL" no contiene la tabla ""CHS_APPS"."dbo"."empleados_chs"". O bien no existe la tabla o bien el usuario actual no tiene permisos en la tabla. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query(' select num_emp...')
+#1 C:\inetpub\expuestos\SIGA\datos\connect\Proveedor.Class.php(112): SqlServer->execute(' select num_emp...')
+#2 C:\inetpub\expuestos\SIGA\controladores\activos\siga_usuarios\Siga_usuariosController.Class.php(64): Proveedor->execute(' select num_emp...')
+#3 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(97): Siga_usuariosController->selectSiga_login(Object(Siga_usuariosDTO))
+#4 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(340): Siga_usuariosFacade->selectSiga_login(Object(Siga_usuariosDTO), '', '', '', '', '', '')
+#5 {main} Query->  select num_empleado,usuario_sistema_hospitalario from empleados_chs where estatus in('1','3') and usuario_sistema_hospitalario =rtrim(ltrim('APJA3017')) 
+
+2025-01-22 11:12:57 -->Codigo->42000 Error -> SQLSTATE[42000]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]El proveedor OLE DB "SQLNCLI11" del servidor vinculado "CHSTCASOL" no contiene la tabla ""CHS_APPS"."dbo"."empleados_chs"". O bien no existe la tabla o bien el usuario actual no tiene permisos en la tabla. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query(' select num_emp...')
+#1 C:\inetpub\expuestos\SIGA\datos\connect\Proveedor.Class.php(112): SqlServer->execute(' select num_emp...')
+#2 C:\inetpub\expuestos\SIGA\controladores\activos\siga_usuarios\Siga_usuariosController.Class.php(64): Proveedor->execute(' select num_emp...')
+#3 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(97): Siga_usuariosController->selectSiga_login(Object(Siga_usuariosDTO))
+#4 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(340): Siga_usuariosFacade->selectSiga_login(Object(Siga_usuariosDTO), '', '', '', '', '', '')
+#5 {main} Query->  select num_empleado,usuario_sistema_hospitalario from empleados_chs where estatus in('1','3') and usuario_sistema_hospitalario =rtrim(ltrim('APJA3017')) 
+
+2025-01-22 11:13:01 -->Codigo->42000 Error -> SQLSTATE[42000]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]El proveedor OLE DB "SQLNCLI11" del servidor vinculado "CHSTCASOL" no contiene la tabla ""CHS_APPS"."dbo"."empleados_chs"". O bien no existe la tabla o bien el usuario actual no tiene permisos en la tabla. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query('\t\tSELECT \t\n\t\t\t\t...')
+#1 C:\inetpub\expuestos\SIGA\datos\connect\Proveedor.Class.php(112): SqlServer->execute('\t\tSELECT \t\n\t\t\t\t...')
+#2 C:\inetpub\expuestos\SIGA\modelos\activos\dao\siga_solicitud_tickets\Siga_solicitud_ticketsDAO.Class.php(962): Proveedor->execute('\t\tSELECT \t\n\t\t\t\t...')
+#3 C:\inetpub\expuestos\SIGA\modelos\activos\dao\siga_solicitud_tickets\Siga_solicitud_ticketsDAO.Class.php(383): Siga_solicitud_ticketsDAO->selectSiga_solicitud_tickets(Object(Siga_solicitud_ticketsDTO), '', Object(Proveedor))
+#4 C:\inetpub\expuestos\SIGA\controladores\activos\siga_solicitud_tickets\Siga_solicitud_ticketsController.Class.php(2130): Siga_solicitud_ticketsDAO->insertSiga_solicitud_tickets(Object(Siga_solicitud_ticketsDTO), NULL)
+#5 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_solicitud_tickets\Siga_solicitud_ticketsFacade.Class.php(466): Siga_solicitud_ticketsController->insertSiga_solicitud_tickets(Object(Siga_solicitud_ticketsDTO))
+#6 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_solicitud_tickets\Siga_solicitud_ticketsFacade.Class.php(718): Siga_solicitud_ticketsFacade->insertSiga_solicitud_tickets(Object(Siga_solicitud_ticketsDTO))
+#7 {main} Query-> 		SELECT 	
+				S.Id_Gestor,
+				S.Nombre_Ejecutante,
+				S.Estatus_Recepcion,
+				S.Comentarios_Recepcion,
+				S.Id_Motivo_Rechazo,
+				Estatus_Proceso Id_Estatus_Proceso,
+				S.Asist_Especial,
+				A.Marca,
+				A.Modelo,
+				A.NumSerie,
+				UP.Desc_Ubic_Prim,
+				US.Desc_Ubic_Sec,
+				Id_Solicitud,
+				Id_Solicitud_Anterior,
+				S.Id_Gestor_Reasignado,
+				S.Id_Activo,
+				Id_Usuario,
+				S.Id_Area,
+				Id_Actividad,
+				Id_Det_Actividad,
+				Id_Categoria,
+				Id_Subcategoria,
+				Seccion,
+				Titulo,
+				Id_Categoria,
+				Desc_Motivo_Reporte,
+				Prioridad,
+				Url_archivo,
+				S.Fech_Inser,
+				S.Usr_Inser,
+				S.Fech_Mod,
+				S.Usr_Mod,
+				S.Estatus_Reg,
+				S.Fech_Solicitud,
+				S.Fech_Seguimiento,
+				S.Fech_Espera_Cierre,
+				S.Fech_Cierre,
+				S.Archivo_Binario,
+				S.Archivo_Binario2,
+				S.Archivo_Binario3,
+				S.Archivo_Binario4,
+				S.Id_Cirugia,
+				S.Activo_Externo,
+				S.AF_BC_Ext,
+				S.Nombre_Act_Ext,
+				S.Marca_Act_Ext,
+				S.Modelo_Act_Ext,
+				S.No_Serie_Act_Ext,
+				S.Cantidad_Equ_Ext,S.Pre_Re_Procedimiento,
+				S.Pre_Re_Fecha_Hora_Cirugia,
+				S.Pre_Re_Quirofano,
+				S.Pre_Re_Paciente,
+				S.Pre_Re_Cirujano,
+				S.Empresa_Ext,
+				S.Nombre_Completo_Ext,
+				S.Telefono_Ext,
+				S.Correo_Ext,
+				S.Pre_Registro_Ext,
+				S.Observ_Pre_Reg_Ext,
+				S.Id_Solicitud,
+				(select top 1 Desc_Ubic_Prim from siga_cat_ubic_prim  UP where S.Id_Ubic_Prim=UP.Id_Ubic_Prim ) as Desc_Ubic_Prim_Act_Ext,
+				S.Id_Ubic_Prim,
+				(select top 1 Desc_Ubic_Sec from siga_cat_ubic_sec  US where S.Id_Ubic_Sec=US.Id_Ubic_Sec ) as Desc_Ubic_Sec_Act_Ext,
+				S.Id_Ubic_Sec,
+				(select P.Desc_Proceso from siga_cat_ticket_proceso P where P.Id_Estatus_Proceso=S.Estatus_Proceso) Estatus_Proceso,
+				(select C.Nom_Area from siga_catareas C where C.Id_Area=S.Id_Area) Area,
+				(select C.Desc_Seccion from siga_cat_ticket_seccion C where C.Id_Seccion=S.Seccion) Nombre_Seccion,
+				(select C.Desc_Categoria from siga_cat_ticket_categoria C where C.Id_Categoria=S.Id_Categoria) Categoria,
+				(select C.Desc_Subcategoria from siga_cat_ticket_subcategoria C where C.Id_Subcategoria=S.Id_Subcategoria) Subcategoria,
+				(select C.Desc_Categoria from siga_cat_ticket_categoria C where C.Id_Categoria=S.Id_Categoria) Motivo,
+				(select U.Nombre_Usuario from siga_usuarios U where S.Id_Usuario=U.Id_Usuario) Nombre_Usuario,
+				(select A.AF_BC+' '+A.Nombre_Activo as AF_BC_Activo from siga_activos A where S.Id_Activo=A.Id_Activo) AF_BC_Activo,
+				(select A.AF_BC from siga_activos A where S.Id_Activo=A.Id_Activo) AF_BC,
+				(select Nombre_Activo  from siga_activos A where S.Id_Activo=A.Id_Activo) Nombre_Activo,
+				(select DescLarga  from siga_activos A where S.Id_Activo=A.Id_Activo) Desc_Larga,
+				(select Foto  from siga_activos A where S.Id_Activo=A.Id_Activo) Foto,
+				(select No_Usuario  from siga_usuarios A where S.Id_Usuario_Inicial=A.Id_Usuario) No_Usuario_Inicial,
+				(select Nombre_Usuario  from siga_usuarios A where S.id_usuario_inicial=A.Id_Usuario) Nombre_Usuario_Inicial,
+				(select No_Usuario  from siga_usuarios A where S.Id_Usuario=A.Id_Usuario) No_Usuario,
+				(select No_Usuario  from siga_usuarios A where S.Id_Gestor=A.Id_Usuario) No_Gestor,
+			CASE 
+				WHEN Gestor_Final_Cierre is null 
+					THEN
+						(SELECT TOP 1 No_Usuario+' '+Nombre_Usuario FROM siga_usuarios A WHERE S.Id_Gestor=A.Id_Usuario)
+					ELSE 
+						(SELECT No_Usuario+' '+Nombre_Usuario FROM siga_usuarios A WHERE S.Gestor_Final_Cierre=A.Id_Usuario)
+			END as Gestor_Finaliza,
+				(SELECT U.Nombre_Usuario FROM siga_usuarios U WHERE S.Id_Gestor=U.Id_Usuario) Gestor,
+				TituloCierre,
+				ComentarioCierre,
+				ComentarioCierreGestor,
+				S.Id_Medio,
+				CM.Desc_Medio,
+				S.Id_Motivo_Aparente,
+				S.Id_Motivo_Real,
+				S.Id_Est_Equipo,
+				MA.Desc_Motivo_Aparente,
+				MR.Desc_Motivo_Real,
+				EE.Desc_Estatus,
+				S.Lo_Realiza,
+				S.Direccion_Ip_Sol,
+				(SELECT (SELECT TOP 1 usuario_sistema_hospitalario FROM empleados_chs WHERE num_empleado=No_Usuario) FROM siga_usuarios A WHERE S.Id_Usuario=A.Id_Usuario) Usuario_Assist,
+				(SELECT (SELECT TOP 1 usuario_sistema_hospitalario from empleados_chs where num_empleado=No_Usuario) FROM siga_usuarios A WHERE S.Id_Gestor=A.Id_Usuario) Gestor_Assist
+				
+
+		FROM siga_solicitud_tickets S (NOLOCK)
+		LEFT JOIN siga_activos A (NOLOCK)				ON S.Id_Activo=A.Id_Activo 
+		LEFT JOIN siga_cat_ubic_prim UP (NOLOCK)		ON S.Id_Ubic_Prim=UP.Id_Ubic_Prim 
+		LEFT JOIN siga_cat_ubic_sec US (NOLOCK)			ON S.Id_Ubic_Sec=US.Id_Ubic_Sec 
+		LEFT JOIN siga_cat_medios CM (NOLOCK)			ON S.Id_Medio=CM.Id_Medio 
+		LEFT JOIN siga_cat_motivo_aparente MA (NOLOCK) 	ON S.Id_Motivo_Aparente=MA.Id_Motivo_Aparente
+		LEFT JOIN siga_cat_motivo_real MR (NOLOCK)		ON S.Id_Motivo_Real=MR.Id_Motivo_Real
+		LEFT JOIN siga_cat_estatus EE (NOLOCK)			ON S.Id_Est_Equipo=EE.Id_Estatus  WHERE Id_Solicitud='38839'
+
+2025-01-22 11:13:59 -->Codigo->42000 Error -> SQLSTATE[42000]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]El proveedor OLE DB "CHSTCASOL" del servidor vinculado "CHSTCASOL" no contiene la tabla ""CHS_APPS"."dbo"."empleados_chs"". O bien no existe la tabla o bien el usuario actual no tiene permisos en la tabla. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query(' select num_emp...')
+#1 C:\inetpub\expuestos\SIGA\datos\connect\Proveedor.Class.php(112): SqlServer->execute(' select num_emp...')
+#2 C:\inetpub\expuestos\SIGA\controladores\activos\siga_usuarios\Siga_usuariosController.Class.php(64): Proveedor->execute(' select num_emp...')
+#3 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(97): Siga_usuariosController->selectSiga_login(Object(Siga_usuariosDTO))
+#4 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(340): Siga_usuariosFacade->selectSiga_login(Object(Siga_usuariosDTO), '', '', '', '', '', '')
+#5 {main} Query->  select num_empleado,usuario_sistema_hospitalario from empleados_chs where estatus in('1','3') and usuario_sistema_hospitalario =rtrim(ltrim('TVHM2675')) 
+
+2025-01-22 11:14:12 -->Codigo->42000 Error -> SQLSTATE[42000]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]El proveedor OLE DB "CHSTCASOL" del servidor vinculado "CHSTCASOL" no contiene la tabla ""CHS_APPS"."dbo"."empleados_chs"". O bien no existe la tabla o bien el usuario actual no tiene permisos en la tabla. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query(' select num_emp...')
+#1 C:\inetpub\expuestos\SIGA\datos\connect\Proveedor.Class.php(112): SqlServer->execute(' select num_emp...')
+#2 C:\inetpub\expuestos\SIGA\controladores\activos\siga_usuarios\Siga_usuariosController.Class.php(64): Proveedor->execute(' select num_emp...')
+#3 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(97): Siga_usuariosController->selectSiga_login(Object(Siga_usuariosDTO))
+#4 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(340): Siga_usuariosFacade->selectSiga_login(Object(Siga_usuariosDTO), '', '', '', '', '', '')
+#5 {main} Query->  select num_empleado,usuario_sistema_hospitalario from empleados_chs where estatus in('1','3') and usuario_sistema_hospitalario =rtrim(ltrim('FBMP3322')) 
+
+2025-01-22 11:14:18 -->Codigo->42000 Error -> SQLSTATE[42000]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]El proveedor OLE DB "SQLNCLI11" del servidor vinculado "CHSTCASOL" no contiene la tabla ""CHS_APPS"."dbo"."empleados_chs"". O bien no existe la tabla o bien el usuario actual no tiene permisos en la tabla. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query(' select num_emp...')
+#1 C:\inetpub\expuestos\SIGA\datos\connect\Proveedor.Class.php(112): SqlServer->execute(' select num_emp...')
+#2 C:\inetpub\expuestos\SIGA\controladores\activos\siga_usuarios\Siga_usuariosController.Class.php(64): Proveedor->execute(' select num_emp...')
+#3 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(97): Siga_usuariosController->selectSiga_login(Object(Siga_usuariosDTO))
+#4 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(340): Siga_usuariosFacade->selectSiga_login(Object(Siga_usuariosDTO), '', '', '', '', '', '')
+#5 {main} Query->  select num_empleado,usuario_sistema_hospitalario from empleados_chs where estatus in('1','3') and usuario_sistema_hospitalario =rtrim(ltrim('FBMP3322')) 
+
+2025-01-22 11:14:22 -->Codigo->42000 Error -> SQLSTATE[42000]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]El proveedor OLE DB "SQLNCLI11" del servidor vinculado "CHSTCASOL" no contiene la tabla ""CHS_APPS"."dbo"."empleados_chs"". O bien no existe la tabla o bien el usuario actual no tiene permisos en la tabla. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query(' select num_emp...')
+#1 C:\inetpub\expuestos\SIGA\datos\connect\Proveedor.Class.php(112): SqlServer->execute(' select num_emp...')
+#2 C:\inetpub\expuestos\SIGA\controladores\activos\siga_usuarios\Siga_usuariosController.Class.php(64): Proveedor->execute(' select num_emp...')
+#3 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(97): Siga_usuariosController->selectSiga_login(Object(Siga_usuariosDTO))
+#4 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(340): Siga_usuariosFacade->selectSiga_login(Object(Siga_usuariosDTO), '', '', '', '', '', '')
+#5 {main} Query->  select num_empleado,usuario_sistema_hospitalario from empleados_chs where estatus in('1','3') and usuario_sistema_hospitalario =rtrim(ltrim('TVHM2675')) 
+
+2025-01-22 11:14:24 -->Codigo->42000 Error -> SQLSTATE[42000]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]El proveedor OLE DB "SQLNCLI11" del servidor vinculado "CHSTCASOL" no contiene la tabla ""CHS_APPS"."dbo"."empleados_chs"". O bien no existe la tabla o bien el usuario actual no tiene permisos en la tabla. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query(' select num_emp...')
+#1 C:\inetpub\expuestos\SIGA\datos\connect\Proveedor.Class.php(112): SqlServer->execute(' select num_emp...')
+#2 C:\inetpub\expuestos\SIGA\controladores\activos\siga_usuarios\Siga_usuariosController.Class.php(64): Proveedor->execute(' select num_emp...')
+#3 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(97): Siga_usuariosController->selectSiga_login(Object(Siga_usuariosDTO))
+#4 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(340): Siga_usuariosFacade->selectSiga_login(Object(Siga_usuariosDTO), '', '', '', '', '', '')
+#5 {main} Query->  select num_empleado,usuario_sistema_hospitalario from empleados_chs where estatus in('1','3') and usuario_sistema_hospitalario =rtrim(ltrim('TVHM2675')) 
+
+2025-01-22 11:14:27 -->Codigo->42000 Error -> SQLSTATE[42000]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]El proveedor OLE DB "SQLNCLI11" del servidor vinculado "CHSTCASOL" no contiene la tabla ""CHS_APPS"."dbo"."empleados_chs"". O bien no existe la tabla o bien el usuario actual no tiene permisos en la tabla. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query(' select num_emp...')
+#1 C:\inetpub\expuestos\SIGA\datos\connect\Proveedor.Class.php(112): SqlServer->execute(' select num_emp...')
+#2 C:\inetpub\expuestos\SIGA\controladores\activos\siga_usuarios\Siga_usuariosController.Class.php(64): Proveedor->execute(' select num_emp...')
+#3 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(97): Siga_usuariosController->selectSiga_login(Object(Siga_usuariosDTO))
+#4 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(340): Siga_usuariosFacade->selectSiga_login(Object(Siga_usuariosDTO), '', '', '', '', '', '')
+#5 {main} Query->  select num_empleado,usuario_sistema_hospitalario from empleados_chs where estatus in('1','3') and usuario_sistema_hospitalario =rtrim(ltrim('FBMP3322')) 
+
+2025-01-22 11:14:29 -->Codigo->42000 Error -> SQLSTATE[42000]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]El proveedor OLE DB "SQLNCLI11" del servidor vinculado "CHSTCASOL" no contiene la tabla ""CHS_APPS"."dbo"."empleados_chs"". O bien no existe la tabla o bien el usuario actual no tiene permisos en la tabla. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query(' select num_emp...')
+#1 C:\inetpub\expuestos\SIGA\datos\connect\Proveedor.Class.php(112): SqlServer->execute(' select num_emp...')
+#2 C:\inetpub\expuestos\SIGA\controladores\activos\siga_usuarios\Siga_usuariosController.Class.php(64): Proveedor->execute(' select num_emp...')
+#3 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(97): Siga_usuariosController->selectSiga_login(Object(Siga_usuariosDTO))
+#4 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(340): Siga_usuariosFacade->selectSiga_login(Object(Siga_usuariosDTO), '', '', '', '', '', '')
+#5 {main} Query->  select num_empleado,usuario_sistema_hospitalario from empleados_chs where estatus in('1','3') and usuario_sistema_hospitalario =rtrim(ltrim('FBMP3322')) 
+
+2025-01-22 11:14:29 -->Codigo->42000 Error -> SQLSTATE[42000]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]El proveedor OLE DB "SQLNCLI11" del servidor vinculado "CHSTCASOL" no contiene la tabla ""CHS_APPS"."dbo"."empleados_chs"". O bien no existe la tabla o bien el usuario actual no tiene permisos en la tabla. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query(' select num_emp...')
+#1 C:\inetpub\expuestos\SIGA\datos\connect\Proveedor.Class.php(112): SqlServer->execute(' select num_emp...')
+#2 C:\inetpub\expuestos\SIGA\controladores\activos\siga_usuarios\Siga_usuariosController.Class.php(64): Proveedor->execute(' select num_emp...')
+#3 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(97): Siga_usuariosController->selectSiga_login(Object(Siga_usuariosDTO))
+#4 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(340): Siga_usuariosFacade->selectSiga_login(Object(Siga_usuariosDTO), '', '', '', '', '', '')
+#5 {main} Query->  select num_empleado,usuario_sistema_hospitalario from empleados_chs where estatus in('1','3') and usuario_sistema_hospitalario =rtrim(ltrim('FBMP3322')) 
+
+2025-01-22 11:14:29 -->Codigo->42000 Error -> SQLSTATE[42000]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]El proveedor OLE DB "SQLNCLI11" del servidor vinculado "CHSTCASOL" no contiene la tabla ""CHS_APPS"."dbo"."empleados_chs"". O bien no existe la tabla o bien el usuario actual no tiene permisos en la tabla. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query(' select num_emp...')
+#1 C:\inetpub\expuestos\SIGA\datos\connect\Proveedor.Class.php(112): SqlServer->execute(' select num_emp...')
+#2 C:\inetpub\expuestos\SIGA\controladores\activos\siga_usuarios\Siga_usuariosController.Class.php(64): Proveedor->execute(' select num_emp...')
+#3 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(97): Siga_usuariosController->selectSiga_login(Object(Siga_usuariosDTO))
+#4 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(340): Siga_usuariosFacade->selectSiga_login(Object(Siga_usuariosDTO), '', '', '', '', '', '')
+#5 {main} Query->  select num_empleado,usuario_sistema_hospitalario from empleados_chs where estatus in('1','3') and usuario_sistema_hospitalario =rtrim(ltrim('FBMP3322')) 
+
+2025-01-22 11:14:29 -->Codigo->42000 Error -> SQLSTATE[42000]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]El proveedor OLE DB "SQLNCLI11" del servidor vinculado "CHSTCASOL" no contiene la tabla ""CHS_APPS"."dbo"."empleados_chs"". O bien no existe la tabla o bien el usuario actual no tiene permisos en la tabla. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query(' select num_emp...')
+#1 C:\inetpub\expuestos\SIGA\datos\connect\Proveedor.Class.php(112): SqlServer->execute(' select num_emp...')
+#2 C:\inetpub\expuestos\SIGA\controladores\activos\siga_usuarios\Siga_usuariosController.Class.php(64): Proveedor->execute(' select num_emp...')
+#3 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(97): Siga_usuariosController->selectSiga_login(Object(Siga_usuariosDTO))
+#4 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(340): Siga_usuariosFacade->selectSiga_login(Object(Siga_usuariosDTO), '', '', '', '', '', '')
+#5 {main} Query->  select num_empleado,usuario_sistema_hospitalario from empleados_chs where estatus in('1','3') and usuario_sistema_hospitalario =rtrim(ltrim('TVHM2675')) 
+
+2025-01-22 11:14:29 -->Codigo->42000 Error -> SQLSTATE[42000]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]El proveedor OLE DB "SQLNCLI11" del servidor vinculado "CHSTCASOL" no contiene la tabla ""CHS_APPS"."dbo"."empleados_chs"". O bien no existe la tabla o bien el usuario actual no tiene permisos en la tabla. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query(' select num_emp...')
+#1 C:\inetpub\expuestos\SIGA\datos\connect\Proveedor.Class.php(112): SqlServer->execute(' select num_emp...')
+#2 C:\inetpub\expuestos\SIGA\controladores\activos\siga_usuarios\Siga_usuariosController.Class.php(64): Proveedor->execute(' select num_emp...')
+#3 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(97): Siga_usuariosController->selectSiga_login(Object(Siga_usuariosDTO))
+#4 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(340): Siga_usuariosFacade->selectSiga_login(Object(Siga_usuariosDTO), '', '', '', '', '', '')
+#5 {main} Query->  select num_empleado,usuario_sistema_hospitalario from empleados_chs where estatus in('1','3') and usuario_sistema_hospitalario =rtrim(ltrim('FBMP3322')) 
+
+2025-01-22 11:14:30 -->Codigo->42000 Error -> SQLSTATE[42000]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]El proveedor OLE DB "SQLNCLI11" del servidor vinculado "CHSTCASOL" no contiene la tabla ""CHS_APPS"."dbo"."empleados_chs"". O bien no existe la tabla o bien el usuario actual no tiene permisos en la tabla. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query(' select num_emp...')
+#1 C:\inetpub\expuestos\SIGA\datos\connect\Proveedor.Class.php(112): SqlServer->execute(' select num_emp...')
+#2 C:\inetpub\expuestos\SIGA\controladores\activos\siga_usuarios\Siga_usuariosController.Class.php(64): Proveedor->execute(' select num_emp...')
+#3 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(97): Siga_usuariosController->selectSiga_login(Object(Siga_usuariosDTO))
+#4 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(340): Siga_usuariosFacade->selectSiga_login(Object(Siga_usuariosDTO), '', '', '', '', '', '')
+#5 {main} Query->  select num_empleado,usuario_sistema_hospitalario from empleados_chs where estatus in('1','3') and usuario_sistema_hospitalario =rtrim(ltrim('FBMP3322')) 
+
+2025-01-22 11:14:32 -->Codigo->42000 Error -> SQLSTATE[42000]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]El proveedor OLE DB "SQLNCLI11" del servidor vinculado "CHSTCASOL" no contiene la tabla ""CHS_APPS"."dbo"."empleados_chs"". O bien no existe la tabla o bien el usuario actual no tiene permisos en la tabla. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query(' select num_emp...')
+#1 C:\inetpub\expuestos\SIGA\datos\connect\Proveedor.Class.php(112): SqlServer->execute(' select num_emp...')
+#2 C:\inetpub\expuestos\SIGA\controladores\activos\siga_usuarios\Siga_usuariosController.Class.php(64): Proveedor->execute(' select num_emp...')
+#3 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(97): Siga_usuariosController->selectSiga_login(Object(Siga_usuariosDTO))
+#4 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(340): Siga_usuariosFacade->selectSiga_login(Object(Siga_usuariosDTO), '', '', '', '', '', '')
+#5 {main} Query->  select num_empleado,usuario_sistema_hospitalario from empleados_chs where estatus in('1','3') and usuario_sistema_hospitalario =rtrim(ltrim('TVHM2675')) 
+
+2025-01-22 11:14:39 -->Codigo->42000 Error -> SQLSTATE[42000]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]El proveedor OLE DB "CHSTCASOL" del servidor vinculado "CHSTCASOL" no contiene la tabla ""CHS_APPS"."dbo"."empleados_chs"". O bien no existe la tabla o bien el usuario actual no tiene permisos en la tabla. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query(' select num_emp...')
+#1 C:\inetpub\expuestos\SIGA\datos\connect\Proveedor.Class.php(112): SqlServer->execute(' select num_emp...')
+#2 C:\inetpub\expuestos\SIGA\controladores\activos\siga_usuarios\Siga_usuariosController.Class.php(64): Proveedor->execute(' select num_emp...')
+#3 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(97): Siga_usuariosController->selectSiga_login(Object(Siga_usuariosDTO))
+#4 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(340): Siga_usuariosFacade->selectSiga_login(Object(Siga_usuariosDTO), '', '', '', '', '', '')
+#5 {main} Query->  select num_empleado,usuario_sistema_hospitalario from empleados_chs where estatus in('1','3') and usuario_sistema_hospitalario =rtrim(ltrim('BQD2763')) 
+
+2025-01-22 11:14:40 -->Codigo->42000 Error -> SQLSTATE[42000]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]El proveedor OLE DB "SQLNCLI11" del servidor vinculado "CHSTCASOL" no contiene la tabla ""CHS_APPS"."dbo"."empleados_chs"". O bien no existe la tabla o bien el usuario actual no tiene permisos en la tabla. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query(' select num_emp...')
+#1 C:\inetpub\expuestos\SIGA\datos\connect\Proveedor.Class.php(112): SqlServer->execute(' select num_emp...')
+#2 C:\inetpub\expuestos\SIGA\controladores\activos\siga_usuarios\Siga_usuariosController.Class.php(64): Proveedor->execute(' select num_emp...')
+#3 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(97): Siga_usuariosController->selectSiga_login(Object(Siga_usuariosDTO))
+#4 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(340): Siga_usuariosFacade->selectSiga_login(Object(Siga_usuariosDTO), '', '', '', '', '', '')
+#5 {main} Query->  select num_empleado,usuario_sistema_hospitalario from empleados_chs where estatus in('1','3') and usuario_sistema_hospitalario =rtrim(ltrim('BQD2763')) 
+
+2025-01-22 11:14:40 -->Codigo->42000 Error -> SQLSTATE[42000]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]El proveedor OLE DB "SQLNCLI11" del servidor vinculado "CHSTCASOL" no contiene la tabla ""CHS_APPS"."dbo"."empleados_chs"". O bien no existe la tabla o bien el usuario actual no tiene permisos en la tabla. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query(' select num_emp...')
+#1 C:\inetpub\expuestos\SIGA\datos\connect\Proveedor.Class.php(112): SqlServer->execute(' select num_emp...')
+#2 C:\inetpub\expuestos\SIGA\controladores\activos\siga_usuarios\Siga_usuariosController.Class.php(64): Proveedor->execute(' select num_emp...')
+#3 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(97): Siga_usuariosController->selectSiga_login(Object(Siga_usuariosDTO))
+#4 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(340): Siga_usuariosFacade->selectSiga_login(Object(Siga_usuariosDTO), '', '', '', '', '', '')
+#5 {main} Query->  select num_empleado,usuario_sistema_hospitalario from empleados_chs where estatus in('1','3') and usuario_sistema_hospitalario =rtrim(ltrim('TVHM2675')) 
+
+2025-01-22 11:14:44 -->Codigo->42000 Error -> SQLSTATE[42000]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]El proveedor OLE DB "CHSTCASOL" del servidor vinculado "CHSTCASOL" no contiene la tabla ""CHS_APPS"."dbo"."empleados_chs"". O bien no existe la tabla o bien el usuario actual no tiene permisos en la tabla. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query('\n\t\tselect Id_Us...')
+#1 C:\inetpub\expuestos\SIGA\datos\connect\Proveedor.Class.php(112): SqlServer->execute('\n\t\tselect Id_Us...')
+#2 C:\inetpub\expuestos\SIGA\controladores\activos\siga_actividades\Siga_actividadesController.Class.php(911): Proveedor->execute('\n\t\tselect Id_Us...')
+#3 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_actividades\Siga_actividadesFacade.Class.php(512): Siga_actividadesController->cmb_ejecutantes('1')
+#4 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_actividades\Siga_actividadesFacade.Class.php(786): Siga_actividadesFacade->cmb_ejecutantes('1')
+#5 {main} Query-> 
+		select Id_Usuario as Id_Usuario, Nombre_Usuario as Nombre_Completo from siga_usuarios where No_Usuario in(select num_empleado from empleados_chs where estatus in(1,3) and departamento like '%INGENIERIA BIOMEDICA%') and Estatus_Reg<>3
+		union 
+		select Id_Ejecutante as Id_Usuario, Nombre_Completo from siga_cat_ejecutantes where Estatus_Reg<>3 and Id_Area=1
+		order by 2 asc
+	
+
+2025-01-22 11:14:52 -->Codigo->42000 Error -> SQLSTATE[42000]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]El proveedor OLE DB "SQLNCLI11" del servidor vinculado "CHSTCASOL" no contiene la tabla ""CHS_APPS"."dbo"."empleados_chs"". O bien no existe la tabla o bien el usuario actual no tiene permisos en la tabla. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query(' select num_emp...')
+#1 C:\inetpub\expuestos\SIGA\datos\connect\Proveedor.Class.php(112): SqlServer->execute(' select num_emp...')
+#2 C:\inetpub\expuestos\SIGA\controladores\activos\siga_usuarios\Siga_usuariosController.Class.php(64): Proveedor->execute(' select num_emp...')
+#3 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(97): Siga_usuariosController->selectSiga_login(Object(Siga_usuariosDTO))
+#4 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(340): Siga_usuariosFacade->selectSiga_login(Object(Siga_usuariosDTO), '', '', '', '', '', '')
+#5 {main} Query->  select num_empleado,usuario_sistema_hospitalario from empleados_chs where estatus in('1','3') and usuario_sistema_hospitalario =rtrim(ltrim('TVHM2675')) 
+
+2025-01-22 11:14:55 -->Codigo->42000 Error -> SQLSTATE[42000]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]El proveedor OLE DB "SQLNCLI11" del servidor vinculado "CHSTCASOL" no contiene la tabla ""CHS_APPS"."dbo"."empleados_chs"". O bien no existe la tabla o bien el usuario actual no tiene permisos en la tabla. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query('\n\t\tselect Id_Us...')
+#1 C:\inetpub\expuestos\SIGA\datos\connect\Proveedor.Class.php(112): SqlServer->execute('\n\t\tselect Id_Us...')
+#2 C:\inetpub\expuestos\SIGA\controladores\activos\siga_actividades\Siga_actividadesController.Class.php(911): Proveedor->execute('\n\t\tselect Id_Us...')
+#3 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_actividades\Siga_actividadesFacade.Class.php(512): Siga_actividadesController->cmb_ejecutantes('1')
+#4 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_actividades\Siga_actividadesFacade.Class.php(786): Siga_actividadesFacade->cmb_ejecutantes('1')
+#5 {main} Query-> 
+		select Id_Usuario as Id_Usuario, Nombre_Usuario as Nombre_Completo from siga_usuarios where No_Usuario in(select num_empleado from empleados_chs where estatus in(1,3) and departamento like '%INGENIERIA BIOMEDICA%') and Estatus_Reg<>3
+		union 
+		select Id_Ejecutante as Id_Usuario, Nombre_Completo from siga_cat_ejecutantes where Estatus_Reg<>3 and Id_Area=1
+		order by 2 asc
+	
+
+2025-01-22 11:14:57 -->Codigo->42000 Error -> SQLSTATE[42000]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]El proveedor OLE DB "SQLNCLI11" del servidor vinculado "CHSTCASOL" no contiene la tabla ""CHS_APPS"."dbo"."empleados_chs"". O bien no existe la tabla o bien el usuario actual no tiene permisos en la tabla. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query('\n\t\tselect Id_Us...')
+#1 C:\inetpub\expuestos\SIGA\datos\connect\Proveedor.Class.php(112): SqlServer->execute('\n\t\tselect Id_Us...')
+#2 C:\inetpub\expuestos\SIGA\controladores\activos\siga_actividades\Siga_actividadesController.Class.php(911): Proveedor->execute('\n\t\tselect Id_Us...')
+#3 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_actividades\Siga_actividadesFacade.Class.php(512): Siga_actividadesController->cmb_ejecutantes('1')
+#4 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_actividades\Siga_actividadesFacade.Class.php(786): Siga_actividadesFacade->cmb_ejecutantes('1')
+#5 {main} Query-> 
+		select Id_Usuario as Id_Usuario, Nombre_Usuario as Nombre_Completo from siga_usuarios where No_Usuario in(select num_empleado from empleados_chs where estatus in(1,3) and departamento like '%INGENIERIA BIOMEDICA%') and Estatus_Reg<>3
+		union 
+		select Id_Ejecutante as Id_Usuario, Nombre_Completo from siga_cat_ejecutantes where Estatus_Reg<>3 and Id_Area=1
+		order by 2 asc
+	
+
+2025-01-22 11:15:05 -->Codigo->42000 Error -> SQLSTATE[42000]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]El proveedor OLE DB "SQLNCLI11" del servidor vinculado "CHSTCASOL" no contiene la tabla ""CHS_APPS"."dbo"."empleados_chs"". O bien no existe la tabla o bien el usuario actual no tiene permisos en la tabla. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query(' select num_emp...')
+#1 C:\inetpub\expuestos\SIGA\datos\connect\Proveedor.Class.php(112): SqlServer->execute(' select num_emp...')
+#2 C:\inetpub\expuestos\SIGA\controladores\activos\siga_usuarios\Siga_usuariosController.Class.php(64): Proveedor->execute(' select num_emp...')
+#3 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(97): Siga_usuariosController->selectSiga_login(Object(Siga_usuariosDTO))
+#4 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_usuarios\Siga_usuariosFacade.Class.php(340): Siga_usuariosFacade->selectSiga_login(Object(Siga_usuariosDTO), '', '', '', '', '', '')
+#5 {main} Query->  select num_empleado,usuario_sistema_hospitalario from empleados_chs where estatus in('1','3') and usuario_sistema_hospitalario =rtrim(ltrim('BQD2763')) 
+

@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+<head>
+<title>Mail Detalles</title>
+<link href="https://apps2.hospitalsatelite.com/siga/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+    <div class="mailCont" style="text-align: center;">
+    
+        <div class="mailheader" style="background-color: #19294a">
+        <img style="width:155px;height:55px" width="120px" src="https://apps2.hospitalsatelite.com/SIGA/dist/img/bannersiga.png">
+        </div><!--mailheader-->
+        
+		<h1>Estimado #USER#</h1>
+    <p>Aprueba la baja del Activo Fijo #ACTIVO#?</p>
+		
+	  <div class="form-group has-feedback">
+	    <b>Datos de la baja:</b>
+        <table border="1" cellspacing="10" style="width: 461px;">
+		 <tr>
+		 <td>Nombre del Activo / AFBC</td>
+		 <td>#ACTIVO# / #AFBC#</td>
+		 </tr>
+		 <tr>
+		 <td>Ubicación Primaria</td>
+		 <td>#Ubic_Prim#</td>
+		 </tr>
+		 <tr>
+		 <td>Ubicación Secundaria</td>
+		 <td>#Ubic_Sec#</td>
+		 </tr>
+		 <tr>
+		 <td>Descripcion corta</td>
+		 <td>#DescCorta#</td>
+		 </tr>
+		 <tr>
+		 <td>Marca</td>
+		 <td>#Marca#</td>
+		 </tr>
+		 <tr>
+		 <td>Modelo</td>
+		 <td>#Modelo#</td>
+		 </tr>
+		 <tr>
+		 <td>Serie</td>
+		 <td>#Serie#</td>
+		 </tr>
+		 <tr>
+		 <td>Propiedad</td>
+		 <td>#Propiedad#</td>
+		 </tr>		 
+		 <tr>
+		 <td>Motivo de baja</td>
+		 <td>#Desc_Motivo_baja#</td>
+		 </tr>	
+		 <tr>
+		 <td>Destino final</td>
+		 <td>#Desc_Destino_final#</td>
+		 </tr>	
+         <tr>
+		 <td>Comentarios</td>
+		 <td>#Comentarios#</td>
+		 </tr>
+		<tr>
+		 <td>Centro de Costos</td>
+		 <td>#Costos#</td>
+		 </tr>		 
+		</table>
+      </div>        
+
+        <div class="mailFooter">
+        <p>Si acepta, su respuesta será tomada como firma digital</p>
+		<br><br>
+		<div style="align:center">
+			<a href="#RUTA#/vistas/acepto.php?Id_Activo=#Id_Activo#&Paso=#PASO#&Id_Usuario=#Id_Usuario#">Acepto</a>&nbsp;&nbsp;&nbsp;
+			<a href="#RUTA#/vistas/acepto.php?Id_Activo=#Id_Activo#&Paso=#PASO#&Id_Usuario=#Id_Usuario#">No Acepto</a>
+			<br><br>
+			<a href="#FORMATOBAJA#" target="_blank">Descargar formato de baja</a>
+		</div>
+		
+        </div><!--mailFooter-->
+        
+        
+    
+    </div><!--mailCont-->
+
+</body>
+</html>

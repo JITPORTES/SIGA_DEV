@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="ISO-8859-9"?>
+<provedores>
+    <SQLSERVER>
+        
+		<!--Servidor SQLEXPRESS
+		<ACTIVOS>
+			<host>CHSGESTAF\SQLEXPRESS</host>
+			<port>.</port>
+            <db>SIGA</db>
+			<user>sa</user>
+            <password>Hos2017</password>
+            <domain>.</domain>
+			<descipcion>configuracion para poder realizar la conexion de la base de datos </descipcion>
+        </ACTIVOS>
+		-->
+		<!--Conexion para la base de datos del sistema SIGA-->
+		<ACTIVOS>
+			<host>CHSGESTAF</host>
+			<port>.</port>
+            <db>SIGA</db>
+			<user>siga</user>
+            <password>Nacho2018</password>
+            <domain>.</domain>
+			<descipcion>configuracion para poder realizar la conexion de la base de datos </descipcion>
+        </ACTIVOS>
+		
+		<!--Conexion modo Local-->
+		<!--
+		<ACTIVOS>
+			<host>(LOCAL)</host>
+            <port>ninguno</port>
+            <db>SIGA</db>
+            <user></user>
+            <password></password>
+            <domain>ninguno</domain>
+            <descipcion>Conección al sistema integral</descipcion>
+        </ACTIVOS>
+		-->
+		<!--Conexion hacia la base de datos del sistema Assist-->
+		<CONSULTADOR>
+            <host>CHSTCASOL</host>
+            <port>ninguno</port>
+            <db>TCADBCHS</db>
+            <user>sa</user>
+            <password>Tca$2010</password>
+            <domain>ninguno</domain>
+            <descipcion>Conección al sistema Assist</descipcion>
+        </CONSULTADOR>
+		<!--Conexion Base de datos del sistema eslabón (Nomina)-->
+		<NOMINA>
+			<host>192.168.1.226</host>
+			<port>ninguno</port>
+            <db>chs_nomina</db>
+            <user>siga</user>
+            <password>Hosp2018</password>
+            <domain>ninguno</domain>
+            <descipcion>Conección hacia la Base de Datos(Nomina)</descipcion>
+			<!--
+			<host>(LOCAL)</host>
+            <port>ninguno</port>
+            <db>SIGA</db>
+            <user></user>
+            <password></password>
+            <domain>ninguno</domain>
+            <descipcion>Conección al sistema integral</descipcion>
+			-->
+		</NOMINA>
+		<!--Conexion hacia la base de datos de assist APPS-->
+		<CHSAPPS>
+            <host>CHSTCASOL</host>
+            <port>ninguno</port>
+            <db>CHS_APPS</db>
+            <user>sa</user>
+            <password>Tca$2010</password>
+            <domain>ninguno</domain>
+            <descipcion>Conección al sistema Assist</descipcion>
+        </CHSAPPS>
+		<GTIQX>
+        <host>CHSTCASOL</host>
+        <port>ninguno</port>
+        <db>CHS_APPS</db>
+        <user>sa</user>
+        <password>Tca$2010</password>
+        <domain>ninguno</domain>
+        <descipcion>Conección al sistema gtiqx</descipcion>
+    </GTIQX>		
+    </SQLSERVER>
+</provedores>

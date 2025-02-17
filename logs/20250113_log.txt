@@ -1,0 +1,18 @@
+2025-01-13 8:49:26 -->Codigo->42000 Error -> SQLSTATE[42000]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Sintaxis incorrecta cerca de ','. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query('insert into sig...')
+#1 C:\inetpub\expuestos\SIGA\datos\connect\Proveedor.Class.php(112): SqlServer->execute('insert into sig...')
+#2 C:\inetpub\expuestos\SIGA\controladores\activos\siga_solicitud_tickets\Siga_solicitud_ticketsController.Class.php(2295): Proveedor->execute('insert into sig...')
+#3 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_solicitud_tickets\Siga_solicitud_ticketsFacade.Class.php(142): Siga_solicitud_ticketsController->Guardar_Activo_Externo('38589', '755654', '1223', '1', 'MICRODEBRIDADOR', 'Medtronic', 'Straight Shot M...', 'Pendiente', '116', '888', 'Medtronic S. de...', 'Artemio Becerri...', '55 4341 5725', 'artemio.b.becer...', Array, NULL)
+#4 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_solicitud_tickets\Siga_solicitud_ticketsFacade.Class.php(817): Siga_solicitud_ticketsFacade->Guardar_Activo_Externo('38589', '755654', '1223', '1', 'MICRODEBRIDADOR', 'Medtronic', 'Straight Shot M...', 'Pendiente', '116', '888', 'Medtronic S. de...', 'Artemio Becerri...', '55 4341 5725', 'artemio.b.becer...', Array, NULL)
+#5 {main} Query-> insert into siga_det_accesorios_act_ext (
+												Id_Solicitud_Ext
+												,Nombre_Ext
+												,Cantidad_Ext
+												,Marca_Ext
+												,Modelo_Ext
+												,No_Serie_Ext
+												,Fech_Inser_Ext
+												,Estatus_Reg_Ext
+											)
+											values (
+							38589,'',,'','','',getdate(),'1')
+

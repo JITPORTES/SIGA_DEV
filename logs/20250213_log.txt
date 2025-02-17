@@ -1,0 +1,7 @@
+2025-02-13 14:01:41 -->Codigo->21S01 Error -> SQLSTATE[21S01]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]El nombre de columna o los valores especificados no corresponden a la definición de la tabla. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query('EXEC sp_siga_ac...')
+#1 C:\inetpub\expuestos\SIGA\modelos\simple_mvc\ActivoFijoInventarioConsultasModel.Class.php(857): SqlServer->execute('EXEC sp_siga_ac...')
+#2 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(309): ActivoFijoInventarioConsultasModel->FiltroSuperiorGenericoGet(Object(ActivoFijoInventarioConsultasModel))
+#3 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(60): ActivoFijoInventarioReportesController->ActivoFijoInventarioFiltroGenericoGet()
+#4 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(317): ActivoFijoInventarioReportesController->__construct()
+#5 {main} Query-> EXEC sp_siga_activo_fijo_inventario_filtro_excel_get @Id_Area=1,@NombreTabla='Reubicacion',@NombreCampo='UbicacionPrimariaProcedencia'
+

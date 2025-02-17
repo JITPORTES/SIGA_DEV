@@ -1,0 +1,22 @@
+2025-01-27 9:53:58 -->Codigo->42000 Error -> SQLSTATE[42000]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Error al convertir el tipo de datos varchar a numeric. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query('set identity_in...')
+#1 C:\inetpub\expuestos\SIGA\datos\connect\Proveedor.Class.php(112): SqlServer->execute('set identity_in...')
+#2 C:\inetpub\expuestos\SIGA\modelos\activos\dao\siga_activo_proveedor\Siga_activo_proveedorDAO.Class.php(181): Proveedor->execute('set identity_in...')
+#3 C:\inetpub\expuestos\SIGA\controladores\activos\siga_activo_proveedor\Siga_activo_proveedorController.Class.php(56): Siga_activo_proveedorDAO->insertSiga_activo_proveedor(Object(Siga_activo_proveedorDTO), NULL)
+#4 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_activo_proveedor\Siga_activo_proveedorFacade.Class.php(167): Siga_activo_proveedorController->insertSiga_activo_proveedor(Object(Siga_activo_proveedorDTO), '')
+#5 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_activo_proveedor\Siga_activo_proveedorFacade.Class.php(297): Siga_activo_proveedorFacade->insertSiga_activo_proveedor(Object(Siga_activo_proveedorDTO), '')
+#6 {main} Query-> set identity_insert siga_activo_proveedor on INSERT INTO siga_activo_proveedor(Id_activo_proveedor,id_Activo,NumOrdenCompra,NumFactura,FechaFactura,UUID,Folio_Fiscal,Monto_F,MontoFactura,NumContrato,VidaUtilFabricante,VidaUtilCHS,Garantia,ExtGarantia,Fecha_Vencimiento	,Poliza_Url,NombreProveedor,Id_Proveedor,Contacto,Telefono,DocRecibida,Accesorios,Correo,Consumibles,Url_Contrato,Url_Otro_Doc,Url_Factura,Url_Xml,Link,Fech_Inser,Usr_Inser,Fech_Mod,Usr_Mod,Estatus_Reg) VALUES (25651,43608,'','747','2024-11-13','98FBF884-38F2-4A2E-A0E6-4EE9054C44A1','98FBF884-38F2-4A2E-A0E6-4EE9054C44A1','8990.00','8990.00','','5 AÑOS','5 AÑOS','','','','','TECRI SA DE CV','','','5553654959','','','','','','','2025-01-27_dbez5ww8k3.pdf','','www.tecri.mx',getdate(),'68',getdate(),'','1') set identity_insert siga_activo_proveedor off 
+
+2025-01-27 12:09:57 -->Codigo->42000 Error -> SQLSTATE[42000]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Sintaxis incorrecta cerca de 'Covidien'. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query('EXEC sp_siga_ac...')
+#1 C:\inetpub\expuestos\SIGA\modelos\simple_mvc\ActivoAccesorioConsumibleModel.Class.php(98): SqlServer->execute('EXEC sp_siga_ac...')
+#2 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoAccesorioConsumibleController.Class.php(137): ActivoAccesorioConsumibleModel->ActivoAccesorioConsumibleAdd(Object(ActivoAccesorioConsumibleModel))
+#3 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoAccesorioConsumibleController.Class.php(27): ActivoAccesorioConsumibleController->AccesorioConsumibleAddEdit()
+#4 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoAccesorioConsumibleController.Class.php(366): ActivoAccesorioConsumibleController->__construct('https')
+#5 {main} Query-> EXEC sp_siga_activo_accesorio_consumible_add @Id_Activo='43470',@Tipo=2,@SKU='E2515H',@Descripcion='Lapiz Rocker Switch 10'',@Marca='Covidien',@Modelo='E2515H',@Id_Usuario=1223
+
+2025-01-27 12:19:08 -->Codigo->42000 Error -> SQLSTATE[42000]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Sintaxis incorrecta cerca de 'Covidien'. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query('EXEC sp_siga_ac...')
+#1 C:\inetpub\expuestos\SIGA\modelos\simple_mvc\ActivoAccesorioConsumibleModel.Class.php(141): SqlServer->execute('EXEC sp_siga_ac...')
+#2 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoAccesorioConsumibleController.Class.php(132): ActivoAccesorioConsumibleModel->ActivoAccesorioConsumibleEdit(Object(ActivoAccesorioConsumibleModel))
+#3 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoAccesorioConsumibleController.Class.php(27): ActivoAccesorioConsumibleController->AccesorioConsumibleAddEdit()
+#4 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoAccesorioConsumibleController.Class.php(366): ActivoAccesorioConsumibleController->__construct('https')
+#5 {main} Query-> EXEC sp_siga_activo_accesorio_consumible_edit @Id_Accesorio_Consumible='4693',@Id_Activo='43470',@SKU='E0512',@Descripcion='Cable bipolar forceps 12'',@Marca='Covidien',@Modelo='E0512',@Id_Usuario=1223
+

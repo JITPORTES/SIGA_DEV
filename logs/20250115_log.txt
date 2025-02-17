@@ -1,0 +1,90 @@
+2025-01-15 11:17:43 -->Codigo->08001 Error -> SQLSTATE[08001]: [Microsoft][ODBC Driver 13 for SQL Server]TCP Provider: Timeout error [258].  trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(127): PDO->__construct('sqlsrv:server=C...', 'siga', 'Nacho2018')
+#1 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(24): SqlServer->conectar()
+#2 C:\inetpub\expuestos\SIGA\datos\connect\Proveedor.Class.php(78): SqlServer->__construct('ACTIVOS')
+#3 C:\inetpub\expuestos\SIGA\modelos\activos\dao\siga_cat_gestores\Siga_cat_gestoresDAO.Class.php(10): Proveedor->connect()
+#4 C:\inetpub\expuestos\SIGA\modelos\activos\dao\siga_cat_gestores\Siga_cat_gestoresDAO.Class.php(276): Siga_cat_gestoresDAO->_conexion(NULL)
+#5 C:\inetpub\expuestos\SIGA\controladores\activos\siga_cat_gestores\Siga_cat_gestoresController.Class.php(27): Siga_cat_gestoresDAO->selectSiga_cat_gestores(Object(Siga_cat_gestoresDTO), NULL)
+#6 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_cat_gestores\Siga_cat_gestoresFacade.Class.php(63): Siga_cat_gestoresController->selectSiga_cat_gestores(Object(Siga_cat_gestoresDTO))
+#7 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_cat_gestores\Siga_cat_gestoresFacade.Class.php(170): Siga_cat_gestoresFacade->selectSiga_cat_gestores(Object(Siga_cat_gestoresDTO))
+#8 {main}
+
+2025-01-15 11:17:43 -->Codigo->08001 Error -> SQLSTATE[08001]: [Microsoft][ODBC Driver 13 for SQL Server]TCP Provider: Timeout error [258].  trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(127): PDO->__construct('sqlsrv:server=C...', 'siga', 'Nacho2018')
+#1 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(24): SqlServer->conectar()
+#2 C:\inetpub\expuestos\SIGA\datos\connect\Proveedor.Class.php(78): SqlServer->__construct('ACTIVOS')
+#3 C:\inetpub\expuestos\SIGA\modelos\activos\dao\siga_solicitud_tickets\Siga_solicitud_ticketsDAO.Class.php(10): Proveedor->connect()
+#4 C:\inetpub\expuestos\SIGA\modelos\activos\dao\siga_solicitud_tickets\Siga_solicitud_ticketsDAO.Class.php(1095): Siga_solicitud_ticketsDAO->_conexion(NULL)
+#5 C:\inetpub\expuestos\SIGA\controladores\activos\siga_solicitud_tickets\Siga_solicitud_ticketsController.Class.php(3099): Siga_solicitud_ticketsDAO->llenarDataTable('17', Array, Array, '0', '10', Array, '2', Object(Siga_solicitud_ticketsDTO), NULL, '1', NULL, NULL, NULL, NULL, NULL)
+#6 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_solicitud_tickets\Siga_solicitud_ticketsFacade.Class.php(476): Siga_solicitud_ticketsController->llenarDataTable('17', Array, Array, '0', '10', Array, '2', Object(Siga_solicitud_ticketsDTO), NULL, '1', NULL, NULL, NULL, NULL, NULL)
+#7 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_solicitud_tickets\Siga_solicitud_ticketsFacade.Class.php(864): Siga_solicitud_ticketsFacade->llenarDataTable('17', Array, Array, '0', '10', Array, '2', Object(Siga_solicitud_ticketsDTO), NULL, '1', NULL, NULL, NULL, NULL, NULL)
+#8 {main}
+
+2025-01-15 11:17:43 -->Codigo->08001 Error -> SQLSTATE[08001]: [Microsoft][ODBC Driver 13 for SQL Server]TCP Provider: Timeout error [258].  trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(127): PDO->__construct('sqlsrv:server=C...', 'siga', 'Nacho2018')
+#1 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(24): SqlServer->conectar()
+#2 C:\inetpub\expuestos\SIGA\datos\connect\Proveedor.Class.php(78): SqlServer->__construct('ACTIVOS')
+#3 C:\inetpub\expuestos\SIGA\modelos\activos\dao\siga_solicitud_tickets\Siga_solicitud_ticketsDAO.Class.php(10): Proveedor->connect()
+#4 C:\inetpub\expuestos\SIGA\modelos\activos\dao\siga_solicitud_tickets\Siga_solicitud_ticketsDAO.Class.php(1095): Siga_solicitud_ticketsDAO->_conexion(NULL)
+#5 C:\inetpub\expuestos\SIGA\controladores\activos\siga_solicitud_tickets\Siga_solicitud_ticketsController.Class.php(3099): Siga_solicitud_ticketsDAO->llenarDataTable('14', Array, Array, '0', '10', Array, '3', Object(Siga_solicitud_ticketsDTO), NULL, '1', NULL, NULL, NULL, NULL, NULL)
+#6 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_solicitud_tickets\Siga_solicitud_ticketsFacade.Class.php(476): Siga_solicitud_ticketsController->llenarDataTable('14', Array, Array, '0', '10', Array, '3', Object(Siga_solicitud_ticketsDTO), NULL, '1', NULL, NULL, NULL, NULL, NULL)
+#7 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_solicitud_tickets\Siga_solicitud_ticketsFacade.Class.php(864): Siga_solicitud_ticketsFacade->llenarDataTable('14', Array, Array, '0', '10', Array, '3', Object(Siga_solicitud_ticketsDTO), NULL, '1', NULL, NULL, NULL, NULL, NULL)
+#8 {main}
+
+2025-01-15 11:17:43 -->Codigo->08001 Error -> SQLSTATE[08001]: [Microsoft][ODBC Driver 13 for SQL Server]TCP Provider: Timeout error [258].  trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(127): PDO->__construct('sqlsrv:server=C...', 'siga', 'Nacho2018')
+#1 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(24): SqlServer->conectar()
+#2 C:\inetpub\expuestos\SIGA\datos\connect\Proveedor.Class.php(78): SqlServer->__construct('ACTIVOS')
+#3 C:\inetpub\expuestos\SIGA\modelos\activos\dao\siga_solicitud_tickets\Siga_solicitud_ticketsDAO.Class.php(10): Proveedor->connect()
+#4 C:\inetpub\expuestos\SIGA\modelos\activos\dao\siga_solicitud_tickets\Siga_solicitud_ticketsDAO.Class.php(1095): Siga_solicitud_ticketsDAO->_conexion(NULL)
+#5 C:\inetpub\expuestos\SIGA\controladores\activos\siga_solicitud_tickets\Siga_solicitud_ticketsController.Class.php(3099): Siga_solicitud_ticketsDAO->llenarDataTable('14', Array, Array, '0', '10', Array, '1', Object(Siga_solicitud_ticketsDTO), 'gestor', '1', '1', NULL, NULL, NULL, NULL)
+#6 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_solicitud_tickets\Siga_solicitud_ticketsFacade.Class.php(476): Siga_solicitud_ticketsController->llenarDataTable('14', Array, Array, '0', '10', Array, '1', Object(Siga_solicitud_ticketsDTO), 'gestor', '1', '1', NULL, NULL, NULL, NULL)
+#7 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_solicitud_tickets\Siga_solicitud_ticketsFacade.Class.php(864): Siga_solicitud_ticketsFacade->llenarDataTable('14', Array, Array, '0', '10', Array, '1', Object(Siga_solicitud_ticketsDTO), 'gestor', '1', '1', NULL, NULL, NULL, NULL)
+#8 {main}
+
+2025-01-15 11:17:58 -->Codigo->08001 Error -> SQLSTATE[08001]: [Microsoft][ODBC Driver 13 for SQL Server]TCP Provider: Timeout error [258].  trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(127): PDO->__construct('sqlsrv:server=C...', 'siga', 'Nacho2018')
+#1 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(24): SqlServer->conectar()
+#2 C:\inetpub\expuestos\SIGA\datos\connect\Proveedor.Class.php(78): SqlServer->__construct('ACTIVOS')
+#3 C:\inetpub\expuestos\SIGA\modelos\activos\dao\siga_solicitud_tickets\Siga_solicitud_ticketsDAO.Class.php(10): Proveedor->connect()
+#4 C:\inetpub\expuestos\SIGA\modelos\activos\dao\siga_solicitud_tickets\Siga_solicitud_ticketsDAO.Class.php(1095): Siga_solicitud_ticketsDAO->_conexion(NULL)
+#5 C:\inetpub\expuestos\SIGA\controladores\activos\siga_solicitud_tickets\Siga_solicitud_ticketsController.Class.php(3099): Siga_solicitud_ticketsDAO->llenarDataTable('15', Array, Array, '0', '10', Array, '1', Object(Siga_solicitud_ticketsDTO), 'gestor', '1', '1', NULL, NULL, NULL, NULL)
+#6 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_solicitud_tickets\Siga_solicitud_ticketsFacade.Class.php(476): Siga_solicitud_ticketsController->llenarDataTable('15', Array, Array, '0', '10', Array, '1', Object(Siga_solicitud_ticketsDTO), 'gestor', '1', '1', NULL, NULL, NULL, NULL)
+#7 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_solicitud_tickets\Siga_solicitud_ticketsFacade.Class.php(864): Siga_solicitud_ticketsFacade->llenarDataTable('15', Array, Array, '0', '10', Array, '1', Object(Siga_solicitud_ticketsDTO), 'gestor', '1', '1', NULL, NULL, NULL, NULL)
+#8 {main}
+
+2025-01-15 11:17:58 -->Codigo->08001 Error -> SQLSTATE[08001]: [Microsoft][ODBC Driver 13 for SQL Server]TCP Provider: Timeout error [258].  trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(127): PDO->__construct('sqlsrv:server=C...', 'siga', 'Nacho2018')
+#1 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(24): SqlServer->conectar()
+#2 C:\inetpub\expuestos\SIGA\datos\connect\Proveedor.Class.php(78): SqlServer->__construct('ACTIVOS')
+#3 C:\inetpub\expuestos\SIGA\modelos\activos\dao\siga_cat_gestores\Siga_cat_gestoresDAO.Class.php(10): Proveedor->connect()
+#4 C:\inetpub\expuestos\SIGA\modelos\activos\dao\siga_cat_gestores\Siga_cat_gestoresDAO.Class.php(276): Siga_cat_gestoresDAO->_conexion(NULL)
+#5 C:\inetpub\expuestos\SIGA\controladores\activos\siga_cat_gestores\Siga_cat_gestoresController.Class.php(27): Siga_cat_gestoresDAO->selectSiga_cat_gestores(Object(Siga_cat_gestoresDTO), NULL)
+#6 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_cat_gestores\Siga_cat_gestoresFacade.Class.php(63): Siga_cat_gestoresController->selectSiga_cat_gestores(Object(Siga_cat_gestoresDTO))
+#7 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_cat_gestores\Siga_cat_gestoresFacade.Class.php(170): Siga_cat_gestoresFacade->selectSiga_cat_gestores(Object(Siga_cat_gestoresDTO))
+#8 {main}
+
+2025-01-15 11:17:58 -->Codigo->08001 Error -> SQLSTATE[08001]: [Microsoft][ODBC Driver 13 for SQL Server]TCP Provider: Timeout error [258].  trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(127): PDO->__construct('sqlsrv:server=C...', 'siga', 'Nacho2018')
+#1 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(24): SqlServer->conectar()
+#2 C:\inetpub\expuestos\SIGA\datos\connect\Proveedor.Class.php(78): SqlServer->__construct('ACTIVOS')
+#3 C:\inetpub\expuestos\SIGA\modelos\activos\dao\siga_solicitud_tickets\Siga_solicitud_ticketsDAO.Class.php(10): Proveedor->connect()
+#4 C:\inetpub\expuestos\SIGA\modelos\activos\dao\siga_solicitud_tickets\Siga_solicitud_ticketsDAO.Class.php(1095): Siga_solicitud_ticketsDAO->_conexion(NULL)
+#5 C:\inetpub\expuestos\SIGA\controladores\activos\siga_solicitud_tickets\Siga_solicitud_ticketsController.Class.php(3099): Siga_solicitud_ticketsDAO->llenarDataTable('18', Array, Array, '0', '10', Array, '2', Object(Siga_solicitud_ticketsDTO), NULL, '1', NULL, NULL, NULL, NULL, NULL)
+#6 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_solicitud_tickets\Siga_solicitud_ticketsFacade.Class.php(476): Siga_solicitud_ticketsController->llenarDataTable('18', Array, Array, '0', '10', Array, '2', Object(Siga_solicitud_ticketsDTO), NULL, '1', NULL, NULL, NULL, NULL, NULL)
+#7 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_solicitud_tickets\Siga_solicitud_ticketsFacade.Class.php(864): Siga_solicitud_ticketsFacade->llenarDataTable('18', Array, Array, '0', '10', Array, '2', Object(Siga_solicitud_ticketsDTO), NULL, '1', NULL, NULL, NULL, NULL, NULL)
+#8 {main}
+
+2025-01-15 11:17:58 -->Codigo->08001 Error -> SQLSTATE[08001]: [Microsoft][ODBC Driver 13 for SQL Server]TCP Provider: Timeout error [258].  trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(127): PDO->__construct('sqlsrv:server=C...', 'siga', 'Nacho2018')
+#1 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(24): SqlServer->conectar()
+#2 C:\inetpub\expuestos\SIGA\datos\connect\Proveedor.Class.php(78): SqlServer->__construct('ACTIVOS')
+#3 C:\inetpub\expuestos\SIGA\modelos\activos\dao\siga_solicitud_tickets\Siga_solicitud_ticketsDAO.Class.php(10): Proveedor->connect()
+#4 C:\inetpub\expuestos\SIGA\modelos\activos\dao\siga_solicitud_tickets\Siga_solicitud_ticketsDAO.Class.php(1095): Siga_solicitud_ticketsDAO->_conexion(NULL)
+#5 C:\inetpub\expuestos\SIGA\controladores\activos\siga_solicitud_tickets\Siga_solicitud_ticketsController.Class.php(3099): Siga_solicitud_ticketsDAO->llenarDataTable('15', Array, Array, '0', '10', Array, '3', Object(Siga_solicitud_ticketsDTO), NULL, '1', NULL, NULL, NULL, NULL, NULL)
+#6 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_solicitud_tickets\Siga_solicitud_ticketsFacade.Class.php(476): Siga_solicitud_ticketsController->llenarDataTable('15', Array, Array, '0', '10', Array, '3', Object(Siga_solicitud_ticketsDTO), NULL, '1', NULL, NULL, NULL, NULL, NULL)
+#7 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_solicitud_tickets\Siga_solicitud_ticketsFacade.Class.php(864): Siga_solicitud_ticketsFacade->llenarDataTable('15', Array, Array, '0', '10', Array, '3', Object(Siga_solicitud_ticketsDTO), NULL, '1', NULL, NULL, NULL, NULL, NULL)
+#8 {main}
+
+2025-01-15 11:17:58 -->Codigo->08001 Error -> SQLSTATE[08001]: [Microsoft][ODBC Driver 13 for SQL Server]TCP Provider: Timeout error [258].  trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(127): PDO->__construct('sqlsrv:server=C...', 'siga', 'Nacho2018')
+#1 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(24): SqlServer->conectar()
+#2 C:\inetpub\expuestos\SIGA\datos\connect\Proveedor.Class.php(78): SqlServer->__construct('ACTIVOS')
+#3 C:\inetpub\expuestos\SIGA\modelos\activos\dao\siga_solicitud_tickets\Siga_solicitud_ticketsDAO.Class.php(10): Proveedor->connect()
+#4 C:\inetpub\expuestos\SIGA\modelos\activos\dao\siga_solicitud_tickets\Siga_solicitud_ticketsDAO.Class.php(1095): Siga_solicitud_ticketsDAO->_conexion(NULL)
+#5 C:\inetpub\expuestos\SIGA\controladores\activos\siga_solicitud_tickets\Siga_solicitud_ticketsController.Class.php(3099): Siga_solicitud_ticketsDAO->llenarDataTable('15', Array, Array, '0', '10', Array, '4', Object(Siga_solicitud_ticketsDTO), NULL, '1', NULL, NULL, NULL, NULL, NULL)
+#6 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_solicitud_tickets\Siga_solicitud_ticketsFacade.Class.php(476): Siga_solicitud_ticketsController->llenarDataTable('15', Array, Array, '0', '10', Array, '4', Object(Siga_solicitud_ticketsDTO), NULL, '1', NULL, NULL, NULL, NULL, NULL)
+#7 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_solicitud_tickets\Siga_solicitud_ticketsFacade.Class.php(864): Siga_solicitud_ticketsFacade->llenarDataTable('15', Array, Array, '0', '10', Array, '4', Object(Siga_solicitud_ticketsDTO), NULL, '1', NULL, NULL, NULL, NULL, NULL)
+#8 {main}
+

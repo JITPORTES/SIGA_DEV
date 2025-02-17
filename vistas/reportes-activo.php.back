@@ -1,0 +1,1924 @@
+
+<!-- Select2 -->
+    <link href="../js/select2.min.css" rel="stylesheet">
+ <!-- File Input -->
+  <link rel="stylesheet" href="../plugins/fileinput/fileinput.css">
+  <script src="../plugins/docsupport/standalone/selectize.js"></script>
+  <script src="../plugins/docsupport/index.js"></script>
+
+    <div class="table-responsive" style="display:none" id="tabla_dinamica_reporte">
+		<button type="button" class="btn chs" onclick="limpiar_campos()"><--Regresar</button>
+		<ul class="nav nav-tabs azulf" role="tablist">
+			<li class="export"><a href="#" onclick="reporte()"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Exportar</a></li>
+		</ul>
+		<form id="cont" action="../controladores/activos/siga_reportes/Reporte_Activos.php" method="post" style="display: none;">
+			<input type="text" name="Val1" id="Val1"></input>
+			<input type="text" name="Val2" id="Val2"></input>
+			<input type="text" name="Val3" id="Val3"></input>
+			<input type="text" name="Val4" id="Val4"></input>
+			<input type="text" name="Val5" id="Val5"></input>
+			<input type="text" name="Val6" id="Val6"></input>
+			<input type="text" name="Val7" id="Val7"></input>
+			<input type="text" name="Val8" id="Val8"></input>
+			<input type="text" name="Val9" id="Val9"></input>
+			<input type="text" name="Val10" id="Val10"></input>
+			<input type="text" name="Val11" id="Val11"></input>
+			<input type="text" name="Val12" id="Val12"></input>
+		
+			<input type="text" name="Val13" id="Val13"></input>
+			<input type="text" name="Val14" id="Val14"></input>
+			<input type="text" name="Val15" id="Val15"></input>
+			<input type="text" name="Val16" id="Val16"></input>
+			<input type="text" name="Val17" id="Val17"></input>
+			<input type="text" name="Val18" id="Val18"></input>
+			<input type="text" name="Val19" id="Val19"></input>
+			<input type="text" name="Val20" id="Val20"></input>
+			<input type="text" name="Val21" id="Val21"></input>
+			<input type="text" name="Val22" id="Val22"></input>
+			<input type="text" name="Val23" id="Val23"></input>
+			<input type="text" name="Val24" id="Val24"></input>
+			<input type="text" name="Val25" id="Val25"></input>
+			<input type="text" name="hddbaja" id="hddbaja"></input>
+			<input type="text" name="Check_Seleccionados" id="Check_Seleccionados"></input>
+		</form>
+		<br>
+		<table id="tabla_reporte_activos" class="table table-bordered table-striped table-chs" width="100%">
+			<thead>
+				<tr>
+				<th>No.</th>
+				<th id="th_AF_BC">AF/BC</th>
+				<th id="th_Nombre_Activo" >Nombre Activo</th>
+				<th id="th_Area">Área</th>
+				<th id="th_Ubic_Primaria">Ubicación<br> Primaria</th>
+				<th id="th_Ubic_Sec">Ubicación<br> Secundaria</th>
+				<th id="th_Ubic_Esp">Ubicación<br> Especifica</th>
+				<th id="th_Desc_Larga">Descripción Larga</th>
+				<th id="th_Desc_Corta">Descripción Corta</th>
+				<th id="th_Motivo_Alta">Motivo Alta</th>
+				<th id="th_Propiedad">Propiedad</th>
+				<th id="th_Clasificacion">Clasificación</th>
+				<th id="th_Familia">Familia</th>
+				<th id="th_Subfamilia">Subfamilia</th>
+				<th id="th_Marca">Marca</th>
+				<th id="th_Modelo">Modelo</th>
+				<th id="th_No_Serie">Numero de Serie</th>
+				<th id="th_Tipo_Activo">Tipo de activo</th>
+				<th id="th_Part_PRE">Participa en Pre</th>
+				<th id="th_Part_Seg">Participa en Seguros</th>
+				<th id="th_Import_Seg">Importe Seguros</th>
+				<th id="th_Part_Cert">Participa Certificacion</th>
+				<th id="th_Num_Empleado">Num. Empleado </th>
+				<th id="th_Nomb_Resguardo">Nombre <br> Resguardo</th>
+				<th id="th_Tipo_Vale">Tipo Vale</th>
+				<th id="th_Garantia">Garantia</th>
+				<th id="th_Ext_Garantia">Ext. Garantia</th>
+				<th id="th_Departamento">Departamento</th>
+				<!--Datos Proveedor-->
+				<th id="th_P_Num_Orden_Compra">Num. Orden Compra</th>
+				<th id="th_P_Num_Factura">Num. Factura</th>
+				<th id="th_P_Fech_Factura">Fecha Factura</th>
+				<th id="th_P_UUID">UUID</th>
+				<th id="th_P_Folio_Fiscal">Folio Fiscal</th>
+				<th id="th_P_Monto_F">Monto Activo</th>
+				<th id="th_P_Monto_Factura">Monto Factura</th>
+				<th id="th_P_Num_Contrato">Núm. Contrato</th>
+				<th id="th_P_Vida_Util_Fabr">Vida Util Fabri.</th>
+				<th id="th_P_Vida_Util_CHS">Vida Util CHS</th>
+				<th id="th_P_Garantia">Garantia</th>
+				<th id="th_P_Ext_Garantia">Ext. Garantia</th>
+				<th id="th_P_Fecha_Vencimiento">Fech. Vencimiento</th>
+				<th id="th_P_Nom_Proveedor">Nombre Proveedor</th>
+				<th id="th_P_Contacto">Contacto</th>
+				<th id="th_P_Telefono">Telefono</th>
+				<th id="th_P_Doc_Recibida">Doc. Recibida</th>
+				<th id="th_P_Accesorios">Accesorios</th>
+				<th id="th_P_Correo">Correo</th>
+				<th id="th_P_Consumibles">Consumibles</th>
+				<!--Datos Contabilidad-->
+				<th id="th_C_Centro_Costos">Centro de Costos</th>
+				<th id="th_C_No_Capex">No. Capex</th>
+				<th id="th_C_Prorrateo">Prorrateo</th>
+				<th id="th_C_Participa_Depreciacion">Participa Depreciación</th>
+				<th id="th_C_Fecha_Inicio_Depr">Fecha Inicio Depr</th>
+				<th id="th_C_Cuent_Cont_Act">Cuenta Cont. Act.</th>
+				<th id="th_C_Cuent_Cont_Act_B10">Cuenta Cont. Act. B10</th>
+				<th id="th_C_Cuent_Cont_Result">Cuenta Cont. Result.</th>
+				<th id="th_C_Cuent_Cont_Result_B10">Cuenta Cont. Result. B10</th>
+				<th id="th_C_Cuent_Cont_Dep">Cuenta Cont. Dep.</th>
+				<th id="th_C_Cuent_Cont_Dep_B10">Cuenta Cont. Dep. B10</th>
+				<!------------------->
+				<th id="th_A_Fecha_Alta">Fecha Alta</th>
+				<th id="th_A_Uuario_Registro">Usuario Registro</th>
+				<th id="th_A_Frecuencia">Frecuencia</th>
+				<th id="th_A_Interno_Externo">Interno/Externo</th>
+				</tr>
+			</thead>
+			
+		</table>
+	</div>
+
+	<div class="row" id="Busqueda">
+        <div class="col-md-10 col-md-offset-1">
+			<input type="hidden" id="Id_Verificacion">
+			<div class="col-md-12 col-sm-12 col-xs-12 form-group" align="center">
+				<button type="button" class="btn chs" onclick="llenar_check()" id="llenar_campos_reporte">Llenar check</button>
+				<button type="button" class="btn chs" onclick="limpiar_check()" id="limpiar_campos_reporte">Limpiar check</button>
+			</div>
+			<div class="col-md-4 col-sm-12 col-xs-12 form-group" id="div_activos">
+				<label  class="control-label" id="cmbareasLabel" style="font-size: 11px;">Activos</label>
+				<select id="select-activos" class="demo-default" placeholder="Activos" style="display:none">
+				</select>
+				<div id="gifcargando1" style="display:none" align="center">
+					<img src="../dist/img/cargando-loading.gif" style="max-width: 25px; max-height: 25px" alt="cargando-loading-037.gif">
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-12 col-xs-12 form-group" id="div_areas">
+				<label class="control-label" id="cmbareasLabel" style="font-size: 11px;">Áreas</label>
+				<div class="input-group">
+					<select class="form-control" id="cmbareas">
+					</select>
+					<span class="input-group-addon">
+						<input type="checkbox" id="check_areas">
+					</span>
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-12 col-xs-12 form-group" id="div_ubicprimaria">
+				<label  class="control-label" id="cmbareasLabel" style="font-size: 11px;">Ubicaci&oacute;n Primaria</label>
+				<div class="input-group">
+					<select class="form-control" id="cmbubicprim">
+					</select>
+					<span class="input-group-addon">
+						<input type="checkbox" id="check_ubic_prim">
+					</span>
+				</div>
+			</div>
+			<div class="col-md-12 col-sm-12 col-xs-12 form-group"></div>
+			<div class="col-md-4 col-sm-12 col-xs-12 form-group" id="div_ubic_sec">
+				<label  class="control-label" id="cmbareasLabel" style="font-size: 11px;">Ubicaci&oacute;n Secundaria</label>
+				<div class="input-group">
+					<select class="form-control" id="cmbubicsec">
+						<option value="-1">--Ubicación Secundaria--</option>
+					</select>
+					<span class="input-group-addon">
+						<input type="checkbox" id="check_ubic_sec">
+					</span>
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-12 col-xs-12 form-group">
+				<label class="control-label"  style="font-size: 11px;">Ubicaci&oacute;n Especifica</label>
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="Ubicaci&oacute;n Especifica" id="txtUbic_Especifica">
+					<span class="input-group-addon">
+					<input type="checkbox" id="check_Ubic_Especifica">
+					</span>
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-12 col-xs-12 form-group">
+				<label class="control-label"  style="font-size: 11px;">Desc. Larga</label>
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="Desc. Larga" id="txtDesc_Larga">
+					<span class="input-group-addon">
+					<input type="checkbox" id="check_Desc_Larga">
+					</span>
+				</div>
+			</div>
+			
+			<div class="col-md-12 col-sm-12 col-xs-12 form-group"></div>
+			<div class="col-md-4 col-sm-12 col-xs-12 form-group">
+				<label class="control-label"  style="font-size: 11px;">Desc. Corta</label>
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="Desc. Corta" id="txtDesc_Corta">
+					<span class="input-group-addon">
+					<input type="checkbox" id="check_Desc_Corta">
+					</span>
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-12 col-xs-12 form-group" id="div_mot_alta">
+				<label  class="control-label" id="cmbareasLabel" style="font-size: 11px;">Motivo</label>
+				<div class="input-group">
+					<select class="form-control" id="cmbmotivo" multiple="multiple">
+					</select>
+					<span class="input-group-addon">
+					<input type="checkbox" id="check_motivo">
+					</span>
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-12 col-xs-12 form-group" id="div_propiedad">
+				<label  class="control-label" id="cmbareasLabel" style="font-size: 11px;">Propiedad</label>
+				<div class="input-group">
+					<select class="form-control" id="cmbprpiedad" multiple="multiple">
+					</select>
+					<span class="input-group-addon">
+					<input type="checkbox" id="check_propedad">
+					</span>
+				</div>
+			</div>
+			<div class="col-md-12 col-sm-12 col-xs-12 form-group"></div>
+			<div class="col-md-4 col-sm-12 col-xs-12 form-group" id="div_clase">
+				<label  class="control-label" id="cmbareasLabel" style="font-size: 11px;">Clase</label>
+				<div class="input-group">
+					<select class="form-control"  id="cmbclase">
+					</select>
+					<span class="input-group-addon">
+					<input type="checkbox" id="check_clase">
+					</span>
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-12 col-xs-12 form-group" id="div_clasificacion">
+				<label class="control-label"  style="font-size: 11px;">Clasificación</label>
+				<div class="input-group">
+					<select class="form-control" id="cmbclasificacion">
+						<option value="-1">--Clasificación--</option>
+					</select>
+					<span class="input-group-addon">
+						<input type="checkbox" id="check_clasificacion">
+					</span>
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-12 col-xs-12 form-group" id="div_familia">
+				<label  class="control-label" id="cmbareasLabel" style="font-size: 11px;">Familia</label>
+				<div class="input-group">
+					<select class="form-control" id="cmbfamilia">
+					</select>
+					<span class="input-group-addon">
+					<input type="checkbox" id="check_familia">
+					</span>
+				</div>
+			</div>
+			<div class="col-md-12 col-sm-12 col-xs-12 form-group"></div>
+			<div class="col-md-4 col-sm-12 col-xs-12 form-group" id="div_subfamilia">
+				<label  class="control-label" id="cmbareasLabel" style="font-size: 11px;">Subfamilia</label>
+				<div class="input-group">
+					<select class="form-control" id="cmbsubfamilia">
+						<option value="-1">--Subfamilia--</option>
+					</select>
+					<span class="input-group-addon">
+					<input type="checkbox" id="check_subfamilia">
+					</span>
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-12 col-xs-12 form-group">
+				<label class="control-label"  style="font-size: 11px;">Marca</label>
+				<div class="input-group">
+					<select class="form-control" id="cmbmarca" multiple="multiple">
+					</select>
+					<span class="input-group-addon">
+					<input type="checkbox" id="check_marca">
+					</span>
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-12 col-xs-12 form-group">
+				<label class="control-label"  style="font-size: 11px;">Modelo</label>
+				<div class="input-group">
+					<select class="form-control" id="cmbmodelo" multiple="multiple">
+					</select>
+					<span class="input-group-addon">
+					<input type="checkbox" id="check_modelo">
+					</span>
+				</div>
+			</div>
+			<div class="col-md-12 col-sm-12 col-xs-12 form-group"></div>
+			<div class="col-md-4 col-sm-12 col-xs-12 form-group">
+				<label class="control-label"  style="font-size: 11px;">Número de Serie</label>
+				<div class="input-group">
+					<select class="form-control" id="cmbnumserie" multiple="multiple">
+					</select>
+					<span class="input-group-addon">
+					<input type="checkbox" id="check_no_serie">
+					</span>
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-12 col-xs-12 form-group">
+				<label  class="control-label" id="cmbareasLabel" style="font-size: 11px;">Tipo Activo</label>
+				<div class="input-group">
+					<select class="form-control" id="cmbtipoactivo" multiple="multiple">
+					</select>
+					<span class="input-group-addon">
+					<input type="checkbox" id="check_tipoactivo">
+					</span>
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-12 col-xs-12 form-group" id="div_activo_padre">
+				<label class="control-label"  style="font-size: 11px;">Activo Padre</label>
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="Activo Padre" id="txtActivo_Padre">
+					<span class="input-group-addon">
+					<input type="checkbox" id="check_activo_padre">
+					</span>
+				</div>
+			</div>
+			<div class="col-md-12 col-sm-12 col-xs-12 form-group"></div>
+			<div class="col-md-4 col-sm-12 col-xs-12 form-group" id="div_activo_anterior">
+				<label class="control-label"  style="font-size: 11px;">No. Activo Anterior</label>
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="No. Activo Anterior" id="txtNo_Activo_Anterior">
+					<span class="input-group-addon">
+					<input type="checkbox" id="check_no_activo_anterior">
+					</span>
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-12 col-xs-12 form-group">
+				<label  class="control-label" id="cmbareasLabel" style="font-size: 11px;">Participa en PRE</label>
+				<div class="input-group">
+					<select class="form-control" id="cmbPRE" multiple="multiple">
+					<option value="1">Si</option>
+					<option value="0">No</option>
+					</select>
+					<span class="input-group-addon">
+					<input type="checkbox" id="check_PRE">
+					</span>
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-12 col-xs-12 form-group">
+				<label  class="control-label" id="cmbareasLabel" style="font-size: 11px;">Participa en Seguros</label>
+				<div class="input-group">
+					<select class="form-control" id="cmbseguros" multiple="multiple">
+					<option value="1">Si</option>
+					<option value="0">No</option>
+					</select>
+					<span class="input-group-addon">
+					<input type="checkbox" id="check_seguros">
+					</span>
+				</div>
+			</div>
+			<div class="col-md-12 col-sm-12 col-xs-12 form-group"></div>
+			<div class="col-md-4 col-sm-12 col-xs-12 form-group" id="div_importe_seguros">
+				<label class="control-label"  style="font-size: 11px;">Importe Seguros</label>
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="Importe Seguros" id="txtImporte_Seguros">
+					<span class="input-group-addon">
+					<input type="checkbox" id="check_Importe_Seguros">
+					</span>
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-12 col-xs-12 form-group" id="div_participa_certificacion">
+				<label  class="control-label"  style="font-size: 11px;">Participa en Certificacion</label>
+				<div class="input-group">
+					<select class="form-control" id="cmbcertificacion" multiple="multiple">
+					<option value="1">Si</option>
+					<option value="0">No</option>
+					</select>
+					<span class="input-group-addon">
+					<input type="checkbox" id="check_certificacion">
+					</span>
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-12 col-xs-12 form-group" id="div_usuarios">
+				<div id="muestro_select">
+					<label  class="control-label" id="cmbareasLabel" style="font-size: 11px;">Usuario Responsable</label>
+					<select id="select-usuarios" class="demo-default" placeholder="Usuario Responsable" style="display:none">
+					</select>
+				</div>
+				<div id="gifcargando_usuarios" style="display:none" align="center">
+				<img src="../dist/img/cargando-loading.gif" style="max-width: 25px; max-height: 25px" alt="cargando-loading-037.gif">
+				</div>
+			</div>
+			<div class="col-md-12 col-sm-12 col-xs-12 form-group"></div>
+			<div class="col-md-4 col-sm-12 col-xs-12 form-group">
+				<label  class="control-label" id="cmbareasLabel" style="font-size: 11px;">Tipo Vale</label>
+				<div class="input-group">
+					<select class="form-control" id="cmbtipovale" multiple="multiple">
+					</select>
+					<span class="input-group-addon">
+					<input type="checkbox" id="check_tipovale">
+					</span>
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-12 col-xs-12 form-group">
+				<label class="control-label"  style="font-size: 11px;">Garantia</label>
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="Garantia" id="txtGarantia">
+					<span class="input-group-addon">
+					<input type="checkbox" id="check_Garantia">
+					</span>
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-12 col-xs-12 form-group">
+				<label class="control-label"  style="font-size: 11px;">Ext. Garantia</label>
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="Ext. Garantia" id="txtExt_Garantia">
+					<span class="input-group-addon">
+					<input type="checkbox" id="check_Ext_Garantia">
+					</span>
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-12 col-xs-12 form-group">
+				<label class="control-label"  style="font-size: 11px;">Baja de Activos</label>
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="Baja de Activos" id="txtDatos_Baja" disabled>
+					<span class="input-group-addon">
+					<input type="checkbox" id="check_Baja">
+					</span>
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-12 col-xs-12 form-group">
+				<label class="control-label"  style="font-size: 11px;">Datos Proveedor</label>
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="Datos Proveedor" id="txtDatos_Proveedor" disabled>
+					<span class="input-group-addon">
+					<input type="checkbox" id="check_Datos_Proveedor">
+					</span>
+				</div>
+			</div>
+			
+			<div class="col-md-4 col-sm-12 col-xs-12 form-group">
+				<label class="control-label"  style="font-size: 11px;">Datos Contabilidad</label>
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="Datos Contabilidad" id="txtDatos_Contabilidad" disabled>
+					<span class="input-group-addon">
+					<input type="checkbox" id="check_Datos_Contabilidad">
+					</span>
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-12 col-xs-12 form-group" id="div_departamento" style="display: none;">
+				<label  class="control-label" id="cmbareasLabel" style="font-size: 11px;">Departamento</label>
+				<div class="input-group">
+					<select class="form-control" id="cmbdepartamento" multiple="multiple">
+					</select>
+					<span class="input-group-addon">
+					<input type="checkbox" id="check_departamento">
+					</span>
+				</div>
+			</div>
+			
+			
+			<div class="col-md-12" align="center">
+			<button type="button" class="btn chs" onclick="buscar_activos()" id="Buscar_Activos">Buscar Activos</button>
+	 	</div>	
+        </div>
+	</div>
+           
+<!-- Select2 -->
+ <script src="../js/select2.full.min.js"></script>
+
+
+
+<script>
+  $(function () {
+    $('#example1').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false
+    });
+  });
+
+  $(document).ready(function(){
+	var Id_Area_Login=$("#idareasesion").val();
+	if(Id_Area_Login!="5"){
+		$("#Val4").val(Id_Area_Login);
+		$("#div_areas").hide();
+		$("#div_activos").removeClass("col-md-4");
+		$("#div_activos").addClass("col-md-8");
+	
+		ubic_prim(Id_Area_Login);
+		Clase(Id_Area_Login);
+		familia(Id_Area_Login);
+	}else{
+		$("#div_areas").show();
+		$('#cmbubicprim').append($('<option>', { value: "-1" }).text("--Ubicación Primaria (Selecciona un Área)--"));
+		$('#cmbclase').append($('<option>', { value: "-1" }).text("--Clase (Selecciona un Área)--"));
+		$('#cmbfamilia').append($('<option>', { value: "-1" }).text("--Familia (Selecciona un Área)--"));
+	}
+	
+	
+	var array_abcdario=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","AA","AB","AC","AD","AD","AE","AF","AG","AH","AI","AJ","AK","AL","AM","AN","AO","AP","AQ","AR","AS","AT","AU","AV","AW","AX","AY","AZ","BA","BB","BC","BD","BE","BF","BG","BH","BI","BJ","BK","BL","BM","BN","BO","BP","BQ","BR","BS","BT","BU","BV","BW","BX","BY","BZ"];
+  
+	var strdatos={};
+	var tabla2="";
+	//Carga de Combobox
+	activos();
+	usuarios();
+	cargaareas();
+	propiedad();
+	Departamento();
+	Motivo();
+	Tipo_Activo();
+	Tipo_Vale();
+	Marca(); //Distinct
+	Modelo();//Distinct
+	NumSerie();//Distinct
+	////////////////////////
+	
+	//Autocomplete Activos
+	function activos(){
+		//Area
+		var Id_Area=$("#idareasesion").val();
+		var strdatos="";
+		
+		if(Id_Area!="5"){
+			strdatos={
+				Id_Area:Id_Area,
+				Estatus_Reg:"1",
+				accion: 'autocomplete_activos'
+			}
+		}else{
+			strdatos={
+				Estatus_Reg:"1",
+				accion: 'autocomplete_activos'
+			}
+		}
+	
+	
+		$.ajax({
+			type: "POST",
+			url: "../fachadas/activos/siga_activos/Siga_activosFacade.Class.php",
+			data:strdatos,
+			async: false,
+			dataType: "html",
+			beforeSend: function (objeto) {
+				$("#gifcargando1").show();
+			},
+			success: function (datos) {
+				var json = "";
+					json = eval("(" + datos + ")"); //Parsear JSON
+
+					if (json.totalCount > 0) {
+						var Array_Activos=new Array();
+						var activos='';
+						activos+='<option></option>';
+						activos+='<optgroup label="Activos">';
+
+						for (var i = 0; i < json.totalCount; i++) {
+							//activos+='<option value="'+json.data[i].Id_Activo.trim()+'">'+json.data[i].AF_BC.trim()+' '+json.data[i].Nombre_Activo.trim()+'</option>';
+							Array_Activos.push({id: json.data[i].Id_Activo.trim(), title:json.data[i].AF_BC.trim()+' '+json.data[i].Nombre_Activo.trim()});
+						}
+						activos+='</optgroup>';
+						//$('#select-activos').html(activos);
+
+						$("#gifcargando1").hide();
+						$("#select-activos").show();
+							
+						$('#select-activos').selectize({
+							plugins: ['remove_button'],
+							maxItems: null,
+							valueField: 'id',
+							labelField: 'title',
+							searchField: 'title',
+							options:Array_Activos,
+							create: false
+							//sortField: 'text'
+						});
+					}
+					else {
+						$("#gifcargando1").hide();
+						$('#select-activos').append($('<option>', { value: "" }).text("Sin resultados"));
+					}
+
+			},
+			error: function (objeto, quepaso, otroobj) {
+				mensajesalerta("Oh No!", "Ocurrio un error al consultar.", "error", "dark");
+				$('#select-activos').append($('<option>', { value: "-1" }).text("Sin resultados"));
+			}
+		});
+	}
+	function cargaareas() {
+		var resultado=new Array();
+		data={Estatus_Reg: "1",accion: "consultar"};
+		resultado=cargo_cmb("../fachadas/activos/siga_catareas/Siga_catareasFacade.Class.php",false, data);
+
+		if(resultado.totalCount>0){
+			$('#cmbareas').append($('<option>', { value: "-1" }).text("--Areas--"));
+			for(var i = 0; i < resultado.totalCount; i++){
+				if(resultado.data[i].Id_Area!="5"){
+					$('#cmbareas').append($('<option>', { value: resultado.data[i].Id_Area }).text(resultado.data[i].Nom_Area));
+				}
+			}
+		}else{
+			$('#cmbareas').append($('<option>', { value: "-1" }).text("--Sin Resultados--"));
+		}
+	}
+	$( "#cmbareas" ).change(function() {
+		$("#Val4").val($(this).val());
+	
+		if($(this).val()!="-1"){
+			$('#cmbubicprim').children('option').remove();
+			ubic_prim($(this).val());
+			
+			$('#cmbclase').children('option').remove();
+			Clase($(this).val());
+			
+			$('#cmbfamilia').children('option').remove();
+			familia($(this).val());
+		}else{
+			$('#cmbubicprim').children('option').remove();
+			$('#cmbclase').children('option').remove();
+			$('#cmbfamilia').children('option').remove();
+			
+			$('#cmbubicprim').append($('<option>', { value: "-1" }).text("--Ubicación Primaria (Selecciona un Área)--"));
+			$('#cmbclase').append($('<option>', { value: "-1" }).text("--Clase (Selecciona un Área)--"));
+			$('#cmbfamilia').append($('<option>', { value: "-1" }).text("--Familia (Selecciona un Área)--"));
+		}
+	});
+	function ubic_prim(Id_Area) {
+		
+		
+		var resultado=new Array();
+		data={Estatus_Reg: "1",Id_Area:Id_Area, accion: "consultar"};
+		resultado=cargo_cmb("../fachadas/activos/siga_cat_ubic_prim/Siga_cat_ubic_primFacade.Class.php",false, data);
+		if(resultado.totalCount>0){
+			$('#cmbubicprim').append($('<option>', { value: "-1" }).text("--Ubicación Primaria--"));
+			for(var i = 0; i < resultado.totalCount; i++){
+				$('#cmbubicprim').append($('<option>', { value: resultado.data[i].Id_Ubic_Prim }).text(resultado.data[i].Desc_Ubic_Prim));
+			}
+			
+		}else{
+			$('#cmbubicprim').append($('<option>', { value: "-1" }).text("--Sin Resultados--"));
+		}
+	}
+	$( "#cmbubicprim" ).change(function() {
+		$("#Val2").val($(this).val());
+		if($(this).val()!="-1"){
+			ubic_sec($(this).val());
+		}else{
+			$('#cmbubicsec').children('option').remove();
+			$('#cmbubicsec').append($('<option>', { value: "-1" }).text("--Ubicación Secundaria--"));
+		}
+	});
+	function ubic_sec(Id_Ubic_Prim) {
+		$('#cmbubicsec').children('option').remove();
+		var resultado=new Array();
+		data={Estatus_Reg: "1", Id_Ubic_Prim:Id_Ubic_Prim, accion: "consultar"};
+		resultado=cargo_cmb("../fachadas/activos/siga_cat_ubic_sec/Siga_cat_ubic_secFacade.Class.php",false, data);
+		if(resultado.totalCount>0){
+			$('#cmbubicsec').append($('<option>', { value: "-1" }).text("--Ubicación Secundaria--"));
+			for(var i = 0; i < resultado.totalCount; i++){
+				$('#cmbubicsec').append($('<option>', { value: resultado.data[i].Id_Ubic_Sec }).text(resultado.data[i].Desc_Ubic_Sec));
+			}
+		}else{
+			$('#cmbubicsec').append($('<option>', { value: "-1" }).text("--Sin Resultados--"));
+		}
+	}
+	$( "#cmbubicsec" ).change(function() {
+		$("#Val3").val($(this).val());
+	});
+	function Motivo() {
+		var resultado=new Array();
+		data={Estatus_Reg: "1", accion: "consultar"};
+		resultado=cargo_cmb("../fachadas/activos/siga_cat_motivo_alta/Siga_cat_motivo_altaFacade.Class.php",false, data);
+		if(resultado.totalCount>0){
+			//$('#cmbmotivo').append($('<option>', { value: "-1" }).text("--Motivo--"));
+			for(var i = 0; i < resultado.totalCount; i++){
+				$('#cmbmotivo').append($('<option>', { value: resultado.data[i].Id_Motivo_Alta }).text(resultado.data[i].Desc_Motivo_Alta));
+			}
+			$("#cmbmotivo").select2({
+			  placeholder: "Sin Seleccionar",
+			  allowClear: true
+			});
+		}else{
+			$("#cmbmotivo").select2({
+			  placeholder: "Sin Seleccionar",
+			  allowClear: true
+			});
+			//$('#cmbmotivo').append($('<option>', { value: "-1" }).text("--Sin Resultados--"));
+		}
+	}
+	$( "#cmbmotivo" ).change(function() {
+		$("#Val10").val($(this).val());
+	});
+	function propiedad() {
+		var resultado=new Array();
+		data={Estatus_Reg: "1", accion: "consultar"};
+		resultado=cargo_cmb("../fachadas/activos/siga_cat_propiedad/Siga_cat_propiedadFacade.Class.php",false, data);
+		if(resultado.totalCount>0){
+			//$('#cmbprpiedad').append($('<option>', { value: "-1" }).text("--Propiedad--"));
+			for(var i = 0; i < resultado.totalCount; i++){
+				$('#cmbprpiedad').append($('<option>', { value: resultado.data[i].Id_Propiedad }).text(resultado.data[i].Desc_Propiedad));
+			}
+			
+			$("#cmbprpiedad").select2({
+			  placeholder: "Sin Seleccionar",
+			  allowClear: true
+			});
+		}else{
+			$("#cmbprpiedad").select2({
+			  placeholder: "Sin Seleccionar",
+			  allowClear: true
+			});
+			//$('#cmbprpiedad').append($('<option>', { value: "-1" }).text("--Sin Resultados--"));
+		}
+	}
+	$("#cmbprpiedad").change(function() {
+		$("#Val5").val($(this).val());
+	});
+	
+	
+	/////////////////////////////////////////////
+	
+	
+	function Clase(Id_Area) {
+		var resultado=new Array();
+		data={Estatus_Reg: "1", Id_Area:Id_Area, accion: "consultar"};
+		resultado=cargo_cmb("../fachadas/activos/siga_cat_clase/Siga_cat_claseFacade.Class.php",false, data);
+		if(resultado.totalCount>0){
+			$('#cmbclase').append($('<option>', { value: "-1" }).text("--Clase--"));
+			for(var i = 0; i < resultado.totalCount; i++){
+				$('#cmbclase').append($('<option>', { value: resultado.data[i].Id_Clase }).text(resultado.data[i].Desc_Clase));
+			}
+		}else{
+			$('#cmbclase').append($('<option>', { value: "-1" }).text("--Sin Resultados--"));
+		}
+	}
+	$( "#cmbclase" ).change(function() {
+		if($(this).val()!="-1"){
+			Clasificacion($(this).val());
+		}else{
+			$('#cmbclasificacion').children('option').remove();
+			$('#cmbclasificacion').append($('<option>', { value: "-1" }).text("--Clasificación--"));
+		}
+	});
+	function Clasificacion(Id_Clase) {
+		$('#cmbclasificacion').children('option').remove();
+		var resultado=new Array();
+		data={Estatus_Reg: "1",Id_Clase:Id_Clase, accion: "consultar"};
+		resultado=cargo_cmb("../fachadas/activos/siga_cat_clasificacion/Siga_cat_clasificacionFacade.Class.php",false, data);
+		if(resultado.totalCount>0){
+			$('#cmbclasificacion').append($('<option>', { value: "-1" }).text("--Clasificación--"));
+			for(var i = 0; i < resultado.totalCount; i++){
+				$('#cmbclasificacion').append($('<option>', { value: resultado.data[i].Id_Clasificacion }).text(resultado.data[i].Desc_Clasificacion));
+			}
+		}else{
+			$('#cmbclasificacion').append($('<option>', { value: "-1" }).text("--Sin Resultados--"));
+		}
+	}
+	$("#cmbclasificacion").change(function() {
+		$("#Val13").val($(this).val());
+	});
+	
+	//////////////////////////////////////////////////
+	function familia(Id_Area) {
+		var resultado=new Array();
+		data={Estatus_Reg: "1", Id_Area:Id_Area, accion: "consultar"};
+		resultado=cargo_cmb("../fachadas/activos/siga_cat_familia/Siga_cat_familiaFacade.Class.php",false, data);
+		if(resultado.totalCount>0){
+			$('#cmbfamilia').append($('<option>', { value: "-1" }).text("--Familia--"));
+			for(var i = 0; i < resultado.totalCount; i++){
+				$('#cmbfamilia').append($('<option>', { value: resultado.data[i].Id_Familia }).text(resultado.data[i].Desc_Familia));
+			}
+			
+		}else{
+			$('#cmbfamilia').append($('<option>', { value: "-1" }).text("--Sin Resultados--"));
+		}
+	}
+	$( "#cmbfamilia" ).change(function() {
+		$("#Val6").val($(this).val());
+		if($(this).val()!="-1"){
+			Subfamilia($(this).val());
+		}else{
+			$('#cmbsubfamilia').children('option').remove();
+			$('#cmbsubfamilia').append($('<option>', { value: "-1" }).text("--Subfamilia--"));
+		}
+	});
+	function Subfamilia(Id_Familia) {
+		$('#cmbsubfamilia').children('option').remove();
+		var resultado=new Array();
+		data={Estatus_Reg: "1", Id_Familia: Id_Familia, accion: "consultar"};
+		resultado=cargo_cmb("../fachadas/activos/siga_cat_subfamilia/Siga_cat_subfamiliaFacade.Class.php",false, data);
+		if(resultado.totalCount>0){
+			$('#cmbsubfamilia').append($('<option>', { value: "-1" }).text("--Subfamilia--"));
+			for(var i = 0; i < resultado.totalCount; i++){
+				$('#cmbsubfamilia').append($('<option>', { value: resultado.data[i].Id_Subfamilia }).text(resultado.data[i].Desc_Subfamilia));
+			}
+			
+		}else{
+			$('#cmbsubfamilia').append($('<option>', { value: "-1" }).text("Selecciona una familia"));
+			
+		}
+	}
+	$("#cmbsubfamilia").change(function() {
+		$("#Val7").val($(this).val());
+	});
+	function Marca() {
+		var resultado=new Array();
+		data={Valor:"Marca",accion: "select_distinct"};
+		resultado=cargo_cmb("../fachadas/activos/siga_reportes/Siga_reportesFacade.Class.php",false, data);
+		if(resultado.totalCount>0){
+			//$('#cmbmarca').append($('<option>', { value: "-1" }).text("--Marca--"));
+			for(var i = 0; i < resultado.totalCount; i++){
+				$('#cmbmarca').append($('<option>', { value: resultado.data[i].Marca }).text(resultado.data[i].Marca));
+			}
+			$("#cmbmarca").select2({
+			  placeholder: "Sin Seleccionar",
+			  allowClear: true
+			});
+			
+		}else{
+			$("#cmbmarca").select2({
+			  placeholder: "Sin Seleccionar",
+			  allowClear: true
+			});
+			//$('#cmbmarca').append($('<option>', { value: "-1" }).text("--Sin Resultados--"));
+		}
+	}
+	$("#cmbmarca").change(function() {
+		var valor=$(this).val();
+		var cadena="";
+		if(valor!=null){
+			var res=valor.toString().split(",");
+			if(res.length>0){
+				for(var i=0; i<res.length;i++){
+					cadena+="'"+res[i]+"',";
+				}
+				cadena=cadena.slice(0,-1);
+			}else{
+				cadena="";
+			}
+		}else{
+			cadena=""
+		}
+		$("#Val14").val(cadena);
+	});
+	function Modelo() {
+		var resultado=new Array();
+		data={Valor:"Modelo",accion: "select_distinct"};
+		resultado=cargo_cmb("../fachadas/activos/siga_reportes/Siga_reportesFacade.Class.php",false, data);
+		if(resultado.totalCount>0){
+			//$('#cmbmodelo').append($('<option>', { value: "-1" }).text("--Modelo--"));
+			for(var i = 0; i < resultado.totalCount; i++){
+				$('#cmbmodelo').append($('<option>', { value: resultado.data[i].Modelo }).text(resultado.data[i].Modelo));
+			}
+			$("#cmbmodelo").select2({
+			  placeholder: "Sin Seleccionar",
+			  allowClear: true
+			});
+			
+		}else{
+			$("#cmbmodelo").select2({
+			  placeholder: "Sin Seleccionar",
+			  allowClear: true
+			});
+			//$('#cmbmodelo').append($('<option>', { value: "-1" }).text("--Sin Resultados--"));
+		}
+	}
+	$("#cmbmodelo").change(function() {
+		var valor=$(this).val();
+		var cadena="";
+		if(valor!=null){
+			var res=valor.toString().split(",");
+			if(res.length>0){
+				for(var i=0; i<res.length;i++){
+					cadena+="'"+res[i]+"',";
+				}
+				cadena=cadena.slice(0,-1);
+			}else{
+				cadena="";
+			}
+		}else{
+			cadena=""
+		}
+		$("#Val15").val(cadena);
+	});
+	function NumSerie() {
+		var resultado=new Array();
+		data={Valor:"NumSerie",accion: "select_distinct"};
+		resultado=cargo_cmb("../fachadas/activos/siga_reportes/Siga_reportesFacade.Class.php",false, data);
+		if(resultado.totalCount>0){
+			//$('#cmbnumserie').append($('<option>', { value: "-1" }).text("--Num. Serie--"));
+			for(var i = 0; i < resultado.totalCount; i++){
+				$('#cmbnumserie').append($('<option>', { value: resultado.data[i].NumSerie }).text(resultado.data[i].NumSerie));
+			}
+			$("#cmbnumserie").select2({
+			  placeholder: "Sin Seleccionar",
+			  allowClear: true
+			});
+			
+		}else{
+			$("#cmbnumserie").select2({
+			  placeholder: "Sin Seleccionar",
+			  allowClear: true
+			});
+			//$('#cmbnumserie').append($('<option>', { value: "-1" }).text("--Sin Resultados--"));
+		}
+	}
+	$("#cmbnumserie").change(function() {
+		var valor=$(this).val();
+		var cadena="";
+		if(valor!=null){
+			var res=valor.toString().split(",");
+			if(res.length>0){
+				for(var i=0; i<res.length;i++){
+					cadena+="'"+res[i]+"',";
+				}
+				cadena=cadena.slice(0,-1);
+			}else{
+				cadena="";
+			}
+			$("#Val16").val(cadena);
+		}else{
+			$("#Val16").val();
+		}
+	});
+	function Tipo_Activo() {
+		var resultado=new Array();
+		data={Estatus_Reg: "1", accion: "consultar"};
+		resultado=cargo_cmb("../fachadas/activos/siga_cat_tipo_activo/Siga_cat_tipo_activoFacade.Class.php",false, data);
+		if(resultado.totalCount>0){
+			//$('#cmbtipoactivo').append($('<option>', { value: "-1" }).text("--Tipo Activo--"));
+			for(var i = 0; i < resultado.totalCount; i++){
+				$('#cmbtipoactivo').append($('<option>', { value: resultado.data[i].Id_Tipo_Activo }).text(resultado.data[i].Desc_Tipo_Activo));
+			}
+			$("#cmbtipoactivo").select2({
+			  placeholder: "Sin Seleccionar",
+			  allowClear: true
+			});
+		}else{
+			$("#cmbtipoactivo").select2({
+			  placeholder: "Sin Seleccionar",
+			  allowClear: true
+			});
+			//$('#cmbtipoactivo').append($('<option>', { value: "-1" }).text("--Sin Resultados--"));
+		}
+	}
+	$("#cmbtipoactivo").change(function() {
+		$("#Val11").val($(this).val());
+	});
+	$("#cmbPRE").select2({
+	  placeholder: "Sin Seleccionar",
+	  allowClear: true
+	});
+	$("#cmbPRE").change(function() {
+		$("#Val17").val($(this).val());
+	});
+	$("#cmbseguros").select2({
+	  placeholder: "Sin Seleccionar",
+	  allowClear: true
+	});
+	$("#cmbseguros").change(function() {
+		$("#Val18").val($(this).val());
+	});
+	$("#cmbcertificacion").select2({
+	  placeholder: "Sin Seleccionar",
+	  allowClear: true
+	});
+	$("#cmbcertificacion").change(function() {
+		$("#Val20").val($(this).val());
+	});
+	//Autocomplete Empleados
+	function usuarios(){
+		$.ajax({
+			type: "POST",
+			url: "../fachadas/activos/siga_v_empleados_activo_fijo/Siga_v_empleados_activo_fijoFacade.Class.php",
+			data: {
+				accion: 'consultar'
+			},
+			async: false,
+			dataType: "html",
+			beforeSend: function (objeto) {
+				$("#gifcargando_usuarios").show();
+			},
+			success: function (datos) {
+				var json = "";
+					json = eval("(" + datos + ")"); //Parsear JSON
+
+					if (json.totalCount > 0) {
+						var Array_Usuarios=new Array();
+						var usuarios='';
+						usuarios+='<option></option>';
+						usuarios+='<optgroup label="Usuarios">';
+
+						for (var i = 0; i < json.totalCount; i++) {
+							//usuarios+='<option value="'+json.data[i].num_empleado.trim()+'">'+json.data[i].num_empleado.trim()+' '+json.data[i].nombre_completo.trim()+'</option>';
+							Array_Usuarios.push({id: json.data[i].num_empleado.trim(), title:json.data[i].num_empleado.trim()+' '+json.data[i].nombre_completo.trim()});
+						}
+						usuarios+='</optgroup>';
+						//$('#select-usuarios').html(usuarios);
+
+						$("#gifcargando_usuarios").hide();
+						$("#select-usuarios").show();
+							
+						$('#select-usuarios').selectize({
+							plugins: ['remove_button'],
+							maxItems: null,
+							valueField: 'id',
+							labelField: 'title',
+							searchField: 'title',
+							options:Array_Usuarios,
+							create: false
+							//sortField: 'text'
+						});
+					}
+					else {
+						$("#gifcargando_usuarios").hide();
+						$('#select-usuarios').append($('<option>', { value: "" }).text("Sin resultados"));
+					}
+
+			},
+			error: function (objeto, quepaso, otroobj) {
+				mensajesalerta("Oh No!", "Ocurrio un error al consultar.", "error", "dark");
+				$('#select-usuarios').append($('<option>', { value: "-1" }).text("Sin resultados"));
+			}
+		});
+	}
+	function Tipo_Vale() {
+		var resultado=new Array();
+		data={Estatus_Reg: "1", accion: "consultar"};
+		resultado=cargo_cmb("../fachadas/activos/siga_cat_tipo_vale_resg/Siga_cat_tipo_vale_resgFacade.Class.php",false, data);
+		if(resultado.totalCount>0){
+			//$('#cmbtipovale').append($('<option>', { value: "-1" }).text("--Tipo Vale--"));
+			for(var i = 0; i < resultado.totalCount; i++){
+				$('#cmbtipovale').append($('<option>', { value: resultado.data[i].Id_Tipo_Vale_Resg }).text(resultado.data[i].Desc_Tipo_Vale_Resg));
+			}
+			$("#cmbtipovale").select2({
+			  placeholder: "Sin Seleccionar",
+			  allowClear: true
+			});
+		}else{
+			$("#cmbtipovale").select2({
+			  placeholder: "Sin Seleccionar",
+			  allowClear: true
+			});
+			//$('#cmbtipovale').append($('<option>', { value: "-1" }).text("--Sin Resultados--"));
+		}
+	}
+	$("#cmbtipovale").change(function() {
+		$("#Val12").val($(this).val());
+	});
+	
+	function Departamento() {
+		var resultado=new Array();
+		data={Estatus_Reg: "1", accion: "consultar"};
+		resultado=cargo_cmb("../fachadas/activos/siga_cat_departamento/Siga_cat_departamentoFacade.Class.php",false, data);
+		if(resultado.totalCount>0){
+			//$('#cmbdepartamento').append($('<option>', { value: "-1" }).text("--Departamento--"));
+			for(var i = 0; i < resultado.totalCount; i++){
+				$('#cmbdepartamento').append($('<option>', { value: resultado.data[i].Id_Departamento }).text(resultado.data[i].Des_Departamento));
+			}
+			$("#cmbdepartamento").select2({
+			  placeholder: "Sin Seleccionar",
+			  allowClear: true
+			});
+		}else{
+			$("#cmbdepartamento").select2({
+			  placeholder: "Sin Seleccionar",
+			  allowClear: true
+			});
+			//$('#cmbdepartamento').append($('<option>', { value: "-1" }).text("--Sin Resultados--"));
+		}
+	}
+	$( "#cmbdepartamento" ).change(function() {
+		$("#Val8").val($(this).val());
+	});
+	
+	$(".selectize-control").css("height", "34px");
+	
+	
+	
+	/////////////////////////////////////////////////////////////////////////////////////////
+	buscar_activos=function(){
+		var Agregar = true;
+		var mensaje_error = "";
+		
+		var estatus=0;
+		///////////////////
+		var Id_Activo=$("#select-activos").val();
+		var cmbubicprim=$("#Val2").val();
+		var cmbubicsec=$("#Val3").val();
+		var cmbareas=$("#Val4").val();
+		var cmbprpiedad=$("#Val5").val();
+		var cmbfamilia=$("#Val6").val();
+		var cmbsubfamilia=$("#Val7").val();
+		var cmbdepartamento=$("#Val8").val();
+		var Num_Empleado=$("#select-usuarios").val();
+		var cmbmotivo=$("#Val10").val();
+		var cmbtipoactivo=$("#Val11").val();
+		var cmbtipovale=$("#Val12").val();
+		
+		//Aqui va la clase
+		var cmbclasificacion=$("#Val13").val();
+		var Marca=$("#Val14").val();
+		var Modelo=$("#Val15").val();
+		var No_Serie=$("#Val16").val();
+		var cmbPRE=$("#Val17").val();
+		var cmbseguros=$("#Val18").val();
+		var Importe_Seguros=$.trim($("#txtImporte_Seguros").val());
+		var cmbcertificacion=$("#Val20").val();
+		var Garantia=$.trim($("#txtGarantia").val());
+		var Ext_Garantia=$.trim($("#txtExt_Garantia").val());
+		var Desc_Larga=$.trim($("#txtDesc_Larga").val());
+		var Desc_Corta=$.trim($("#txtDesc_Corta").val());
+		var Ubic_Especifica=$.trim($("#txtUbic_Especifica").val());
+		var Baja =0;
+		
+		if($("#check_Baja").prop('checked')==true){
+			Baja=1;
+		}
+		
+		$("#hddbaja").val(Baja);
+		
+		var datos22=new Array();	
+		var val_seleccionados="";
+		var selec_abcdario="";
+		var contador=1;
+		
+		datos22.push({ "data": "AF_BC", "visible": false});
+		datos22.push({ "data": "AF_BC"});
+		datos22.push({ "data": "Nombre_Activo"});
+		
+		selec_abcdario+=array_abcdario[0]+"-";
+		selec_abcdario+=array_abcdario[1]+"-";
+		
+		
+		var $select_activos = $('#select-activos').selectize({});	
+		var control3 = $select_activos[0].selectize;
+		
+		if(control3.items.length > 0){
+			estatus=1;
+			//Convertimos el array a String
+			Id_Activo=control3.items.toString();
+		}else{
+			Id_Activo="";
+		}
+		
+		if($("#check_areas").prop('checked')==true){
+			estatus=1;
+			contador=contador+1;
+			selec_abcdario+=array_abcdario[contador]+"-";
+			
+			datos22.push({ "data": "Area"});
+			$("#th_Area").show();
+			val_seleccionados+=1+"-";
+			if (cmbareas == "-1") {
+				cmbareas="";
+			}
+			
+		}else{
+			cmbareas="";
+			$("#th_Area").hide();
+			val_seleccionados+=0+"-";
+			selec_abcdario+=0+"-";
+		}
+		
+		if(Id_Area_Login!="5"){
+			cmbareas=Id_Area_Login;
+		}
+		
+		if($("#check_ubic_prim").prop('checked')==true){
+			estatus=1;
+			contador=contador+1;
+			selec_abcdario+=array_abcdario[contador]+"-";
+			datos22.push({ "data": "UbicacionPrimaria"});
+			$("#th_Ubic_Primaria").show();
+			val_seleccionados+=1+"-";
+			if (cmbubicprim == "-1") {
+				cmbubicprim="";
+			}
+		}else{
+			cmbubicprim="";
+			$("#th_Ubic_Primaria").hide();
+			val_seleccionados+=0+"-";
+			selec_abcdario+=0+"-";
+		}
+		if($("#check_ubic_sec").prop('checked')==true){
+			estatus=1;
+			contador=contador+1;
+			selec_abcdario+=array_abcdario[contador]+"-";
+			datos22.push({ "data": "UbicacionSecundaria"});
+			$("#th_Ubic_Sec").show();
+			val_seleccionados+=1+"-";
+			if (cmbubicsec == "-1") {
+				cmbubicsec="";
+			}
+		}else{
+			cmbubicsec="";
+			$("#th_Ubic_Sec").hide();
+			val_seleccionados+=0+"-";
+			selec_abcdario+=0+"-";
+		}
+		if($("#check_Ubic_Especifica").prop('checked')==true){
+			estatus=1;
+			contador=contador+1;
+			selec_abcdario+=array_abcdario[contador]+"-";
+			datos22.push({ "data": "Especifica"});
+			$("#th_Ubic_Esp").show();
+			val_seleccionados+=1+"-";
+			if (Ubic_Especifica.length == 0) {
+				Ubic_Especifica="";
+			}
+		}else{
+			Ubic_Especifica="";
+			$("#th_Ubic_Esp").hide();
+			val_seleccionados+=0+"-";
+			selec_abcdario+=0+"-";
+		}
+		if($("#check_Desc_Larga").prop('checked')==true){
+			estatus=1;
+			contador=contador+1;
+			selec_abcdario+=array_abcdario[contador]+"-";
+			datos22.push({ "data": "DescLarga"});
+			$("#th_Desc_Larga").show();
+			val_seleccionados+=1+"-";
+			if (Desc_Larga.length == 0) {
+				Desc_Larga="";
+			}
+		}else{
+			Desc_Larga="";
+			$("#th_Desc_Larga").hide();
+			val_seleccionados+=0+"-";
+			selec_abcdario+=0+"-";
+		}
+		if($("#check_Desc_Corta").prop('checked')==true){
+			estatus=1;
+			contador=contador+1;
+			selec_abcdario+=array_abcdario[contador]+"-";
+			datos22.push({ "data": "DescCorta"});
+			$("#th_Desc_Corta").show();
+			val_seleccionados+=1+"-";
+			if (Desc_Corta.length == 0) {
+				Desc_Corta="";
+			}
+		}else{
+			Desc_Corta="";
+			$("#th_Desc_Corta").hide();
+			val_seleccionados+=0+"-";
+			selec_abcdario+=0+"-";
+		}
+		if($("#check_motivo").prop('checked')==true){
+			estatus=1;
+			contador=contador+1;
+			selec_abcdario+=array_abcdario[contador]+"-";
+			datos22.push({ "data": "Motivo_Alta"});
+			$("#th_Motivo_Alta").show();
+			val_seleccionados+=1+"-";
+			if (cmbmotivo == "-1") {
+				cmbmotivo="";
+			}
+		}else{
+			cmbmotivo="";
+			$("#th_Motivo_Alta").hide();
+			val_seleccionados+=0+"-";
+			selec_abcdario+=0+"-";
+		}
+		if($("#check_propedad").prop('checked')==true){
+			estatus=1;
+			contador=contador+1;
+			selec_abcdario+=array_abcdario[contador]+"-";
+			datos22.push({ "data": "Propiedad"});
+			$("#th_Propiedad").show();
+			val_seleccionados+=1+"-";
+			if (cmbprpiedad == "-1") {
+				cmbprpiedad="";
+			}
+		}else{
+			cmbprpiedad="";
+			$("#th_Propiedad").hide();
+			val_seleccionados+=0+"-";
+			selec_abcdario+=0+"-";
+		}
+		if($("#check_clasificacion").prop('checked')==true){
+			estatus=1;
+			contador=contador+1;
+			selec_abcdario+=array_abcdario[contador]+"-";
+			datos22.push({ "data": "Clasificacion"});
+			$("#th_Clasificacion").show();
+			val_seleccionados+=1+"-";
+			if (cmbclasificacion == "-1") {
+				cmbclasificacion="";
+			}
+		}else{
+			cmbclasificacion="";
+			$("#th_Clasificacion").hide();
+			val_seleccionados+=0+"-";
+			selec_abcdario+=0+"-";
+		}
+		if($("#check_familia").prop('checked')==true){
+			estatus=1;
+			contador=contador+1;
+			selec_abcdario+=array_abcdario[contador]+"-";
+			datos22.push({ "data": "Familia"});
+			$("#th_Familia").show();
+			val_seleccionados+=1+"-";
+			if (cmbfamilia == "-1") {
+				cmbfamilia="";
+			}
+		}else{
+			cmbfamilia="";
+			$("#th_Familia").hide();
+			val_seleccionados+=0+"-";
+			selec_abcdario+=0+"-";
+		}
+		if($("#check_subfamilia").prop('checked')==true){
+			estatus=1;
+			contador=contador+1;
+			selec_abcdario+=array_abcdario[contador]+"-";
+			datos22.push({ "data": "Subfamilia"});
+			$("#th_Subfamilia").show();
+			val_seleccionados+=1+"-";
+			if (cmbsubfamilia == "-1") {
+				cmbsubfamilia="";
+			}
+		}else{
+			cmbsubfamilia="";
+			$("#th_Subfamilia").hide();
+			val_seleccionados+=0+"-";
+			selec_abcdario+=0+"-";
+		}
+		if($("#check_marca").prop('checked')==true){
+			estatus=1;
+			contador=contador+1;
+			selec_abcdario+=array_abcdario[contador]+"-";
+			datos22.push({ "data": "Marca"});
+			$("#th_Marca").show();
+			val_seleccionados+=1+"-";
+			if (Marca.length == 0) {
+				Marca="";
+			}
+			
+		}else{
+			Marca="";
+			$("#th_Marca").hide();
+			val_seleccionados+=0+"-";
+			selec_abcdario+=0+"-";
+		}
+		if($("#check_modelo").prop('checked')==true){
+			estatus=1;
+			contador=contador+1;
+			selec_abcdario+=array_abcdario[contador]+"-";
+			datos22.push({ "data": "Modelo"});
+			$("#th_Modelo").show();
+			val_seleccionados+=1+"-";
+			if (Modelo.length == 0) {
+				Modelo="";
+			}
+		}else{
+			Modelo="";
+			$("#th_Modelo").hide();
+			val_seleccionados+=0+"-";
+			selec_abcdario+=0+"-";
+		}
+		if($("#check_no_serie").prop('checked')==true){
+			estatus=1;
+			contador=contador+1;
+			selec_abcdario+=array_abcdario[contador]+"-";
+			datos22.push({ "data": "NumSerie"});
+			$("#th_No_Serie").show();
+			val_seleccionados+=1+"-";
+			if (No_Serie.length == 0) {
+				No_Serie="";
+			}
+		}else{
+			No_Serie="";
+			$("#th_No_Serie").hide();
+			val_seleccionados+=0+"-";
+			selec_abcdario+=0+"-";
+		}
+		if($("#check_tipoactivo").prop('checked')==true){
+			estatus=1;
+			contador=contador+1;
+			selec_abcdario+=array_abcdario[contador]+"-";
+			datos22.push({ "data": "TipoActivo"});
+			$("#th_Tipo_Activo").show();
+			val_seleccionados+=1+"-";
+			if (cmbtipoactivo == "-1") {
+				cmbtipoactivo="";
+			}
+		}else{
+			cmbtipoactivo="";
+			$("#th_Tipo_Activo").hide();
+			val_seleccionados+=0+"-";
+			selec_abcdario+=0+"-";
+		}
+		if($("#check_PRE").prop('checked')==true){
+			estatus=1;
+			contador=contador+1;
+			selec_abcdario+=array_abcdario[contador]+"-";
+			datos22.push({ "data": "ParticipaPre"});
+			$("#th_Part_PRE").show();
+			val_seleccionados+=1+"-";
+			if (cmbPRE == "-1") {
+				cmbPRE="";
+			}
+		}else{
+			cmbPRE="";
+			$("#th_Part_PRE").hide();
+			val_seleccionados+=0+"-";
+			selec_abcdario+=0+"-";
+		}
+		if($("#check_seguros").prop('checked')==true){
+			estatus=1;
+			contador=contador+1;
+			selec_abcdario+=array_abcdario[contador]+"-";
+			datos22.push({ "data": "ParticipaSeguros"});
+			$("#th_Part_Seg").show();
+			val_seleccionados+=1+"-";
+			if (cmbseguros == "-1") {
+				cmbseguros="";
+			}
+		}else{
+			cmbseguros="";
+			$("#th_Part_Seg").hide();
+			val_seleccionados+=0+"-";
+			selec_abcdario+=0+"-";
+		}
+		if($("#check_Importe_Seguros").prop('checked')==true){
+			estatus=1;
+			contador=contador+1;
+			selec_abcdario+=array_abcdario[contador]+"-";
+			datos22.push({ "data": "ImporteSeguros"});
+			$("#th_Import_Seg").show();
+			val_seleccionados+=1+"-";
+			if (Importe_Seguros.length == 0) {
+				Importe_Seguros="";
+			}
+		}else{
+			Importe_Seguros="";
+			$("#th_Import_Seg").hide();
+			val_seleccionados+=0+"-";
+			selec_abcdario+=0+"-";
+		}
+		if($("#check_certificacion").prop('checked')==true){
+			estatus=1;
+			contador=contador+1;
+			selec_abcdario+=array_abcdario[contador]+"-";
+			datos22.push({ "data": "ParticipaCertificacion"});
+			$("#th_Part_Cert").show();
+			val_seleccionados+=1+"-";
+			if (cmbcertificacion == "-1") {
+				cmbcertificacion="";
+			}
+		}else{
+			cmbcertificacion="";
+			$("#th_Part_Cert").hide();
+			val_seleccionados+=0+"-";
+			selec_abcdario+=0+"-";
+		}
+
+		var $select_num_empleado = $('#select-usuarios').selectize({});	
+		var empl = $select_num_empleado[0].selectize;
+		if(empl.items.length > 0){
+			estatus=1;
+			//Convertimos el array a String
+			Num_Empleado=empl.items.toString();
+			contador=contador+1;
+			selec_abcdario+=array_abcdario[contador]+"-";
+			contador=contador+1;
+			selec_abcdario+=array_abcdario[contador]+"-";
+			datos22.push({ "data": "Num_Empleado"});
+			datos22.push({ "data": "Nombre_Completo"});
+		}else{
+			Num_Empleado="";
+			contador=contador+1;
+			selec_abcdario+=array_abcdario[contador]+"-";
+			contador=contador+1;
+			selec_abcdario+=array_abcdario[contador]+"-";
+			datos22.push({ "data": "Num_Empleado"});
+			datos22.push({ "data": "Nombre_Completo"});
+		}
+		if($("#check_tipovale").prop('checked')==true){
+			estatus=1;
+			contador=contador+1;
+			selec_abcdario+=array_abcdario[contador]+"-";
+			datos22.push({ "data": "Tipo_Vale"});
+			$("#th_Tipo_Vale").show();
+			val_seleccionados+=1+"-";
+			if (cmbtipovale == "-1") {
+				cmbtipovale="";
+			}
+		}else{
+			cmbtipovale="";
+			$("#th_Tipo_Vale").hide();
+			val_seleccionados+=0+"-";
+			selec_abcdario+=0+"-";
+		}
+		if($("#check_Garantia").prop('checked')==true){
+			estatus=1;
+			contador=contador+1;
+			selec_abcdario+=array_abcdario[contador]+"-";
+			datos22.push({ "data": "Garantia"});
+			$("#th_Garantia").show();
+			val_seleccionados+=1+"-";
+			if (Garantia.length == 0) {
+				Garantia="";
+			}
+		}else{
+			Garantia="";
+			$("#th_Garantia").hide();
+			val_seleccionados+=0+"-";
+			selec_abcdario+=0+"-";
+		}
+		if($("#check_Ext_Garantia").prop('checked')==true){
+			estatus=1;
+			contador=contador+1;
+			selec_abcdario+=array_abcdario[contador]+"-";
+			datos22.push({ "data": "ExtGarantia"});
+			$("#th_Ext_Garantia").show();
+			val_seleccionados+=1+"-";
+			if (Ext_Garantia.length == 0) {
+				Ext_Garantia="";
+			}
+		}else{
+			Ext_Garantia="";
+			$("#th_Ext_Garantia").hide();
+			val_seleccionados+=0+"-";
+			selec_abcdario+=0+"-";
+		}
+		
+	
+		if($("#check_departamento").prop('checked')==true){
+			estatus=1;
+			contador=contador+1;
+			selec_abcdario+=array_abcdario[contador]+"-";
+			datos22.push({ "data": "Departamento"});
+			$("#th_Departamento").show();
+			val_seleccionados+=1+"-";
+			if (cmbdepartamento == "-1") {
+				cmbdepartamento="";
+			}
+			/*
+			cmbdepartamento="";
+			$("#th_Departamento").hide();
+			val_seleccionados+=0+"-";
+			selec_abcdario+=0+"-";
+			*/
+		}else{
+			cmbdepartamento="";
+			$("#th_Departamento").hide();
+			val_seleccionados+=0+"-";
+			selec_abcdario+=0+"-";
+		}
+		
+		
+		var Datos_Proveedor=false;
+		if($("#check_Datos_Proveedor").prop('checked')==true){
+			Datos_Proveedor=true;
+			estatus=1;
+			contador=contador+1;selec_abcdario+=array_abcdario[contador]+"-";datos22.push({ "data": "NumOrdenCompra"});$("#th_P_Num_Orden_Compra").show();val_seleccionados+=1+"-";
+			contador=contador+1;selec_abcdario+=array_abcdario[contador]+"-";datos22.push({ "data": "NumFactura"});$("#th_P_Num_Factura").show();val_seleccionados+=1+"-";
+			contador=contador+1;selec_abcdario+=array_abcdario[contador]+"-";datos22.push({ "data": "FechaFactura"});$("#th_P_Fech_Factura").show();val_seleccionados+=1+"-";
+			contador=contador+1;selec_abcdario+=array_abcdario[contador]+"-";datos22.push({ "data": "UUID"});$("#th_P_UUID").show();val_seleccionados+=1+"-";
+			contador=contador+1;selec_abcdario+=array_abcdario[contador]+"-";datos22.push({ "data": "Folio_Fiscal"});$("#th_P_Folio_Fiscal").show();val_seleccionados+=1+"-";
+			contador=contador+1;selec_abcdario+=array_abcdario[contador]+"-";datos22.push({ "data": "Monto_F"});$("#th_P_Monto_F").show();val_seleccionados+=1+"-";
+			contador=contador+1;selec_abcdario+=array_abcdario[contador]+"-";datos22.push({ "data": "MontoFactura"});$("#th_P_Monto_Factura").show();val_seleccionados+=1+"-";
+			contador=contador+1;selec_abcdario+=array_abcdario[contador]+"-";datos22.push({ "data": "NumContrato"});$("#th_P_Num_Contrato").show();val_seleccionados+=1+"-";
+			contador=contador+1;selec_abcdario+=array_abcdario[contador]+"-";datos22.push({ "data": "VidaUtilFabricante"});$("#th_P_Vida_Util_Fabr").show();val_seleccionados+=1+"-";
+			contador=contador+1;selec_abcdario+=array_abcdario[contador]+"-";datos22.push({ "data": "VidaUtilCHS"});$("#th_P_Vida_Util_CHS").show();val_seleccionados+=1+"-";
+			contador=contador+1;selec_abcdario+=array_abcdario[contador]+"-";datos22.push({ "data": "Garantia_P"});$("#th_P_Garantia").show();val_seleccionados+=1+"-";
+			contador=contador+1;selec_abcdario+=array_abcdario[contador]+"-";datos22.push({ "data": "ExtGarantia_P"});$("#th_P_Ext_Garantia").show();val_seleccionados+=1+"-";
+			contador=contador+1;selec_abcdario+=array_abcdario[contador]+"-";datos22.push({ "data": "Fecha_Vencimiento"});$("#th_P_Fecha_Vencimiento").show();val_seleccionados+=1+"-";
+			contador=contador+1;selec_abcdario+=array_abcdario[contador]+"-";datos22.push({ "data": "NombreProveedor"});$("#th_P_Nom_Proveedor").show();val_seleccionados+=1+"-";
+			contador=contador+1;selec_abcdario+=array_abcdario[contador]+"-";datos22.push({ "data": "Contacto"});$("#th_P_Contacto").show();val_seleccionados+=1+"-";
+			contador=contador+1;selec_abcdario+=array_abcdario[contador]+"-";datos22.push({ "data": "Telefono"});$("#th_P_Telefono").show();val_seleccionados+=1+"-";
+			contador=contador+1;selec_abcdario+=array_abcdario[contador]+"-";datos22.push({ "data": "DocRecibida"});$("#th_P_Doc_Recibida").show();val_seleccionados+=1+"-";
+			contador=contador+1;selec_abcdario+=array_abcdario[contador]+"-";datos22.push({ "data": "Accesorios"});$("#th_P_Accesorios").show();val_seleccionados+=1+"-";
+			contador=contador+1;selec_abcdario+=array_abcdario[contador]+"-";datos22.push({ "data": "Correo"});$("#th_P_Correo").show();val_seleccionados+=1+"-";
+			contador=contador+1;selec_abcdario+=array_abcdario[contador]+"-";datos22.push({ "data": "Consumibles"});$("#th_P_Consumibles").show();val_seleccionados+=1+"-";
+		}
+		else{
+			$("#th_P_Num_Orden_Compra").hide();val_seleccionados+=0+"-";selec_abcdario+=0+"-";
+			$("#th_P_Num_Factura").hide();val_seleccionados+=0+"-";selec_abcdario+=0+"-";
+			$("#th_P_Fech_Factura").hide();val_seleccionados+=0+"-";selec_abcdario+=0+"-";
+			$("#th_P_UUID").hide();val_seleccionados+=0+"-";selec_abcdario+=0+"-";
+			$("#th_P_Folio_Fiscal").hide();val_seleccionados+=0+"-";selec_abcdario+=0+"-";
+			$("#th_P_Monto_F").hide();val_seleccionados+=0+"-";selec_abcdario+=0+"-";
+			$("#th_P_Monto_Factura").hide();val_seleccionados+=0+"-";selec_abcdario+=0+"-";
+			$("#th_P_Num_Contrato").hide();val_seleccionados+=0+"-";selec_abcdario+=0+"-";
+			$("#th_P_Vida_Util_Fabr").hide();val_seleccionados+=0+"-";selec_abcdario+=0+"-";
+			$("#th_P_Vida_Util_CHS").hide();val_seleccionados+=0+"-";selec_abcdario+=0+"-";
+			$("#th_P_Garantia").hide();val_seleccionados+=0+"-";selec_abcdario+=0+"-";
+			$("#th_P_Ext_Garantia").hide();val_seleccionados+=0+"-";selec_abcdario+=0+"-";
+			$("#th_P_Fecha_Vencimiento").hide();val_seleccionados+=0+"-";selec_abcdario+=0+"-";
+			$("#th_P_Nom_Proveedor").hide();val_seleccionados+=0+"-";selec_abcdario+=0+"-";
+			$("#th_P_Contacto").hide();val_seleccionados+=0+"-";selec_abcdario+=0+"-";
+			$("#th_P_Telefono").hide();val_seleccionados+=0+"-";selec_abcdario+=0+"-";
+			$("#th_P_Doc_Recibida").hide();val_seleccionados+=0+"-";selec_abcdario+=0+"-";
+			$("#th_P_Accesorios").hide();val_seleccionados+=0+"-";selec_abcdario+=0+"-";
+			$("#th_P_Correo").hide();val_seleccionados+=0+"-";selec_abcdario+=0+"-";
+			$("#th_P_Consumibles").hide();val_seleccionados+=0;selec_abcdario+=0+"-";
+			
+		}
+		
+		var Datos_Contabilidad=false;
+		
+		if($("#check_Datos_Contabilidad").prop('checked')==true){
+			Datos_Contabilidad=true;
+			estatus=1;
+			contador=contador+1;selec_abcdario+=array_abcdario[contador]+"-";datos22.push({ "data": "Centro_Costos"});$("#th_C_Centro_Costos").show();val_seleccionados+=1+"-";
+			contador=contador+1;selec_abcdario+=array_abcdario[contador]+"-";datos22.push({ "data": "No_Capex"});$("#th_C_No_Capex").show();val_seleccionados+=1+"-";
+			contador=contador+1;selec_abcdario+=array_abcdario[contador]+"-";datos22.push({ "data": "Prorrateo"});$("#th_C_Prorrateo").show();val_seleccionados+=1+"-";
+			contador=contador+1;selec_abcdario+=array_abcdario[contador]+"-";datos22.push({ "data": "Participa_Depreciacion"});$("#th_C_Participa_Depreciacion").show();val_seleccionados+=1+"-";
+			contador=contador+1;selec_abcdario+=array_abcdario[contador]+"-";datos22.push({ "data": "Fecha_Inicio_Depr"});$("#th_C_Fecha_Inicio_Depr").show();val_seleccionados+=1+"-";
+			contador=contador+1;selec_abcdario+=array_abcdario[contador]+"-";datos22.push({ "data": "Cuent_Cont_Act"});$("#th_C_Cuent_Cont_Act").show();val_seleccionados+=1+"-";
+			contador=contador+1;selec_abcdario+=array_abcdario[contador]+"-";datos22.push({ "data": "Cuent_Cont_Act_B10"});$("#th_C_Cuent_Cont_Act_B10").show();val_seleccionados+=1+"-";
+			contador=contador+1;selec_abcdario+=array_abcdario[contador]+"-";datos22.push({ "data": "Cuent_Cont_Result"});$("#th_C_Cuent_Cont_Result").show();val_seleccionados+=1+"-";
+			contador=contador+1;selec_abcdario+=array_abcdario[contador]+"-";datos22.push({ "data": "Cuent_Cont_Result_B10"});$("#th_C_Cuent_Cont_Result_B10").show();val_seleccionados+=1+"-";
+			contador=contador+1;selec_abcdario+=array_abcdario[contador]+"-";datos22.push({ "data": "Cuent_Cont_Dep"});$("#th_C_Cuent_Cont_Dep").show();val_seleccionados+=1+"-";
+			contador=contador+1;selec_abcdario+=array_abcdario[contador]+"-";datos22.push({ "data": "Cuent_Cont_Dep_B10"});$("#th_C_Cuent_Cont_Dep_B10").show();val_seleccionados+=1+"-";
+		}else{
+			$("#th_C_Centro_Costos").hide();val_seleccionados+=0+"-";selec_abcdario+=0+"-";
+			$("#th_C_No_Capex").hide();val_seleccionados+=0+"-";selec_abcdario+=0+"-";
+			$("#th_C_Prorrateo").hide();val_seleccionados+=0+"-";selec_abcdario+=0+"-";
+			$("#th_C_Participa_Depreciacion").hide();val_seleccionados+=0+"-";selec_abcdario+=0+"-";
+			$("#th_C_Fecha_Inicio_Depr").hide();val_seleccionados+=0+"-";selec_abcdario+=0+"-";
+			$("#th_C_Cuent_Cont_Act").hide();val_seleccionados+=0+"-";selec_abcdario+=0+"-";
+			$("#th_C_Cuent_Cont_Act_B10").hide();val_seleccionados+=0+"-";selec_abcdario+=0+"-";
+			$("#th_C_Cuent_Cont_Result").hide();val_seleccionados+=0+"-";selec_abcdario+=0+"-";
+			$("#th_C_Cuent_Cont_Result_B10").hide();val_seleccionados+=0+"-";selec_abcdario+=0+"-";
+			$("#th_C_Cuent_Cont_Dep").hide();val_seleccionados+=0+"-";selec_abcdario+=0+"-";
+			$("#th_C_Cuent_Cont_Dep_B10").hide();val_seleccionados+=0;selec_abcdario+=0+"-";
+		}
+		
+		contador=contador+1;selec_abcdario+=array_abcdario[contador]+"-";datos22.push({ "data": "Fech_Inser"});val_seleccionados+=1+"-";
+		contador=contador+1;selec_abcdario+=array_abcdario[contador]+"-";datos22.push({ "data": "Usuario_Registro"});val_seleccionados+=1+"-";
+		contador=contador+1;selec_abcdario+=array_abcdario[contador]+"-";datos22.push({ "data": "Frecuencia"});val_seleccionados+=1+"-";
+		contador=contador+1;selec_abcdario+=array_abcdario[contador]+"-";datos22.push({ "data": "Realiza"});val_seleccionados+=1;
+		
+		$("#Check_Seleccionados").val(selec_abcdario);
+		//if(estatus==0){
+		//	Agregar = false; 
+		//	mensaje_error += " -Selecciona un Filtro para la Busqueda<br />";
+		//}
+		
+		
+		
+		
+		if (!Agregar) {
+			mensajesalerta("Informaci&oacute;n", mensaje_error, "info", "dark");			
+		}
+		
+		if(Agregar)
+		{
+			$("#Val1").val(Id_Activo);
+            //$("#Val2").val(cmbubicprim);
+            //$("#Val3").val(cmbubicsec);
+            //$("#Val4").val(cmbareas);
+            //$("#Val5").val(cmbprpiedad);
+            //$("#Val6").val(cmbfamilia);
+            //$("#Val7").val(cmbsubfamilia);
+            //$("#Val8").val(cmbdepartamento);
+            $("#Val9").val(Num_Empleado);
+            //$("#Val10").val(cmbmotivo);
+            //$("#Val11").val(cmbtipoactivo);
+			//$("#Val12").val(cmbtipovale);
+			
+			//$("#Val13").val(cmbclasificacion);
+			//$("#Val14").val(Marca);
+			//$("#Val15").val(Modelo);
+			//$("#Val16").val(No_Serie);
+			//$("#Val17").val(cmbPRE);
+			//$("#Val18").val(cmbseguros);
+			$("#Val19").val(Importe_Seguros);
+			//$("#Val20").val(cmbcertificacion);
+			$("#Val21").val(Garantia);
+			$("#Val22").val(Ext_Garantia);
+			$("#Val23").val(Desc_Larga);
+			$("#Val24").val(Desc_Corta);
+			$("#Val25").val(Ubic_Especifica);
+            
+			strdatos={
+				Id_Activo:Id_Activo,
+				Id_Ubic_Prim:cmbubicprim,
+				Id_Ubic_Sec:cmbubicsec,
+				Id_Area:cmbareas,
+				Id_Propiedad:cmbprpiedad,
+				Id_Familia:cmbfamilia,
+				Id_Subfamilia:cmbsubfamilia,
+				Id_Departamento:cmbdepartamento,
+				Num_Empleado:Num_Empleado,
+				Id_Motivo_Alta:cmbmotivo,
+				Id_Tipo_Activo:cmbtipoactivo,
+				Id_Tipo_Vale_Resg:cmbtipovale,
+				//Aqui va la clase
+				Id_Clasificacion:cmbclasificacion,
+				Marca:Marca,
+				Modelo:Modelo,
+				NumSerie:No_Serie,
+				ParticipaPre:cmbPRE,
+				ParticipaSeguros:cmbseguros,
+				ImporteSeguros:Importe_Seguros,
+				ParticipaCertificacion:cmbcertificacion,
+				Garantia:Garantia,
+				ExtGarantia:Ext_Garantia,
+				DescLarga:Desc_Larga,
+				DescCorta:Desc_Corta,
+				Especifica:Ubic_Especifica,
+				//Datos del proveedor
+				Datos_Proveedor:Datos_Proveedor,
+				Estatus_Reg: '1',
+				Baja:Baja,
+				accion:"Reporte_Activos"
+			}
+			
+			//Limpiamos y destruimos la tabla para evitar errores en el javascript
+			$('#tabla_reporte_activos').DataTable().clear().destroy();
+		
+			$('#tabla_reporte_activos').DataTable({
+				"processing": true,
+				"serverSide": true,
+				"ajax": {
+					"url": "../fachadas/activos/siga_reportes/Siga_reportesFacade.Class.php",
+					"type": "POST",
+					"dataSrc": function ( json ) {
+						// console.log(json);
+						if(json.recordsTotal>0){
+							mensajesalerta("&Eacute;xito", "Registros encontrados", "success", "dark");
+							$("#tabla_dinamica_reporte").show();
+							$("#Busqueda").hide();
+						}
+						else {
+							mensajesalerta("Informaci&oacute;n", "No se encontraron Registros", "info", "dark");	
+						}
+						return json.data;
+					},
+					"data": strdatos,
+				},
+				"columns": 
+					datos22
+				, "language": {
+					"lengthMenu": "Mostrando _MENU_ registros por p&aacute;gina",
+					"zeroRecords": "Sin Resultados",
+					"info": "Monstrando p&aacute;gina _PAGE_ de _PAGES_ , total de registros: _MAX_",
+					"infoEmpty": "Sin Resultados",
+					"infoFiltered": "(Mostrando  _MAX_ del total de registros)",
+					"search": "Busqueda: ",
+					"paginate": {
+						"first": "Primera",
+						"last": "Ultima",
+						"next": "Siguiente",
+						"previous": "Anterior"
+					}
+				}
+			});
+		}
+	}
+	
+	limpiar_campos= function (){
+		$("#Busqueda").show();
+	
+		$("#Val1").val("");
+        $("#Val2").val("");
+        $("#Val3").val("");
+        //$("#Val4").val("");
+        $("#Val5").val("");
+        $("#Val6").val("");
+        $("#Val7").val("");
+        $("#Val8").val("");
+        $("#Val9").val("");
+        $("#Val10").val("");
+        $("#Val11").val("");
+		$("#Val12").val("");
+		$("#Val13").val("");
+		$("#Val14").val("");
+		$("#Val15").val("");
+		$("#Val16").val("");
+		$("#Val17").val("");
+		$("#Val18").val("");
+		$("#Val19").val("");
+		$("#Val20").val("");
+		$("#Val21").val("");
+		$("#Val22").val("");
+		$("#Val23").val("");
+		$("#Val24").val("");
+		$("#Val25").val("");
+		$("#hddbaja").val("");
+			
+		strdatos={};
+	
+		$("#tabla_dinamica_reporte").hide();
+	
+		var $select3 = $('#select-activos').selectize({});
+		var control3 = $select3[0].selectize;
+		control3.clear();
+		control3.enable();
+		
+		
+		var Usuario=$.trim($("#select-usuarios").val());
+		if(Usuario!=""){	
+			if(Usuario.length > 0){
+				var $select_u = $('#select-usuarios').selectize({});	
+				var control_u = $select_u[0].selectize;
+				control_u.clear();
+				control_u.enable();
+			}
+		}
+		
+		$('#cmbareas').val(-1);
+		$('#cmbubicprim').val(-1);
+		$('#cmbubicsec').val(-1);
+		$("#cmbfamilia").val(-1);
+		$("#cmbsubfamilia").val(-1);
+		$('#cmbprpiedad').val('').trigger('change');
+		$('#cmbdepartamento').val('').trigger('change');
+		$('#cmbmotivo').val('').trigger('change');
+		$('#cmbtipoactivo').val('').trigger('change');
+		$('#cmbtipovale').val('').trigger('change');
+		$('#cmbclase').val(-1);
+		$('#cmbclasificacion').val(-1);
+		$('#cmbmarca').val('').trigger('change');
+		$('#cmbmodelo').val('').trigger('change');
+		$('#cmbnumserie').val('').trigger('change');
+		$("#txtActivo_Padre").val("");
+		$("#txtNo_Activo_Anterior").val("");
+		$('#cmbPRE').val('').trigger('change');
+		$('#cmbseguros').val('').trigger('change');
+		$("#txtImporte_Seguros").val("");
+		$('#cmbcertificacion').val('').trigger('change');
+		$("#txtGarantia").val("");
+		$("#txtExt_Garantia").val("");
+		$("#txtDesc_Larga").val("");
+		$("#txtDesc_Corta").val("");
+		$("#txtUbic_Especifica").val("");
+		//Enable checkboxes
+		$("#check_areas").prop( "checked", false );
+		$("#check_ubic_prim").prop( "checked", false );
+		$("#check_ubic_sec").prop( "checked", false );
+		$("#check_familia").prop( "checked", false );
+		$("#check_subfamilia").prop( "checked", false );
+		$("#check_propedad").prop( "checked", false );
+		//$("#check_departamento").prop( "checked", false );
+		$("#check_motivo").prop( "checked", false );
+		$("#check_tipoactivo").prop( "checked", false );
+		$("#check_tipovale").prop( "checked", false );
+		$("#check_clase").prop( "checked", false );
+		$("#check_clasificacion").prop( "checked", false );
+		$("#check_marca").prop( "checked", false );
+		$("#check_modelo").prop( "checked", false );
+		$("#check_no_serie").prop( "checked", false );
+		$("#check_activo_padre").prop( "checked", false );
+		$("#check_no_activo_anterior").prop( "checked", false );
+		$("#check_PRE").prop( "checked", false );
+		$("#check_seguros").prop( "checked", false );
+		$("#check_Importe_Seguros").prop( "checked", false );
+		$("#check_certificacion").prop( "checked", false );
+		$("#check_Garantia").prop( "checked", false );
+		$("#check_Ext_Garantia").prop( "checked", false );
+		$("#check_Baja").prop( "checked", false );
+		$("#check_Datos_Proveedor").prop( "checked", false );
+		$("#check_Datos_Contabilidad").prop( "checked", false );
+		$("#check_Desc_Larga").prop( "checked", false );
+		$("#check_Desc_Corta").prop( "checked", false );
+		$("#check_Ubic_Especifica").prop( "checked", false );	
+	}
+	
+	llenar_check=function(){
+		$("#check_areas").prop( "checked", true );
+		$("#check_ubic_prim").prop( "checked", true );
+		$("#check_ubic_sec").prop( "checked", true );
+		$("#check_familia").prop( "checked", true );
+		$("#check_subfamilia").prop( "checked", true );
+		$("#check_propedad").prop( "checked", true );
+		$("#check_departamento").prop( "checked", true );
+		$("#check_motivo").prop( "checked", true );
+		$("#check_tipoactivo").prop( "checked", true );
+		$("#check_tipovale").prop( "checked", true );
+		$("#check_clase").prop( "checked", true );
+		$("#check_clasificacion").prop( "checked", true );
+		$("#check_marca").prop( "checked", true );
+		$("#check_modelo").prop( "checked", true );
+		$("#check_no_serie").prop( "checked", true );
+		$("#check_activo_padre").prop( "checked", true );
+		$("#check_no_activo_anterior").prop( "checked", true );
+		$("#check_PRE").prop( "checked", true );
+		$("#check_seguros").prop( "checked", true );
+		$("#check_Importe_Seguros").prop( "checked", true );
+		$("#check_certificacion").prop( "checked", true );
+		$("#check_Garantia").prop( "checked", true );
+		$("#check_Ext_Garantia").prop( "checked", true );
+		$("#check_Baja").prop( "checked", true );
+		$("#check_Datos_Proveedor").prop( "checked", true );
+		$("#check_Datos_Contabilidad").prop( "checked", true );
+		$("#check_Desc_Larga").prop( "checked", true );
+		$("#check_Desc_Corta").prop( "checked", true );
+		$("#check_Ubic_Especifica").prop( "checked", true );
+	}
+	
+	limpiar_check=function(){
+		$("#check_areas").prop( "checked", false );
+		$("#check_ubic_prim").prop( "checked", false );
+		$("#check_ubic_sec").prop( "checked", false );
+		$("#check_familia").prop( "checked", false );
+		$("#check_subfamilia").prop( "checked", false );
+		$("#check_propedad").prop( "checked", false );
+		//$("#check_departamento").prop( "checked", false );
+		$("#check_motivo").prop( "checked", false );
+		$("#check_tipoactivo").prop( "checked", false );
+		$("#check_tipovale").prop( "checked", false );
+		$("#check_clase").prop( "checked", false );
+		$("#check_clasificacion").prop( "checked", false );
+		$("#check_marca").prop( "checked", false );
+		$("#check_modelo").prop( "checked", false );
+		$("#check_no_serie").prop( "checked", false );
+		$("#check_activo_padre").prop( "checked", false );
+		$("#check_no_activo_anterior").prop( "checked", false );
+		$("#check_PRE").prop( "checked", false );
+		$("#check_seguros").prop( "checked", false );
+		$("#check_Importe_Seguros").prop( "checked", false );
+		$("#check_certificacion").prop( "checked", false );
+		$("#check_Garantia").prop( "checked", false );
+		$("#check_Ext_Garantia").prop( "checked", false );
+		$("#check_Baja").prop( "checked", false );
+		$("#check_Datos_Proveedor").prop( "checked", false );
+		$("#check_Datos_Contabilidad").prop( "checked", false );
+		$("#check_Desc_Larga").prop( "checked", false );
+		$("#check_Desc_Corta").prop( "checked", false );
+		$("#check_Ubic_Especifica").prop( "checked", false );
+	}
+	
+
+	// Función que genera el reporte de Activos en formato Excel
+	reporte = function () {
+		$('#con').text(tabla2);
+		$('#cont').submit();
+	}
+});
+</script>

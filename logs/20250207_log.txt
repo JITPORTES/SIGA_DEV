@@ -1,0 +1,8 @@
+2025-02-07 14:26:01 -->Codigo->22018 Error -> SQLSTATE[22018]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Error de conversión al convertir el valor varchar 'null' al tipo de datos int. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query('UPDATE siga_act...')
+#1 C:\inetpub\expuestos\SIGA\datos\connect\Proveedor.Class.php(112): SqlServer->execute('UPDATE siga_act...')
+#2 C:\inetpub\expuestos\SIGA\modelos\activos\dao\siga_activos_contabilidad\Siga_activos_contabilidadDAO.Class.php(243): Proveedor->execute('UPDATE siga_act...')
+#3 C:\inetpub\expuestos\SIGA\controladores\activos\siga_activos_contabilidad\Siga_activos_contabilidadController.Class.php(50): Siga_activos_contabilidadDAO->updateSiga_activos_contabilidad(Object(Siga_activos_contabilidadDTO), NULL)
+#4 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_activos_contabilidad\Siga_activos_contabilidadFacade.Class.php(119): Siga_activos_contabilidadController->updateSiga_activos_contabilidad(Object(Siga_activos_contabilidadDTO))
+#5 C:\inetpub\expuestos\SIGA\fachadas\activos\siga_activos_contabilidad\Siga_activos_contabilidadFacade.Class.php(212): Siga_activos_contabilidadFacade->updateSiga_activos_contabilidad(Object(Siga_activos_contabilidadDTO))
+#6 {main} Query-> UPDATE siga_activos_contabilidad SET Id_Activo='43501',Centro_Costos='null',No_Capex='2251',Prorrateo='',Participa_Depreciacion='',Url_Factura='',Fech_Mod=getdate(),Usr_Mod='3',Estatus_Reg='2',Url_Xml='' WHERE Id_Activo_Contabilidad='16400'
+

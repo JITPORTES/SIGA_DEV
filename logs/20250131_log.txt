@@ -1,0 +1,2978 @@
+2025-01-31 7:28:23 -->Codigo->22007 Error -> SQLSTATE[22007]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Error al convertir una cadena de caracteres en fecha y/u hora. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query('; WITH TempResu...')
+#1 C:\inetpub\expuestos\SIGA\modelos\simple_mvc\ActivoFijoInventarioConsultasModel.Class.php(690): SqlServer->execute('; WITH TempResu...')
+#2 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(276): ActivoFijoInventarioConsultasModel->ActivoFijoInventarioConsultasReportesDataTableGet(Object(ActivoFijoInventarioConsultasModel))
+#3 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(57): ActivoFijoInventarioReportesController->ActivoFijoInventarioLlenarDataTable()
+#4 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(317): ActivoFijoInventarioReportesController->__construct()
+#5 {main} Query-> ; WITH TempResult AS( SELECT S.Id_Activo,
+					S.AF_BC,
+					S.Foto,
+					S.Nombre_Activo,
+					S.Marca,
+					S.Modelo,
+					S.NumSerie,
+					S.Nombre_Completo,
+					(select Nom_Area from siga_catareas A where A.id_Area = S.Id_Area) AS Id_Area,
+					(select Desc_Clasificacion from siga_cat_clasificacion C where C.Id_Clasificacion=S.Id_Clasificacion) as Clasificacion,
+					(select Des_Departamento from siga_cat_departamento D where D.Id_Departamento=S.Id_Departamento) as Id_Departamento,
+					(select Desc_Propiedad from siga_cat_propiedad C where C.Id_Propiedad = S.Id_Propiedad) as Id_Propiedad,
+					(select Desc_Estatus from siga_cat_estatus C where C.Id_Estatus=S.Id_Situacion_Activo) as Id_Situacion_Activo,
+					(select Desc_Tipo_Activo from siga_cat_tipo_activo T where T.Id_Tipo_Activo=S.Id_Tipo_Activo) as TipoActivo,DescCorta,
+					(select Desc_Ubic_Prim from siga_cat_ubic_prim T where T.Id_Ubic_Prim=S.Id_Ubic_Prim) as Id_Ubic_Prim,
+					(select Desc_Ubic_Sec from siga_cat_ubic_sec T where T.Id_Ubic_Sec=S.Id_Ubic_Sec) as Id_Ubic_Sec,
+					S.Especifica AS UbicacionEspecifica,
+					--isnull(S.Fech_Inser,'') as FechaAlta,
+					--FORMAT(CAST(S.Fech_Inser AS DATE),'yyyy-MM-dd') as FechaAlta,
+					FORMAT(CAST(S.Fech_Inser AS DATE),'yyyy-MM-dd') as Fech_Inser,
+					--FORMAT(S.Fech_Inser,'yyyy-MM-dd') as FechaAlta,
+					--convert(varchar,S.Fech_Inser,23) as FechaAlta,
+					S.Fech_Inser as FechaAlta,
+
+					--S.Fech_Inser,
+					(SELECT F.Desc_Familia FROM siga_cat_familia F WHERE F.Id_Familia = S.Id_Familia) AS Id_Familia,
+					(SELECT S_F.Desc_Subfamilia FROM siga_cat_subfamilia S_F WHERE S_F.Id_Subfamilia = S.Id_Subfamilia) AS Id_SubFamilia,
+					(SELECT M_A.Desc_Motivo_Alta FROM siga_cat_motivo_alta M_A WHERE M_A.Id_Motivo_Alta = S.Id_Motivo_Alta) AS Id_Motivo_Alta,
+					S.DescLarga,
+					(CASE WHEN S.ParticipaCertificacion = 1 THEN 'Si' ELSE 'No' END) AS ParticipaCertificacion,
+					(CASE WHEN S.ParticipaSeguros = 1 THEN 'Si' ELSE 'No' END) AS ParticipaSeguros,
+					S.Num_Empleado,
+					(SELECT V.Desc_Tipo_Vale_Resg FROM siga_cat_tipo_vale_resg V WHERE V.Id_Tipo_Vale_Resg = S.Id_Tipo_Vale_Resg) AS Id_Tipo_Vale_Resg,
+					S.Garantia,
+					S.ExtGarantia,
+					(SELECT U.Nombre_Usuario FROM siga_usuarios U WHERE U.Id_Usuario = S.Usr_Inser) AS Usr_Inser,
+					(SELECT T_A.Desc_Tipo_Activo FROM siga_cat_tipo_activo T_A WHERE T_A.Id_Tipo_Activo = S.Id_Tipo_Activo) AS Id_Tipo_Activo,
+					ISNULL((SELECT siga_condicion_de_recepcion_descripcion FROM siga_cat_condicion_de_recepcion WHERE siga_condicion_de_recepcion_id=s.siga_activos_condicion_recepcion),'') AS siga_activos_condicion_recepcion,
+					FORMAT(CAST(S.siga_activos_fch_recepcion_equipo AS DATE),'yyyy-MM-dd') AS siga_activos_fch_recepcion_equipo,					
+					FORMAT(CAST(S.siga_activos_fch_operacion AS DATE),'yyyy-MM-dd') AS siga_activos_fch_operacion,
+					/* Proveedores */
+					P.NumOrdenCompra,
+					P.NumFactura,
+					P.FechaFactura,
+					P.UUID,
+					P.Folio_Fiscal,
+					P.NumContrato,
+					P.VidaUtilFabricante,
+					P.VidaUtilCHS,
+					P.Fecha_Vencimiento,
+					P.NombreProveedor,
+					P.Contacto,
+					P.Telefono,
+					P.DocRecibida,
+					P.Correo,
+					P.Link,
+
+					/* Contabilidad */
+					(SELECT C_C.Desc_Centro_de_costos FROM siga_cat_centro_de_costos C_C WHERE C_C.Id_Centros_de_costos = C.Centro_Costos) AS Centro_Costos,
+					C.No_Capex,
+					C.Prorrateo,
+					(CASE WHEN C.Participa_Depreciacion = 1 THEN 'Si' ELSE 'No' END) AS Participa_Depreciacion,
+					C.Fecha_Inicio_Depr,
+					C.Cuent_Cont_Act,
+					C.Cuent_Cont_Act_B10,
+					C.Cuent_Cont_Result,
+					C.Cuent_Cont_Result_B10,
+					C.Cuent_Cont_Dep,
+					C.Cuent_Cont_Dep_B10,
+					
+					/* Mantenimiento Preventivo */
+					(SELECT TOP 1
+						(SELECT TOP 1 Desc_Frecuencia FROM siga_cat_frecuencia WHERE siga_cat_frecuencia.Id_Frecuencia = siga_actividades.Id_Frecuencia)
+						FROM siga_actividades WHERE siga_actividades.Id_Area=S.Id_Area AND siga_actividades.Id_Activo=S.Id_Activo ORDER BY Fech_Inser DESC
+					) AS Frecuencia,
+					(SELECT TOP 1 Realiza FROM siga_actividades WHERE siga_actividades.Id_Area = S.Id_Area AND siga_actividades.Id_Activo = S.Id_Activo ORDER BY Fech_Inser DESC) AS Realiza, 	(select top 1 CAST(MontoFactura as NUMERIC(10,2)) from siga_activo_proveedor T where T.Id_Activo=S.Id_Activo) AS MontoFactura,
+								(select top 1 CAST(Monto_F as NUMERIC(10,2)) from siga_activo_proveedor T where T.Id_Activo=S.Id_Activo) AS Monto_F,
+								CONVERT(NUMERIC(10,2), ImporteSeguros) AS ImporteSeguros, 	'' AS UbicacionPrimariaProcedencia,
+									'' AS UbicacionSecundariaProcedencia,
+									'' as Id_AreaReu,(select isnull(FORMAT(Fecha_Baja,'dd/MM/yyyy'),'') from siga_baja_activo A where A.Id_Activo=S.Id_Activo and Estatus_Cancelacion<>1) as Fecha_Baja,  (SELECT MAX(CveWorkflow) FROM siga_workflow_activos W_A WHERE W_A.Id_Activo = S.Id_Activo AND (Id_Baja IS NULL AND Id_Activo_Reubicacion IS NULL)) AS WorkFlowPaso, 	(SELECT MAX(CveWorkflow) FROM siga_workflow WHERE ProcesoNombre = 'tablaactivos' AND Aplica = 1) AS WorkFlowPasoTotal,
+								(SELECT COUNT(*) FROM siga_activo_accesorio_consumible A_C WHERE A_C.Id_Activo = S.Id_Activo) AS CuentaAccesoriosConsumibles
+				FROM siga_activos S
+				LEFT JOIN siga_activo_proveedor P ON P.Id_Activo = S.Id_Activo
+				LEFT JOIN (SELECT * FROM siga_activos_contabilidad WHERE Fech_Inser IS NOT NULL) C ON S.Id_Activo = C.Id_Activo
+				  where 0=0  AND S.Estatus_Reg <> 3  and S.Id_Area=1  AND (
+							S.Id_Activo not in (select Id_Activo from siga_baja_activo)
+							OR
+							S.Id_Activo IN (
+								SELECT B_1.Id_Activo
+								FROM siga_baja_activo B_1
+								INNER JOIN 
+									(
+										/*-- https://stackoverflow.com/questions/28722276/sql-select-top-1-for-each-group/28727802 --*/
+										SELECT TOP 1 WITH TIES
+											Id_Activo, Fecha_Baja AS UltimoRegistro, Id_baja AS UltimoMovimiento
+										FROM siga_baja_activo
+										ORDER BY
+											ROW_NUMBER() OVER(PARTITION BY Id_Activo ORDER BY Fecha_Baja DESC, Id_baja DESC)
+									) B_2
+								ON B_1.Fecha_Baja = B_2.UltimoRegistro
+								AND B_1.Id_Activo = B_2.Id_Activo
+								AND B_1.Id_Baja = B_2.UltimoMovimiento
+								WHERE
+								/*-- Cancelados y que siguen en operación --*/
+								B_1.Estatus_Cancelacion = 1 AND B_1.EstatusBaja = 0
+							)
+						) )
+						SELECT *, NumRegistrosConsulta = COUNT(*) OVER() FROM TempResult  ORDER BY Fech_Inser DESC  OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY 
+
+2025-01-31 7:56:01 -->Codigo->22007 Error -> SQLSTATE[22007]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Error al convertir una cadena de caracteres en fecha y/u hora. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query('; WITH TempResu...')
+#1 C:\inetpub\expuestos\SIGA\modelos\simple_mvc\ActivoFijoInventarioConsultasModel.Class.php(690): SqlServer->execute('; WITH TempResu...')
+#2 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(276): ActivoFijoInventarioConsultasModel->ActivoFijoInventarioConsultasReportesDataTableGet(Object(ActivoFijoInventarioConsultasModel))
+#3 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(57): ActivoFijoInventarioReportesController->ActivoFijoInventarioLlenarDataTable()
+#4 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(317): ActivoFijoInventarioReportesController->__construct()
+#5 {main} Query-> ; WITH TempResult AS( SELECT S.Id_Activo,
+					S.AF_BC,
+					S.Foto,
+					S.Nombre_Activo,
+					S.Marca,
+					S.Modelo,
+					S.NumSerie,
+					S.Nombre_Completo,
+					(select Nom_Area from siga_catareas A where A.id_Area = S.Id_Area) AS Id_Area,
+					(select Desc_Clasificacion from siga_cat_clasificacion C where C.Id_Clasificacion=S.Id_Clasificacion) as Clasificacion,
+					(select Des_Departamento from siga_cat_departamento D where D.Id_Departamento=S.Id_Departamento) as Id_Departamento,
+					(select Desc_Propiedad from siga_cat_propiedad C where C.Id_Propiedad = S.Id_Propiedad) as Id_Propiedad,
+					(select Desc_Estatus from siga_cat_estatus C where C.Id_Estatus=S.Id_Situacion_Activo) as Id_Situacion_Activo,
+					(select Desc_Tipo_Activo from siga_cat_tipo_activo T where T.Id_Tipo_Activo=S.Id_Tipo_Activo) as TipoActivo,DescCorta,
+					(select Desc_Ubic_Prim from siga_cat_ubic_prim T where T.Id_Ubic_Prim=S.Id_Ubic_Prim) as Id_Ubic_Prim,
+					(select Desc_Ubic_Sec from siga_cat_ubic_sec T where T.Id_Ubic_Sec=S.Id_Ubic_Sec) as Id_Ubic_Sec,
+					S.Especifica AS UbicacionEspecifica,
+					--isnull(S.Fech_Inser,'') as FechaAlta,
+					--FORMAT(CAST(S.Fech_Inser AS DATE),'yyyy-MM-dd') as FechaAlta,
+					FORMAT(CAST(S.Fech_Inser AS DATE),'yyyy-MM-dd') as Fech_Inser,
+					--FORMAT(S.Fech_Inser,'yyyy-MM-dd') as FechaAlta,
+					--convert(varchar,S.Fech_Inser,23) as FechaAlta,
+					S.Fech_Inser as FechaAlta,
+
+					--S.Fech_Inser,
+					(SELECT F.Desc_Familia FROM siga_cat_familia F WHERE F.Id_Familia = S.Id_Familia) AS Id_Familia,
+					(SELECT S_F.Desc_Subfamilia FROM siga_cat_subfamilia S_F WHERE S_F.Id_Subfamilia = S.Id_Subfamilia) AS Id_SubFamilia,
+					(SELECT M_A.Desc_Motivo_Alta FROM siga_cat_motivo_alta M_A WHERE M_A.Id_Motivo_Alta = S.Id_Motivo_Alta) AS Id_Motivo_Alta,
+					S.DescLarga,
+					(CASE WHEN S.ParticipaCertificacion = 1 THEN 'Si' ELSE 'No' END) AS ParticipaCertificacion,
+					(CASE WHEN S.ParticipaSeguros = 1 THEN 'Si' ELSE 'No' END) AS ParticipaSeguros,
+					S.Num_Empleado,
+					(SELECT V.Desc_Tipo_Vale_Resg FROM siga_cat_tipo_vale_resg V WHERE V.Id_Tipo_Vale_Resg = S.Id_Tipo_Vale_Resg) AS Id_Tipo_Vale_Resg,
+					S.Garantia,
+					S.ExtGarantia,
+					(SELECT U.Nombre_Usuario FROM siga_usuarios U WHERE U.Id_Usuario = S.Usr_Inser) AS Usr_Inser,
+					(SELECT T_A.Desc_Tipo_Activo FROM siga_cat_tipo_activo T_A WHERE T_A.Id_Tipo_Activo = S.Id_Tipo_Activo) AS Id_Tipo_Activo,
+					ISNULL((SELECT siga_condicion_de_recepcion_descripcion FROM siga_cat_condicion_de_recepcion WHERE siga_condicion_de_recepcion_id=s.siga_activos_condicion_recepcion),'') AS siga_activos_condicion_recepcion,
+					FORMAT(CAST(S.siga_activos_fch_recepcion_equipo AS DATE),'yyyy-MM-dd') AS siga_activos_fch_recepcion_equipo,					
+					FORMAT(CAST(S.siga_activos_fch_operacion AS DATE),'yyyy-MM-dd') AS siga_activos_fch_operacion,
+					/* Proveedores */
+					P.NumOrdenCompra,
+					P.NumFactura,
+					P.FechaFactura,
+					P.UUID,
+					P.Folio_Fiscal,
+					P.NumContrato,
+					P.VidaUtilFabricante,
+					P.VidaUtilCHS,
+					P.Fecha_Vencimiento,
+					P.NombreProveedor,
+					P.Contacto,
+					P.Telefono,
+					P.DocRecibida,
+					P.Correo,
+					P.Link,
+
+					/* Contabilidad */
+					(SELECT C_C.Desc_Centro_de_costos FROM siga_cat_centro_de_costos C_C WHERE C_C.Id_Centros_de_costos = C.Centro_Costos) AS Centro_Costos,
+					C.No_Capex,
+					C.Prorrateo,
+					(CASE WHEN C.Participa_Depreciacion = 1 THEN 'Si' ELSE 'No' END) AS Participa_Depreciacion,
+					C.Fecha_Inicio_Depr,
+					C.Cuent_Cont_Act,
+					C.Cuent_Cont_Act_B10,
+					C.Cuent_Cont_Result,
+					C.Cuent_Cont_Result_B10,
+					C.Cuent_Cont_Dep,
+					C.Cuent_Cont_Dep_B10,
+					
+					/* Mantenimiento Preventivo */
+					(SELECT TOP 1
+						(SELECT TOP 1 Desc_Frecuencia FROM siga_cat_frecuencia WHERE siga_cat_frecuencia.Id_Frecuencia = siga_actividades.Id_Frecuencia)
+						FROM siga_actividades WHERE siga_actividades.Id_Area=S.Id_Area AND siga_actividades.Id_Activo=S.Id_Activo ORDER BY Fech_Inser DESC
+					) AS Frecuencia,
+					(SELECT TOP 1 Realiza FROM siga_actividades WHERE siga_actividades.Id_Area = S.Id_Area AND siga_actividades.Id_Activo = S.Id_Activo ORDER BY Fech_Inser DESC) AS Realiza, 	(select top 1 CAST(MontoFactura as NUMERIC(10,2)) from siga_activo_proveedor T where T.Id_Activo=S.Id_Activo) AS MontoFactura,
+								(select top 1 CAST(Monto_F as NUMERIC(10,2)) from siga_activo_proveedor T where T.Id_Activo=S.Id_Activo) AS Monto_F,
+								CONVERT(NUMERIC(10,2), ImporteSeguros) AS ImporteSeguros, 	'' AS UbicacionPrimariaProcedencia,
+									'' AS UbicacionSecundariaProcedencia,
+									'' as Id_AreaReu,(select isnull(FORMAT(Fecha_Baja,'dd/MM/yyyy'),'') from siga_baja_activo A where A.Id_Activo=S.Id_Activo and Estatus_Cancelacion<>1) as Fecha_Baja,  (SELECT MAX(CveWorkflow) FROM siga_workflow_activos W_A WHERE W_A.Id_Activo = S.Id_Activo AND (Id_Baja IS NULL AND Id_Activo_Reubicacion IS NULL)) AS WorkFlowPaso, 	(SELECT MAX(CveWorkflow) FROM siga_workflow WHERE ProcesoNombre = 'tablaactivos' AND Aplica = 1) AS WorkFlowPasoTotal,
+								(SELECT COUNT(*) FROM siga_activo_accesorio_consumible A_C WHERE A_C.Id_Activo = S.Id_Activo) AS CuentaAccesoriosConsumibles
+				FROM siga_activos S
+				LEFT JOIN siga_activo_proveedor P ON P.Id_Activo = S.Id_Activo
+				LEFT JOIN (SELECT * FROM siga_activos_contabilidad WHERE Fech_Inser IS NOT NULL) C ON S.Id_Activo = C.Id_Activo
+				  where 0=0  AND S.Estatus_Reg <> 3  and S.Id_Area=1  AND (
+							S.Id_Activo not in (select Id_Activo from siga_baja_activo)
+							OR
+							S.Id_Activo IN (
+								SELECT B_1.Id_Activo
+								FROM siga_baja_activo B_1
+								INNER JOIN 
+									(
+										/*-- https://stackoverflow.com/questions/28722276/sql-select-top-1-for-each-group/28727802 --*/
+										SELECT TOP 1 WITH TIES
+											Id_Activo, Fecha_Baja AS UltimoRegistro, Id_baja AS UltimoMovimiento
+										FROM siga_baja_activo
+										ORDER BY
+											ROW_NUMBER() OVER(PARTITION BY Id_Activo ORDER BY Fecha_Baja DESC, Id_baja DESC)
+									) B_2
+								ON B_1.Fecha_Baja = B_2.UltimoRegistro
+								AND B_1.Id_Activo = B_2.Id_Activo
+								AND B_1.Id_Baja = B_2.UltimoMovimiento
+								WHERE
+								/*-- Cancelados y que siguen en operación --*/
+								B_1.Estatus_Cancelacion = 1 AND B_1.EstatusBaja = 0
+							)
+						) )
+						SELECT *, NumRegistrosConsulta = COUNT(*) OVER() FROM TempResult  ORDER BY Fech_Inser DESC  OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY 
+
+2025-01-31 7:59:40 -->Codigo->22007 Error -> SQLSTATE[22007]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Error al convertir una cadena de caracteres en fecha y/u hora. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query('; WITH TempResu...')
+#1 C:\inetpub\expuestos\SIGA\modelos\simple_mvc\ActivoFijoInventarioConsultasModel.Class.php(690): SqlServer->execute('; WITH TempResu...')
+#2 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(276): ActivoFijoInventarioConsultasModel->ActivoFijoInventarioConsultasReportesDataTableGet(Object(ActivoFijoInventarioConsultasModel))
+#3 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(57): ActivoFijoInventarioReportesController->ActivoFijoInventarioLlenarDataTable()
+#4 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(317): ActivoFijoInventarioReportesController->__construct()
+#5 {main} Query-> ; WITH TempResult AS( SELECT S.Id_Activo,
+					S.AF_BC,
+					S.Foto,
+					S.Nombre_Activo,
+					S.Marca,
+					S.Modelo,
+					S.NumSerie,
+					S.Nombre_Completo,
+					(select Nom_Area from siga_catareas A where A.id_Area = S.Id_Area) AS Id_Area,
+					(select Desc_Clasificacion from siga_cat_clasificacion C where C.Id_Clasificacion=S.Id_Clasificacion) as Clasificacion,
+					(select Des_Departamento from siga_cat_departamento D where D.Id_Departamento=S.Id_Departamento) as Id_Departamento,
+					(select Desc_Propiedad from siga_cat_propiedad C where C.Id_Propiedad = S.Id_Propiedad) as Id_Propiedad,
+					(select Desc_Estatus from siga_cat_estatus C where C.Id_Estatus=S.Id_Situacion_Activo) as Id_Situacion_Activo,
+					(select Desc_Tipo_Activo from siga_cat_tipo_activo T where T.Id_Tipo_Activo=S.Id_Tipo_Activo) as TipoActivo,DescCorta,
+					(select Desc_Ubic_Prim from siga_cat_ubic_prim T where T.Id_Ubic_Prim=S.Id_Ubic_Prim) as Id_Ubic_Prim,
+					(select Desc_Ubic_Sec from siga_cat_ubic_sec T where T.Id_Ubic_Sec=S.Id_Ubic_Sec) as Id_Ubic_Sec,
+					S.Especifica AS UbicacionEspecifica,
+					--isnull(S.Fech_Inser,'') as FechaAlta,
+					--FORMAT(CAST(S.Fech_Inser AS DATE),'yyyy-MM-dd') as FechaAlta,
+					FORMAT(CAST(S.Fech_Inser AS DATE),'yyyy-MM-dd') as Fech_Inser,
+					--FORMAT(S.Fech_Inser,'yyyy-MM-dd') as FechaAlta,
+					--convert(varchar,S.Fech_Inser,23) as FechaAlta,
+					S.Fech_Inser as FechaAlta,
+
+					--S.Fech_Inser,
+					(SELECT F.Desc_Familia FROM siga_cat_familia F WHERE F.Id_Familia = S.Id_Familia) AS Id_Familia,
+					(SELECT S_F.Desc_Subfamilia FROM siga_cat_subfamilia S_F WHERE S_F.Id_Subfamilia = S.Id_Subfamilia) AS Id_SubFamilia,
+					(SELECT M_A.Desc_Motivo_Alta FROM siga_cat_motivo_alta M_A WHERE M_A.Id_Motivo_Alta = S.Id_Motivo_Alta) AS Id_Motivo_Alta,
+					S.DescLarga,
+					(CASE WHEN S.ParticipaCertificacion = 1 THEN 'Si' ELSE 'No' END) AS ParticipaCertificacion,
+					(CASE WHEN S.ParticipaSeguros = 1 THEN 'Si' ELSE 'No' END) AS ParticipaSeguros,
+					S.Num_Empleado,
+					(SELECT V.Desc_Tipo_Vale_Resg FROM siga_cat_tipo_vale_resg V WHERE V.Id_Tipo_Vale_Resg = S.Id_Tipo_Vale_Resg) AS Id_Tipo_Vale_Resg,
+					S.Garantia,
+					S.ExtGarantia,
+					(SELECT U.Nombre_Usuario FROM siga_usuarios U WHERE U.Id_Usuario = S.Usr_Inser) AS Usr_Inser,
+					(SELECT T_A.Desc_Tipo_Activo FROM siga_cat_tipo_activo T_A WHERE T_A.Id_Tipo_Activo = S.Id_Tipo_Activo) AS Id_Tipo_Activo,
+					ISNULL((SELECT siga_condicion_de_recepcion_descripcion FROM siga_cat_condicion_de_recepcion WHERE siga_condicion_de_recepcion_id=s.siga_activos_condicion_recepcion),'') AS siga_activos_condicion_recepcion,
+					FORMAT(CAST(S.siga_activos_fch_recepcion_equipo AS DATE),'yyyy-MM-dd') AS siga_activos_fch_recepcion_equipo,					
+					FORMAT(CAST(S.siga_activos_fch_operacion AS DATE),'yyyy-MM-dd') AS siga_activos_fch_operacion,
+					/* Proveedores */
+					P.NumOrdenCompra,
+					P.NumFactura,
+					P.FechaFactura,
+					P.UUID,
+					P.Folio_Fiscal,
+					P.NumContrato,
+					P.VidaUtilFabricante,
+					P.VidaUtilCHS,
+					P.Fecha_Vencimiento,
+					P.NombreProveedor,
+					P.Contacto,
+					P.Telefono,
+					P.DocRecibida,
+					P.Correo,
+					P.Link,
+
+					/* Contabilidad */
+					(SELECT C_C.Desc_Centro_de_costos FROM siga_cat_centro_de_costos C_C WHERE C_C.Id_Centros_de_costos = C.Centro_Costos) AS Centro_Costos,
+					C.No_Capex,
+					C.Prorrateo,
+					(CASE WHEN C.Participa_Depreciacion = 1 THEN 'Si' ELSE 'No' END) AS Participa_Depreciacion,
+					C.Fecha_Inicio_Depr,
+					C.Cuent_Cont_Act,
+					C.Cuent_Cont_Act_B10,
+					C.Cuent_Cont_Result,
+					C.Cuent_Cont_Result_B10,
+					C.Cuent_Cont_Dep,
+					C.Cuent_Cont_Dep_B10,
+					
+					/* Mantenimiento Preventivo */
+					(SELECT TOP 1
+						(SELECT TOP 1 Desc_Frecuencia FROM siga_cat_frecuencia WHERE siga_cat_frecuencia.Id_Frecuencia = siga_actividades.Id_Frecuencia)
+						FROM siga_actividades WHERE siga_actividades.Id_Area=S.Id_Area AND siga_actividades.Id_Activo=S.Id_Activo ORDER BY Fech_Inser DESC
+					) AS Frecuencia,
+					(SELECT TOP 1 Realiza FROM siga_actividades WHERE siga_actividades.Id_Area = S.Id_Area AND siga_actividades.Id_Activo = S.Id_Activo ORDER BY Fech_Inser DESC) AS Realiza, 	(select top 1 CAST(MontoFactura as NUMERIC(10,2)) from siga_activo_proveedor T where T.Id_Activo=S.Id_Activo) AS MontoFactura,
+								(select top 1 CAST(Monto_F as NUMERIC(10,2)) from siga_activo_proveedor T where T.Id_Activo=S.Id_Activo) AS Monto_F,
+								CONVERT(NUMERIC(10,2), ImporteSeguros) AS ImporteSeguros, 	'' AS UbicacionPrimariaProcedencia,
+									'' AS UbicacionSecundariaProcedencia,
+									'' as Id_AreaReu,(select isnull(FORMAT(Fecha_Baja,'dd/MM/yyyy'),'') from siga_baja_activo A where A.Id_Activo=S.Id_Activo and Estatus_Cancelacion<>1) as Fecha_Baja,  (SELECT MAX(CveWorkflow) FROM siga_workflow_activos W_A WHERE W_A.Id_Activo = S.Id_Activo AND (Id_Baja IS NULL AND Id_Activo_Reubicacion IS NULL)) AS WorkFlowPaso, 	(SELECT MAX(CveWorkflow) FROM siga_workflow WHERE ProcesoNombre = 'tablaactivos' AND Aplica = 1) AS WorkFlowPasoTotal,
+								(SELECT COUNT(*) FROM siga_activo_accesorio_consumible A_C WHERE A_C.Id_Activo = S.Id_Activo) AS CuentaAccesoriosConsumibles
+				FROM siga_activos S
+				LEFT JOIN siga_activo_proveedor P ON P.Id_Activo = S.Id_Activo
+				LEFT JOIN (SELECT * FROM siga_activos_contabilidad WHERE Fech_Inser IS NOT NULL) C ON S.Id_Activo = C.Id_Activo
+				  where 0=0  AND S.Estatus_Reg <> 3  and S.Id_Area=1  AND (
+							S.Id_Activo not in (select Id_Activo from siga_baja_activo)
+							OR
+							S.Id_Activo IN (
+								SELECT B_1.Id_Activo
+								FROM siga_baja_activo B_1
+								INNER JOIN 
+									(
+										/*-- https://stackoverflow.com/questions/28722276/sql-select-top-1-for-each-group/28727802 --*/
+										SELECT TOP 1 WITH TIES
+											Id_Activo, Fecha_Baja AS UltimoRegistro, Id_baja AS UltimoMovimiento
+										FROM siga_baja_activo
+										ORDER BY
+											ROW_NUMBER() OVER(PARTITION BY Id_Activo ORDER BY Fecha_Baja DESC, Id_baja DESC)
+									) B_2
+								ON B_1.Fecha_Baja = B_2.UltimoRegistro
+								AND B_1.Id_Activo = B_2.Id_Activo
+								AND B_1.Id_Baja = B_2.UltimoMovimiento
+								WHERE
+								/*-- Cancelados y que siguen en operación --*/
+								B_1.Estatus_Cancelacion = 1 AND B_1.EstatusBaja = 0
+							)
+						) )
+						SELECT *, NumRegistrosConsulta = COUNT(*) OVER() FROM TempResult  ORDER BY Fech_Inser DESC  OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY 
+
+2025-01-31 8:08:05 -->Codigo->22007 Error -> SQLSTATE[22007]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Error al convertir una cadena de caracteres en fecha y/u hora. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query('; WITH TempResu...')
+#1 C:\inetpub\expuestos\SIGA\modelos\simple_mvc\ActivoFijoInventarioConsultasModel.Class.php(690): SqlServer->execute('; WITH TempResu...')
+#2 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(276): ActivoFijoInventarioConsultasModel->ActivoFijoInventarioConsultasReportesDataTableGet(Object(ActivoFijoInventarioConsultasModel))
+#3 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(57): ActivoFijoInventarioReportesController->ActivoFijoInventarioLlenarDataTable()
+#4 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(317): ActivoFijoInventarioReportesController->__construct()
+#5 {main} Query-> ; WITH TempResult AS( SELECT S.Id_Activo,
+					S.AF_BC,
+					S.Foto,
+					S.Nombre_Activo,
+					S.Marca,
+					S.Modelo,
+					S.NumSerie,
+					S.Nombre_Completo,
+					(select Nom_Area from siga_catareas A where A.id_Area = S.Id_Area) AS Id_Area,
+					(select Desc_Clasificacion from siga_cat_clasificacion C where C.Id_Clasificacion=S.Id_Clasificacion) as Clasificacion,
+					(select Des_Departamento from siga_cat_departamento D where D.Id_Departamento=S.Id_Departamento) as Id_Departamento,
+					(select Desc_Propiedad from siga_cat_propiedad C where C.Id_Propiedad = S.Id_Propiedad) as Id_Propiedad,
+					(select Desc_Estatus from siga_cat_estatus C where C.Id_Estatus=S.Id_Situacion_Activo) as Id_Situacion_Activo,
+					(select Desc_Tipo_Activo from siga_cat_tipo_activo T where T.Id_Tipo_Activo=S.Id_Tipo_Activo) as TipoActivo,DescCorta,
+					(select Desc_Ubic_Prim from siga_cat_ubic_prim T where T.Id_Ubic_Prim=S.Id_Ubic_Prim) as Id_Ubic_Prim,
+					(select Desc_Ubic_Sec from siga_cat_ubic_sec T where T.Id_Ubic_Sec=S.Id_Ubic_Sec) as Id_Ubic_Sec,
+					S.Especifica AS UbicacionEspecifica,
+					--isnull(S.Fech_Inser,'') as FechaAlta,
+					--FORMAT(CAST(S.Fech_Inser AS DATE),'yyyy-MM-dd') as FechaAlta,
+					FORMAT(CAST(S.Fech_Inser AS DATE),'yyyy-MM-dd') as Fech_Inser,
+					--FORMAT(S.Fech_Inser,'yyyy-MM-dd') as FechaAlta,
+					--convert(varchar,S.Fech_Inser,23) as FechaAlta,
+					S.Fech_Inser as FechaAlta,
+
+					--S.Fech_Inser,
+					(SELECT F.Desc_Familia FROM siga_cat_familia F WHERE F.Id_Familia = S.Id_Familia) AS Id_Familia,
+					(SELECT S_F.Desc_Subfamilia FROM siga_cat_subfamilia S_F WHERE S_F.Id_Subfamilia = S.Id_Subfamilia) AS Id_SubFamilia,
+					(SELECT M_A.Desc_Motivo_Alta FROM siga_cat_motivo_alta M_A WHERE M_A.Id_Motivo_Alta = S.Id_Motivo_Alta) AS Id_Motivo_Alta,
+					S.DescLarga,
+					(CASE WHEN S.ParticipaCertificacion = 1 THEN 'Si' ELSE 'No' END) AS ParticipaCertificacion,
+					(CASE WHEN S.ParticipaSeguros = 1 THEN 'Si' ELSE 'No' END) AS ParticipaSeguros,
+					S.Num_Empleado,
+					(SELECT V.Desc_Tipo_Vale_Resg FROM siga_cat_tipo_vale_resg V WHERE V.Id_Tipo_Vale_Resg = S.Id_Tipo_Vale_Resg) AS Id_Tipo_Vale_Resg,
+					S.Garantia,
+					S.ExtGarantia,
+					(SELECT U.Nombre_Usuario FROM siga_usuarios U WHERE U.Id_Usuario = S.Usr_Inser) AS Usr_Inser,
+					(SELECT T_A.Desc_Tipo_Activo FROM siga_cat_tipo_activo T_A WHERE T_A.Id_Tipo_Activo = S.Id_Tipo_Activo) AS Id_Tipo_Activo,
+					ISNULL((SELECT siga_condicion_de_recepcion_descripcion FROM siga_cat_condicion_de_recepcion WHERE siga_condicion_de_recepcion_id=s.siga_activos_condicion_recepcion),'') AS siga_activos_condicion_recepcion,
+					FORMAT(CAST(S.siga_activos_fch_recepcion_equipo AS DATE),'yyyy-MM-dd') AS siga_activos_fch_recepcion_equipo,					
+					FORMAT(CAST(S.siga_activos_fch_operacion AS DATE),'yyyy-MM-dd') AS siga_activos_fch_operacion,
+					/* Proveedores */
+					P.NumOrdenCompra,
+					P.NumFactura,
+					P.FechaFactura,
+					P.UUID,
+					P.Folio_Fiscal,
+					P.NumContrato,
+					P.VidaUtilFabricante,
+					P.VidaUtilCHS,
+					P.Fecha_Vencimiento,
+					P.NombreProveedor,
+					P.Contacto,
+					P.Telefono,
+					P.DocRecibida,
+					P.Correo,
+					P.Link,
+
+					/* Contabilidad */
+					(SELECT C_C.Desc_Centro_de_costos FROM siga_cat_centro_de_costos C_C WHERE C_C.Id_Centros_de_costos = C.Centro_Costos) AS Centro_Costos,
+					C.No_Capex,
+					C.Prorrateo,
+					(CASE WHEN C.Participa_Depreciacion = 1 THEN 'Si' ELSE 'No' END) AS Participa_Depreciacion,
+					C.Fecha_Inicio_Depr,
+					C.Cuent_Cont_Act,
+					C.Cuent_Cont_Act_B10,
+					C.Cuent_Cont_Result,
+					C.Cuent_Cont_Result_B10,
+					C.Cuent_Cont_Dep,
+					C.Cuent_Cont_Dep_B10,
+					
+					/* Mantenimiento Preventivo */
+					(SELECT TOP 1
+						(SELECT TOP 1 Desc_Frecuencia FROM siga_cat_frecuencia WHERE siga_cat_frecuencia.Id_Frecuencia = siga_actividades.Id_Frecuencia)
+						FROM siga_actividades WHERE siga_actividades.Id_Area=S.Id_Area AND siga_actividades.Id_Activo=S.Id_Activo ORDER BY Fech_Inser DESC
+					) AS Frecuencia,
+					(SELECT TOP 1 Realiza FROM siga_actividades WHERE siga_actividades.Id_Area = S.Id_Area AND siga_actividades.Id_Activo = S.Id_Activo ORDER BY Fech_Inser DESC) AS Realiza, 	(select top 1 CAST(MontoFactura as NUMERIC(10,2)) from siga_activo_proveedor T where T.Id_Activo=S.Id_Activo) AS MontoFactura,
+								(select top 1 CAST(Monto_F as NUMERIC(10,2)) from siga_activo_proveedor T where T.Id_Activo=S.Id_Activo) AS Monto_F,
+								CONVERT(NUMERIC(10,2), ImporteSeguros) AS ImporteSeguros, 	'' AS UbicacionPrimariaProcedencia,
+									'' AS UbicacionSecundariaProcedencia,
+									'' as Id_AreaReu,(select isnull(FORMAT(Fecha_Baja,'dd/MM/yyyy'),'') from siga_baja_activo A where A.Id_Activo=S.Id_Activo and Estatus_Cancelacion<>1) as Fecha_Baja,  (SELECT MAX(CveWorkflow) FROM siga_workflow_activos W_A WHERE W_A.Id_Activo = S.Id_Activo AND (Id_Baja IS NULL AND Id_Activo_Reubicacion IS NULL)) AS WorkFlowPaso, 	(SELECT MAX(CveWorkflow) FROM siga_workflow WHERE ProcesoNombre = 'tablaactivos' AND Aplica = 1) AS WorkFlowPasoTotal,
+								(SELECT COUNT(*) FROM siga_activo_accesorio_consumible A_C WHERE A_C.Id_Activo = S.Id_Activo) AS CuentaAccesoriosConsumibles
+				FROM siga_activos S
+				LEFT JOIN siga_activo_proveedor P ON P.Id_Activo = S.Id_Activo
+				LEFT JOIN (SELECT * FROM siga_activos_contabilidad WHERE Fech_Inser IS NOT NULL) C ON S.Id_Activo = C.Id_Activo
+				  where 0=0  AND S.Estatus_Reg <> 3  and S.Id_Area=1  AND (
+							S.Id_Activo not in (select Id_Activo from siga_baja_activo)
+							OR
+							S.Id_Activo IN (
+								SELECT B_1.Id_Activo
+								FROM siga_baja_activo B_1
+								INNER JOIN 
+									(
+										/*-- https://stackoverflow.com/questions/28722276/sql-select-top-1-for-each-group/28727802 --*/
+										SELECT TOP 1 WITH TIES
+											Id_Activo, Fecha_Baja AS UltimoRegistro, Id_baja AS UltimoMovimiento
+										FROM siga_baja_activo
+										ORDER BY
+											ROW_NUMBER() OVER(PARTITION BY Id_Activo ORDER BY Fecha_Baja DESC, Id_baja DESC)
+									) B_2
+								ON B_1.Fecha_Baja = B_2.UltimoRegistro
+								AND B_1.Id_Activo = B_2.Id_Activo
+								AND B_1.Id_Baja = B_2.UltimoMovimiento
+								WHERE
+								/*-- Cancelados y que siguen en operación --*/
+								B_1.Estatus_Cancelacion = 1 AND B_1.EstatusBaja = 0
+							)
+						) )
+						SELECT *, NumRegistrosConsulta = COUNT(*) OVER() FROM TempResult  ORDER BY Fech_Inser DESC  OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY 
+
+2025-01-31 8:41:32 -->Codigo->22007 Error -> SQLSTATE[22007]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Error al convertir una cadena de caracteres en fecha y/u hora. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query('; WITH TempResu...')
+#1 C:\inetpub\expuestos\SIGA\modelos\simple_mvc\ActivoFijoInventarioConsultasModel.Class.php(690): SqlServer->execute('; WITH TempResu...')
+#2 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(276): ActivoFijoInventarioConsultasModel->ActivoFijoInventarioConsultasReportesDataTableGet(Object(ActivoFijoInventarioConsultasModel))
+#3 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(57): ActivoFijoInventarioReportesController->ActivoFijoInventarioLlenarDataTable()
+#4 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(317): ActivoFijoInventarioReportesController->__construct()
+#5 {main} Query-> ; WITH TempResult AS( SELECT S.Id_Activo,
+					S.AF_BC,
+					S.Foto,
+					S.Nombre_Activo,
+					S.Marca,
+					S.Modelo,
+					S.NumSerie,
+					S.Nombre_Completo,
+					(select Nom_Area from siga_catareas A where A.id_Area = S.Id_Area) AS Id_Area,
+					(select Desc_Clasificacion from siga_cat_clasificacion C where C.Id_Clasificacion=S.Id_Clasificacion) as Clasificacion,
+					(select Des_Departamento from siga_cat_departamento D where D.Id_Departamento=S.Id_Departamento) as Id_Departamento,
+					(select Desc_Propiedad from siga_cat_propiedad C where C.Id_Propiedad = S.Id_Propiedad) as Id_Propiedad,
+					(select Desc_Estatus from siga_cat_estatus C where C.Id_Estatus=S.Id_Situacion_Activo) as Id_Situacion_Activo,
+					(select Desc_Tipo_Activo from siga_cat_tipo_activo T where T.Id_Tipo_Activo=S.Id_Tipo_Activo) as TipoActivo,DescCorta,
+					(select Desc_Ubic_Prim from siga_cat_ubic_prim T where T.Id_Ubic_Prim=S.Id_Ubic_Prim) as Id_Ubic_Prim,
+					(select Desc_Ubic_Sec from siga_cat_ubic_sec T where T.Id_Ubic_Sec=S.Id_Ubic_Sec) as Id_Ubic_Sec,
+					S.Especifica AS UbicacionEspecifica,
+					--isnull(S.Fech_Inser,'') as FechaAlta,
+					--FORMAT(CAST(S.Fech_Inser AS DATE),'yyyy-MM-dd') as FechaAlta,
+					FORMAT(CAST(S.Fech_Inser AS DATE),'yyyy-MM-dd') as Fech_Inser,
+					--FORMAT(S.Fech_Inser,'yyyy-MM-dd') as FechaAlta,
+					--convert(varchar,S.Fech_Inser,23) as FechaAlta,
+					S.Fech_Inser as FechaAlta,
+
+					--S.Fech_Inser,
+					(SELECT F.Desc_Familia FROM siga_cat_familia F WHERE F.Id_Familia = S.Id_Familia) AS Id_Familia,
+					(SELECT S_F.Desc_Subfamilia FROM siga_cat_subfamilia S_F WHERE S_F.Id_Subfamilia = S.Id_Subfamilia) AS Id_SubFamilia,
+					(SELECT M_A.Desc_Motivo_Alta FROM siga_cat_motivo_alta M_A WHERE M_A.Id_Motivo_Alta = S.Id_Motivo_Alta) AS Id_Motivo_Alta,
+					S.DescLarga,
+					(CASE WHEN S.ParticipaCertificacion = 1 THEN 'Si' ELSE 'No' END) AS ParticipaCertificacion,
+					(CASE WHEN S.ParticipaSeguros = 1 THEN 'Si' ELSE 'No' END) AS ParticipaSeguros,
+					S.Num_Empleado,
+					(SELECT V.Desc_Tipo_Vale_Resg FROM siga_cat_tipo_vale_resg V WHERE V.Id_Tipo_Vale_Resg = S.Id_Tipo_Vale_Resg) AS Id_Tipo_Vale_Resg,
+					S.Garantia,
+					S.ExtGarantia,
+					(SELECT U.Nombre_Usuario FROM siga_usuarios U WHERE U.Id_Usuario = S.Usr_Inser) AS Usr_Inser,
+					(SELECT T_A.Desc_Tipo_Activo FROM siga_cat_tipo_activo T_A WHERE T_A.Id_Tipo_Activo = S.Id_Tipo_Activo) AS Id_Tipo_Activo,
+					ISNULL((SELECT siga_condicion_de_recepcion_descripcion FROM siga_cat_condicion_de_recepcion WHERE siga_condicion_de_recepcion_id=s.siga_activos_condicion_recepcion),'') AS siga_activos_condicion_recepcion,
+					FORMAT(CAST(S.siga_activos_fch_recepcion_equipo AS DATE),'yyyy-MM-dd') AS siga_activos_fch_recepcion_equipo,					
+					FORMAT(CAST(S.siga_activos_fch_operacion AS DATE),'yyyy-MM-dd') AS siga_activos_fch_operacion,
+					/* Proveedores */
+					P.NumOrdenCompra,
+					P.NumFactura,
+					P.FechaFactura,
+					P.UUID,
+					P.Folio_Fiscal,
+					P.NumContrato,
+					P.VidaUtilFabricante,
+					P.VidaUtilCHS,
+					P.Fecha_Vencimiento,
+					P.NombreProveedor,
+					P.Contacto,
+					P.Telefono,
+					P.DocRecibida,
+					P.Correo,
+					P.Link,
+
+					/* Contabilidad */
+					(SELECT C_C.Desc_Centro_de_costos FROM siga_cat_centro_de_costos C_C WHERE C_C.Id_Centros_de_costos = C.Centro_Costos) AS Centro_Costos,
+					C.No_Capex,
+					C.Prorrateo,
+					(CASE WHEN C.Participa_Depreciacion = 1 THEN 'Si' ELSE 'No' END) AS Participa_Depreciacion,
+					C.Fecha_Inicio_Depr,
+					C.Cuent_Cont_Act,
+					C.Cuent_Cont_Act_B10,
+					C.Cuent_Cont_Result,
+					C.Cuent_Cont_Result_B10,
+					C.Cuent_Cont_Dep,
+					C.Cuent_Cont_Dep_B10,
+					
+					/* Mantenimiento Preventivo */
+					(SELECT TOP 1
+						(SELECT TOP 1 Desc_Frecuencia FROM siga_cat_frecuencia WHERE siga_cat_frecuencia.Id_Frecuencia = siga_actividades.Id_Frecuencia)
+						FROM siga_actividades WHERE siga_actividades.Id_Area=S.Id_Area AND siga_actividades.Id_Activo=S.Id_Activo ORDER BY Fech_Inser DESC
+					) AS Frecuencia,
+					(SELECT TOP 1 Realiza FROM siga_actividades WHERE siga_actividades.Id_Area = S.Id_Area AND siga_actividades.Id_Activo = S.Id_Activo ORDER BY Fech_Inser DESC) AS Realiza, 	(select top 1 CAST(MontoFactura as NUMERIC(10,2)) from siga_activo_proveedor T where T.Id_Activo=S.Id_Activo) AS MontoFactura,
+								(select top 1 CAST(Monto_F as NUMERIC(10,2)) from siga_activo_proveedor T where T.Id_Activo=S.Id_Activo) AS Monto_F,
+								CONVERT(NUMERIC(10,2), ImporteSeguros) AS ImporteSeguros, 	'' AS UbicacionPrimariaProcedencia,
+									'' AS UbicacionSecundariaProcedencia,
+									'' as Id_AreaReu,(select isnull(FORMAT(Fecha_Baja,'dd/MM/yyyy'),'') from siga_baja_activo A where A.Id_Activo=S.Id_Activo and Estatus_Cancelacion<>1) as Fecha_Baja,  (SELECT MAX(CveWorkflow) FROM siga_workflow_activos W_A WHERE W_A.Id_Activo = S.Id_Activo AND (Id_Baja IS NULL AND Id_Activo_Reubicacion IS NULL)) AS WorkFlowPaso, 	(SELECT MAX(CveWorkflow) FROM siga_workflow WHERE ProcesoNombre = 'tablaactivos' AND Aplica = 1) AS WorkFlowPasoTotal,
+								(SELECT COUNT(*) FROM siga_activo_accesorio_consumible A_C WHERE A_C.Id_Activo = S.Id_Activo) AS CuentaAccesoriosConsumibles
+				FROM siga_activos S
+				LEFT JOIN siga_activo_proveedor P ON P.Id_Activo = S.Id_Activo
+				LEFT JOIN (SELECT * FROM siga_activos_contabilidad WHERE Fech_Inser IS NOT NULL) C ON S.Id_Activo = C.Id_Activo
+				  where 0=0  AND S.Estatus_Reg <> 3  and S.Id_Area=1  AND (
+							S.Id_Activo not in (select Id_Activo from siga_baja_activo)
+							OR
+							S.Id_Activo IN (
+								SELECT B_1.Id_Activo
+								FROM siga_baja_activo B_1
+								INNER JOIN 
+									(
+										/*-- https://stackoverflow.com/questions/28722276/sql-select-top-1-for-each-group/28727802 --*/
+										SELECT TOP 1 WITH TIES
+											Id_Activo, Fecha_Baja AS UltimoRegistro, Id_baja AS UltimoMovimiento
+										FROM siga_baja_activo
+										ORDER BY
+											ROW_NUMBER() OVER(PARTITION BY Id_Activo ORDER BY Fecha_Baja DESC, Id_baja DESC)
+									) B_2
+								ON B_1.Fecha_Baja = B_2.UltimoRegistro
+								AND B_1.Id_Activo = B_2.Id_Activo
+								AND B_1.Id_Baja = B_2.UltimoMovimiento
+								WHERE
+								/*-- Cancelados y que siguen en operación --*/
+								B_1.Estatus_Cancelacion = 1 AND B_1.EstatusBaja = 0
+							)
+						) )
+						SELECT *, NumRegistrosConsulta = COUNT(*) OVER() FROM TempResult  ORDER BY Fech_Inser DESC  OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY 
+
+2025-01-31 8:49:47 -->Codigo->22007 Error -> SQLSTATE[22007]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Error al convertir una cadena de caracteres en fecha y/u hora. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query('; WITH TempResu...')
+#1 C:\inetpub\expuestos\SIGA\modelos\simple_mvc\ActivoFijoInventarioConsultasModel.Class.php(690): SqlServer->execute('; WITH TempResu...')
+#2 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(276): ActivoFijoInventarioConsultasModel->ActivoFijoInventarioConsultasReportesDataTableGet(Object(ActivoFijoInventarioConsultasModel))
+#3 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(57): ActivoFijoInventarioReportesController->ActivoFijoInventarioLlenarDataTable()
+#4 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(317): ActivoFijoInventarioReportesController->__construct()
+#5 {main} Query-> ; WITH TempResult AS( SELECT S.Id_Activo,
+					S.AF_BC,
+					S.Foto,
+					S.Nombre_Activo,
+					S.Marca,
+					S.Modelo,
+					S.NumSerie,
+					S.Nombre_Completo,
+					(select Nom_Area from siga_catareas A where A.id_Area = S.Id_Area) AS Id_Area,
+					(select Desc_Clasificacion from siga_cat_clasificacion C where C.Id_Clasificacion=S.Id_Clasificacion) as Clasificacion,
+					(select Des_Departamento from siga_cat_departamento D where D.Id_Departamento=S.Id_Departamento) as Id_Departamento,
+					(select Desc_Propiedad from siga_cat_propiedad C where C.Id_Propiedad = S.Id_Propiedad) as Id_Propiedad,
+					(select Desc_Estatus from siga_cat_estatus C where C.Id_Estatus=S.Id_Situacion_Activo) as Id_Situacion_Activo,
+					(select Desc_Tipo_Activo from siga_cat_tipo_activo T where T.Id_Tipo_Activo=S.Id_Tipo_Activo) as TipoActivo,DescCorta,
+					(select Desc_Ubic_Prim from siga_cat_ubic_prim T where T.Id_Ubic_Prim=S.Id_Ubic_Prim) as Id_Ubic_Prim,
+					(select Desc_Ubic_Sec from siga_cat_ubic_sec T where T.Id_Ubic_Sec=S.Id_Ubic_Sec) as Id_Ubic_Sec,
+					S.Especifica AS UbicacionEspecifica,
+					--isnull(S.Fech_Inser,'') as FechaAlta,
+					--FORMAT(CAST(S.Fech_Inser AS DATE),'yyyy-MM-dd') as FechaAlta,
+					FORMAT(CAST(S.Fech_Inser AS DATE),'yyyy-MM-dd') as Fech_Inser,
+					--FORMAT(S.Fech_Inser,'yyyy-MM-dd') as FechaAlta,
+					--convert(varchar,S.Fech_Inser,23) as FechaAlta,
+					S.Fech_Inser as FechaAlta,
+
+					--S.Fech_Inser,
+					(SELECT F.Desc_Familia FROM siga_cat_familia F WHERE F.Id_Familia = S.Id_Familia) AS Id_Familia,
+					(SELECT S_F.Desc_Subfamilia FROM siga_cat_subfamilia S_F WHERE S_F.Id_Subfamilia = S.Id_Subfamilia) AS Id_SubFamilia,
+					(SELECT M_A.Desc_Motivo_Alta FROM siga_cat_motivo_alta M_A WHERE M_A.Id_Motivo_Alta = S.Id_Motivo_Alta) AS Id_Motivo_Alta,
+					S.DescLarga,
+					(CASE WHEN S.ParticipaCertificacion = 1 THEN 'Si' ELSE 'No' END) AS ParticipaCertificacion,
+					(CASE WHEN S.ParticipaSeguros = 1 THEN 'Si' ELSE 'No' END) AS ParticipaSeguros,
+					S.Num_Empleado,
+					(SELECT V.Desc_Tipo_Vale_Resg FROM siga_cat_tipo_vale_resg V WHERE V.Id_Tipo_Vale_Resg = S.Id_Tipo_Vale_Resg) AS Id_Tipo_Vale_Resg,
+					S.Garantia,
+					S.ExtGarantia,
+					(SELECT U.Nombre_Usuario FROM siga_usuarios U WHERE U.Id_Usuario = S.Usr_Inser) AS Usr_Inser,
+					(SELECT T_A.Desc_Tipo_Activo FROM siga_cat_tipo_activo T_A WHERE T_A.Id_Tipo_Activo = S.Id_Tipo_Activo) AS Id_Tipo_Activo,
+					ISNULL((SELECT siga_condicion_de_recepcion_descripcion FROM siga_cat_condicion_de_recepcion WHERE siga_condicion_de_recepcion_id=s.siga_activos_condicion_recepcion),'') AS siga_activos_condicion_recepcion,
+					FORMAT(CAST(S.siga_activos_fch_recepcion_equipo AS DATE),'yyyy-MM-dd') AS siga_activos_fch_recepcion_equipo,					
+					FORMAT(CAST(S.siga_activos_fch_operacion AS DATE),'yyyy-MM-dd') AS siga_activos_fch_operacion,
+					/* Proveedores */
+					P.NumOrdenCompra,
+					P.NumFactura,
+					P.FechaFactura,
+					P.UUID,
+					P.Folio_Fiscal,
+					P.NumContrato,
+					P.VidaUtilFabricante,
+					P.VidaUtilCHS,
+					P.Fecha_Vencimiento,
+					P.NombreProveedor,
+					P.Contacto,
+					P.Telefono,
+					P.DocRecibida,
+					P.Correo,
+					P.Link,
+
+					/* Contabilidad */
+					(SELECT C_C.Desc_Centro_de_costos FROM siga_cat_centro_de_costos C_C WHERE C_C.Id_Centros_de_costos = C.Centro_Costos) AS Centro_Costos,
+					C.No_Capex,
+					C.Prorrateo,
+					(CASE WHEN C.Participa_Depreciacion = 1 THEN 'Si' ELSE 'No' END) AS Participa_Depreciacion,
+					C.Fecha_Inicio_Depr,
+					C.Cuent_Cont_Act,
+					C.Cuent_Cont_Act_B10,
+					C.Cuent_Cont_Result,
+					C.Cuent_Cont_Result_B10,
+					C.Cuent_Cont_Dep,
+					C.Cuent_Cont_Dep_B10,
+					
+					/* Mantenimiento Preventivo */
+					(SELECT TOP 1
+						(SELECT TOP 1 Desc_Frecuencia FROM siga_cat_frecuencia WHERE siga_cat_frecuencia.Id_Frecuencia = siga_actividades.Id_Frecuencia)
+						FROM siga_actividades WHERE siga_actividades.Id_Area=S.Id_Area AND siga_actividades.Id_Activo=S.Id_Activo ORDER BY Fech_Inser DESC
+					) AS Frecuencia,
+					(SELECT TOP 1 Realiza FROM siga_actividades WHERE siga_actividades.Id_Area = S.Id_Area AND siga_actividades.Id_Activo = S.Id_Activo ORDER BY Fech_Inser DESC) AS Realiza, 	(select top 1 CAST(MontoFactura as NUMERIC(10,2)) from siga_activo_proveedor T where T.Id_Activo=S.Id_Activo) AS MontoFactura,
+								(select top 1 CAST(Monto_F as NUMERIC(10,2)) from siga_activo_proveedor T where T.Id_Activo=S.Id_Activo) AS Monto_F,
+								CONVERT(NUMERIC(10,2), ImporteSeguros) AS ImporteSeguros, 	'' AS UbicacionPrimariaProcedencia,
+									'' AS UbicacionSecundariaProcedencia,
+									'' as Id_AreaReu,(select isnull(FORMAT(Fecha_Baja,'dd/MM/yyyy'),'') from siga_baja_activo A where A.Id_Activo=S.Id_Activo and Estatus_Cancelacion<>1) as Fecha_Baja,  (SELECT MAX(CveWorkflow) FROM siga_workflow_activos W_A WHERE W_A.Id_Activo = S.Id_Activo AND (Id_Baja IS NULL AND Id_Activo_Reubicacion IS NULL)) AS WorkFlowPaso, 	(SELECT MAX(CveWorkflow) FROM siga_workflow WHERE ProcesoNombre = 'tablaactivos' AND Aplica = 1) AS WorkFlowPasoTotal,
+								(SELECT COUNT(*) FROM siga_activo_accesorio_consumible A_C WHERE A_C.Id_Activo = S.Id_Activo) AS CuentaAccesoriosConsumibles
+				FROM siga_activos S
+				LEFT JOIN siga_activo_proveedor P ON P.Id_Activo = S.Id_Activo
+				LEFT JOIN (SELECT * FROM siga_activos_contabilidad WHERE Fech_Inser IS NOT NULL) C ON S.Id_Activo = C.Id_Activo
+				  where 0=0  AND S.Estatus_Reg <> 3  and S.Id_Area=1  AND (
+							S.Id_Activo not in (select Id_Activo from siga_baja_activo)
+							OR
+							S.Id_Activo IN (
+								SELECT B_1.Id_Activo
+								FROM siga_baja_activo B_1
+								INNER JOIN 
+									(
+										/*-- https://stackoverflow.com/questions/28722276/sql-select-top-1-for-each-group/28727802 --*/
+										SELECT TOP 1 WITH TIES
+											Id_Activo, Fecha_Baja AS UltimoRegistro, Id_baja AS UltimoMovimiento
+										FROM siga_baja_activo
+										ORDER BY
+											ROW_NUMBER() OVER(PARTITION BY Id_Activo ORDER BY Fecha_Baja DESC, Id_baja DESC)
+									) B_2
+								ON B_1.Fecha_Baja = B_2.UltimoRegistro
+								AND B_1.Id_Activo = B_2.Id_Activo
+								AND B_1.Id_Baja = B_2.UltimoMovimiento
+								WHERE
+								/*-- Cancelados y que siguen en operación --*/
+								B_1.Estatus_Cancelacion = 1 AND B_1.EstatusBaja = 0
+							)
+						) )
+						SELECT *, NumRegistrosConsulta = COUNT(*) OVER() FROM TempResult  ORDER BY Fech_Inser DESC  OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY 
+
+2025-01-31 8:49:53 -->Codigo->22007 Error -> SQLSTATE[22007]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Error al convertir una cadena de caracteres en fecha y/u hora. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query('; WITH TempResu...')
+#1 C:\inetpub\expuestos\SIGA\modelos\simple_mvc\ActivoFijoInventarioConsultasModel.Class.php(690): SqlServer->execute('; WITH TempResu...')
+#2 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(276): ActivoFijoInventarioConsultasModel->ActivoFijoInventarioConsultasReportesDataTableGet(Object(ActivoFijoInventarioConsultasModel))
+#3 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(57): ActivoFijoInventarioReportesController->ActivoFijoInventarioLlenarDataTable()
+#4 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(317): ActivoFijoInventarioReportesController->__construct()
+#5 {main} Query-> ; WITH TempResult AS( SELECT S.Id_Activo,
+					S.AF_BC,
+					S.Foto,
+					S.Nombre_Activo,
+					S.Marca,
+					S.Modelo,
+					S.NumSerie,
+					S.Nombre_Completo,
+					(select Nom_Area from siga_catareas A where A.id_Area = S.Id_Area) AS Id_Area,
+					(select Desc_Clasificacion from siga_cat_clasificacion C where C.Id_Clasificacion=S.Id_Clasificacion) as Clasificacion,
+					(select Des_Departamento from siga_cat_departamento D where D.Id_Departamento=S.Id_Departamento) as Id_Departamento,
+					(select Desc_Propiedad from siga_cat_propiedad C where C.Id_Propiedad = S.Id_Propiedad) as Id_Propiedad,
+					(select Desc_Estatus from siga_cat_estatus C where C.Id_Estatus=S.Id_Situacion_Activo) as Id_Situacion_Activo,
+					(select Desc_Tipo_Activo from siga_cat_tipo_activo T where T.Id_Tipo_Activo=S.Id_Tipo_Activo) as TipoActivo,DescCorta,
+					(select Desc_Ubic_Prim from siga_cat_ubic_prim T where T.Id_Ubic_Prim=S.Id_Ubic_Prim) as Id_Ubic_Prim,
+					(select Desc_Ubic_Sec from siga_cat_ubic_sec T where T.Id_Ubic_Sec=S.Id_Ubic_Sec) as Id_Ubic_Sec,
+					S.Especifica AS UbicacionEspecifica,
+					--isnull(S.Fech_Inser,'') as FechaAlta,
+					--FORMAT(CAST(S.Fech_Inser AS DATE),'yyyy-MM-dd') as FechaAlta,
+					FORMAT(CAST(S.Fech_Inser AS DATE),'yyyy-MM-dd') as Fech_Inser,
+					--FORMAT(S.Fech_Inser,'yyyy-MM-dd') as FechaAlta,
+					--convert(varchar,S.Fech_Inser,23) as FechaAlta,
+					S.Fech_Inser as FechaAlta,
+
+					--S.Fech_Inser,
+					(SELECT F.Desc_Familia FROM siga_cat_familia F WHERE F.Id_Familia = S.Id_Familia) AS Id_Familia,
+					(SELECT S_F.Desc_Subfamilia FROM siga_cat_subfamilia S_F WHERE S_F.Id_Subfamilia = S.Id_Subfamilia) AS Id_SubFamilia,
+					(SELECT M_A.Desc_Motivo_Alta FROM siga_cat_motivo_alta M_A WHERE M_A.Id_Motivo_Alta = S.Id_Motivo_Alta) AS Id_Motivo_Alta,
+					S.DescLarga,
+					(CASE WHEN S.ParticipaCertificacion = 1 THEN 'Si' ELSE 'No' END) AS ParticipaCertificacion,
+					(CASE WHEN S.ParticipaSeguros = 1 THEN 'Si' ELSE 'No' END) AS ParticipaSeguros,
+					S.Num_Empleado,
+					(SELECT V.Desc_Tipo_Vale_Resg FROM siga_cat_tipo_vale_resg V WHERE V.Id_Tipo_Vale_Resg = S.Id_Tipo_Vale_Resg) AS Id_Tipo_Vale_Resg,
+					S.Garantia,
+					S.ExtGarantia,
+					(SELECT U.Nombre_Usuario FROM siga_usuarios U WHERE U.Id_Usuario = S.Usr_Inser) AS Usr_Inser,
+					(SELECT T_A.Desc_Tipo_Activo FROM siga_cat_tipo_activo T_A WHERE T_A.Id_Tipo_Activo = S.Id_Tipo_Activo) AS Id_Tipo_Activo,
+					ISNULL((SELECT siga_condicion_de_recepcion_descripcion FROM siga_cat_condicion_de_recepcion WHERE siga_condicion_de_recepcion_id=s.siga_activos_condicion_recepcion),'') AS siga_activos_condicion_recepcion,
+					FORMAT(CAST(S.siga_activos_fch_recepcion_equipo AS DATE),'yyyy-MM-dd') AS siga_activos_fch_recepcion_equipo,					
+					FORMAT(CAST(S.siga_activos_fch_operacion AS DATE),'yyyy-MM-dd') AS siga_activos_fch_operacion,
+					/* Proveedores */
+					P.NumOrdenCompra,
+					P.NumFactura,
+					P.FechaFactura,
+					P.UUID,
+					P.Folio_Fiscal,
+					P.NumContrato,
+					P.VidaUtilFabricante,
+					P.VidaUtilCHS,
+					P.Fecha_Vencimiento,
+					P.NombreProveedor,
+					P.Contacto,
+					P.Telefono,
+					P.DocRecibida,
+					P.Correo,
+					P.Link,
+
+					/* Contabilidad */
+					(SELECT C_C.Desc_Centro_de_costos FROM siga_cat_centro_de_costos C_C WHERE C_C.Id_Centros_de_costos = C.Centro_Costos) AS Centro_Costos,
+					C.No_Capex,
+					C.Prorrateo,
+					(CASE WHEN C.Participa_Depreciacion = 1 THEN 'Si' ELSE 'No' END) AS Participa_Depreciacion,
+					C.Fecha_Inicio_Depr,
+					C.Cuent_Cont_Act,
+					C.Cuent_Cont_Act_B10,
+					C.Cuent_Cont_Result,
+					C.Cuent_Cont_Result_B10,
+					C.Cuent_Cont_Dep,
+					C.Cuent_Cont_Dep_B10,
+					
+					/* Mantenimiento Preventivo */
+					(SELECT TOP 1
+						(SELECT TOP 1 Desc_Frecuencia FROM siga_cat_frecuencia WHERE siga_cat_frecuencia.Id_Frecuencia = siga_actividades.Id_Frecuencia)
+						FROM siga_actividades WHERE siga_actividades.Id_Area=S.Id_Area AND siga_actividades.Id_Activo=S.Id_Activo ORDER BY Fech_Inser DESC
+					) AS Frecuencia,
+					(SELECT TOP 1 Realiza FROM siga_actividades WHERE siga_actividades.Id_Area = S.Id_Area AND siga_actividades.Id_Activo = S.Id_Activo ORDER BY Fech_Inser DESC) AS Realiza, 	(select top 1 CAST(MontoFactura as NUMERIC(10,2)) from siga_activo_proveedor T where T.Id_Activo=S.Id_Activo) AS MontoFactura,
+								(select top 1 CAST(Monto_F as NUMERIC(10,2)) from siga_activo_proveedor T where T.Id_Activo=S.Id_Activo) AS Monto_F,
+								CONVERT(NUMERIC(10,2), ImporteSeguros) AS ImporteSeguros, 	'' AS UbicacionPrimariaProcedencia,
+									'' AS UbicacionSecundariaProcedencia,
+									'' as Id_AreaReu,(select isnull(FORMAT(Fecha_Baja,'dd/MM/yyyy'),'') from siga_baja_activo A where A.Id_Activo=S.Id_Activo and Estatus_Cancelacion<>1) as Fecha_Baja,  (SELECT MAX(CveWorkflow) FROM siga_workflow_activos W_A WHERE W_A.Id_Activo = S.Id_Activo AND (Id_Baja IS NULL AND Id_Activo_Reubicacion IS NULL)) AS WorkFlowPaso, 	(SELECT MAX(CveWorkflow) FROM siga_workflow WHERE ProcesoNombre = 'tablaactivos' AND Aplica = 1) AS WorkFlowPasoTotal,
+								(SELECT COUNT(*) FROM siga_activo_accesorio_consumible A_C WHERE A_C.Id_Activo = S.Id_Activo) AS CuentaAccesoriosConsumibles
+				FROM siga_activos S
+				LEFT JOIN siga_activo_proveedor P ON P.Id_Activo = S.Id_Activo
+				LEFT JOIN (SELECT * FROM siga_activos_contabilidad WHERE Fech_Inser IS NOT NULL) C ON S.Id_Activo = C.Id_Activo
+				  where 0=0  AND S.Estatus_Reg <> 3  and S.Id_Area=1  AND (
+							S.Id_Activo not in (select Id_Activo from siga_baja_activo)
+							OR
+							S.Id_Activo IN (
+								SELECT B_1.Id_Activo
+								FROM siga_baja_activo B_1
+								INNER JOIN 
+									(
+										/*-- https://stackoverflow.com/questions/28722276/sql-select-top-1-for-each-group/28727802 --*/
+										SELECT TOP 1 WITH TIES
+											Id_Activo, Fecha_Baja AS UltimoRegistro, Id_baja AS UltimoMovimiento
+										FROM siga_baja_activo
+										ORDER BY
+											ROW_NUMBER() OVER(PARTITION BY Id_Activo ORDER BY Fecha_Baja DESC, Id_baja DESC)
+									) B_2
+								ON B_1.Fecha_Baja = B_2.UltimoRegistro
+								AND B_1.Id_Activo = B_2.Id_Activo
+								AND B_1.Id_Baja = B_2.UltimoMovimiento
+								WHERE
+								/*-- Cancelados y que siguen en operación --*/
+								B_1.Estatus_Cancelacion = 1 AND B_1.EstatusBaja = 0
+							)
+						) )
+						SELECT *, NumRegistrosConsulta = COUNT(*) OVER() FROM TempResult  ORDER BY Fech_Inser DESC  OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY 
+
+2025-01-31 8:50:01 -->Codigo->22007 Error -> SQLSTATE[22007]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Error al convertir una cadena de caracteres en fecha y/u hora. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query('; WITH TempResu...')
+#1 C:\inetpub\expuestos\SIGA\modelos\simple_mvc\ActivoFijoInventarioConsultasModel.Class.php(690): SqlServer->execute('; WITH TempResu...')
+#2 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(276): ActivoFijoInventarioConsultasModel->ActivoFijoInventarioConsultasReportesDataTableGet(Object(ActivoFijoInventarioConsultasModel))
+#3 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(57): ActivoFijoInventarioReportesController->ActivoFijoInventarioLlenarDataTable()
+#4 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(317): ActivoFijoInventarioReportesController->__construct()
+#5 {main} Query-> ; WITH TempResult AS( SELECT S.Id_Activo,
+					S.AF_BC,
+					S.Foto,
+					S.Nombre_Activo,
+					S.Marca,
+					S.Modelo,
+					S.NumSerie,
+					S.Nombre_Completo,
+					(select Nom_Area from siga_catareas A where A.id_Area = S.Id_Area) AS Id_Area,
+					(select Desc_Clasificacion from siga_cat_clasificacion C where C.Id_Clasificacion=S.Id_Clasificacion) as Clasificacion,
+					(select Des_Departamento from siga_cat_departamento D where D.Id_Departamento=S.Id_Departamento) as Id_Departamento,
+					(select Desc_Propiedad from siga_cat_propiedad C where C.Id_Propiedad = S.Id_Propiedad) as Id_Propiedad,
+					(select Desc_Estatus from siga_cat_estatus C where C.Id_Estatus=S.Id_Situacion_Activo) as Id_Situacion_Activo,
+					(select Desc_Tipo_Activo from siga_cat_tipo_activo T where T.Id_Tipo_Activo=S.Id_Tipo_Activo) as TipoActivo,DescCorta,
+					(select Desc_Ubic_Prim from siga_cat_ubic_prim T where T.Id_Ubic_Prim=S.Id_Ubic_Prim) as Id_Ubic_Prim,
+					(select Desc_Ubic_Sec from siga_cat_ubic_sec T where T.Id_Ubic_Sec=S.Id_Ubic_Sec) as Id_Ubic_Sec,
+					S.Especifica AS UbicacionEspecifica,
+					--isnull(S.Fech_Inser,'') as FechaAlta,
+					--FORMAT(CAST(S.Fech_Inser AS DATE),'yyyy-MM-dd') as FechaAlta,
+					FORMAT(CAST(S.Fech_Inser AS DATE),'yyyy-MM-dd') as Fech_Inser,
+					--FORMAT(S.Fech_Inser,'yyyy-MM-dd') as FechaAlta,
+					--convert(varchar,S.Fech_Inser,23) as FechaAlta,
+					S.Fech_Inser as FechaAlta,
+
+					--S.Fech_Inser,
+					(SELECT F.Desc_Familia FROM siga_cat_familia F WHERE F.Id_Familia = S.Id_Familia) AS Id_Familia,
+					(SELECT S_F.Desc_Subfamilia FROM siga_cat_subfamilia S_F WHERE S_F.Id_Subfamilia = S.Id_Subfamilia) AS Id_SubFamilia,
+					(SELECT M_A.Desc_Motivo_Alta FROM siga_cat_motivo_alta M_A WHERE M_A.Id_Motivo_Alta = S.Id_Motivo_Alta) AS Id_Motivo_Alta,
+					S.DescLarga,
+					(CASE WHEN S.ParticipaCertificacion = 1 THEN 'Si' ELSE 'No' END) AS ParticipaCertificacion,
+					(CASE WHEN S.ParticipaSeguros = 1 THEN 'Si' ELSE 'No' END) AS ParticipaSeguros,
+					S.Num_Empleado,
+					(SELECT V.Desc_Tipo_Vale_Resg FROM siga_cat_tipo_vale_resg V WHERE V.Id_Tipo_Vale_Resg = S.Id_Tipo_Vale_Resg) AS Id_Tipo_Vale_Resg,
+					S.Garantia,
+					S.ExtGarantia,
+					(SELECT U.Nombre_Usuario FROM siga_usuarios U WHERE U.Id_Usuario = S.Usr_Inser) AS Usr_Inser,
+					(SELECT T_A.Desc_Tipo_Activo FROM siga_cat_tipo_activo T_A WHERE T_A.Id_Tipo_Activo = S.Id_Tipo_Activo) AS Id_Tipo_Activo,
+					ISNULL((SELECT siga_condicion_de_recepcion_descripcion FROM siga_cat_condicion_de_recepcion WHERE siga_condicion_de_recepcion_id=s.siga_activos_condicion_recepcion),'') AS siga_activos_condicion_recepcion,
+					FORMAT(CAST(S.siga_activos_fch_recepcion_equipo AS DATE),'yyyy-MM-dd') AS siga_activos_fch_recepcion_equipo,					
+					FORMAT(CAST(S.siga_activos_fch_operacion AS DATE),'yyyy-MM-dd') AS siga_activos_fch_operacion,
+					/* Proveedores */
+					P.NumOrdenCompra,
+					P.NumFactura,
+					P.FechaFactura,
+					P.UUID,
+					P.Folio_Fiscal,
+					P.NumContrato,
+					P.VidaUtilFabricante,
+					P.VidaUtilCHS,
+					P.Fecha_Vencimiento,
+					P.NombreProveedor,
+					P.Contacto,
+					P.Telefono,
+					P.DocRecibida,
+					P.Correo,
+					P.Link,
+
+					/* Contabilidad */
+					(SELECT C_C.Desc_Centro_de_costos FROM siga_cat_centro_de_costos C_C WHERE C_C.Id_Centros_de_costos = C.Centro_Costos) AS Centro_Costos,
+					C.No_Capex,
+					C.Prorrateo,
+					(CASE WHEN C.Participa_Depreciacion = 1 THEN 'Si' ELSE 'No' END) AS Participa_Depreciacion,
+					C.Fecha_Inicio_Depr,
+					C.Cuent_Cont_Act,
+					C.Cuent_Cont_Act_B10,
+					C.Cuent_Cont_Result,
+					C.Cuent_Cont_Result_B10,
+					C.Cuent_Cont_Dep,
+					C.Cuent_Cont_Dep_B10,
+					
+					/* Mantenimiento Preventivo */
+					(SELECT TOP 1
+						(SELECT TOP 1 Desc_Frecuencia FROM siga_cat_frecuencia WHERE siga_cat_frecuencia.Id_Frecuencia = siga_actividades.Id_Frecuencia)
+						FROM siga_actividades WHERE siga_actividades.Id_Area=S.Id_Area AND siga_actividades.Id_Activo=S.Id_Activo ORDER BY Fech_Inser DESC
+					) AS Frecuencia,
+					(SELECT TOP 1 Realiza FROM siga_actividades WHERE siga_actividades.Id_Area = S.Id_Area AND siga_actividades.Id_Activo = S.Id_Activo ORDER BY Fech_Inser DESC) AS Realiza, 	(select top 1 CAST(MontoFactura as NUMERIC(10,2)) from siga_activo_proveedor T where T.Id_Activo=S.Id_Activo) AS MontoFactura,
+								(select top 1 CAST(Monto_F as NUMERIC(10,2)) from siga_activo_proveedor T where T.Id_Activo=S.Id_Activo) AS Monto_F,
+								CONVERT(NUMERIC(10,2), ImporteSeguros) AS ImporteSeguros, 	'' AS UbicacionPrimariaProcedencia,
+									'' AS UbicacionSecundariaProcedencia,
+									'' as Id_AreaReu,(select isnull(FORMAT(Fecha_Baja,'dd/MM/yyyy'),'') from siga_baja_activo A where A.Id_Activo=S.Id_Activo and Estatus_Cancelacion<>1) as Fecha_Baja,  (SELECT MAX(CveWorkflow) FROM siga_workflow_activos W_A WHERE W_A.Id_Activo = S.Id_Activo AND (Id_Baja IS NULL AND Id_Activo_Reubicacion IS NULL)) AS WorkFlowPaso, 	(SELECT MAX(CveWorkflow) FROM siga_workflow WHERE ProcesoNombre = 'tablaactivos' AND Aplica = 1) AS WorkFlowPasoTotal,
+								(SELECT COUNT(*) FROM siga_activo_accesorio_consumible A_C WHERE A_C.Id_Activo = S.Id_Activo) AS CuentaAccesoriosConsumibles
+				FROM siga_activos S
+				LEFT JOIN siga_activo_proveedor P ON P.Id_Activo = S.Id_Activo
+				LEFT JOIN (SELECT * FROM siga_activos_contabilidad WHERE Fech_Inser IS NOT NULL) C ON S.Id_Activo = C.Id_Activo
+				  where 0=0  AND S.Estatus_Reg <> 3  and S.Id_Area=1  AND (
+							S.Id_Activo not in (select Id_Activo from siga_baja_activo)
+							OR
+							S.Id_Activo IN (
+								SELECT B_1.Id_Activo
+								FROM siga_baja_activo B_1
+								INNER JOIN 
+									(
+										/*-- https://stackoverflow.com/questions/28722276/sql-select-top-1-for-each-group/28727802 --*/
+										SELECT TOP 1 WITH TIES
+											Id_Activo, Fecha_Baja AS UltimoRegistro, Id_baja AS UltimoMovimiento
+										FROM siga_baja_activo
+										ORDER BY
+											ROW_NUMBER() OVER(PARTITION BY Id_Activo ORDER BY Fecha_Baja DESC, Id_baja DESC)
+									) B_2
+								ON B_1.Fecha_Baja = B_2.UltimoRegistro
+								AND B_1.Id_Activo = B_2.Id_Activo
+								AND B_1.Id_Baja = B_2.UltimoMovimiento
+								WHERE
+								/*-- Cancelados y que siguen en operación --*/
+								B_1.Estatus_Cancelacion = 1 AND B_1.EstatusBaja = 0
+							)
+						) )
+						SELECT *, NumRegistrosConsulta = COUNT(*) OVER() FROM TempResult  ORDER BY Fech_Inser DESC  OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY 
+
+2025-01-31 8:51:47 -->Codigo->22007 Error -> SQLSTATE[22007]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Error al convertir una cadena de caracteres en fecha y/u hora. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query('; WITH TempResu...')
+#1 C:\inetpub\expuestos\SIGA\modelos\simple_mvc\ActivoFijoInventarioConsultasModel.Class.php(690): SqlServer->execute('; WITH TempResu...')
+#2 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(276): ActivoFijoInventarioConsultasModel->ActivoFijoInventarioConsultasReportesDataTableGet(Object(ActivoFijoInventarioConsultasModel))
+#3 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(57): ActivoFijoInventarioReportesController->ActivoFijoInventarioLlenarDataTable()
+#4 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(317): ActivoFijoInventarioReportesController->__construct()
+#5 {main} Query-> ; WITH TempResult AS( SELECT S.Id_Activo,
+					S.AF_BC,
+					S.Foto,
+					S.Nombre_Activo,
+					S.Marca,
+					S.Modelo,
+					S.NumSerie,
+					S.Nombre_Completo,
+					(select Nom_Area from siga_catareas A where A.id_Area = S.Id_Area) AS Id_Area,
+					(select Desc_Clasificacion from siga_cat_clasificacion C where C.Id_Clasificacion=S.Id_Clasificacion) as Clasificacion,
+					(select Des_Departamento from siga_cat_departamento D where D.Id_Departamento=S.Id_Departamento) as Id_Departamento,
+					(select Desc_Propiedad from siga_cat_propiedad C where C.Id_Propiedad = S.Id_Propiedad) as Id_Propiedad,
+					(select Desc_Estatus from siga_cat_estatus C where C.Id_Estatus=S.Id_Situacion_Activo) as Id_Situacion_Activo,
+					(select Desc_Tipo_Activo from siga_cat_tipo_activo T where T.Id_Tipo_Activo=S.Id_Tipo_Activo) as TipoActivo,DescCorta,
+					(select Desc_Ubic_Prim from siga_cat_ubic_prim T where T.Id_Ubic_Prim=S.Id_Ubic_Prim) as Id_Ubic_Prim,
+					(select Desc_Ubic_Sec from siga_cat_ubic_sec T where T.Id_Ubic_Sec=S.Id_Ubic_Sec) as Id_Ubic_Sec,
+					S.Especifica AS UbicacionEspecifica,
+					--isnull(S.Fech_Inser,'') as FechaAlta,
+					--FORMAT(CAST(S.Fech_Inser AS DATE),'yyyy-MM-dd') as FechaAlta,
+					FORMAT(CAST(S.Fech_Inser AS DATE),'yyyy-MM-dd') as Fech_Inser,
+					--FORMAT(S.Fech_Inser,'yyyy-MM-dd') as FechaAlta,
+					--convert(varchar,S.Fech_Inser,23) as FechaAlta,
+					S.Fech_Inser as FechaAlta,
+
+					--S.Fech_Inser,
+					(SELECT F.Desc_Familia FROM siga_cat_familia F WHERE F.Id_Familia = S.Id_Familia) AS Id_Familia,
+					(SELECT S_F.Desc_Subfamilia FROM siga_cat_subfamilia S_F WHERE S_F.Id_Subfamilia = S.Id_Subfamilia) AS Id_SubFamilia,
+					(SELECT M_A.Desc_Motivo_Alta FROM siga_cat_motivo_alta M_A WHERE M_A.Id_Motivo_Alta = S.Id_Motivo_Alta) AS Id_Motivo_Alta,
+					S.DescLarga,
+					(CASE WHEN S.ParticipaCertificacion = 1 THEN 'Si' ELSE 'No' END) AS ParticipaCertificacion,
+					(CASE WHEN S.ParticipaSeguros = 1 THEN 'Si' ELSE 'No' END) AS ParticipaSeguros,
+					S.Num_Empleado,
+					(SELECT V.Desc_Tipo_Vale_Resg FROM siga_cat_tipo_vale_resg V WHERE V.Id_Tipo_Vale_Resg = S.Id_Tipo_Vale_Resg) AS Id_Tipo_Vale_Resg,
+					S.Garantia,
+					S.ExtGarantia,
+					(SELECT U.Nombre_Usuario FROM siga_usuarios U WHERE U.Id_Usuario = S.Usr_Inser) AS Usr_Inser,
+					(SELECT T_A.Desc_Tipo_Activo FROM siga_cat_tipo_activo T_A WHERE T_A.Id_Tipo_Activo = S.Id_Tipo_Activo) AS Id_Tipo_Activo,
+					ISNULL((SELECT siga_condicion_de_recepcion_descripcion FROM siga_cat_condicion_de_recepcion WHERE siga_condicion_de_recepcion_id=s.siga_activos_condicion_recepcion),'') AS siga_activos_condicion_recepcion,
+					FORMAT(CAST(S.siga_activos_fch_recepcion_equipo AS DATE),'yyyy-MM-dd') AS siga_activos_fch_recepcion_equipo,					
+					FORMAT(CAST(S.siga_activos_fch_operacion AS DATE),'yyyy-MM-dd') AS siga_activos_fch_operacion,
+					/* Proveedores */
+					P.NumOrdenCompra,
+					P.NumFactura,
+					P.FechaFactura,
+					P.UUID,
+					P.Folio_Fiscal,
+					P.NumContrato,
+					P.VidaUtilFabricante,
+					P.VidaUtilCHS,
+					P.Fecha_Vencimiento,
+					P.NombreProveedor,
+					P.Contacto,
+					P.Telefono,
+					P.DocRecibida,
+					P.Correo,
+					P.Link,
+
+					/* Contabilidad */
+					(SELECT C_C.Desc_Centro_de_costos FROM siga_cat_centro_de_costos C_C WHERE C_C.Id_Centros_de_costos = C.Centro_Costos) AS Centro_Costos,
+					C.No_Capex,
+					C.Prorrateo,
+					(CASE WHEN C.Participa_Depreciacion = 1 THEN 'Si' ELSE 'No' END) AS Participa_Depreciacion,
+					C.Fecha_Inicio_Depr,
+					C.Cuent_Cont_Act,
+					C.Cuent_Cont_Act_B10,
+					C.Cuent_Cont_Result,
+					C.Cuent_Cont_Result_B10,
+					C.Cuent_Cont_Dep,
+					C.Cuent_Cont_Dep_B10,
+					
+					/* Mantenimiento Preventivo */
+					(SELECT TOP 1
+						(SELECT TOP 1 Desc_Frecuencia FROM siga_cat_frecuencia WHERE siga_cat_frecuencia.Id_Frecuencia = siga_actividades.Id_Frecuencia)
+						FROM siga_actividades WHERE siga_actividades.Id_Area=S.Id_Area AND siga_actividades.Id_Activo=S.Id_Activo ORDER BY Fech_Inser DESC
+					) AS Frecuencia,
+					(SELECT TOP 1 Realiza FROM siga_actividades WHERE siga_actividades.Id_Area = S.Id_Area AND siga_actividades.Id_Activo = S.Id_Activo ORDER BY Fech_Inser DESC) AS Realiza, 	(select top 1 CAST(MontoFactura as NUMERIC(10,2)) from siga_activo_proveedor T where T.Id_Activo=S.Id_Activo) AS MontoFactura,
+								(select top 1 CAST(Monto_F as NUMERIC(10,2)) from siga_activo_proveedor T where T.Id_Activo=S.Id_Activo) AS Monto_F,
+								CONVERT(NUMERIC(10,2), ImporteSeguros) AS ImporteSeguros, 	'' AS UbicacionPrimariaProcedencia,
+									'' AS UbicacionSecundariaProcedencia,
+									'' as Id_AreaReu,(select isnull(FORMAT(Fecha_Baja,'dd/MM/yyyy'),'') from siga_baja_activo A where A.Id_Activo=S.Id_Activo and Estatus_Cancelacion<>1) as Fecha_Baja,  (SELECT MAX(CveWorkflow) FROM siga_workflow_activos W_A WHERE W_A.Id_Activo = S.Id_Activo AND (Id_Baja IS NULL AND Id_Activo_Reubicacion IS NULL)) AS WorkFlowPaso, 	(SELECT MAX(CveWorkflow) FROM siga_workflow WHERE ProcesoNombre = 'tablaactivos' AND Aplica = 1) AS WorkFlowPasoTotal,
+								(SELECT COUNT(*) FROM siga_activo_accesorio_consumible A_C WHERE A_C.Id_Activo = S.Id_Activo) AS CuentaAccesoriosConsumibles
+				FROM siga_activos S
+				LEFT JOIN siga_activo_proveedor P ON P.Id_Activo = S.Id_Activo
+				LEFT JOIN (SELECT * FROM siga_activos_contabilidad WHERE Fech_Inser IS NOT NULL) C ON S.Id_Activo = C.Id_Activo
+				  where 0=0  AND S.Estatus_Reg <> 3  and S.Id_Area=1  AND (
+							S.Id_Activo not in (select Id_Activo from siga_baja_activo)
+							OR
+							S.Id_Activo IN (
+								SELECT B_1.Id_Activo
+								FROM siga_baja_activo B_1
+								INNER JOIN 
+									(
+										/*-- https://stackoverflow.com/questions/28722276/sql-select-top-1-for-each-group/28727802 --*/
+										SELECT TOP 1 WITH TIES
+											Id_Activo, Fecha_Baja AS UltimoRegistro, Id_baja AS UltimoMovimiento
+										FROM siga_baja_activo
+										ORDER BY
+											ROW_NUMBER() OVER(PARTITION BY Id_Activo ORDER BY Fecha_Baja DESC, Id_baja DESC)
+									) B_2
+								ON B_1.Fecha_Baja = B_2.UltimoRegistro
+								AND B_1.Id_Activo = B_2.Id_Activo
+								AND B_1.Id_Baja = B_2.UltimoMovimiento
+								WHERE
+								/*-- Cancelados y que siguen en operación --*/
+								B_1.Estatus_Cancelacion = 1 AND B_1.EstatusBaja = 0
+							)
+						) )
+						SELECT *, NumRegistrosConsulta = COUNT(*) OVER() FROM TempResult  ORDER BY Fech_Inser DESC  OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY 
+
+2025-01-31 8:53:39 -->Codigo->22007 Error -> SQLSTATE[22007]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Error al convertir una cadena de caracteres en fecha y/u hora. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query('; WITH TempResu...')
+#1 C:\inetpub\expuestos\SIGA\modelos\simple_mvc\ActivoFijoInventarioConsultasModel.Class.php(690): SqlServer->execute('; WITH TempResu...')
+#2 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(276): ActivoFijoInventarioConsultasModel->ActivoFijoInventarioConsultasReportesDataTableGet(Object(ActivoFijoInventarioConsultasModel))
+#3 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(57): ActivoFijoInventarioReportesController->ActivoFijoInventarioLlenarDataTable()
+#4 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(317): ActivoFijoInventarioReportesController->__construct()
+#5 {main} Query-> ; WITH TempResult AS( SELECT S.Id_Activo,
+					S.AF_BC,
+					S.Foto,
+					S.Nombre_Activo,
+					S.Marca,
+					S.Modelo,
+					S.NumSerie,
+					S.Nombre_Completo,
+					(select Nom_Area from siga_catareas A where A.id_Area = S.Id_Area) AS Id_Area,
+					(select Desc_Clasificacion from siga_cat_clasificacion C where C.Id_Clasificacion=S.Id_Clasificacion) as Clasificacion,
+					(select Des_Departamento from siga_cat_departamento D where D.Id_Departamento=S.Id_Departamento) as Id_Departamento,
+					(select Desc_Propiedad from siga_cat_propiedad C where C.Id_Propiedad = S.Id_Propiedad) as Id_Propiedad,
+					(select Desc_Estatus from siga_cat_estatus C where C.Id_Estatus=S.Id_Situacion_Activo) as Id_Situacion_Activo,
+					(select Desc_Tipo_Activo from siga_cat_tipo_activo T where T.Id_Tipo_Activo=S.Id_Tipo_Activo) as TipoActivo,DescCorta,
+					(select Desc_Ubic_Prim from siga_cat_ubic_prim T where T.Id_Ubic_Prim=S.Id_Ubic_Prim) as Id_Ubic_Prim,
+					(select Desc_Ubic_Sec from siga_cat_ubic_sec T where T.Id_Ubic_Sec=S.Id_Ubic_Sec) as Id_Ubic_Sec,
+					S.Especifica AS UbicacionEspecifica,
+					--isnull(S.Fech_Inser,'') as FechaAlta,
+					--FORMAT(CAST(S.Fech_Inser AS DATE),'yyyy-MM-dd') as FechaAlta,
+					FORMAT(CAST(S.Fech_Inser AS DATE),'yyyy-MM-dd') as Fech_Inser,
+					--FORMAT(S.Fech_Inser,'yyyy-MM-dd') as FechaAlta,
+					--convert(varchar,S.Fech_Inser,23) as FechaAlta,
+					S.Fech_Inser as FechaAlta,
+
+					--S.Fech_Inser,
+					(SELECT F.Desc_Familia FROM siga_cat_familia F WHERE F.Id_Familia = S.Id_Familia) AS Id_Familia,
+					(SELECT S_F.Desc_Subfamilia FROM siga_cat_subfamilia S_F WHERE S_F.Id_Subfamilia = S.Id_Subfamilia) AS Id_SubFamilia,
+					(SELECT M_A.Desc_Motivo_Alta FROM siga_cat_motivo_alta M_A WHERE M_A.Id_Motivo_Alta = S.Id_Motivo_Alta) AS Id_Motivo_Alta,
+					S.DescLarga,
+					(CASE WHEN S.ParticipaCertificacion = 1 THEN 'Si' ELSE 'No' END) AS ParticipaCertificacion,
+					(CASE WHEN S.ParticipaSeguros = 1 THEN 'Si' ELSE 'No' END) AS ParticipaSeguros,
+					S.Num_Empleado,
+					(SELECT V.Desc_Tipo_Vale_Resg FROM siga_cat_tipo_vale_resg V WHERE V.Id_Tipo_Vale_Resg = S.Id_Tipo_Vale_Resg) AS Id_Tipo_Vale_Resg,
+					S.Garantia,
+					S.ExtGarantia,
+					(SELECT U.Nombre_Usuario FROM siga_usuarios U WHERE U.Id_Usuario = S.Usr_Inser) AS Usr_Inser,
+					(SELECT T_A.Desc_Tipo_Activo FROM siga_cat_tipo_activo T_A WHERE T_A.Id_Tipo_Activo = S.Id_Tipo_Activo) AS Id_Tipo_Activo,
+					ISNULL((SELECT siga_condicion_de_recepcion_descripcion FROM siga_cat_condicion_de_recepcion WHERE siga_condicion_de_recepcion_id=s.siga_activos_condicion_recepcion),'') AS siga_activos_condicion_recepcion,
+					FORMAT(CAST(S.siga_activos_fch_recepcion_equipo AS DATE),'yyyy-MM-dd') AS siga_activos_fch_recepcion_equipo,					
+					FORMAT(CAST(S.siga_activos_fch_operacion AS DATE),'yyyy-MM-dd') AS siga_activos_fch_operacion,
+					/* Proveedores */
+					P.NumOrdenCompra,
+					P.NumFactura,
+					P.FechaFactura,
+					P.UUID,
+					P.Folio_Fiscal,
+					P.NumContrato,
+					P.VidaUtilFabricante,
+					P.VidaUtilCHS,
+					P.Fecha_Vencimiento,
+					P.NombreProveedor,
+					P.Contacto,
+					P.Telefono,
+					P.DocRecibida,
+					P.Correo,
+					P.Link,
+
+					/* Contabilidad */
+					(SELECT C_C.Desc_Centro_de_costos FROM siga_cat_centro_de_costos C_C WHERE C_C.Id_Centros_de_costos = C.Centro_Costos) AS Centro_Costos,
+					C.No_Capex,
+					C.Prorrateo,
+					(CASE WHEN C.Participa_Depreciacion = 1 THEN 'Si' ELSE 'No' END) AS Participa_Depreciacion,
+					C.Fecha_Inicio_Depr,
+					C.Cuent_Cont_Act,
+					C.Cuent_Cont_Act_B10,
+					C.Cuent_Cont_Result,
+					C.Cuent_Cont_Result_B10,
+					C.Cuent_Cont_Dep,
+					C.Cuent_Cont_Dep_B10,
+					
+					/* Mantenimiento Preventivo */
+					(SELECT TOP 1
+						(SELECT TOP 1 Desc_Frecuencia FROM siga_cat_frecuencia WHERE siga_cat_frecuencia.Id_Frecuencia = siga_actividades.Id_Frecuencia)
+						FROM siga_actividades WHERE siga_actividades.Id_Area=S.Id_Area AND siga_actividades.Id_Activo=S.Id_Activo ORDER BY Fech_Inser DESC
+					) AS Frecuencia,
+					(SELECT TOP 1 Realiza FROM siga_actividades WHERE siga_actividades.Id_Area = S.Id_Area AND siga_actividades.Id_Activo = S.Id_Activo ORDER BY Fech_Inser DESC) AS Realiza, 	(select top 1 CAST(MontoFactura as NUMERIC(10,2)) from siga_activo_proveedor T where T.Id_Activo=S.Id_Activo) AS MontoFactura,
+								(select top 1 CAST(Monto_F as NUMERIC(10,2)) from siga_activo_proveedor T where T.Id_Activo=S.Id_Activo) AS Monto_F,
+								CONVERT(NUMERIC(10,2), ImporteSeguros) AS ImporteSeguros, 	'' AS UbicacionPrimariaProcedencia,
+									'' AS UbicacionSecundariaProcedencia,
+									'' as Id_AreaReu,(select isnull(FORMAT(Fecha_Baja,'dd/MM/yyyy'),'') from siga_baja_activo A where A.Id_Activo=S.Id_Activo and Estatus_Cancelacion<>1) as Fecha_Baja,  (SELECT MAX(CveWorkflow) FROM siga_workflow_activos W_A WHERE W_A.Id_Activo = S.Id_Activo AND (Id_Baja IS NULL AND Id_Activo_Reubicacion IS NULL)) AS WorkFlowPaso, 	(SELECT MAX(CveWorkflow) FROM siga_workflow WHERE ProcesoNombre = 'tablaactivos' AND Aplica = 1) AS WorkFlowPasoTotal,
+								(SELECT COUNT(*) FROM siga_activo_accesorio_consumible A_C WHERE A_C.Id_Activo = S.Id_Activo) AS CuentaAccesoriosConsumibles
+				FROM siga_activos S
+				LEFT JOIN siga_activo_proveedor P ON P.Id_Activo = S.Id_Activo
+				LEFT JOIN (SELECT * FROM siga_activos_contabilidad WHERE Fech_Inser IS NOT NULL) C ON S.Id_Activo = C.Id_Activo
+				  where 0=0  AND S.Estatus_Reg <> 3  and S.Id_Area=1  AND (
+							S.Id_Activo not in (select Id_Activo from siga_baja_activo)
+							OR
+							S.Id_Activo IN (
+								SELECT B_1.Id_Activo
+								FROM siga_baja_activo B_1
+								INNER JOIN 
+									(
+										/*-- https://stackoverflow.com/questions/28722276/sql-select-top-1-for-each-group/28727802 --*/
+										SELECT TOP 1 WITH TIES
+											Id_Activo, Fecha_Baja AS UltimoRegistro, Id_baja AS UltimoMovimiento
+										FROM siga_baja_activo
+										ORDER BY
+											ROW_NUMBER() OVER(PARTITION BY Id_Activo ORDER BY Fecha_Baja DESC, Id_baja DESC)
+									) B_2
+								ON B_1.Fecha_Baja = B_2.UltimoRegistro
+								AND B_1.Id_Activo = B_2.Id_Activo
+								AND B_1.Id_Baja = B_2.UltimoMovimiento
+								WHERE
+								/*-- Cancelados y que siguen en operación --*/
+								B_1.Estatus_Cancelacion = 1 AND B_1.EstatusBaja = 0
+							)
+						) )
+						SELECT *, NumRegistrosConsulta = COUNT(*) OVER() FROM TempResult  ORDER BY Fech_Inser DESC  OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY 
+
+2025-01-31 8:59:00 -->Codigo->22007 Error -> SQLSTATE[22007]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Error al convertir una cadena de caracteres en fecha y/u hora. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query('; WITH TempResu...')
+#1 C:\inetpub\expuestos\SIGA\modelos\simple_mvc\ActivoFijoInventarioConsultasModel.Class.php(690): SqlServer->execute('; WITH TempResu...')
+#2 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(276): ActivoFijoInventarioConsultasModel->ActivoFijoInventarioConsultasReportesDataTableGet(Object(ActivoFijoInventarioConsultasModel))
+#3 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(57): ActivoFijoInventarioReportesController->ActivoFijoInventarioLlenarDataTable()
+#4 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(317): ActivoFijoInventarioReportesController->__construct()
+#5 {main} Query-> ; WITH TempResult AS( SELECT S.Id_Activo,
+					S.AF_BC,
+					S.Foto,
+					S.Nombre_Activo,
+					S.Marca,
+					S.Modelo,
+					S.NumSerie,
+					S.Nombre_Completo,
+					(select Nom_Area from siga_catareas A where A.id_Area = S.Id_Area) AS Id_Area,
+					(select Desc_Clasificacion from siga_cat_clasificacion C where C.Id_Clasificacion=S.Id_Clasificacion) as Clasificacion,
+					(select Des_Departamento from siga_cat_departamento D where D.Id_Departamento=S.Id_Departamento) as Id_Departamento,
+					(select Desc_Propiedad from siga_cat_propiedad C where C.Id_Propiedad = S.Id_Propiedad) as Id_Propiedad,
+					(select Desc_Estatus from siga_cat_estatus C where C.Id_Estatus=S.Id_Situacion_Activo) as Id_Situacion_Activo,
+					(select Desc_Tipo_Activo from siga_cat_tipo_activo T where T.Id_Tipo_Activo=S.Id_Tipo_Activo) as TipoActivo,DescCorta,
+					(select Desc_Ubic_Prim from siga_cat_ubic_prim T where T.Id_Ubic_Prim=S.Id_Ubic_Prim) as Id_Ubic_Prim,
+					(select Desc_Ubic_Sec from siga_cat_ubic_sec T where T.Id_Ubic_Sec=S.Id_Ubic_Sec) as Id_Ubic_Sec,
+					S.Especifica AS UbicacionEspecifica,
+					--isnull(S.Fech_Inser,'') as FechaAlta,
+					--FORMAT(CAST(S.Fech_Inser AS DATE),'yyyy-MM-dd') as FechaAlta,
+					FORMAT(CAST(S.Fech_Inser AS DATE),'yyyy-MM-dd') as Fech_Inser,
+					--FORMAT(S.Fech_Inser,'yyyy-MM-dd') as FechaAlta,
+					--convert(varchar,S.Fech_Inser,23) as FechaAlta,
+					S.Fech_Inser as FechaAlta,
+
+					--S.Fech_Inser,
+					(SELECT F.Desc_Familia FROM siga_cat_familia F WHERE F.Id_Familia = S.Id_Familia) AS Id_Familia,
+					(SELECT S_F.Desc_Subfamilia FROM siga_cat_subfamilia S_F WHERE S_F.Id_Subfamilia = S.Id_Subfamilia) AS Id_SubFamilia,
+					(SELECT M_A.Desc_Motivo_Alta FROM siga_cat_motivo_alta M_A WHERE M_A.Id_Motivo_Alta = S.Id_Motivo_Alta) AS Id_Motivo_Alta,
+					S.DescLarga,
+					(CASE WHEN S.ParticipaCertificacion = 1 THEN 'Si' ELSE 'No' END) AS ParticipaCertificacion,
+					(CASE WHEN S.ParticipaSeguros = 1 THEN 'Si' ELSE 'No' END) AS ParticipaSeguros,
+					S.Num_Empleado,
+					(SELECT V.Desc_Tipo_Vale_Resg FROM siga_cat_tipo_vale_resg V WHERE V.Id_Tipo_Vale_Resg = S.Id_Tipo_Vale_Resg) AS Id_Tipo_Vale_Resg,
+					S.Garantia,
+					S.ExtGarantia,
+					(SELECT U.Nombre_Usuario FROM siga_usuarios U WHERE U.Id_Usuario = S.Usr_Inser) AS Usr_Inser,
+					(SELECT T_A.Desc_Tipo_Activo FROM siga_cat_tipo_activo T_A WHERE T_A.Id_Tipo_Activo = S.Id_Tipo_Activo) AS Id_Tipo_Activo,
+					ISNULL((SELECT siga_condicion_de_recepcion_descripcion FROM siga_cat_condicion_de_recepcion WHERE siga_condicion_de_recepcion_id=s.siga_activos_condicion_recepcion),'') AS siga_activos_condicion_recepcion,
+					FORMAT(CAST(S.siga_activos_fch_recepcion_equipo AS DATE),'yyyy-MM-dd') AS siga_activos_fch_recepcion_equipo,					
+					FORMAT(CAST(S.siga_activos_fch_operacion AS DATE),'yyyy-MM-dd') AS siga_activos_fch_operacion,
+					/* Proveedores */
+					P.NumOrdenCompra,
+					P.NumFactura,
+					P.FechaFactura,
+					P.UUID,
+					P.Folio_Fiscal,
+					P.NumContrato,
+					P.VidaUtilFabricante,
+					P.VidaUtilCHS,
+					P.Fecha_Vencimiento,
+					P.NombreProveedor,
+					P.Contacto,
+					P.Telefono,
+					P.DocRecibida,
+					P.Correo,
+					P.Link,
+
+					/* Contabilidad */
+					(SELECT C_C.Desc_Centro_de_costos FROM siga_cat_centro_de_costos C_C WHERE C_C.Id_Centros_de_costos = C.Centro_Costos) AS Centro_Costos,
+					C.No_Capex,
+					C.Prorrateo,
+					(CASE WHEN C.Participa_Depreciacion = 1 THEN 'Si' ELSE 'No' END) AS Participa_Depreciacion,
+					C.Fecha_Inicio_Depr,
+					C.Cuent_Cont_Act,
+					C.Cuent_Cont_Act_B10,
+					C.Cuent_Cont_Result,
+					C.Cuent_Cont_Result_B10,
+					C.Cuent_Cont_Dep,
+					C.Cuent_Cont_Dep_B10,
+					
+					/* Mantenimiento Preventivo */
+					(SELECT TOP 1
+						(SELECT TOP 1 Desc_Frecuencia FROM siga_cat_frecuencia WHERE siga_cat_frecuencia.Id_Frecuencia = siga_actividades.Id_Frecuencia)
+						FROM siga_actividades WHERE siga_actividades.Id_Area=S.Id_Area AND siga_actividades.Id_Activo=S.Id_Activo ORDER BY Fech_Inser DESC
+					) AS Frecuencia,
+					(SELECT TOP 1 Realiza FROM siga_actividades WHERE siga_actividades.Id_Area = S.Id_Area AND siga_actividades.Id_Activo = S.Id_Activo ORDER BY Fech_Inser DESC) AS Realiza, 	(select top 1 CAST(MontoFactura as NUMERIC(10,2)) from siga_activo_proveedor T where T.Id_Activo=S.Id_Activo) AS MontoFactura,
+								(select top 1 CAST(Monto_F as NUMERIC(10,2)) from siga_activo_proveedor T where T.Id_Activo=S.Id_Activo) AS Monto_F,
+								CONVERT(NUMERIC(10,2), ImporteSeguros) AS ImporteSeguros, 	'' AS UbicacionPrimariaProcedencia,
+									'' AS UbicacionSecundariaProcedencia,
+									'' as Id_AreaReu,(select isnull(FORMAT(Fecha_Baja,'dd/MM/yyyy'),'') from siga_baja_activo A where A.Id_Activo=S.Id_Activo and Estatus_Cancelacion<>1) as Fecha_Baja,  (SELECT MAX(CveWorkflow) FROM siga_workflow_activos W_A WHERE W_A.Id_Activo = S.Id_Activo AND (Id_Baja IS NULL AND Id_Activo_Reubicacion IS NULL)) AS WorkFlowPaso, 	(SELECT MAX(CveWorkflow) FROM siga_workflow WHERE ProcesoNombre = 'tablaactivos' AND Aplica = 1) AS WorkFlowPasoTotal,
+								(SELECT COUNT(*) FROM siga_activo_accesorio_consumible A_C WHERE A_C.Id_Activo = S.Id_Activo) AS CuentaAccesoriosConsumibles
+				FROM siga_activos S
+				LEFT JOIN siga_activo_proveedor P ON P.Id_Activo = S.Id_Activo
+				LEFT JOIN (SELECT * FROM siga_activos_contabilidad WHERE Fech_Inser IS NOT NULL) C ON S.Id_Activo = C.Id_Activo
+				  where 0=0  AND S.Estatus_Reg <> 3  and S.Id_Area=1  AND (
+							S.Id_Activo not in (select Id_Activo from siga_baja_activo)
+							OR
+							S.Id_Activo IN (
+								SELECT B_1.Id_Activo
+								FROM siga_baja_activo B_1
+								INNER JOIN 
+									(
+										/*-- https://stackoverflow.com/questions/28722276/sql-select-top-1-for-each-group/28727802 --*/
+										SELECT TOP 1 WITH TIES
+											Id_Activo, Fecha_Baja AS UltimoRegistro, Id_baja AS UltimoMovimiento
+										FROM siga_baja_activo
+										ORDER BY
+											ROW_NUMBER() OVER(PARTITION BY Id_Activo ORDER BY Fecha_Baja DESC, Id_baja DESC)
+									) B_2
+								ON B_1.Fecha_Baja = B_2.UltimoRegistro
+								AND B_1.Id_Activo = B_2.Id_Activo
+								AND B_1.Id_Baja = B_2.UltimoMovimiento
+								WHERE
+								/*-- Cancelados y que siguen en operación --*/
+								B_1.Estatus_Cancelacion = 1 AND B_1.EstatusBaja = 0
+							)
+						) )
+						SELECT *, NumRegistrosConsulta = COUNT(*) OVER() FROM TempResult  ORDER BY Fech_Inser DESC  OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY 
+
+2025-01-31 8:59:24 -->Codigo->22007 Error -> SQLSTATE[22007]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Error al convertir una cadena de caracteres en fecha y/u hora. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query('; WITH TempResu...')
+#1 C:\inetpub\expuestos\SIGA\modelos\simple_mvc\ActivoFijoInventarioConsultasModel.Class.php(690): SqlServer->execute('; WITH TempResu...')
+#2 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(276): ActivoFijoInventarioConsultasModel->ActivoFijoInventarioConsultasReportesDataTableGet(Object(ActivoFijoInventarioConsultasModel))
+#3 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(57): ActivoFijoInventarioReportesController->ActivoFijoInventarioLlenarDataTable()
+#4 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(317): ActivoFijoInventarioReportesController->__construct()
+#5 {main} Query-> ; WITH TempResult AS( SELECT S.Id_Activo,
+					S.AF_BC,
+					S.Foto,
+					S.Nombre_Activo,
+					S.Marca,
+					S.Modelo,
+					S.NumSerie,
+					S.Nombre_Completo,
+					(select Nom_Area from siga_catareas A where A.id_Area = S.Id_Area) AS Id_Area,
+					(select Desc_Clasificacion from siga_cat_clasificacion C where C.Id_Clasificacion=S.Id_Clasificacion) as Clasificacion,
+					(select Des_Departamento from siga_cat_departamento D where D.Id_Departamento=S.Id_Departamento) as Id_Departamento,
+					(select Desc_Propiedad from siga_cat_propiedad C where C.Id_Propiedad = S.Id_Propiedad) as Id_Propiedad,
+					(select Desc_Estatus from siga_cat_estatus C where C.Id_Estatus=S.Id_Situacion_Activo) as Id_Situacion_Activo,
+					(select Desc_Tipo_Activo from siga_cat_tipo_activo T where T.Id_Tipo_Activo=S.Id_Tipo_Activo) as TipoActivo,DescCorta,
+					(select Desc_Ubic_Prim from siga_cat_ubic_prim T where T.Id_Ubic_Prim=S.Id_Ubic_Prim) as Id_Ubic_Prim,
+					(select Desc_Ubic_Sec from siga_cat_ubic_sec T where T.Id_Ubic_Sec=S.Id_Ubic_Sec) as Id_Ubic_Sec,
+					S.Especifica AS UbicacionEspecifica,
+					--isnull(S.Fech_Inser,'') as FechaAlta,
+					--FORMAT(CAST(S.Fech_Inser AS DATE),'yyyy-MM-dd') as FechaAlta,
+					FORMAT(CAST(S.Fech_Inser AS DATE),'yyyy-MM-dd') as Fech_Inser,
+					--FORMAT(S.Fech_Inser,'yyyy-MM-dd') as FechaAlta,
+					--convert(varchar,S.Fech_Inser,23) as FechaAlta,
+					S.Fech_Inser as FechaAlta,
+
+					--S.Fech_Inser,
+					(SELECT F.Desc_Familia FROM siga_cat_familia F WHERE F.Id_Familia = S.Id_Familia) AS Id_Familia,
+					(SELECT S_F.Desc_Subfamilia FROM siga_cat_subfamilia S_F WHERE S_F.Id_Subfamilia = S.Id_Subfamilia) AS Id_SubFamilia,
+					(SELECT M_A.Desc_Motivo_Alta FROM siga_cat_motivo_alta M_A WHERE M_A.Id_Motivo_Alta = S.Id_Motivo_Alta) AS Id_Motivo_Alta,
+					S.DescLarga,
+					(CASE WHEN S.ParticipaCertificacion = 1 THEN 'Si' ELSE 'No' END) AS ParticipaCertificacion,
+					(CASE WHEN S.ParticipaSeguros = 1 THEN 'Si' ELSE 'No' END) AS ParticipaSeguros,
+					S.Num_Empleado,
+					(SELECT V.Desc_Tipo_Vale_Resg FROM siga_cat_tipo_vale_resg V WHERE V.Id_Tipo_Vale_Resg = S.Id_Tipo_Vale_Resg) AS Id_Tipo_Vale_Resg,
+					S.Garantia,
+					S.ExtGarantia,
+					(SELECT U.Nombre_Usuario FROM siga_usuarios U WHERE U.Id_Usuario = S.Usr_Inser) AS Usr_Inser,
+					(SELECT T_A.Desc_Tipo_Activo FROM siga_cat_tipo_activo T_A WHERE T_A.Id_Tipo_Activo = S.Id_Tipo_Activo) AS Id_Tipo_Activo,
+					ISNULL((SELECT siga_condicion_de_recepcion_descripcion FROM siga_cat_condicion_de_recepcion WHERE siga_condicion_de_recepcion_id=s.siga_activos_condicion_recepcion),'') AS siga_activos_condicion_recepcion,
+					FORMAT(CAST(S.siga_activos_fch_recepcion_equipo AS DATE),'yyyy-MM-dd') AS siga_activos_fch_recepcion_equipo,					
+					FORMAT(CAST(S.siga_activos_fch_operacion AS DATE),'yyyy-MM-dd') AS siga_activos_fch_operacion,
+					/* Proveedores */
+					P.NumOrdenCompra,
+					P.NumFactura,
+					P.FechaFactura,
+					P.UUID,
+					P.Folio_Fiscal,
+					P.NumContrato,
+					P.VidaUtilFabricante,
+					P.VidaUtilCHS,
+					P.Fecha_Vencimiento,
+					P.NombreProveedor,
+					P.Contacto,
+					P.Telefono,
+					P.DocRecibida,
+					P.Correo,
+					P.Link,
+
+					/* Contabilidad */
+					(SELECT C_C.Desc_Centro_de_costos FROM siga_cat_centro_de_costos C_C WHERE C_C.Id_Centros_de_costos = C.Centro_Costos) AS Centro_Costos,
+					C.No_Capex,
+					C.Prorrateo,
+					(CASE WHEN C.Participa_Depreciacion = 1 THEN 'Si' ELSE 'No' END) AS Participa_Depreciacion,
+					C.Fecha_Inicio_Depr,
+					C.Cuent_Cont_Act,
+					C.Cuent_Cont_Act_B10,
+					C.Cuent_Cont_Result,
+					C.Cuent_Cont_Result_B10,
+					C.Cuent_Cont_Dep,
+					C.Cuent_Cont_Dep_B10,
+					
+					/* Mantenimiento Preventivo */
+					(SELECT TOP 1
+						(SELECT TOP 1 Desc_Frecuencia FROM siga_cat_frecuencia WHERE siga_cat_frecuencia.Id_Frecuencia = siga_actividades.Id_Frecuencia)
+						FROM siga_actividades WHERE siga_actividades.Id_Area=S.Id_Area AND siga_actividades.Id_Activo=S.Id_Activo ORDER BY Fech_Inser DESC
+					) AS Frecuencia,
+					(SELECT TOP 1 Realiza FROM siga_actividades WHERE siga_actividades.Id_Area = S.Id_Area AND siga_actividades.Id_Activo = S.Id_Activo ORDER BY Fech_Inser DESC) AS Realiza, 	(select top 1 CAST(MontoFactura as NUMERIC(10,2)) from siga_activo_proveedor T where T.Id_Activo=S.Id_Activo) AS MontoFactura,
+								(select top 1 CAST(Monto_F as NUMERIC(10,2)) from siga_activo_proveedor T where T.Id_Activo=S.Id_Activo) AS Monto_F,
+								CONVERT(NUMERIC(10,2), ImporteSeguros) AS ImporteSeguros, 	'' AS UbicacionPrimariaProcedencia,
+									'' AS UbicacionSecundariaProcedencia,
+									'' as Id_AreaReu,(select isnull(FORMAT(Fecha_Baja,'dd/MM/yyyy'),'') from siga_baja_activo A where A.Id_Activo=S.Id_Activo and Estatus_Cancelacion<>1) as Fecha_Baja,  (SELECT MAX(CveWorkflow) FROM siga_workflow_activos W_A WHERE W_A.Id_Activo = S.Id_Activo AND (Id_Baja IS NULL AND Id_Activo_Reubicacion IS NULL)) AS WorkFlowPaso, 	(SELECT MAX(CveWorkflow) FROM siga_workflow WHERE ProcesoNombre = 'tablaactivos' AND Aplica = 1) AS WorkFlowPasoTotal,
+								(SELECT COUNT(*) FROM siga_activo_accesorio_consumible A_C WHERE A_C.Id_Activo = S.Id_Activo) AS CuentaAccesoriosConsumibles
+				FROM siga_activos S
+				LEFT JOIN siga_activo_proveedor P ON P.Id_Activo = S.Id_Activo
+				LEFT JOIN (SELECT * FROM siga_activos_contabilidad WHERE Fech_Inser IS NOT NULL) C ON S.Id_Activo = C.Id_Activo
+				  where 0=0  AND S.Estatus_Reg <> 3  and S.Id_Area=1  AND (
+							S.Id_Activo not in (select Id_Activo from siga_baja_activo)
+							OR
+							S.Id_Activo IN (
+								SELECT B_1.Id_Activo
+								FROM siga_baja_activo B_1
+								INNER JOIN 
+									(
+										/*-- https://stackoverflow.com/questions/28722276/sql-select-top-1-for-each-group/28727802 --*/
+										SELECT TOP 1 WITH TIES
+											Id_Activo, Fecha_Baja AS UltimoRegistro, Id_baja AS UltimoMovimiento
+										FROM siga_baja_activo
+										ORDER BY
+											ROW_NUMBER() OVER(PARTITION BY Id_Activo ORDER BY Fecha_Baja DESC, Id_baja DESC)
+									) B_2
+								ON B_1.Fecha_Baja = B_2.UltimoRegistro
+								AND B_1.Id_Activo = B_2.Id_Activo
+								AND B_1.Id_Baja = B_2.UltimoMovimiento
+								WHERE
+								/*-- Cancelados y que siguen en operación --*/
+								B_1.Estatus_Cancelacion = 1 AND B_1.EstatusBaja = 0
+							)
+						) )
+						SELECT *, NumRegistrosConsulta = COUNT(*) OVER() FROM TempResult  ORDER BY Fech_Inser DESC  OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY 
+
+2025-01-31 9:01:10 -->Codigo->22007 Error -> SQLSTATE[22007]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Error al convertir una cadena de caracteres en fecha y/u hora. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query('; WITH TempResu...')
+#1 C:\inetpub\expuestos\SIGA\modelos\simple_mvc\ActivoFijoInventarioConsultasModel.Class.php(690): SqlServer->execute('; WITH TempResu...')
+#2 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(276): ActivoFijoInventarioConsultasModel->ActivoFijoInventarioConsultasReportesDataTableGet(Object(ActivoFijoInventarioConsultasModel))
+#3 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(57): ActivoFijoInventarioReportesController->ActivoFijoInventarioLlenarDataTable()
+#4 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(317): ActivoFijoInventarioReportesController->__construct()
+#5 {main} Query-> ; WITH TempResult AS( SELECT S.Id_Activo,
+					S.AF_BC,
+					S.Foto,
+					S.Nombre_Activo,
+					S.Marca,
+					S.Modelo,
+					S.NumSerie,
+					S.Nombre_Completo,
+					(select Nom_Area from siga_catareas A where A.id_Area = S.Id_Area) AS Id_Area,
+					(select Desc_Clasificacion from siga_cat_clasificacion C where C.Id_Clasificacion=S.Id_Clasificacion) as Clasificacion,
+					(select Des_Departamento from siga_cat_departamento D where D.Id_Departamento=S.Id_Departamento) as Id_Departamento,
+					(select Desc_Propiedad from siga_cat_propiedad C where C.Id_Propiedad = S.Id_Propiedad) as Id_Propiedad,
+					(select Desc_Estatus from siga_cat_estatus C where C.Id_Estatus=S.Id_Situacion_Activo) as Id_Situacion_Activo,
+					(select Desc_Tipo_Activo from siga_cat_tipo_activo T where T.Id_Tipo_Activo=S.Id_Tipo_Activo) as TipoActivo,DescCorta,
+					(select Desc_Ubic_Prim from siga_cat_ubic_prim T where T.Id_Ubic_Prim=S.Id_Ubic_Prim) as Id_Ubic_Prim,
+					(select Desc_Ubic_Sec from siga_cat_ubic_sec T where T.Id_Ubic_Sec=S.Id_Ubic_Sec) as Id_Ubic_Sec,
+					S.Especifica AS UbicacionEspecifica,
+					--isnull(S.Fech_Inser,'') as FechaAlta,
+					--FORMAT(CAST(S.Fech_Inser AS DATE),'yyyy-MM-dd') as FechaAlta,
+					FORMAT(CAST(S.Fech_Inser AS DATE),'yyyy-MM-dd') as Fech_Inser,
+					--FORMAT(S.Fech_Inser,'yyyy-MM-dd') as FechaAlta,
+					--convert(varchar,S.Fech_Inser,23) as FechaAlta,
+					S.Fech_Inser as FechaAlta,
+
+					--S.Fech_Inser,
+					(SELECT F.Desc_Familia FROM siga_cat_familia F WHERE F.Id_Familia = S.Id_Familia) AS Id_Familia,
+					(SELECT S_F.Desc_Subfamilia FROM siga_cat_subfamilia S_F WHERE S_F.Id_Subfamilia = S.Id_Subfamilia) AS Id_SubFamilia,
+					(SELECT M_A.Desc_Motivo_Alta FROM siga_cat_motivo_alta M_A WHERE M_A.Id_Motivo_Alta = S.Id_Motivo_Alta) AS Id_Motivo_Alta,
+					S.DescLarga,
+					(CASE WHEN S.ParticipaCertificacion = 1 THEN 'Si' ELSE 'No' END) AS ParticipaCertificacion,
+					(CASE WHEN S.ParticipaSeguros = 1 THEN 'Si' ELSE 'No' END) AS ParticipaSeguros,
+					S.Num_Empleado,
+					(SELECT V.Desc_Tipo_Vale_Resg FROM siga_cat_tipo_vale_resg V WHERE V.Id_Tipo_Vale_Resg = S.Id_Tipo_Vale_Resg) AS Id_Tipo_Vale_Resg,
+					S.Garantia,
+					S.ExtGarantia,
+					(SELECT U.Nombre_Usuario FROM siga_usuarios U WHERE U.Id_Usuario = S.Usr_Inser) AS Usr_Inser,
+					(SELECT T_A.Desc_Tipo_Activo FROM siga_cat_tipo_activo T_A WHERE T_A.Id_Tipo_Activo = S.Id_Tipo_Activo) AS Id_Tipo_Activo,
+					ISNULL((SELECT siga_condicion_de_recepcion_descripcion FROM siga_cat_condicion_de_recepcion WHERE siga_condicion_de_recepcion_id=s.siga_activos_condicion_recepcion),'') AS siga_activos_condicion_recepcion,
+					FORMAT(CAST(S.siga_activos_fch_recepcion_equipo AS DATE),'yyyy-MM-dd') AS siga_activos_fch_recepcion_equipo,					
+					FORMAT(CAST(S.siga_activos_fch_operacion AS DATE),'yyyy-MM-dd') AS siga_activos_fch_operacion,
+					/* Proveedores */
+					P.NumOrdenCompra,
+					P.NumFactura,
+					P.FechaFactura,
+					P.UUID,
+					P.Folio_Fiscal,
+					P.NumContrato,
+					P.VidaUtilFabricante,
+					P.VidaUtilCHS,
+					P.Fecha_Vencimiento,
+					P.NombreProveedor,
+					P.Contacto,
+					P.Telefono,
+					P.DocRecibida,
+					P.Correo,
+					P.Link,
+
+					/* Contabilidad */
+					(SELECT C_C.Desc_Centro_de_costos FROM siga_cat_centro_de_costos C_C WHERE C_C.Id_Centros_de_costos = C.Centro_Costos) AS Centro_Costos,
+					C.No_Capex,
+					C.Prorrateo,
+					(CASE WHEN C.Participa_Depreciacion = 1 THEN 'Si' ELSE 'No' END) AS Participa_Depreciacion,
+					C.Fecha_Inicio_Depr,
+					C.Cuent_Cont_Act,
+					C.Cuent_Cont_Act_B10,
+					C.Cuent_Cont_Result,
+					C.Cuent_Cont_Result_B10,
+					C.Cuent_Cont_Dep,
+					C.Cuent_Cont_Dep_B10,
+					
+					/* Mantenimiento Preventivo */
+					(SELECT TOP 1
+						(SELECT TOP 1 Desc_Frecuencia FROM siga_cat_frecuencia WHERE siga_cat_frecuencia.Id_Frecuencia = siga_actividades.Id_Frecuencia)
+						FROM siga_actividades WHERE siga_actividades.Id_Area=S.Id_Area AND siga_actividades.Id_Activo=S.Id_Activo ORDER BY Fech_Inser DESC
+					) AS Frecuencia,
+					(SELECT TOP 1 Realiza FROM siga_actividades WHERE siga_actividades.Id_Area = S.Id_Area AND siga_actividades.Id_Activo = S.Id_Activo ORDER BY Fech_Inser DESC) AS Realiza, 	(select top 1 CAST(MontoFactura as NUMERIC(10,2)) from siga_activo_proveedor T where T.Id_Activo=S.Id_Activo) AS MontoFactura,
+								(select top 1 CAST(Monto_F as NUMERIC(10,2)) from siga_activo_proveedor T where T.Id_Activo=S.Id_Activo) AS Monto_F,
+								CONVERT(NUMERIC(10,2), ImporteSeguros) AS ImporteSeguros, 	'' AS UbicacionPrimariaProcedencia,
+									'' AS UbicacionSecundariaProcedencia,
+									'' as Id_AreaReu,(select isnull(FORMAT(Fecha_Baja,'dd/MM/yyyy'),'') from siga_baja_activo A where A.Id_Activo=S.Id_Activo and Estatus_Cancelacion<>1) as Fecha_Baja,  (SELECT MAX(CveWorkflow) FROM siga_workflow_activos W_A WHERE W_A.Id_Activo = S.Id_Activo AND (Id_Baja IS NULL AND Id_Activo_Reubicacion IS NULL)) AS WorkFlowPaso, 	(SELECT MAX(CveWorkflow) FROM siga_workflow WHERE ProcesoNombre = 'tablaactivos' AND Aplica = 1) AS WorkFlowPasoTotal,
+								(SELECT COUNT(*) FROM siga_activo_accesorio_consumible A_C WHERE A_C.Id_Activo = S.Id_Activo) AS CuentaAccesoriosConsumibles
+				FROM siga_activos S
+				LEFT JOIN siga_activo_proveedor P ON P.Id_Activo = S.Id_Activo
+				LEFT JOIN (SELECT * FROM siga_activos_contabilidad WHERE Fech_Inser IS NOT NULL) C ON S.Id_Activo = C.Id_Activo
+				  where 0=0  AND S.Estatus_Reg <> 3  and S.Id_Area=1  AND (
+							S.Id_Activo not in (select Id_Activo from siga_baja_activo)
+							OR
+							S.Id_Activo IN (
+								SELECT B_1.Id_Activo
+								FROM siga_baja_activo B_1
+								INNER JOIN 
+									(
+										/*-- https://stackoverflow.com/questions/28722276/sql-select-top-1-for-each-group/28727802 --*/
+										SELECT TOP 1 WITH TIES
+											Id_Activo, Fecha_Baja AS UltimoRegistro, Id_baja AS UltimoMovimiento
+										FROM siga_baja_activo
+										ORDER BY
+											ROW_NUMBER() OVER(PARTITION BY Id_Activo ORDER BY Fecha_Baja DESC, Id_baja DESC)
+									) B_2
+								ON B_1.Fecha_Baja = B_2.UltimoRegistro
+								AND B_1.Id_Activo = B_2.Id_Activo
+								AND B_1.Id_Baja = B_2.UltimoMovimiento
+								WHERE
+								/*-- Cancelados y que siguen en operación --*/
+								B_1.Estatus_Cancelacion = 1 AND B_1.EstatusBaja = 0
+							)
+						) )
+						SELECT *, NumRegistrosConsulta = COUNT(*) OVER() FROM TempResult  ORDER BY Fech_Inser DESC  OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY 
+
+2025-01-31 9:11:44 -->Codigo->22007 Error -> SQLSTATE[22007]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Error al convertir una cadena de caracteres en fecha y/u hora. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query('; WITH TempResu...')
+#1 C:\inetpub\expuestos\SIGA\modelos\simple_mvc\ActivoFijoInventarioConsultasModel.Class.php(690): SqlServer->execute('; WITH TempResu...')
+#2 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(276): ActivoFijoInventarioConsultasModel->ActivoFijoInventarioConsultasReportesDataTableGet(Object(ActivoFijoInventarioConsultasModel))
+#3 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(57): ActivoFijoInventarioReportesController->ActivoFijoInventarioLlenarDataTable()
+#4 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(317): ActivoFijoInventarioReportesController->__construct()
+#5 {main} Query-> ; WITH TempResult AS( SELECT S.Id_Activo,
+					S.AF_BC,
+					S.Foto,
+					S.Nombre_Activo,
+					S.Marca,
+					S.Modelo,
+					S.NumSerie,
+					S.Nombre_Completo,
+					(select Nom_Area from siga_catareas A where A.id_Area = S.Id_Area) AS Id_Area,
+					(select Desc_Clasificacion from siga_cat_clasificacion C where C.Id_Clasificacion=S.Id_Clasificacion) as Clasificacion,
+					(select Des_Departamento from siga_cat_departamento D where D.Id_Departamento=S.Id_Departamento) as Id_Departamento,
+					(select Desc_Propiedad from siga_cat_propiedad C where C.Id_Propiedad = S.Id_Propiedad) as Id_Propiedad,
+					(select Desc_Estatus from siga_cat_estatus C where C.Id_Estatus=S.Id_Situacion_Activo) as Id_Situacion_Activo,
+					(select Desc_Tipo_Activo from siga_cat_tipo_activo T where T.Id_Tipo_Activo=S.Id_Tipo_Activo) as TipoActivo,DescCorta,
+					(select Desc_Ubic_Prim from siga_cat_ubic_prim T where T.Id_Ubic_Prim=S.Id_Ubic_Prim) as Id_Ubic_Prim,
+					(select Desc_Ubic_Sec from siga_cat_ubic_sec T where T.Id_Ubic_Sec=S.Id_Ubic_Sec) as Id_Ubic_Sec,
+					S.Especifica AS UbicacionEspecifica,
+					--isnull(S.Fech_Inser,'') as FechaAlta,
+					--FORMAT(CAST(S.Fech_Inser AS DATE),'yyyy-MM-dd') as FechaAlta,
+					FORMAT(CAST(S.Fech_Inser AS DATE),'yyyy-MM-dd') as Fech_Inser,
+					--FORMAT(S.Fech_Inser,'yyyy-MM-dd') as FechaAlta,
+					--convert(varchar,S.Fech_Inser,23) as FechaAlta,
+					S.Fech_Inser as FechaAlta,
+
+					--S.Fech_Inser,
+					(SELECT F.Desc_Familia FROM siga_cat_familia F WHERE F.Id_Familia = S.Id_Familia) AS Id_Familia,
+					(SELECT S_F.Desc_Subfamilia FROM siga_cat_subfamilia S_F WHERE S_F.Id_Subfamilia = S.Id_Subfamilia) AS Id_SubFamilia,
+					(SELECT M_A.Desc_Motivo_Alta FROM siga_cat_motivo_alta M_A WHERE M_A.Id_Motivo_Alta = S.Id_Motivo_Alta) AS Id_Motivo_Alta,
+					S.DescLarga,
+					(CASE WHEN S.ParticipaCertificacion = 1 THEN 'Si' ELSE 'No' END) AS ParticipaCertificacion,
+					(CASE WHEN S.ParticipaSeguros = 1 THEN 'Si' ELSE 'No' END) AS ParticipaSeguros,
+					S.Num_Empleado,
+					(SELECT V.Desc_Tipo_Vale_Resg FROM siga_cat_tipo_vale_resg V WHERE V.Id_Tipo_Vale_Resg = S.Id_Tipo_Vale_Resg) AS Id_Tipo_Vale_Resg,
+					S.Garantia,
+					S.ExtGarantia,
+					(SELECT U.Nombre_Usuario FROM siga_usuarios U WHERE U.Id_Usuario = S.Usr_Inser) AS Usr_Inser,
+					(SELECT T_A.Desc_Tipo_Activo FROM siga_cat_tipo_activo T_A WHERE T_A.Id_Tipo_Activo = S.Id_Tipo_Activo) AS Id_Tipo_Activo,
+					ISNULL((SELECT siga_condicion_de_recepcion_descripcion FROM siga_cat_condicion_de_recepcion WHERE siga_condicion_de_recepcion_id=s.siga_activos_condicion_recepcion),'') AS siga_activos_condicion_recepcion,
+					FORMAT(CAST(S.siga_activos_fch_recepcion_equipo AS DATE),'yyyy-MM-dd') AS siga_activos_fch_recepcion_equipo,					
+					FORMAT(CAST(S.siga_activos_fch_operacion AS DATE),'yyyy-MM-dd') AS siga_activos_fch_operacion,
+					/* Proveedores */
+					P.NumOrdenCompra,
+					P.NumFactura,
+					P.FechaFactura,
+					P.UUID,
+					P.Folio_Fiscal,
+					P.NumContrato,
+					P.VidaUtilFabricante,
+					P.VidaUtilCHS,
+					P.Fecha_Vencimiento,
+					P.NombreProveedor,
+					P.Contacto,
+					P.Telefono,
+					P.DocRecibida,
+					P.Correo,
+					P.Link,
+
+					/* Contabilidad */
+					(SELECT C_C.Desc_Centro_de_costos FROM siga_cat_centro_de_costos C_C WHERE C_C.Id_Centros_de_costos = C.Centro_Costos) AS Centro_Costos,
+					C.No_Capex,
+					C.Prorrateo,
+					(CASE WHEN C.Participa_Depreciacion = 1 THEN 'Si' ELSE 'No' END) AS Participa_Depreciacion,
+					C.Fecha_Inicio_Depr,
+					C.Cuent_Cont_Act,
+					C.Cuent_Cont_Act_B10,
+					C.Cuent_Cont_Result,
+					C.Cuent_Cont_Result_B10,
+					C.Cuent_Cont_Dep,
+					C.Cuent_Cont_Dep_B10,
+					
+					/* Mantenimiento Preventivo */
+					(SELECT TOP 1
+						(SELECT TOP 1 Desc_Frecuencia FROM siga_cat_frecuencia WHERE siga_cat_frecuencia.Id_Frecuencia = siga_actividades.Id_Frecuencia)
+						FROM siga_actividades WHERE siga_actividades.Id_Area=S.Id_Area AND siga_actividades.Id_Activo=S.Id_Activo ORDER BY Fech_Inser DESC
+					) AS Frecuencia,
+					(SELECT TOP 1 Realiza FROM siga_actividades WHERE siga_actividades.Id_Area = S.Id_Area AND siga_actividades.Id_Activo = S.Id_Activo ORDER BY Fech_Inser DESC) AS Realiza, 	(select top 1 CAST(MontoFactura as NUMERIC(10,2)) from siga_activo_proveedor T where T.Id_Activo=S.Id_Activo) AS MontoFactura,
+								(select top 1 CAST(Monto_F as NUMERIC(10,2)) from siga_activo_proveedor T where T.Id_Activo=S.Id_Activo) AS Monto_F,
+								CONVERT(NUMERIC(10,2), ImporteSeguros) AS ImporteSeguros, 	'' AS UbicacionPrimariaProcedencia,
+									'' AS UbicacionSecundariaProcedencia,
+									'' as Id_AreaReu,(select isnull(FORMAT(Fecha_Baja,'dd/MM/yyyy'),'') from siga_baja_activo A where A.Id_Activo=S.Id_Activo and Estatus_Cancelacion<>1) as Fecha_Baja,  (SELECT MAX(CveWorkflow) FROM siga_workflow_activos W_A WHERE W_A.Id_Activo = S.Id_Activo AND (Id_Baja IS NULL AND Id_Activo_Reubicacion IS NULL)) AS WorkFlowPaso, 	(SELECT MAX(CveWorkflow) FROM siga_workflow WHERE ProcesoNombre = 'tablaactivos' AND Aplica = 1) AS WorkFlowPasoTotal,
+								(SELECT COUNT(*) FROM siga_activo_accesorio_consumible A_C WHERE A_C.Id_Activo = S.Id_Activo) AS CuentaAccesoriosConsumibles
+				FROM siga_activos S
+				LEFT JOIN siga_activo_proveedor P ON P.Id_Activo = S.Id_Activo
+				LEFT JOIN (SELECT * FROM siga_activos_contabilidad WHERE Fech_Inser IS NOT NULL) C ON S.Id_Activo = C.Id_Activo
+				  where 0=0  AND S.Estatus_Reg <> 3  and S.Id_Area=1  AND (
+							S.Id_Activo not in (select Id_Activo from siga_baja_activo)
+							OR
+							S.Id_Activo IN (
+								SELECT B_1.Id_Activo
+								FROM siga_baja_activo B_1
+								INNER JOIN 
+									(
+										/*-- https://stackoverflow.com/questions/28722276/sql-select-top-1-for-each-group/28727802 --*/
+										SELECT TOP 1 WITH TIES
+											Id_Activo, Fecha_Baja AS UltimoRegistro, Id_baja AS UltimoMovimiento
+										FROM siga_baja_activo
+										ORDER BY
+											ROW_NUMBER() OVER(PARTITION BY Id_Activo ORDER BY Fecha_Baja DESC, Id_baja DESC)
+									) B_2
+								ON B_1.Fecha_Baja = B_2.UltimoRegistro
+								AND B_1.Id_Activo = B_2.Id_Activo
+								AND B_1.Id_Baja = B_2.UltimoMovimiento
+								WHERE
+								/*-- Cancelados y que siguen en operación --*/
+								B_1.Estatus_Cancelacion = 1 AND B_1.EstatusBaja = 0
+							)
+						) )
+						SELECT *, NumRegistrosConsulta = COUNT(*) OVER() FROM TempResult  ORDER BY Fech_Inser DESC  OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY 
+
+2025-01-31 9:12:06 -->Codigo->22007 Error -> SQLSTATE[22007]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Error al convertir una cadena de caracteres en fecha y/u hora. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query('; WITH TempResu...')
+#1 C:\inetpub\expuestos\SIGA\modelos\simple_mvc\ActivoFijoInventarioConsultasModel.Class.php(690): SqlServer->execute('; WITH TempResu...')
+#2 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(276): ActivoFijoInventarioConsultasModel->ActivoFijoInventarioConsultasReportesDataTableGet(Object(ActivoFijoInventarioConsultasModel))
+#3 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(57): ActivoFijoInventarioReportesController->ActivoFijoInventarioLlenarDataTable()
+#4 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(317): ActivoFijoInventarioReportesController->__construct()
+#5 {main} Query-> ; WITH TempResult AS( SELECT S.Id_Activo,
+					S.AF_BC,
+					S.Foto,
+					S.Nombre_Activo,
+					S.Marca,
+					S.Modelo,
+					S.NumSerie,
+					S.Nombre_Completo,
+					(select Nom_Area from siga_catareas A where A.id_Area = S.Id_Area) AS Id_Area,
+					(select Desc_Clasificacion from siga_cat_clasificacion C where C.Id_Clasificacion=S.Id_Clasificacion) as Clasificacion,
+					(select Des_Departamento from siga_cat_departamento D where D.Id_Departamento=S.Id_Departamento) as Id_Departamento,
+					(select Desc_Propiedad from siga_cat_propiedad C where C.Id_Propiedad = S.Id_Propiedad) as Id_Propiedad,
+					(select Desc_Estatus from siga_cat_estatus C where C.Id_Estatus=S.Id_Situacion_Activo) as Id_Situacion_Activo,
+					(select Desc_Tipo_Activo from siga_cat_tipo_activo T where T.Id_Tipo_Activo=S.Id_Tipo_Activo) as TipoActivo,DescCorta,
+					(select Desc_Ubic_Prim from siga_cat_ubic_prim T where T.Id_Ubic_Prim=S.Id_Ubic_Prim) as Id_Ubic_Prim,
+					(select Desc_Ubic_Sec from siga_cat_ubic_sec T where T.Id_Ubic_Sec=S.Id_Ubic_Sec) as Id_Ubic_Sec,
+					S.Especifica AS UbicacionEspecifica,
+					--isnull(S.Fech_Inser,'') as FechaAlta,
+					--FORMAT(CAST(S.Fech_Inser AS DATE),'yyyy-MM-dd') as FechaAlta,
+					FORMAT(CAST(S.Fech_Inser AS DATE),'yyyy-MM-dd') as Fech_Inser,
+					--FORMAT(S.Fech_Inser,'yyyy-MM-dd') as FechaAlta,
+					--convert(varchar,S.Fech_Inser,23) as FechaAlta,
+					S.Fech_Inser as FechaAlta,
+
+					--S.Fech_Inser,
+					(SELECT F.Desc_Familia FROM siga_cat_familia F WHERE F.Id_Familia = S.Id_Familia) AS Id_Familia,
+					(SELECT S_F.Desc_Subfamilia FROM siga_cat_subfamilia S_F WHERE S_F.Id_Subfamilia = S.Id_Subfamilia) AS Id_SubFamilia,
+					(SELECT M_A.Desc_Motivo_Alta FROM siga_cat_motivo_alta M_A WHERE M_A.Id_Motivo_Alta = S.Id_Motivo_Alta) AS Id_Motivo_Alta,
+					S.DescLarga,
+					(CASE WHEN S.ParticipaCertificacion = 1 THEN 'Si' ELSE 'No' END) AS ParticipaCertificacion,
+					(CASE WHEN S.ParticipaSeguros = 1 THEN 'Si' ELSE 'No' END) AS ParticipaSeguros,
+					S.Num_Empleado,
+					(SELECT V.Desc_Tipo_Vale_Resg FROM siga_cat_tipo_vale_resg V WHERE V.Id_Tipo_Vale_Resg = S.Id_Tipo_Vale_Resg) AS Id_Tipo_Vale_Resg,
+					S.Garantia,
+					S.ExtGarantia,
+					(SELECT U.Nombre_Usuario FROM siga_usuarios U WHERE U.Id_Usuario = S.Usr_Inser) AS Usr_Inser,
+					(SELECT T_A.Desc_Tipo_Activo FROM siga_cat_tipo_activo T_A WHERE T_A.Id_Tipo_Activo = S.Id_Tipo_Activo) AS Id_Tipo_Activo,
+					ISNULL((SELECT siga_condicion_de_recepcion_descripcion FROM siga_cat_condicion_de_recepcion WHERE siga_condicion_de_recepcion_id=s.siga_activos_condicion_recepcion),'') AS siga_activos_condicion_recepcion,
+					FORMAT(CAST(S.siga_activos_fch_recepcion_equipo AS DATE),'yyyy-MM-dd') AS siga_activos_fch_recepcion_equipo,					
+					FORMAT(CAST(S.siga_activos_fch_operacion AS DATE),'yyyy-MM-dd') AS siga_activos_fch_operacion,
+					/* Proveedores */
+					P.NumOrdenCompra,
+					P.NumFactura,
+					P.FechaFactura,
+					P.UUID,
+					P.Folio_Fiscal,
+					P.NumContrato,
+					P.VidaUtilFabricante,
+					P.VidaUtilCHS,
+					P.Fecha_Vencimiento,
+					P.NombreProveedor,
+					P.Contacto,
+					P.Telefono,
+					P.DocRecibida,
+					P.Correo,
+					P.Link,
+
+					/* Contabilidad */
+					(SELECT C_C.Desc_Centro_de_costos FROM siga_cat_centro_de_costos C_C WHERE C_C.Id_Centros_de_costos = C.Centro_Costos) AS Centro_Costos,
+					C.No_Capex,
+					C.Prorrateo,
+					(CASE WHEN C.Participa_Depreciacion = 1 THEN 'Si' ELSE 'No' END) AS Participa_Depreciacion,
+					C.Fecha_Inicio_Depr,
+					C.Cuent_Cont_Act,
+					C.Cuent_Cont_Act_B10,
+					C.Cuent_Cont_Result,
+					C.Cuent_Cont_Result_B10,
+					C.Cuent_Cont_Dep,
+					C.Cuent_Cont_Dep_B10,
+					
+					/* Mantenimiento Preventivo */
+					(SELECT TOP 1
+						(SELECT TOP 1 Desc_Frecuencia FROM siga_cat_frecuencia WHERE siga_cat_frecuencia.Id_Frecuencia = siga_actividades.Id_Frecuencia)
+						FROM siga_actividades WHERE siga_actividades.Id_Area=S.Id_Area AND siga_actividades.Id_Activo=S.Id_Activo ORDER BY Fech_Inser DESC
+					) AS Frecuencia,
+					(SELECT TOP 1 Realiza FROM siga_actividades WHERE siga_actividades.Id_Area = S.Id_Area AND siga_actividades.Id_Activo = S.Id_Activo ORDER BY Fech_Inser DESC) AS Realiza, 	(select top 1 CAST(MontoFactura as NUMERIC(10,2)) from siga_activo_proveedor T where T.Id_Activo=S.Id_Activo) AS MontoFactura,
+								(select top 1 CAST(Monto_F as NUMERIC(10,2)) from siga_activo_proveedor T where T.Id_Activo=S.Id_Activo) AS Monto_F,
+								CONVERT(NUMERIC(10,2), ImporteSeguros) AS ImporteSeguros, 	'' AS UbicacionPrimariaProcedencia,
+									'' AS UbicacionSecundariaProcedencia,
+									'' as Id_AreaReu,(select isnull(FORMAT(Fecha_Baja,'dd/MM/yyyy'),'') from siga_baja_activo A where A.Id_Activo=S.Id_Activo and Estatus_Cancelacion<>1) as Fecha_Baja,  (SELECT MAX(CveWorkflow) FROM siga_workflow_activos W_A WHERE W_A.Id_Activo = S.Id_Activo AND (Id_Baja IS NULL AND Id_Activo_Reubicacion IS NULL)) AS WorkFlowPaso, 	(SELECT MAX(CveWorkflow) FROM siga_workflow WHERE ProcesoNombre = 'tablaactivos' AND Aplica = 1) AS WorkFlowPasoTotal,
+								(SELECT COUNT(*) FROM siga_activo_accesorio_consumible A_C WHERE A_C.Id_Activo = S.Id_Activo) AS CuentaAccesoriosConsumibles
+				FROM siga_activos S
+				LEFT JOIN siga_activo_proveedor P ON P.Id_Activo = S.Id_Activo
+				LEFT JOIN (SELECT * FROM siga_activos_contabilidad WHERE Fech_Inser IS NOT NULL) C ON S.Id_Activo = C.Id_Activo
+				  where 0=0  AND S.Estatus_Reg <> 3  and S.Id_Area=1  AND (
+							S.Id_Activo not in (select Id_Activo from siga_baja_activo)
+							OR
+							S.Id_Activo IN (
+								SELECT B_1.Id_Activo
+								FROM siga_baja_activo B_1
+								INNER JOIN 
+									(
+										/*-- https://stackoverflow.com/questions/28722276/sql-select-top-1-for-each-group/28727802 --*/
+										SELECT TOP 1 WITH TIES
+											Id_Activo, Fecha_Baja AS UltimoRegistro, Id_baja AS UltimoMovimiento
+										FROM siga_baja_activo
+										ORDER BY
+											ROW_NUMBER() OVER(PARTITION BY Id_Activo ORDER BY Fecha_Baja DESC, Id_baja DESC)
+									) B_2
+								ON B_1.Fecha_Baja = B_2.UltimoRegistro
+								AND B_1.Id_Activo = B_2.Id_Activo
+								AND B_1.Id_Baja = B_2.UltimoMovimiento
+								WHERE
+								/*-- Cancelados y que siguen en operación --*/
+								B_1.Estatus_Cancelacion = 1 AND B_1.EstatusBaja = 0
+							)
+						) )
+						SELECT *, NumRegistrosConsulta = COUNT(*) OVER() FROM TempResult  ORDER BY Fech_Inser DESC  OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY 
+
+2025-01-31 9:12:28 -->Codigo->22007 Error -> SQLSTATE[22007]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Error al convertir una cadena de caracteres en fecha y/u hora. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query('; WITH TempResu...')
+#1 C:\inetpub\expuestos\SIGA\modelos\simple_mvc\ActivoFijoInventarioConsultasModel.Class.php(690): SqlServer->execute('; WITH TempResu...')
+#2 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(276): ActivoFijoInventarioConsultasModel->ActivoFijoInventarioConsultasReportesDataTableGet(Object(ActivoFijoInventarioConsultasModel))
+#3 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(57): ActivoFijoInventarioReportesController->ActivoFijoInventarioLlenarDataTable()
+#4 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(317): ActivoFijoInventarioReportesController->__construct()
+#5 {main} Query-> ; WITH TempResult AS( SELECT S.Id_Activo,
+					S.AF_BC,
+					S.Foto,
+					S.Nombre_Activo,
+					S.Marca,
+					S.Modelo,
+					S.NumSerie,
+					S.Nombre_Completo,
+					(select Nom_Area from siga_catareas A where A.id_Area = S.Id_Area) AS Id_Area,
+					(select Desc_Clasificacion from siga_cat_clasificacion C where C.Id_Clasificacion=S.Id_Clasificacion) as Clasificacion,
+					(select Des_Departamento from siga_cat_departamento D where D.Id_Departamento=S.Id_Departamento) as Id_Departamento,
+					(select Desc_Propiedad from siga_cat_propiedad C where C.Id_Propiedad = S.Id_Propiedad) as Id_Propiedad,
+					(select Desc_Estatus from siga_cat_estatus C where C.Id_Estatus=S.Id_Situacion_Activo) as Id_Situacion_Activo,
+					(select Desc_Tipo_Activo from siga_cat_tipo_activo T where T.Id_Tipo_Activo=S.Id_Tipo_Activo) as TipoActivo,DescCorta,
+					(select Desc_Ubic_Prim from siga_cat_ubic_prim T where T.Id_Ubic_Prim=S.Id_Ubic_Prim) as Id_Ubic_Prim,
+					(select Desc_Ubic_Sec from siga_cat_ubic_sec T where T.Id_Ubic_Sec=S.Id_Ubic_Sec) as Id_Ubic_Sec,
+					S.Especifica AS UbicacionEspecifica,
+					--isnull(S.Fech_Inser,'') as FechaAlta,
+					--FORMAT(CAST(S.Fech_Inser AS DATE),'yyyy-MM-dd') as FechaAlta,
+					FORMAT(CAST(S.Fech_Inser AS DATE),'yyyy-MM-dd') as Fech_Inser,
+					--FORMAT(S.Fech_Inser,'yyyy-MM-dd') as FechaAlta,
+					--convert(varchar,S.Fech_Inser,23) as FechaAlta,
+					S.Fech_Inser as FechaAlta,
+
+					--S.Fech_Inser,
+					(SELECT F.Desc_Familia FROM siga_cat_familia F WHERE F.Id_Familia = S.Id_Familia) AS Id_Familia,
+					(SELECT S_F.Desc_Subfamilia FROM siga_cat_subfamilia S_F WHERE S_F.Id_Subfamilia = S.Id_Subfamilia) AS Id_SubFamilia,
+					(SELECT M_A.Desc_Motivo_Alta FROM siga_cat_motivo_alta M_A WHERE M_A.Id_Motivo_Alta = S.Id_Motivo_Alta) AS Id_Motivo_Alta,
+					S.DescLarga,
+					(CASE WHEN S.ParticipaCertificacion = 1 THEN 'Si' ELSE 'No' END) AS ParticipaCertificacion,
+					(CASE WHEN S.ParticipaSeguros = 1 THEN 'Si' ELSE 'No' END) AS ParticipaSeguros,
+					S.Num_Empleado,
+					(SELECT V.Desc_Tipo_Vale_Resg FROM siga_cat_tipo_vale_resg V WHERE V.Id_Tipo_Vale_Resg = S.Id_Tipo_Vale_Resg) AS Id_Tipo_Vale_Resg,
+					S.Garantia,
+					S.ExtGarantia,
+					(SELECT U.Nombre_Usuario FROM siga_usuarios U WHERE U.Id_Usuario = S.Usr_Inser) AS Usr_Inser,
+					(SELECT T_A.Desc_Tipo_Activo FROM siga_cat_tipo_activo T_A WHERE T_A.Id_Tipo_Activo = S.Id_Tipo_Activo) AS Id_Tipo_Activo,
+					ISNULL((SELECT siga_condicion_de_recepcion_descripcion FROM siga_cat_condicion_de_recepcion WHERE siga_condicion_de_recepcion_id=s.siga_activos_condicion_recepcion),'') AS siga_activos_condicion_recepcion,
+					FORMAT(CAST(S.siga_activos_fch_recepcion_equipo AS DATE),'yyyy-MM-dd') AS siga_activos_fch_recepcion_equipo,					
+					FORMAT(CAST(S.siga_activos_fch_operacion AS DATE),'yyyy-MM-dd') AS siga_activos_fch_operacion,
+					/* Proveedores */
+					P.NumOrdenCompra,
+					P.NumFactura,
+					P.FechaFactura,
+					P.UUID,
+					P.Folio_Fiscal,
+					P.NumContrato,
+					P.VidaUtilFabricante,
+					P.VidaUtilCHS,
+					P.Fecha_Vencimiento,
+					P.NombreProveedor,
+					P.Contacto,
+					P.Telefono,
+					P.DocRecibida,
+					P.Correo,
+					P.Link,
+
+					/* Contabilidad */
+					(SELECT C_C.Desc_Centro_de_costos FROM siga_cat_centro_de_costos C_C WHERE C_C.Id_Centros_de_costos = C.Centro_Costos) AS Centro_Costos,
+					C.No_Capex,
+					C.Prorrateo,
+					(CASE WHEN C.Participa_Depreciacion = 1 THEN 'Si' ELSE 'No' END) AS Participa_Depreciacion,
+					C.Fecha_Inicio_Depr,
+					C.Cuent_Cont_Act,
+					C.Cuent_Cont_Act_B10,
+					C.Cuent_Cont_Result,
+					C.Cuent_Cont_Result_B10,
+					C.Cuent_Cont_Dep,
+					C.Cuent_Cont_Dep_B10,
+					
+					/* Mantenimiento Preventivo */
+					(SELECT TOP 1
+						(SELECT TOP 1 Desc_Frecuencia FROM siga_cat_frecuencia WHERE siga_cat_frecuencia.Id_Frecuencia = siga_actividades.Id_Frecuencia)
+						FROM siga_actividades WHERE siga_actividades.Id_Area=S.Id_Area AND siga_actividades.Id_Activo=S.Id_Activo ORDER BY Fech_Inser DESC
+					) AS Frecuencia,
+					(SELECT TOP 1 Realiza FROM siga_actividades WHERE siga_actividades.Id_Area = S.Id_Area AND siga_actividades.Id_Activo = S.Id_Activo ORDER BY Fech_Inser DESC) AS Realiza, 	(select top 1 CAST(MontoFactura as NUMERIC(10,2)) from siga_activo_proveedor T where T.Id_Activo=S.Id_Activo) AS MontoFactura,
+								(select top 1 CAST(Monto_F as NUMERIC(10,2)) from siga_activo_proveedor T where T.Id_Activo=S.Id_Activo) AS Monto_F,
+								CONVERT(NUMERIC(10,2), ImporteSeguros) AS ImporteSeguros, 	'' AS UbicacionPrimariaProcedencia,
+									'' AS UbicacionSecundariaProcedencia,
+									'' as Id_AreaReu,(select isnull(FORMAT(Fecha_Baja,'dd/MM/yyyy'),'') from siga_baja_activo A where A.Id_Activo=S.Id_Activo and Estatus_Cancelacion<>1) as Fecha_Baja,  (SELECT MAX(CveWorkflow) FROM siga_workflow_activos W_A WHERE W_A.Id_Activo = S.Id_Activo AND (Id_Baja IS NULL AND Id_Activo_Reubicacion IS NULL)) AS WorkFlowPaso, 	(SELECT MAX(CveWorkflow) FROM siga_workflow WHERE ProcesoNombre = 'tablaactivos' AND Aplica = 1) AS WorkFlowPasoTotal,
+								(SELECT COUNT(*) FROM siga_activo_accesorio_consumible A_C WHERE A_C.Id_Activo = S.Id_Activo) AS CuentaAccesoriosConsumibles
+				FROM siga_activos S
+				LEFT JOIN siga_activo_proveedor P ON P.Id_Activo = S.Id_Activo
+				LEFT JOIN (SELECT * FROM siga_activos_contabilidad WHERE Fech_Inser IS NOT NULL) C ON S.Id_Activo = C.Id_Activo
+				  where 0=0  AND S.Estatus_Reg <> 3  and S.Id_Area=1  AND (
+							S.Id_Activo not in (select Id_Activo from siga_baja_activo)
+							OR
+							S.Id_Activo IN (
+								SELECT B_1.Id_Activo
+								FROM siga_baja_activo B_1
+								INNER JOIN 
+									(
+										/*-- https://stackoverflow.com/questions/28722276/sql-select-top-1-for-each-group/28727802 --*/
+										SELECT TOP 1 WITH TIES
+											Id_Activo, Fecha_Baja AS UltimoRegistro, Id_baja AS UltimoMovimiento
+										FROM siga_baja_activo
+										ORDER BY
+											ROW_NUMBER() OVER(PARTITION BY Id_Activo ORDER BY Fecha_Baja DESC, Id_baja DESC)
+									) B_2
+								ON B_1.Fecha_Baja = B_2.UltimoRegistro
+								AND B_1.Id_Activo = B_2.Id_Activo
+								AND B_1.Id_Baja = B_2.UltimoMovimiento
+								WHERE
+								/*-- Cancelados y que siguen en operación --*/
+								B_1.Estatus_Cancelacion = 1 AND B_1.EstatusBaja = 0
+							)
+						) )
+						SELECT *, NumRegistrosConsulta = COUNT(*) OVER() FROM TempResult  ORDER BY Fech_Inser DESC  OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY 
+
+2025-01-31 9:12:57 -->Codigo->22007 Error -> SQLSTATE[22007]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Error al convertir una cadena de caracteres en fecha y/u hora. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query('; WITH TempResu...')
+#1 C:\inetpub\expuestos\SIGA\modelos\simple_mvc\ActivoFijoInventarioConsultasModel.Class.php(690): SqlServer->execute('; WITH TempResu...')
+#2 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(276): ActivoFijoInventarioConsultasModel->ActivoFijoInventarioConsultasReportesDataTableGet(Object(ActivoFijoInventarioConsultasModel))
+#3 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(57): ActivoFijoInventarioReportesController->ActivoFijoInventarioLlenarDataTable()
+#4 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(317): ActivoFijoInventarioReportesController->__construct()
+#5 {main} Query-> ; WITH TempResult AS( SELECT S.Id_Activo,
+					S.AF_BC,
+					S.Foto,
+					S.Nombre_Activo,
+					S.Marca,
+					S.Modelo,
+					S.NumSerie,
+					S.Nombre_Completo,
+					(select Nom_Area from siga_catareas A where A.id_Area = S.Id_Area) AS Id_Area,
+					(select Desc_Clasificacion from siga_cat_clasificacion C where C.Id_Clasificacion=S.Id_Clasificacion) as Clasificacion,
+					(select Des_Departamento from siga_cat_departamento D where D.Id_Departamento=S.Id_Departamento) as Id_Departamento,
+					(select Desc_Propiedad from siga_cat_propiedad C where C.Id_Propiedad = S.Id_Propiedad) as Id_Propiedad,
+					(select Desc_Estatus from siga_cat_estatus C where C.Id_Estatus=S.Id_Situacion_Activo) as Id_Situacion_Activo,
+					(select Desc_Tipo_Activo from siga_cat_tipo_activo T where T.Id_Tipo_Activo=S.Id_Tipo_Activo) as TipoActivo,DescCorta,
+					(select Desc_Ubic_Prim from siga_cat_ubic_prim T where T.Id_Ubic_Prim=S.Id_Ubic_Prim) as Id_Ubic_Prim,
+					(select Desc_Ubic_Sec from siga_cat_ubic_sec T where T.Id_Ubic_Sec=S.Id_Ubic_Sec) as Id_Ubic_Sec,
+					S.Especifica AS UbicacionEspecifica,
+					--isnull(S.Fech_Inser,'') as FechaAlta,
+					--FORMAT(CAST(S.Fech_Inser AS DATE),'yyyy-MM-dd') as FechaAlta,
+					FORMAT(CAST(S.Fech_Inser AS DATE),'yyyy-MM-dd') as Fech_Inser,
+					--FORMAT(S.Fech_Inser,'yyyy-MM-dd') as FechaAlta,
+					--convert(varchar,S.Fech_Inser,23) as FechaAlta,
+					S.Fech_Inser as FechaAlta,
+
+					--S.Fech_Inser,
+					(SELECT F.Desc_Familia FROM siga_cat_familia F WHERE F.Id_Familia = S.Id_Familia) AS Id_Familia,
+					(SELECT S_F.Desc_Subfamilia FROM siga_cat_subfamilia S_F WHERE S_F.Id_Subfamilia = S.Id_Subfamilia) AS Id_SubFamilia,
+					(SELECT M_A.Desc_Motivo_Alta FROM siga_cat_motivo_alta M_A WHERE M_A.Id_Motivo_Alta = S.Id_Motivo_Alta) AS Id_Motivo_Alta,
+					S.DescLarga,
+					(CASE WHEN S.ParticipaCertificacion = 1 THEN 'Si' ELSE 'No' END) AS ParticipaCertificacion,
+					(CASE WHEN S.ParticipaSeguros = 1 THEN 'Si' ELSE 'No' END) AS ParticipaSeguros,
+					S.Num_Empleado,
+					(SELECT V.Desc_Tipo_Vale_Resg FROM siga_cat_tipo_vale_resg V WHERE V.Id_Tipo_Vale_Resg = S.Id_Tipo_Vale_Resg) AS Id_Tipo_Vale_Resg,
+					S.Garantia,
+					S.ExtGarantia,
+					(SELECT U.Nombre_Usuario FROM siga_usuarios U WHERE U.Id_Usuario = S.Usr_Inser) AS Usr_Inser,
+					(SELECT T_A.Desc_Tipo_Activo FROM siga_cat_tipo_activo T_A WHERE T_A.Id_Tipo_Activo = S.Id_Tipo_Activo) AS Id_Tipo_Activo,
+					ISNULL((SELECT siga_condicion_de_recepcion_descripcion FROM siga_cat_condicion_de_recepcion WHERE siga_condicion_de_recepcion_id=s.siga_activos_condicion_recepcion),'') AS siga_activos_condicion_recepcion,
+					FORMAT(CAST(S.siga_activos_fch_recepcion_equipo AS DATE),'yyyy-MM-dd') AS siga_activos_fch_recepcion_equipo,					
+					FORMAT(CAST(S.siga_activos_fch_operacion AS DATE),'yyyy-MM-dd') AS siga_activos_fch_operacion,
+					/* Proveedores */
+					P.NumOrdenCompra,
+					P.NumFactura,
+					P.FechaFactura,
+					P.UUID,
+					P.Folio_Fiscal,
+					P.NumContrato,
+					P.VidaUtilFabricante,
+					P.VidaUtilCHS,
+					P.Fecha_Vencimiento,
+					P.NombreProveedor,
+					P.Contacto,
+					P.Telefono,
+					P.DocRecibida,
+					P.Correo,
+					P.Link,
+
+					/* Contabilidad */
+					(SELECT C_C.Desc_Centro_de_costos FROM siga_cat_centro_de_costos C_C WHERE C_C.Id_Centros_de_costos = C.Centro_Costos) AS Centro_Costos,
+					C.No_Capex,
+					C.Prorrateo,
+					(CASE WHEN C.Participa_Depreciacion = 1 THEN 'Si' ELSE 'No' END) AS Participa_Depreciacion,
+					C.Fecha_Inicio_Depr,
+					C.Cuent_Cont_Act,
+					C.Cuent_Cont_Act_B10,
+					C.Cuent_Cont_Result,
+					C.Cuent_Cont_Result_B10,
+					C.Cuent_Cont_Dep,
+					C.Cuent_Cont_Dep_B10,
+					
+					/* Mantenimiento Preventivo */
+					(SELECT TOP 1
+						(SELECT TOP 1 Desc_Frecuencia FROM siga_cat_frecuencia WHERE siga_cat_frecuencia.Id_Frecuencia = siga_actividades.Id_Frecuencia)
+						FROM siga_actividades WHERE siga_actividades.Id_Area=S.Id_Area AND siga_actividades.Id_Activo=S.Id_Activo ORDER BY Fech_Inser DESC
+					) AS Frecuencia,
+					(SELECT TOP 1 Realiza FROM siga_actividades WHERE siga_actividades.Id_Area = S.Id_Area AND siga_actividades.Id_Activo = S.Id_Activo ORDER BY Fech_Inser DESC) AS Realiza, 	(select top 1 CAST(MontoFactura as NUMERIC(10,2)) from siga_activo_proveedor T where T.Id_Activo=S.Id_Activo) AS MontoFactura,
+								(select top 1 CAST(Monto_F as NUMERIC(10,2)) from siga_activo_proveedor T where T.Id_Activo=S.Id_Activo) AS Monto_F,
+								CONVERT(NUMERIC(10,2), ImporteSeguros) AS ImporteSeguros, 	'' AS UbicacionPrimariaProcedencia,
+									'' AS UbicacionSecundariaProcedencia,
+									'' as Id_AreaReu,(select isnull(FORMAT(Fecha_Baja,'dd/MM/yyyy'),'') from siga_baja_activo A where A.Id_Activo=S.Id_Activo and Estatus_Cancelacion<>1) as Fecha_Baja,  (SELECT MAX(CveWorkflow) FROM siga_workflow_activos W_A WHERE W_A.Id_Activo = S.Id_Activo AND (Id_Baja IS NULL AND Id_Activo_Reubicacion IS NULL)) AS WorkFlowPaso, 	(SELECT MAX(CveWorkflow) FROM siga_workflow WHERE ProcesoNombre = 'tablaactivos' AND Aplica = 1) AS WorkFlowPasoTotal,
+								(SELECT COUNT(*) FROM siga_activo_accesorio_consumible A_C WHERE A_C.Id_Activo = S.Id_Activo) AS CuentaAccesoriosConsumibles
+				FROM siga_activos S
+				LEFT JOIN siga_activo_proveedor P ON P.Id_Activo = S.Id_Activo
+				LEFT JOIN (SELECT * FROM siga_activos_contabilidad WHERE Fech_Inser IS NOT NULL) C ON S.Id_Activo = C.Id_Activo
+				  where 0=0  AND S.Estatus_Reg <> 3  and S.Id_Area=1  AND (
+							S.Id_Activo not in (select Id_Activo from siga_baja_activo)
+							OR
+							S.Id_Activo IN (
+								SELECT B_1.Id_Activo
+								FROM siga_baja_activo B_1
+								INNER JOIN 
+									(
+										/*-- https://stackoverflow.com/questions/28722276/sql-select-top-1-for-each-group/28727802 --*/
+										SELECT TOP 1 WITH TIES
+											Id_Activo, Fecha_Baja AS UltimoRegistro, Id_baja AS UltimoMovimiento
+										FROM siga_baja_activo
+										ORDER BY
+											ROW_NUMBER() OVER(PARTITION BY Id_Activo ORDER BY Fecha_Baja DESC, Id_baja DESC)
+									) B_2
+								ON B_1.Fecha_Baja = B_2.UltimoRegistro
+								AND B_1.Id_Activo = B_2.Id_Activo
+								AND B_1.Id_Baja = B_2.UltimoMovimiento
+								WHERE
+								/*-- Cancelados y que siguen en operación --*/
+								B_1.Estatus_Cancelacion = 1 AND B_1.EstatusBaja = 0
+							)
+						) )
+						SELECT *, NumRegistrosConsulta = COUNT(*) OVER() FROM TempResult  ORDER BY Fech_Inser DESC  OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY 
+
+2025-01-31 9:13:26 -->Codigo->22007 Error -> SQLSTATE[22007]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Error al convertir una cadena de caracteres en fecha y/u hora. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query('; WITH TempResu...')
+#1 C:\inetpub\expuestos\SIGA\modelos\simple_mvc\ActivoFijoInventarioConsultasModel.Class.php(690): SqlServer->execute('; WITH TempResu...')
+#2 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(276): ActivoFijoInventarioConsultasModel->ActivoFijoInventarioConsultasReportesDataTableGet(Object(ActivoFijoInventarioConsultasModel))
+#3 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(57): ActivoFijoInventarioReportesController->ActivoFijoInventarioLlenarDataTable()
+#4 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(317): ActivoFijoInventarioReportesController->__construct()
+#5 {main} Query-> ; WITH TempResult AS( SELECT S.Id_Activo,
+					S.AF_BC,
+					S.Foto,
+					S.Nombre_Activo,
+					S.Marca,
+					S.Modelo,
+					S.NumSerie,
+					S.Nombre_Completo,
+					(select Nom_Area from siga_catareas A where A.id_Area = S.Id_Area) AS Id_Area,
+					(select Desc_Clasificacion from siga_cat_clasificacion C where C.Id_Clasificacion=S.Id_Clasificacion) as Clasificacion,
+					(select Des_Departamento from siga_cat_departamento D where D.Id_Departamento=S.Id_Departamento) as Id_Departamento,
+					(select Desc_Propiedad from siga_cat_propiedad C where C.Id_Propiedad = S.Id_Propiedad) as Id_Propiedad,
+					(select Desc_Estatus from siga_cat_estatus C where C.Id_Estatus=S.Id_Situacion_Activo) as Id_Situacion_Activo,
+					(select Desc_Tipo_Activo from siga_cat_tipo_activo T where T.Id_Tipo_Activo=S.Id_Tipo_Activo) as TipoActivo,DescCorta,
+					(select Desc_Ubic_Prim from siga_cat_ubic_prim T where T.Id_Ubic_Prim=S.Id_Ubic_Prim) as Id_Ubic_Prim,
+					(select Desc_Ubic_Sec from siga_cat_ubic_sec T where T.Id_Ubic_Sec=S.Id_Ubic_Sec) as Id_Ubic_Sec,
+					S.Especifica AS UbicacionEspecifica,
+					--isnull(S.Fech_Inser,'') as FechaAlta,
+					--FORMAT(CAST(S.Fech_Inser AS DATE),'yyyy-MM-dd') as FechaAlta,
+					FORMAT(CAST(S.Fech_Inser AS DATE),'yyyy-MM-dd') as Fech_Inser,
+					--FORMAT(S.Fech_Inser,'yyyy-MM-dd') as FechaAlta,
+					--convert(varchar,S.Fech_Inser,23) as FechaAlta,
+					S.Fech_Inser as FechaAlta,
+
+					--S.Fech_Inser,
+					(SELECT F.Desc_Familia FROM siga_cat_familia F WHERE F.Id_Familia = S.Id_Familia) AS Id_Familia,
+					(SELECT S_F.Desc_Subfamilia FROM siga_cat_subfamilia S_F WHERE S_F.Id_Subfamilia = S.Id_Subfamilia) AS Id_SubFamilia,
+					(SELECT M_A.Desc_Motivo_Alta FROM siga_cat_motivo_alta M_A WHERE M_A.Id_Motivo_Alta = S.Id_Motivo_Alta) AS Id_Motivo_Alta,
+					S.DescLarga,
+					(CASE WHEN S.ParticipaCertificacion = 1 THEN 'Si' ELSE 'No' END) AS ParticipaCertificacion,
+					(CASE WHEN S.ParticipaSeguros = 1 THEN 'Si' ELSE 'No' END) AS ParticipaSeguros,
+					S.Num_Empleado,
+					(SELECT V.Desc_Tipo_Vale_Resg FROM siga_cat_tipo_vale_resg V WHERE V.Id_Tipo_Vale_Resg = S.Id_Tipo_Vale_Resg) AS Id_Tipo_Vale_Resg,
+					S.Garantia,
+					S.ExtGarantia,
+					(SELECT U.Nombre_Usuario FROM siga_usuarios U WHERE U.Id_Usuario = S.Usr_Inser) AS Usr_Inser,
+					(SELECT T_A.Desc_Tipo_Activo FROM siga_cat_tipo_activo T_A WHERE T_A.Id_Tipo_Activo = S.Id_Tipo_Activo) AS Id_Tipo_Activo,
+					ISNULL((SELECT siga_condicion_de_recepcion_descripcion FROM siga_cat_condicion_de_recepcion WHERE siga_condicion_de_recepcion_id=s.siga_activos_condicion_recepcion),'') AS siga_activos_condicion_recepcion,
+					FORMAT(CAST(S.siga_activos_fch_recepcion_equipo AS DATE),'yyyy-MM-dd') AS siga_activos_fch_recepcion_equipo,					
+					FORMAT(CAST(S.siga_activos_fch_operacion AS DATE),'yyyy-MM-dd') AS siga_activos_fch_operacion,
+					/* Proveedores */
+					P.NumOrdenCompra,
+					P.NumFactura,
+					P.FechaFactura,
+					P.UUID,
+					P.Folio_Fiscal,
+					P.NumContrato,
+					P.VidaUtilFabricante,
+					P.VidaUtilCHS,
+					P.Fecha_Vencimiento,
+					P.NombreProveedor,
+					P.Contacto,
+					P.Telefono,
+					P.DocRecibida,
+					P.Correo,
+					P.Link,
+
+					/* Contabilidad */
+					(SELECT C_C.Desc_Centro_de_costos FROM siga_cat_centro_de_costos C_C WHERE C_C.Id_Centros_de_costos = C.Centro_Costos) AS Centro_Costos,
+					C.No_Capex,
+					C.Prorrateo,
+					(CASE WHEN C.Participa_Depreciacion = 1 THEN 'Si' ELSE 'No' END) AS Participa_Depreciacion,
+					C.Fecha_Inicio_Depr,
+					C.Cuent_Cont_Act,
+					C.Cuent_Cont_Act_B10,
+					C.Cuent_Cont_Result,
+					C.Cuent_Cont_Result_B10,
+					C.Cuent_Cont_Dep,
+					C.Cuent_Cont_Dep_B10,
+					
+					/* Mantenimiento Preventivo */
+					(SELECT TOP 1
+						(SELECT TOP 1 Desc_Frecuencia FROM siga_cat_frecuencia WHERE siga_cat_frecuencia.Id_Frecuencia = siga_actividades.Id_Frecuencia)
+						FROM siga_actividades WHERE siga_actividades.Id_Area=S.Id_Area AND siga_actividades.Id_Activo=S.Id_Activo ORDER BY Fech_Inser DESC
+					) AS Frecuencia,
+					(SELECT TOP 1 Realiza FROM siga_actividades WHERE siga_actividades.Id_Area = S.Id_Area AND siga_actividades.Id_Activo = S.Id_Activo ORDER BY Fech_Inser DESC) AS Realiza, 	(select top 1 CAST(MontoFactura as NUMERIC(10,2)) from siga_activo_proveedor T where T.Id_Activo=S.Id_Activo) AS MontoFactura,
+								(select top 1 CAST(Monto_F as NUMERIC(10,2)) from siga_activo_proveedor T where T.Id_Activo=S.Id_Activo) AS Monto_F,
+								CONVERT(NUMERIC(10,2), ImporteSeguros) AS ImporteSeguros, 	'' AS UbicacionPrimariaProcedencia,
+									'' AS UbicacionSecundariaProcedencia,
+									'' as Id_AreaReu,(select isnull(FORMAT(Fecha_Baja,'dd/MM/yyyy'),'') from siga_baja_activo A where A.Id_Activo=S.Id_Activo and Estatus_Cancelacion<>1) as Fecha_Baja,  (SELECT MAX(CveWorkflow) FROM siga_workflow_activos W_A WHERE W_A.Id_Activo = S.Id_Activo AND (Id_Baja IS NULL AND Id_Activo_Reubicacion IS NULL)) AS WorkFlowPaso, 	(SELECT MAX(CveWorkflow) FROM siga_workflow WHERE ProcesoNombre = 'tablaactivos' AND Aplica = 1) AS WorkFlowPasoTotal,
+								(SELECT COUNT(*) FROM siga_activo_accesorio_consumible A_C WHERE A_C.Id_Activo = S.Id_Activo) AS CuentaAccesoriosConsumibles
+				FROM siga_activos S
+				LEFT JOIN siga_activo_proveedor P ON P.Id_Activo = S.Id_Activo
+				LEFT JOIN (SELECT * FROM siga_activos_contabilidad WHERE Fech_Inser IS NOT NULL) C ON S.Id_Activo = C.Id_Activo
+				  where 0=0  AND S.Estatus_Reg <> 3  and S.Id_Area=1  AND (
+							S.Id_Activo not in (select Id_Activo from siga_baja_activo)
+							OR
+							S.Id_Activo IN (
+								SELECT B_1.Id_Activo
+								FROM siga_baja_activo B_1
+								INNER JOIN 
+									(
+										/*-- https://stackoverflow.com/questions/28722276/sql-select-top-1-for-each-group/28727802 --*/
+										SELECT TOP 1 WITH TIES
+											Id_Activo, Fecha_Baja AS UltimoRegistro, Id_baja AS UltimoMovimiento
+										FROM siga_baja_activo
+										ORDER BY
+											ROW_NUMBER() OVER(PARTITION BY Id_Activo ORDER BY Fecha_Baja DESC, Id_baja DESC)
+									) B_2
+								ON B_1.Fecha_Baja = B_2.UltimoRegistro
+								AND B_1.Id_Activo = B_2.Id_Activo
+								AND B_1.Id_Baja = B_2.UltimoMovimiento
+								WHERE
+								/*-- Cancelados y que siguen en operación --*/
+								B_1.Estatus_Cancelacion = 1 AND B_1.EstatusBaja = 0
+							)
+						) )
+						SELECT *, NumRegistrosConsulta = COUNT(*) OVER() FROM TempResult  ORDER BY Fech_Inser DESC  OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY 
+
+2025-01-31 9:24:46 -->Codigo->22007 Error -> SQLSTATE[22007]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Error al convertir una cadena de caracteres en fecha y/u hora. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query('; WITH TempResu...')
+#1 C:\inetpub\expuestos\SIGA\modelos\simple_mvc\ActivoFijoInventarioConsultasModel.Class.php(690): SqlServer->execute('; WITH TempResu...')
+#2 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(276): ActivoFijoInventarioConsultasModel->ActivoFijoInventarioConsultasReportesDataTableGet(Object(ActivoFijoInventarioConsultasModel))
+#3 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(57): ActivoFijoInventarioReportesController->ActivoFijoInventarioLlenarDataTable()
+#4 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(317): ActivoFijoInventarioReportesController->__construct()
+#5 {main} Query-> ; WITH TempResult AS( SELECT S.Id_Activo,
+					S.AF_BC,
+					S.Foto,
+					S.Nombre_Activo,
+					S.Marca,
+					S.Modelo,
+					S.NumSerie,
+					S.Nombre_Completo,
+					(select Nom_Area from siga_catareas A where A.id_Area = S.Id_Area) AS Id_Area,
+					(select Desc_Clasificacion from siga_cat_clasificacion C where C.Id_Clasificacion=S.Id_Clasificacion) as Clasificacion,
+					(select Des_Departamento from siga_cat_departamento D where D.Id_Departamento=S.Id_Departamento) as Id_Departamento,
+					(select Desc_Propiedad from siga_cat_propiedad C where C.Id_Propiedad = S.Id_Propiedad) as Id_Propiedad,
+					(select Desc_Estatus from siga_cat_estatus C where C.Id_Estatus=S.Id_Situacion_Activo) as Id_Situacion_Activo,
+					(select Desc_Tipo_Activo from siga_cat_tipo_activo T where T.Id_Tipo_Activo=S.Id_Tipo_Activo) as TipoActivo,DescCorta,
+					(select Desc_Ubic_Prim from siga_cat_ubic_prim T where T.Id_Ubic_Prim=S.Id_Ubic_Prim) as Id_Ubic_Prim,
+					(select Desc_Ubic_Sec from siga_cat_ubic_sec T where T.Id_Ubic_Sec=S.Id_Ubic_Sec) as Id_Ubic_Sec,
+					S.Especifica AS UbicacionEspecifica,
+					--isnull(S.Fech_Inser,'') as FechaAlta,
+					--FORMAT(CAST(S.Fech_Inser AS DATE),'yyyy-MM-dd') as FechaAlta,
+					FORMAT(CAST(S.Fech_Inser AS DATE),'yyyy-MM-dd') as Fech_Inser,
+					--FORMAT(S.Fech_Inser,'yyyy-MM-dd') as FechaAlta,
+					--convert(varchar,S.Fech_Inser,23) as FechaAlta,
+					S.Fech_Inser as FechaAlta,
+
+					--S.Fech_Inser,
+					(SELECT F.Desc_Familia FROM siga_cat_familia F WHERE F.Id_Familia = S.Id_Familia) AS Id_Familia,
+					(SELECT S_F.Desc_Subfamilia FROM siga_cat_subfamilia S_F WHERE S_F.Id_Subfamilia = S.Id_Subfamilia) AS Id_SubFamilia,
+					(SELECT M_A.Desc_Motivo_Alta FROM siga_cat_motivo_alta M_A WHERE M_A.Id_Motivo_Alta = S.Id_Motivo_Alta) AS Id_Motivo_Alta,
+					S.DescLarga,
+					(CASE WHEN S.ParticipaCertificacion = 1 THEN 'Si' ELSE 'No' END) AS ParticipaCertificacion,
+					(CASE WHEN S.ParticipaSeguros = 1 THEN 'Si' ELSE 'No' END) AS ParticipaSeguros,
+					S.Num_Empleado,
+					(SELECT V.Desc_Tipo_Vale_Resg FROM siga_cat_tipo_vale_resg V WHERE V.Id_Tipo_Vale_Resg = S.Id_Tipo_Vale_Resg) AS Id_Tipo_Vale_Resg,
+					S.Garantia,
+					S.ExtGarantia,
+					(SELECT U.Nombre_Usuario FROM siga_usuarios U WHERE U.Id_Usuario = S.Usr_Inser) AS Usr_Inser,
+					(SELECT T_A.Desc_Tipo_Activo FROM siga_cat_tipo_activo T_A WHERE T_A.Id_Tipo_Activo = S.Id_Tipo_Activo) AS Id_Tipo_Activo,
+					ISNULL((SELECT siga_condicion_de_recepcion_descripcion FROM siga_cat_condicion_de_recepcion WHERE siga_condicion_de_recepcion_id=s.siga_activos_condicion_recepcion),'') AS siga_activos_condicion_recepcion,
+					FORMAT(CAST(S.siga_activos_fch_recepcion_equipo AS DATE),'yyyy-MM-dd') AS siga_activos_fch_recepcion_equipo,					
+					FORMAT(CAST(S.siga_activos_fch_operacion AS DATE),'yyyy-MM-dd') AS siga_activos_fch_operacion,
+					/* Proveedores */
+					P.NumOrdenCompra,
+					P.NumFactura,
+					P.FechaFactura,
+					P.UUID,
+					P.Folio_Fiscal,
+					P.NumContrato,
+					P.VidaUtilFabricante,
+					P.VidaUtilCHS,
+					P.Fecha_Vencimiento,
+					P.NombreProveedor,
+					P.Contacto,
+					P.Telefono,
+					P.DocRecibida,
+					P.Correo,
+					P.Link,
+
+					/* Contabilidad */
+					(SELECT C_C.Desc_Centro_de_costos FROM siga_cat_centro_de_costos C_C WHERE C_C.Id_Centros_de_costos = C.Centro_Costos) AS Centro_Costos,
+					C.No_Capex,
+					C.Prorrateo,
+					(CASE WHEN C.Participa_Depreciacion = 1 THEN 'Si' ELSE 'No' END) AS Participa_Depreciacion,
+					C.Fecha_Inicio_Depr,
+					C.Cuent_Cont_Act,
+					C.Cuent_Cont_Act_B10,
+					C.Cuent_Cont_Result,
+					C.Cuent_Cont_Result_B10,
+					C.Cuent_Cont_Dep,
+					C.Cuent_Cont_Dep_B10,
+					
+					/* Mantenimiento Preventivo */
+					(SELECT TOP 1
+						(SELECT TOP 1 Desc_Frecuencia FROM siga_cat_frecuencia WHERE siga_cat_frecuencia.Id_Frecuencia = siga_actividades.Id_Frecuencia)
+						FROM siga_actividades WHERE siga_actividades.Id_Area=S.Id_Area AND siga_actividades.Id_Activo=S.Id_Activo ORDER BY Fech_Inser DESC
+					) AS Frecuencia,
+					(SELECT TOP 1 Realiza FROM siga_actividades WHERE siga_actividades.Id_Area = S.Id_Area AND siga_actividades.Id_Activo = S.Id_Activo ORDER BY Fech_Inser DESC) AS Realiza, 	(select top 1 CAST(MontoFactura as NUMERIC(10,2)) from siga_activo_proveedor T where T.Id_Activo=S.Id_Activo) AS MontoFactura,
+								(select top 1 CAST(Monto_F as NUMERIC(10,2)) from siga_activo_proveedor T where T.Id_Activo=S.Id_Activo) AS Monto_F,
+								CONVERT(NUMERIC(10,2), ImporteSeguros) AS ImporteSeguros, 	'' AS UbicacionPrimariaProcedencia,
+									'' AS UbicacionSecundariaProcedencia,
+									'' as Id_AreaReu,(select isnull(FORMAT(Fecha_Baja,'dd/MM/yyyy'),'') from siga_baja_activo A where A.Id_Activo=S.Id_Activo and Estatus_Cancelacion<>1) as Fecha_Baja,  (SELECT MAX(CveWorkflow) FROM siga_workflow_activos W_A WHERE W_A.Id_Activo = S.Id_Activo AND (Id_Baja IS NULL AND Id_Activo_Reubicacion IS NULL)) AS WorkFlowPaso, 	(SELECT MAX(CveWorkflow) FROM siga_workflow WHERE ProcesoNombre = 'tablaactivos' AND Aplica = 1) AS WorkFlowPasoTotal,
+								(SELECT COUNT(*) FROM siga_activo_accesorio_consumible A_C WHERE A_C.Id_Activo = S.Id_Activo) AS CuentaAccesoriosConsumibles
+				FROM siga_activos S
+				LEFT JOIN siga_activo_proveedor P ON P.Id_Activo = S.Id_Activo
+				LEFT JOIN (SELECT * FROM siga_activos_contabilidad WHERE Fech_Inser IS NOT NULL) C ON S.Id_Activo = C.Id_Activo
+				  where 0=0  AND S.Estatus_Reg <> 3  and S.Id_Area=1  AND (
+							S.Id_Activo not in (select Id_Activo from siga_baja_activo)
+							OR
+							S.Id_Activo IN (
+								SELECT B_1.Id_Activo
+								FROM siga_baja_activo B_1
+								INNER JOIN 
+									(
+										/*-- https://stackoverflow.com/questions/28722276/sql-select-top-1-for-each-group/28727802 --*/
+										SELECT TOP 1 WITH TIES
+											Id_Activo, Fecha_Baja AS UltimoRegistro, Id_baja AS UltimoMovimiento
+										FROM siga_baja_activo
+										ORDER BY
+											ROW_NUMBER() OVER(PARTITION BY Id_Activo ORDER BY Fecha_Baja DESC, Id_baja DESC)
+									) B_2
+								ON B_1.Fecha_Baja = B_2.UltimoRegistro
+								AND B_1.Id_Activo = B_2.Id_Activo
+								AND B_1.Id_Baja = B_2.UltimoMovimiento
+								WHERE
+								/*-- Cancelados y que siguen en operación --*/
+								B_1.Estatus_Cancelacion = 1 AND B_1.EstatusBaja = 0
+							)
+						) )
+						SELECT *, NumRegistrosConsulta = COUNT(*) OVER() FROM TempResult  ORDER BY Fech_Inser DESC  OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY 
+
+2025-01-31 9:25:06 -->Codigo->22007 Error -> SQLSTATE[22007]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Error al convertir una cadena de caracteres en fecha y/u hora. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query('; WITH TempResu...')
+#1 C:\inetpub\expuestos\SIGA\modelos\simple_mvc\ActivoFijoInventarioConsultasModel.Class.php(690): SqlServer->execute('; WITH TempResu...')
+#2 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(276): ActivoFijoInventarioConsultasModel->ActivoFijoInventarioConsultasReportesDataTableGet(Object(ActivoFijoInventarioConsultasModel))
+#3 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(57): ActivoFijoInventarioReportesController->ActivoFijoInventarioLlenarDataTable()
+#4 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(317): ActivoFijoInventarioReportesController->__construct()
+#5 {main} Query-> ; WITH TempResult AS( SELECT S.Id_Activo,
+					S.AF_BC,
+					S.Foto,
+					S.Nombre_Activo,
+					S.Marca,
+					S.Modelo,
+					S.NumSerie,
+					S.Nombre_Completo,
+					(select Nom_Area from siga_catareas A where A.id_Area = S.Id_Area) AS Id_Area,
+					(select Desc_Clasificacion from siga_cat_clasificacion C where C.Id_Clasificacion=S.Id_Clasificacion) as Clasificacion,
+					(select Des_Departamento from siga_cat_departamento D where D.Id_Departamento=S.Id_Departamento) as Id_Departamento,
+					(select Desc_Propiedad from siga_cat_propiedad C where C.Id_Propiedad = S.Id_Propiedad) as Id_Propiedad,
+					(select Desc_Estatus from siga_cat_estatus C where C.Id_Estatus=S.Id_Situacion_Activo) as Id_Situacion_Activo,
+					(select Desc_Tipo_Activo from siga_cat_tipo_activo T where T.Id_Tipo_Activo=S.Id_Tipo_Activo) as TipoActivo,DescCorta,
+					(select Desc_Ubic_Prim from siga_cat_ubic_prim T where T.Id_Ubic_Prim=S.Id_Ubic_Prim) as Id_Ubic_Prim,
+					(select Desc_Ubic_Sec from siga_cat_ubic_sec T where T.Id_Ubic_Sec=S.Id_Ubic_Sec) as Id_Ubic_Sec,
+					S.Especifica AS UbicacionEspecifica,
+					--isnull(S.Fech_Inser,'') as FechaAlta,
+					--FORMAT(CAST(S.Fech_Inser AS DATE),'yyyy-MM-dd') as FechaAlta,
+					FORMAT(CAST(S.Fech_Inser AS DATE),'yyyy-MM-dd') as Fech_Inser,
+					--FORMAT(S.Fech_Inser,'yyyy-MM-dd') as FechaAlta,
+					--convert(varchar,S.Fech_Inser,23) as FechaAlta,
+					S.Fech_Inser as FechaAlta,
+
+					--S.Fech_Inser,
+					(SELECT F.Desc_Familia FROM siga_cat_familia F WHERE F.Id_Familia = S.Id_Familia) AS Id_Familia,
+					(SELECT S_F.Desc_Subfamilia FROM siga_cat_subfamilia S_F WHERE S_F.Id_Subfamilia = S.Id_Subfamilia) AS Id_SubFamilia,
+					(SELECT M_A.Desc_Motivo_Alta FROM siga_cat_motivo_alta M_A WHERE M_A.Id_Motivo_Alta = S.Id_Motivo_Alta) AS Id_Motivo_Alta,
+					S.DescLarga,
+					(CASE WHEN S.ParticipaCertificacion = 1 THEN 'Si' ELSE 'No' END) AS ParticipaCertificacion,
+					(CASE WHEN S.ParticipaSeguros = 1 THEN 'Si' ELSE 'No' END) AS ParticipaSeguros,
+					S.Num_Empleado,
+					(SELECT V.Desc_Tipo_Vale_Resg FROM siga_cat_tipo_vale_resg V WHERE V.Id_Tipo_Vale_Resg = S.Id_Tipo_Vale_Resg) AS Id_Tipo_Vale_Resg,
+					S.Garantia,
+					S.ExtGarantia,
+					(SELECT U.Nombre_Usuario FROM siga_usuarios U WHERE U.Id_Usuario = S.Usr_Inser) AS Usr_Inser,
+					(SELECT T_A.Desc_Tipo_Activo FROM siga_cat_tipo_activo T_A WHERE T_A.Id_Tipo_Activo = S.Id_Tipo_Activo) AS Id_Tipo_Activo,
+					ISNULL((SELECT siga_condicion_de_recepcion_descripcion FROM siga_cat_condicion_de_recepcion WHERE siga_condicion_de_recepcion_id=s.siga_activos_condicion_recepcion),'') AS siga_activos_condicion_recepcion,
+					FORMAT(CAST(S.siga_activos_fch_recepcion_equipo AS DATE),'yyyy-MM-dd') AS siga_activos_fch_recepcion_equipo,					
+					FORMAT(CAST(S.siga_activos_fch_operacion AS DATE),'yyyy-MM-dd') AS siga_activos_fch_operacion,
+					/* Proveedores */
+					P.NumOrdenCompra,
+					P.NumFactura,
+					P.FechaFactura,
+					P.UUID,
+					P.Folio_Fiscal,
+					P.NumContrato,
+					P.VidaUtilFabricante,
+					P.VidaUtilCHS,
+					P.Fecha_Vencimiento,
+					P.NombreProveedor,
+					P.Contacto,
+					P.Telefono,
+					P.DocRecibida,
+					P.Correo,
+					P.Link,
+
+					/* Contabilidad */
+					(SELECT C_C.Desc_Centro_de_costos FROM siga_cat_centro_de_costos C_C WHERE C_C.Id_Centros_de_costos = C.Centro_Costos) AS Centro_Costos,
+					C.No_Capex,
+					C.Prorrateo,
+					(CASE WHEN C.Participa_Depreciacion = 1 THEN 'Si' ELSE 'No' END) AS Participa_Depreciacion,
+					C.Fecha_Inicio_Depr,
+					C.Cuent_Cont_Act,
+					C.Cuent_Cont_Act_B10,
+					C.Cuent_Cont_Result,
+					C.Cuent_Cont_Result_B10,
+					C.Cuent_Cont_Dep,
+					C.Cuent_Cont_Dep_B10,
+					
+					/* Mantenimiento Preventivo */
+					(SELECT TOP 1
+						(SELECT TOP 1 Desc_Frecuencia FROM siga_cat_frecuencia WHERE siga_cat_frecuencia.Id_Frecuencia = siga_actividades.Id_Frecuencia)
+						FROM siga_actividades WHERE siga_actividades.Id_Area=S.Id_Area AND siga_actividades.Id_Activo=S.Id_Activo ORDER BY Fech_Inser DESC
+					) AS Frecuencia,
+					(SELECT TOP 1 Realiza FROM siga_actividades WHERE siga_actividades.Id_Area = S.Id_Area AND siga_actividades.Id_Activo = S.Id_Activo ORDER BY Fech_Inser DESC) AS Realiza, 	(select top 1 CAST(MontoFactura as NUMERIC(10,2)) from siga_activo_proveedor T where T.Id_Activo=S.Id_Activo) AS MontoFactura,
+								(select top 1 CAST(Monto_F as NUMERIC(10,2)) from siga_activo_proveedor T where T.Id_Activo=S.Id_Activo) AS Monto_F,
+								CONVERT(NUMERIC(10,2), ImporteSeguros) AS ImporteSeguros, 	'' AS UbicacionPrimariaProcedencia,
+									'' AS UbicacionSecundariaProcedencia,
+									'' as Id_AreaReu,(select isnull(FORMAT(Fecha_Baja,'dd/MM/yyyy'),'') from siga_baja_activo A where A.Id_Activo=S.Id_Activo and Estatus_Cancelacion<>1) as Fecha_Baja,  (SELECT MAX(CveWorkflow) FROM siga_workflow_activos W_A WHERE W_A.Id_Activo = S.Id_Activo AND (Id_Baja IS NULL AND Id_Activo_Reubicacion IS NULL)) AS WorkFlowPaso, 	(SELECT MAX(CveWorkflow) FROM siga_workflow WHERE ProcesoNombre = 'tablaactivos' AND Aplica = 1) AS WorkFlowPasoTotal,
+								(SELECT COUNT(*) FROM siga_activo_accesorio_consumible A_C WHERE A_C.Id_Activo = S.Id_Activo) AS CuentaAccesoriosConsumibles
+				FROM siga_activos S
+				LEFT JOIN siga_activo_proveedor P ON P.Id_Activo = S.Id_Activo
+				LEFT JOIN (SELECT * FROM siga_activos_contabilidad WHERE Fech_Inser IS NOT NULL) C ON S.Id_Activo = C.Id_Activo
+				  where 0=0  AND S.Estatus_Reg <> 3  and S.Id_Area=1  AND (
+							S.Id_Activo not in (select Id_Activo from siga_baja_activo)
+							OR
+							S.Id_Activo IN (
+								SELECT B_1.Id_Activo
+								FROM siga_baja_activo B_1
+								INNER JOIN 
+									(
+										/*-- https://stackoverflow.com/questions/28722276/sql-select-top-1-for-each-group/28727802 --*/
+										SELECT TOP 1 WITH TIES
+											Id_Activo, Fecha_Baja AS UltimoRegistro, Id_baja AS UltimoMovimiento
+										FROM siga_baja_activo
+										ORDER BY
+											ROW_NUMBER() OVER(PARTITION BY Id_Activo ORDER BY Fecha_Baja DESC, Id_baja DESC)
+									) B_2
+								ON B_1.Fecha_Baja = B_2.UltimoRegistro
+								AND B_1.Id_Activo = B_2.Id_Activo
+								AND B_1.Id_Baja = B_2.UltimoMovimiento
+								WHERE
+								/*-- Cancelados y que siguen en operación --*/
+								B_1.Estatus_Cancelacion = 1 AND B_1.EstatusBaja = 0
+							)
+						) )
+						SELECT *, NumRegistrosConsulta = COUNT(*) OVER() FROM TempResult  ORDER BY Fech_Inser DESC  OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY 
+
+2025-01-31 9:25:10 -->Codigo->22007 Error -> SQLSTATE[22007]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Error al convertir una cadena de caracteres en fecha y/u hora. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query('; WITH TempResu...')
+#1 C:\inetpub\expuestos\SIGA\modelos\simple_mvc\ActivoFijoInventarioConsultasModel.Class.php(690): SqlServer->execute('; WITH TempResu...')
+#2 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(276): ActivoFijoInventarioConsultasModel->ActivoFijoInventarioConsultasReportesDataTableGet(Object(ActivoFijoInventarioConsultasModel))
+#3 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(57): ActivoFijoInventarioReportesController->ActivoFijoInventarioLlenarDataTable()
+#4 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(317): ActivoFijoInventarioReportesController->__construct()
+#5 {main} Query-> ; WITH TempResult AS( SELECT S.Id_Activo,
+					S.AF_BC,
+					S.Foto,
+					S.Nombre_Activo,
+					S.Marca,
+					S.Modelo,
+					S.NumSerie,
+					S.Nombre_Completo,
+					(select Nom_Area from siga_catareas A where A.id_Area = S.Id_Area) AS Id_Area,
+					(select Desc_Clasificacion from siga_cat_clasificacion C where C.Id_Clasificacion=S.Id_Clasificacion) as Clasificacion,
+					(select Des_Departamento from siga_cat_departamento D where D.Id_Departamento=S.Id_Departamento) as Id_Departamento,
+					(select Desc_Propiedad from siga_cat_propiedad C where C.Id_Propiedad = S.Id_Propiedad) as Id_Propiedad,
+					(select Desc_Estatus from siga_cat_estatus C where C.Id_Estatus=S.Id_Situacion_Activo) as Id_Situacion_Activo,
+					(select Desc_Tipo_Activo from siga_cat_tipo_activo T where T.Id_Tipo_Activo=S.Id_Tipo_Activo) as TipoActivo,DescCorta,
+					(select Desc_Ubic_Prim from siga_cat_ubic_prim T where T.Id_Ubic_Prim=S.Id_Ubic_Prim) as Id_Ubic_Prim,
+					(select Desc_Ubic_Sec from siga_cat_ubic_sec T where T.Id_Ubic_Sec=S.Id_Ubic_Sec) as Id_Ubic_Sec,
+					S.Especifica AS UbicacionEspecifica,
+					--isnull(S.Fech_Inser,'') as FechaAlta,
+					--FORMAT(CAST(S.Fech_Inser AS DATE),'yyyy-MM-dd') as FechaAlta,
+					FORMAT(CAST(S.Fech_Inser AS DATE),'yyyy-MM-dd') as Fech_Inser,
+					--FORMAT(S.Fech_Inser,'yyyy-MM-dd') as FechaAlta,
+					--convert(varchar,S.Fech_Inser,23) as FechaAlta,
+					S.Fech_Inser as FechaAlta,
+
+					--S.Fech_Inser,
+					(SELECT F.Desc_Familia FROM siga_cat_familia F WHERE F.Id_Familia = S.Id_Familia) AS Id_Familia,
+					(SELECT S_F.Desc_Subfamilia FROM siga_cat_subfamilia S_F WHERE S_F.Id_Subfamilia = S.Id_Subfamilia) AS Id_SubFamilia,
+					(SELECT M_A.Desc_Motivo_Alta FROM siga_cat_motivo_alta M_A WHERE M_A.Id_Motivo_Alta = S.Id_Motivo_Alta) AS Id_Motivo_Alta,
+					S.DescLarga,
+					(CASE WHEN S.ParticipaCertificacion = 1 THEN 'Si' ELSE 'No' END) AS ParticipaCertificacion,
+					(CASE WHEN S.ParticipaSeguros = 1 THEN 'Si' ELSE 'No' END) AS ParticipaSeguros,
+					S.Num_Empleado,
+					(SELECT V.Desc_Tipo_Vale_Resg FROM siga_cat_tipo_vale_resg V WHERE V.Id_Tipo_Vale_Resg = S.Id_Tipo_Vale_Resg) AS Id_Tipo_Vale_Resg,
+					S.Garantia,
+					S.ExtGarantia,
+					(SELECT U.Nombre_Usuario FROM siga_usuarios U WHERE U.Id_Usuario = S.Usr_Inser) AS Usr_Inser,
+					(SELECT T_A.Desc_Tipo_Activo FROM siga_cat_tipo_activo T_A WHERE T_A.Id_Tipo_Activo = S.Id_Tipo_Activo) AS Id_Tipo_Activo,
+					ISNULL((SELECT siga_condicion_de_recepcion_descripcion FROM siga_cat_condicion_de_recepcion WHERE siga_condicion_de_recepcion_id=s.siga_activos_condicion_recepcion),'') AS siga_activos_condicion_recepcion,
+					FORMAT(CAST(S.siga_activos_fch_recepcion_equipo AS DATE),'yyyy-MM-dd') AS siga_activos_fch_recepcion_equipo,					
+					FORMAT(CAST(S.siga_activos_fch_operacion AS DATE),'yyyy-MM-dd') AS siga_activos_fch_operacion,
+					/* Proveedores */
+					P.NumOrdenCompra,
+					P.NumFactura,
+					P.FechaFactura,
+					P.UUID,
+					P.Folio_Fiscal,
+					P.NumContrato,
+					P.VidaUtilFabricante,
+					P.VidaUtilCHS,
+					P.Fecha_Vencimiento,
+					P.NombreProveedor,
+					P.Contacto,
+					P.Telefono,
+					P.DocRecibida,
+					P.Correo,
+					P.Link,
+
+					/* Contabilidad */
+					(SELECT C_C.Desc_Centro_de_costos FROM siga_cat_centro_de_costos C_C WHERE C_C.Id_Centros_de_costos = C.Centro_Costos) AS Centro_Costos,
+					C.No_Capex,
+					C.Prorrateo,
+					(CASE WHEN C.Participa_Depreciacion = 1 THEN 'Si' ELSE 'No' END) AS Participa_Depreciacion,
+					C.Fecha_Inicio_Depr,
+					C.Cuent_Cont_Act,
+					C.Cuent_Cont_Act_B10,
+					C.Cuent_Cont_Result,
+					C.Cuent_Cont_Result_B10,
+					C.Cuent_Cont_Dep,
+					C.Cuent_Cont_Dep_B10,
+					
+					/* Mantenimiento Preventivo */
+					(SELECT TOP 1
+						(SELECT TOP 1 Desc_Frecuencia FROM siga_cat_frecuencia WHERE siga_cat_frecuencia.Id_Frecuencia = siga_actividades.Id_Frecuencia)
+						FROM siga_actividades WHERE siga_actividades.Id_Area=S.Id_Area AND siga_actividades.Id_Activo=S.Id_Activo ORDER BY Fech_Inser DESC
+					) AS Frecuencia,
+					(SELECT TOP 1 Realiza FROM siga_actividades WHERE siga_actividades.Id_Area = S.Id_Area AND siga_actividades.Id_Activo = S.Id_Activo ORDER BY Fech_Inser DESC) AS Realiza, 	(select top 1 CAST(MontoFactura as NUMERIC(10,2)) from siga_activo_proveedor T where T.Id_Activo=S.Id_Activo) AS MontoFactura,
+								(select top 1 CAST(Monto_F as NUMERIC(10,2)) from siga_activo_proveedor T where T.Id_Activo=S.Id_Activo) AS Monto_F,
+								CONVERT(NUMERIC(10,2), ImporteSeguros) AS ImporteSeguros, 	'' AS UbicacionPrimariaProcedencia,
+									'' AS UbicacionSecundariaProcedencia,
+									'' as Id_AreaReu,(select isnull(FORMAT(Fecha_Baja,'dd/MM/yyyy'),'') from siga_baja_activo A where A.Id_Activo=S.Id_Activo and Estatus_Cancelacion<>1) as Fecha_Baja,  (SELECT MAX(CveWorkflow) FROM siga_workflow_activos W_A WHERE W_A.Id_Activo = S.Id_Activo AND (Id_Baja IS NULL AND Id_Activo_Reubicacion IS NULL)) AS WorkFlowPaso, 	(SELECT MAX(CveWorkflow) FROM siga_workflow WHERE ProcesoNombre = 'tablaactivos' AND Aplica = 1) AS WorkFlowPasoTotal,
+								(SELECT COUNT(*) FROM siga_activo_accesorio_consumible A_C WHERE A_C.Id_Activo = S.Id_Activo) AS CuentaAccesoriosConsumibles
+				FROM siga_activos S
+				LEFT JOIN siga_activo_proveedor P ON P.Id_Activo = S.Id_Activo
+				LEFT JOIN (SELECT * FROM siga_activos_contabilidad WHERE Fech_Inser IS NOT NULL) C ON S.Id_Activo = C.Id_Activo
+				  where 0=0  AND S.Estatus_Reg <> 3  and S.Id_Area=1  AND (
+							S.Id_Activo not in (select Id_Activo from siga_baja_activo)
+							OR
+							S.Id_Activo IN (
+								SELECT B_1.Id_Activo
+								FROM siga_baja_activo B_1
+								INNER JOIN 
+									(
+										/*-- https://stackoverflow.com/questions/28722276/sql-select-top-1-for-each-group/28727802 --*/
+										SELECT TOP 1 WITH TIES
+											Id_Activo, Fecha_Baja AS UltimoRegistro, Id_baja AS UltimoMovimiento
+										FROM siga_baja_activo
+										ORDER BY
+											ROW_NUMBER() OVER(PARTITION BY Id_Activo ORDER BY Fecha_Baja DESC, Id_baja DESC)
+									) B_2
+								ON B_1.Fecha_Baja = B_2.UltimoRegistro
+								AND B_1.Id_Activo = B_2.Id_Activo
+								AND B_1.Id_Baja = B_2.UltimoMovimiento
+								WHERE
+								/*-- Cancelados y que siguen en operación --*/
+								B_1.Estatus_Cancelacion = 1 AND B_1.EstatusBaja = 0
+							)
+						) )
+						SELECT *, NumRegistrosConsulta = COUNT(*) OVER() FROM TempResult  ORDER BY Fech_Inser DESC  OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY 
+
+2025-01-31 9:25:17 -->Codigo->22007 Error -> SQLSTATE[22007]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Error al convertir una cadena de caracteres en fecha y/u hora. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query('; WITH TempResu...')
+#1 C:\inetpub\expuestos\SIGA\modelos\simple_mvc\ActivoFijoInventarioConsultasModel.Class.php(690): SqlServer->execute('; WITH TempResu...')
+#2 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(276): ActivoFijoInventarioConsultasModel->ActivoFijoInventarioConsultasReportesDataTableGet(Object(ActivoFijoInventarioConsultasModel))
+#3 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(57): ActivoFijoInventarioReportesController->ActivoFijoInventarioLlenarDataTable()
+#4 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(317): ActivoFijoInventarioReportesController->__construct()
+#5 {main} Query-> ; WITH TempResult AS( SELECT S.Id_Activo,
+					S.AF_BC,
+					S.Foto,
+					S.Nombre_Activo,
+					S.Marca,
+					S.Modelo,
+					S.NumSerie,
+					S.Nombre_Completo,
+					(select Nom_Area from siga_catareas A where A.id_Area = S.Id_Area) AS Id_Area,
+					(select Desc_Clasificacion from siga_cat_clasificacion C where C.Id_Clasificacion=S.Id_Clasificacion) as Clasificacion,
+					(select Des_Departamento from siga_cat_departamento D where D.Id_Departamento=S.Id_Departamento) as Id_Departamento,
+					(select Desc_Propiedad from siga_cat_propiedad C where C.Id_Propiedad = S.Id_Propiedad) as Id_Propiedad,
+					(select Desc_Estatus from siga_cat_estatus C where C.Id_Estatus=S.Id_Situacion_Activo) as Id_Situacion_Activo,
+					(select Desc_Tipo_Activo from siga_cat_tipo_activo T where T.Id_Tipo_Activo=S.Id_Tipo_Activo) as TipoActivo,DescCorta,
+					(select Desc_Ubic_Prim from siga_cat_ubic_prim T where T.Id_Ubic_Prim=S.Id_Ubic_Prim) as Id_Ubic_Prim,
+					(select Desc_Ubic_Sec from siga_cat_ubic_sec T where T.Id_Ubic_Sec=S.Id_Ubic_Sec) as Id_Ubic_Sec,
+					S.Especifica AS UbicacionEspecifica,
+					--isnull(S.Fech_Inser,'') as FechaAlta,
+					--FORMAT(CAST(S.Fech_Inser AS DATE),'yyyy-MM-dd') as FechaAlta,
+					FORMAT(CAST(S.Fech_Inser AS DATE),'yyyy-MM-dd') as Fech_Inser,
+					--FORMAT(S.Fech_Inser,'yyyy-MM-dd') as FechaAlta,
+					--convert(varchar,S.Fech_Inser,23) as FechaAlta,
+					S.Fech_Inser as FechaAlta,
+
+					--S.Fech_Inser,
+					(SELECT F.Desc_Familia FROM siga_cat_familia F WHERE F.Id_Familia = S.Id_Familia) AS Id_Familia,
+					(SELECT S_F.Desc_Subfamilia FROM siga_cat_subfamilia S_F WHERE S_F.Id_Subfamilia = S.Id_Subfamilia) AS Id_SubFamilia,
+					(SELECT M_A.Desc_Motivo_Alta FROM siga_cat_motivo_alta M_A WHERE M_A.Id_Motivo_Alta = S.Id_Motivo_Alta) AS Id_Motivo_Alta,
+					S.DescLarga,
+					(CASE WHEN S.ParticipaCertificacion = 1 THEN 'Si' ELSE 'No' END) AS ParticipaCertificacion,
+					(CASE WHEN S.ParticipaSeguros = 1 THEN 'Si' ELSE 'No' END) AS ParticipaSeguros,
+					S.Num_Empleado,
+					(SELECT V.Desc_Tipo_Vale_Resg FROM siga_cat_tipo_vale_resg V WHERE V.Id_Tipo_Vale_Resg = S.Id_Tipo_Vale_Resg) AS Id_Tipo_Vale_Resg,
+					S.Garantia,
+					S.ExtGarantia,
+					(SELECT U.Nombre_Usuario FROM siga_usuarios U WHERE U.Id_Usuario = S.Usr_Inser) AS Usr_Inser,
+					(SELECT T_A.Desc_Tipo_Activo FROM siga_cat_tipo_activo T_A WHERE T_A.Id_Tipo_Activo = S.Id_Tipo_Activo) AS Id_Tipo_Activo,
+					ISNULL((SELECT siga_condicion_de_recepcion_descripcion FROM siga_cat_condicion_de_recepcion WHERE siga_condicion_de_recepcion_id=s.siga_activos_condicion_recepcion),'') AS siga_activos_condicion_recepcion,
+					FORMAT(CAST(S.siga_activos_fch_recepcion_equipo AS DATE),'yyyy-MM-dd') AS siga_activos_fch_recepcion_equipo,					
+					FORMAT(CAST(S.siga_activos_fch_operacion AS DATE),'yyyy-MM-dd') AS siga_activos_fch_operacion,
+					/* Proveedores */
+					P.NumOrdenCompra,
+					P.NumFactura,
+					P.FechaFactura,
+					P.UUID,
+					P.Folio_Fiscal,
+					P.NumContrato,
+					P.VidaUtilFabricante,
+					P.VidaUtilCHS,
+					P.Fecha_Vencimiento,
+					P.NombreProveedor,
+					P.Contacto,
+					P.Telefono,
+					P.DocRecibida,
+					P.Correo,
+					P.Link,
+
+					/* Contabilidad */
+					(SELECT C_C.Desc_Centro_de_costos FROM siga_cat_centro_de_costos C_C WHERE C_C.Id_Centros_de_costos = C.Centro_Costos) AS Centro_Costos,
+					C.No_Capex,
+					C.Prorrateo,
+					(CASE WHEN C.Participa_Depreciacion = 1 THEN 'Si' ELSE 'No' END) AS Participa_Depreciacion,
+					C.Fecha_Inicio_Depr,
+					C.Cuent_Cont_Act,
+					C.Cuent_Cont_Act_B10,
+					C.Cuent_Cont_Result,
+					C.Cuent_Cont_Result_B10,
+					C.Cuent_Cont_Dep,
+					C.Cuent_Cont_Dep_B10,
+					
+					/* Mantenimiento Preventivo */
+					(SELECT TOP 1
+						(SELECT TOP 1 Desc_Frecuencia FROM siga_cat_frecuencia WHERE siga_cat_frecuencia.Id_Frecuencia = siga_actividades.Id_Frecuencia)
+						FROM siga_actividades WHERE siga_actividades.Id_Area=S.Id_Area AND siga_actividades.Id_Activo=S.Id_Activo ORDER BY Fech_Inser DESC
+					) AS Frecuencia,
+					(SELECT TOP 1 Realiza FROM siga_actividades WHERE siga_actividades.Id_Area = S.Id_Area AND siga_actividades.Id_Activo = S.Id_Activo ORDER BY Fech_Inser DESC) AS Realiza, 	(select top 1 CAST(MontoFactura as NUMERIC(10,2)) from siga_activo_proveedor T where T.Id_Activo=S.Id_Activo) AS MontoFactura,
+								(select top 1 CAST(Monto_F as NUMERIC(10,2)) from siga_activo_proveedor T where T.Id_Activo=S.Id_Activo) AS Monto_F,
+								CONVERT(NUMERIC(10,2), ImporteSeguros) AS ImporteSeguros, 	'' AS UbicacionPrimariaProcedencia,
+									'' AS UbicacionSecundariaProcedencia,
+									'' as Id_AreaReu,(select isnull(FORMAT(Fecha_Baja,'dd/MM/yyyy'),'') from siga_baja_activo A where A.Id_Activo=S.Id_Activo and Estatus_Cancelacion<>1) as Fecha_Baja,  (SELECT MAX(CveWorkflow) FROM siga_workflow_activos W_A WHERE W_A.Id_Activo = S.Id_Activo AND (Id_Baja IS NULL AND Id_Activo_Reubicacion IS NULL)) AS WorkFlowPaso, 	(SELECT MAX(CveWorkflow) FROM siga_workflow WHERE ProcesoNombre = 'tablaactivos' AND Aplica = 1) AS WorkFlowPasoTotal,
+								(SELECT COUNT(*) FROM siga_activo_accesorio_consumible A_C WHERE A_C.Id_Activo = S.Id_Activo) AS CuentaAccesoriosConsumibles
+				FROM siga_activos S
+				LEFT JOIN siga_activo_proveedor P ON P.Id_Activo = S.Id_Activo
+				LEFT JOIN (SELECT * FROM siga_activos_contabilidad WHERE Fech_Inser IS NOT NULL) C ON S.Id_Activo = C.Id_Activo
+				  where 0=0  AND S.Estatus_Reg <> 3  and S.Id_Area=1  AND (
+							S.Id_Activo not in (select Id_Activo from siga_baja_activo)
+							OR
+							S.Id_Activo IN (
+								SELECT B_1.Id_Activo
+								FROM siga_baja_activo B_1
+								INNER JOIN 
+									(
+										/*-- https://stackoverflow.com/questions/28722276/sql-select-top-1-for-each-group/28727802 --*/
+										SELECT TOP 1 WITH TIES
+											Id_Activo, Fecha_Baja AS UltimoRegistro, Id_baja AS UltimoMovimiento
+										FROM siga_baja_activo
+										ORDER BY
+											ROW_NUMBER() OVER(PARTITION BY Id_Activo ORDER BY Fecha_Baja DESC, Id_baja DESC)
+									) B_2
+								ON B_1.Fecha_Baja = B_2.UltimoRegistro
+								AND B_1.Id_Activo = B_2.Id_Activo
+								AND B_1.Id_Baja = B_2.UltimoMovimiento
+								WHERE
+								/*-- Cancelados y que siguen en operación --*/
+								B_1.Estatus_Cancelacion = 1 AND B_1.EstatusBaja = 0
+							)
+						) )
+						SELECT *, NumRegistrosConsulta = COUNT(*) OVER() FROM TempResult  ORDER BY Fech_Inser DESC  OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY 
+
+2025-01-31 9:25:27 -->Codigo->22007 Error -> SQLSTATE[22007]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Error al convertir una cadena de caracteres en fecha y/u hora. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query('; WITH TempResu...')
+#1 C:\inetpub\expuestos\SIGA\modelos\simple_mvc\ActivoFijoInventarioConsultasModel.Class.php(690): SqlServer->execute('; WITH TempResu...')
+#2 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(276): ActivoFijoInventarioConsultasModel->ActivoFijoInventarioConsultasReportesDataTableGet(Object(ActivoFijoInventarioConsultasModel))
+#3 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(57): ActivoFijoInventarioReportesController->ActivoFijoInventarioLlenarDataTable()
+#4 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(317): ActivoFijoInventarioReportesController->__construct()
+#5 {main} Query-> ; WITH TempResult AS( SELECT S.Id_Activo,
+					S.AF_BC,
+					S.Foto,
+					S.Nombre_Activo,
+					S.Marca,
+					S.Modelo,
+					S.NumSerie,
+					S.Nombre_Completo,
+					(select Nom_Area from siga_catareas A where A.id_Area = S.Id_Area) AS Id_Area,
+					(select Desc_Clasificacion from siga_cat_clasificacion C where C.Id_Clasificacion=S.Id_Clasificacion) as Clasificacion,
+					(select Des_Departamento from siga_cat_departamento D where D.Id_Departamento=S.Id_Departamento) as Id_Departamento,
+					(select Desc_Propiedad from siga_cat_propiedad C where C.Id_Propiedad = S.Id_Propiedad) as Id_Propiedad,
+					(select Desc_Estatus from siga_cat_estatus C where C.Id_Estatus=S.Id_Situacion_Activo) as Id_Situacion_Activo,
+					(select Desc_Tipo_Activo from siga_cat_tipo_activo T where T.Id_Tipo_Activo=S.Id_Tipo_Activo) as TipoActivo,DescCorta,
+					(select Desc_Ubic_Prim from siga_cat_ubic_prim T where T.Id_Ubic_Prim=S.Id_Ubic_Prim) as Id_Ubic_Prim,
+					(select Desc_Ubic_Sec from siga_cat_ubic_sec T where T.Id_Ubic_Sec=S.Id_Ubic_Sec) as Id_Ubic_Sec,
+					S.Especifica AS UbicacionEspecifica,
+					--isnull(S.Fech_Inser,'') as FechaAlta,
+					--FORMAT(CAST(S.Fech_Inser AS DATE),'yyyy-MM-dd') as FechaAlta,
+					FORMAT(CAST(S.Fech_Inser AS DATE),'yyyy-MM-dd') as Fech_Inser,
+					--FORMAT(S.Fech_Inser,'yyyy-MM-dd') as FechaAlta,
+					--convert(varchar,S.Fech_Inser,23) as FechaAlta,
+					S.Fech_Inser as FechaAlta,
+
+					--S.Fech_Inser,
+					(SELECT F.Desc_Familia FROM siga_cat_familia F WHERE F.Id_Familia = S.Id_Familia) AS Id_Familia,
+					(SELECT S_F.Desc_Subfamilia FROM siga_cat_subfamilia S_F WHERE S_F.Id_Subfamilia = S.Id_Subfamilia) AS Id_SubFamilia,
+					(SELECT M_A.Desc_Motivo_Alta FROM siga_cat_motivo_alta M_A WHERE M_A.Id_Motivo_Alta = S.Id_Motivo_Alta) AS Id_Motivo_Alta,
+					S.DescLarga,
+					(CASE WHEN S.ParticipaCertificacion = 1 THEN 'Si' ELSE 'No' END) AS ParticipaCertificacion,
+					(CASE WHEN S.ParticipaSeguros = 1 THEN 'Si' ELSE 'No' END) AS ParticipaSeguros,
+					S.Num_Empleado,
+					(SELECT V.Desc_Tipo_Vale_Resg FROM siga_cat_tipo_vale_resg V WHERE V.Id_Tipo_Vale_Resg = S.Id_Tipo_Vale_Resg) AS Id_Tipo_Vale_Resg,
+					S.Garantia,
+					S.ExtGarantia,
+					(SELECT U.Nombre_Usuario FROM siga_usuarios U WHERE U.Id_Usuario = S.Usr_Inser) AS Usr_Inser,
+					(SELECT T_A.Desc_Tipo_Activo FROM siga_cat_tipo_activo T_A WHERE T_A.Id_Tipo_Activo = S.Id_Tipo_Activo) AS Id_Tipo_Activo,
+					ISNULL((SELECT siga_condicion_de_recepcion_descripcion FROM siga_cat_condicion_de_recepcion WHERE siga_condicion_de_recepcion_id=s.siga_activos_condicion_recepcion),'') AS siga_activos_condicion_recepcion,
+					FORMAT(CAST(S.siga_activos_fch_recepcion_equipo AS DATE),'yyyy-MM-dd') AS siga_activos_fch_recepcion_equipo,					
+					FORMAT(CAST(S.siga_activos_fch_operacion AS DATE),'yyyy-MM-dd') AS siga_activos_fch_operacion,
+					/* Proveedores */
+					P.NumOrdenCompra,
+					P.NumFactura,
+					P.FechaFactura,
+					P.UUID,
+					P.Folio_Fiscal,
+					P.NumContrato,
+					P.VidaUtilFabricante,
+					P.VidaUtilCHS,
+					P.Fecha_Vencimiento,
+					P.NombreProveedor,
+					P.Contacto,
+					P.Telefono,
+					P.DocRecibida,
+					P.Correo,
+					P.Link,
+
+					/* Contabilidad */
+					(SELECT C_C.Desc_Centro_de_costos FROM siga_cat_centro_de_costos C_C WHERE C_C.Id_Centros_de_costos = C.Centro_Costos) AS Centro_Costos,
+					C.No_Capex,
+					C.Prorrateo,
+					(CASE WHEN C.Participa_Depreciacion = 1 THEN 'Si' ELSE 'No' END) AS Participa_Depreciacion,
+					C.Fecha_Inicio_Depr,
+					C.Cuent_Cont_Act,
+					C.Cuent_Cont_Act_B10,
+					C.Cuent_Cont_Result,
+					C.Cuent_Cont_Result_B10,
+					C.Cuent_Cont_Dep,
+					C.Cuent_Cont_Dep_B10,
+					
+					/* Mantenimiento Preventivo */
+					(SELECT TOP 1
+						(SELECT TOP 1 Desc_Frecuencia FROM siga_cat_frecuencia WHERE siga_cat_frecuencia.Id_Frecuencia = siga_actividades.Id_Frecuencia)
+						FROM siga_actividades WHERE siga_actividades.Id_Area=S.Id_Area AND siga_actividades.Id_Activo=S.Id_Activo ORDER BY Fech_Inser DESC
+					) AS Frecuencia,
+					(SELECT TOP 1 Realiza FROM siga_actividades WHERE siga_actividades.Id_Area = S.Id_Area AND siga_actividades.Id_Activo = S.Id_Activo ORDER BY Fech_Inser DESC) AS Realiza, 	(select top 1 CAST(MontoFactura as NUMERIC(10,2)) from siga_activo_proveedor T where T.Id_Activo=S.Id_Activo) AS MontoFactura,
+								(select top 1 CAST(Monto_F as NUMERIC(10,2)) from siga_activo_proveedor T where T.Id_Activo=S.Id_Activo) AS Monto_F,
+								CONVERT(NUMERIC(10,2), ImporteSeguros) AS ImporteSeguros, 	'' AS UbicacionPrimariaProcedencia,
+									'' AS UbicacionSecundariaProcedencia,
+									'' as Id_AreaReu,(select isnull(FORMAT(Fecha_Baja,'dd/MM/yyyy'),'') from siga_baja_activo A where A.Id_Activo=S.Id_Activo and Estatus_Cancelacion<>1) as Fecha_Baja,  (SELECT MAX(CveWorkflow) FROM siga_workflow_activos W_A WHERE W_A.Id_Activo = S.Id_Activo AND (Id_Baja IS NULL AND Id_Activo_Reubicacion IS NULL)) AS WorkFlowPaso, 	(SELECT MAX(CveWorkflow) FROM siga_workflow WHERE ProcesoNombre = 'tablaactivos' AND Aplica = 1) AS WorkFlowPasoTotal,
+								(SELECT COUNT(*) FROM siga_activo_accesorio_consumible A_C WHERE A_C.Id_Activo = S.Id_Activo) AS CuentaAccesoriosConsumibles
+				FROM siga_activos S
+				LEFT JOIN siga_activo_proveedor P ON P.Id_Activo = S.Id_Activo
+				LEFT JOIN (SELECT * FROM siga_activos_contabilidad WHERE Fech_Inser IS NOT NULL) C ON S.Id_Activo = C.Id_Activo
+				  where 0=0  AND S.Estatus_Reg <> 3  and S.Id_Area=1  AND (
+							S.Id_Activo not in (select Id_Activo from siga_baja_activo)
+							OR
+							S.Id_Activo IN (
+								SELECT B_1.Id_Activo
+								FROM siga_baja_activo B_1
+								INNER JOIN 
+									(
+										/*-- https://stackoverflow.com/questions/28722276/sql-select-top-1-for-each-group/28727802 --*/
+										SELECT TOP 1 WITH TIES
+											Id_Activo, Fecha_Baja AS UltimoRegistro, Id_baja AS UltimoMovimiento
+										FROM siga_baja_activo
+										ORDER BY
+											ROW_NUMBER() OVER(PARTITION BY Id_Activo ORDER BY Fecha_Baja DESC, Id_baja DESC)
+									) B_2
+								ON B_1.Fecha_Baja = B_2.UltimoRegistro
+								AND B_1.Id_Activo = B_2.Id_Activo
+								AND B_1.Id_Baja = B_2.UltimoMovimiento
+								WHERE
+								/*-- Cancelados y que siguen en operación --*/
+								B_1.Estatus_Cancelacion = 1 AND B_1.EstatusBaja = 0
+							)
+						) )
+						SELECT *, NumRegistrosConsulta = COUNT(*) OVER() FROM TempResult  ORDER BY Fech_Inser DESC  OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY 
+
+2025-01-31 9:25:30 -->Codigo->22007 Error -> SQLSTATE[22007]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Error al convertir una cadena de caracteres en fecha y/u hora. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query('; WITH TempResu...')
+#1 C:\inetpub\expuestos\SIGA\modelos\simple_mvc\ActivoFijoInventarioConsultasModel.Class.php(690): SqlServer->execute('; WITH TempResu...')
+#2 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(276): ActivoFijoInventarioConsultasModel->ActivoFijoInventarioConsultasReportesDataTableGet(Object(ActivoFijoInventarioConsultasModel))
+#3 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(57): ActivoFijoInventarioReportesController->ActivoFijoInventarioLlenarDataTable()
+#4 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(317): ActivoFijoInventarioReportesController->__construct()
+#5 {main} Query-> ; WITH TempResult AS( SELECT S.Id_Activo,
+					S.AF_BC,
+					S.Foto,
+					S.Nombre_Activo,
+					S.Marca,
+					S.Modelo,
+					S.NumSerie,
+					S.Nombre_Completo,
+					(select Nom_Area from siga_catareas A where A.id_Area = S.Id_Area) AS Id_Area,
+					(select Desc_Clasificacion from siga_cat_clasificacion C where C.Id_Clasificacion=S.Id_Clasificacion) as Clasificacion,
+					(select Des_Departamento from siga_cat_departamento D where D.Id_Departamento=S.Id_Departamento) as Id_Departamento,
+					(select Desc_Propiedad from siga_cat_propiedad C where C.Id_Propiedad = S.Id_Propiedad) as Id_Propiedad,
+					(select Desc_Estatus from siga_cat_estatus C where C.Id_Estatus=S.Id_Situacion_Activo) as Id_Situacion_Activo,
+					(select Desc_Tipo_Activo from siga_cat_tipo_activo T where T.Id_Tipo_Activo=S.Id_Tipo_Activo) as TipoActivo,DescCorta,
+					(select Desc_Ubic_Prim from siga_cat_ubic_prim T where T.Id_Ubic_Prim=S.Id_Ubic_Prim) as Id_Ubic_Prim,
+					(select Desc_Ubic_Sec from siga_cat_ubic_sec T where T.Id_Ubic_Sec=S.Id_Ubic_Sec) as Id_Ubic_Sec,
+					S.Especifica AS UbicacionEspecifica,
+					--isnull(S.Fech_Inser,'') as FechaAlta,
+					--FORMAT(CAST(S.Fech_Inser AS DATE),'yyyy-MM-dd') as FechaAlta,
+					FORMAT(CAST(S.Fech_Inser AS DATE),'yyyy-MM-dd') as Fech_Inser,
+					--FORMAT(S.Fech_Inser,'yyyy-MM-dd') as FechaAlta,
+					--convert(varchar,S.Fech_Inser,23) as FechaAlta,
+					S.Fech_Inser as FechaAlta,
+
+					--S.Fech_Inser,
+					(SELECT F.Desc_Familia FROM siga_cat_familia F WHERE F.Id_Familia = S.Id_Familia) AS Id_Familia,
+					(SELECT S_F.Desc_Subfamilia FROM siga_cat_subfamilia S_F WHERE S_F.Id_Subfamilia = S.Id_Subfamilia) AS Id_SubFamilia,
+					(SELECT M_A.Desc_Motivo_Alta FROM siga_cat_motivo_alta M_A WHERE M_A.Id_Motivo_Alta = S.Id_Motivo_Alta) AS Id_Motivo_Alta,
+					S.DescLarga,
+					(CASE WHEN S.ParticipaCertificacion = 1 THEN 'Si' ELSE 'No' END) AS ParticipaCertificacion,
+					(CASE WHEN S.ParticipaSeguros = 1 THEN 'Si' ELSE 'No' END) AS ParticipaSeguros,
+					S.Num_Empleado,
+					(SELECT V.Desc_Tipo_Vale_Resg FROM siga_cat_tipo_vale_resg V WHERE V.Id_Tipo_Vale_Resg = S.Id_Tipo_Vale_Resg) AS Id_Tipo_Vale_Resg,
+					S.Garantia,
+					S.ExtGarantia,
+					(SELECT U.Nombre_Usuario FROM siga_usuarios U WHERE U.Id_Usuario = S.Usr_Inser) AS Usr_Inser,
+					(SELECT T_A.Desc_Tipo_Activo FROM siga_cat_tipo_activo T_A WHERE T_A.Id_Tipo_Activo = S.Id_Tipo_Activo) AS Id_Tipo_Activo,
+					ISNULL((SELECT siga_condicion_de_recepcion_descripcion FROM siga_cat_condicion_de_recepcion WHERE siga_condicion_de_recepcion_id=s.siga_activos_condicion_recepcion),'') AS siga_activos_condicion_recepcion,
+					FORMAT(CAST(S.siga_activos_fch_recepcion_equipo AS DATE),'yyyy-MM-dd') AS siga_activos_fch_recepcion_equipo,					
+					FORMAT(CAST(S.siga_activos_fch_operacion AS DATE),'yyyy-MM-dd') AS siga_activos_fch_operacion,
+					/* Proveedores */
+					P.NumOrdenCompra,
+					P.NumFactura,
+					P.FechaFactura,
+					P.UUID,
+					P.Folio_Fiscal,
+					P.NumContrato,
+					P.VidaUtilFabricante,
+					P.VidaUtilCHS,
+					P.Fecha_Vencimiento,
+					P.NombreProveedor,
+					P.Contacto,
+					P.Telefono,
+					P.DocRecibida,
+					P.Correo,
+					P.Link,
+
+					/* Contabilidad */
+					(SELECT C_C.Desc_Centro_de_costos FROM siga_cat_centro_de_costos C_C WHERE C_C.Id_Centros_de_costos = C.Centro_Costos) AS Centro_Costos,
+					C.No_Capex,
+					C.Prorrateo,
+					(CASE WHEN C.Participa_Depreciacion = 1 THEN 'Si' ELSE 'No' END) AS Participa_Depreciacion,
+					C.Fecha_Inicio_Depr,
+					C.Cuent_Cont_Act,
+					C.Cuent_Cont_Act_B10,
+					C.Cuent_Cont_Result,
+					C.Cuent_Cont_Result_B10,
+					C.Cuent_Cont_Dep,
+					C.Cuent_Cont_Dep_B10,
+					
+					/* Mantenimiento Preventivo */
+					(SELECT TOP 1
+						(SELECT TOP 1 Desc_Frecuencia FROM siga_cat_frecuencia WHERE siga_cat_frecuencia.Id_Frecuencia = siga_actividades.Id_Frecuencia)
+						FROM siga_actividades WHERE siga_actividades.Id_Area=S.Id_Area AND siga_actividades.Id_Activo=S.Id_Activo ORDER BY Fech_Inser DESC
+					) AS Frecuencia,
+					(SELECT TOP 1 Realiza FROM siga_actividades WHERE siga_actividades.Id_Area = S.Id_Area AND siga_actividades.Id_Activo = S.Id_Activo ORDER BY Fech_Inser DESC) AS Realiza, 	(select top 1 CAST(MontoFactura as NUMERIC(10,2)) from siga_activo_proveedor T where T.Id_Activo=S.Id_Activo) AS MontoFactura,
+								(select top 1 CAST(Monto_F as NUMERIC(10,2)) from siga_activo_proveedor T where T.Id_Activo=S.Id_Activo) AS Monto_F,
+								CONVERT(NUMERIC(10,2), ImporteSeguros) AS ImporteSeguros, 	'' AS UbicacionPrimariaProcedencia,
+									'' AS UbicacionSecundariaProcedencia,
+									'' as Id_AreaReu,(select isnull(FORMAT(Fecha_Baja,'dd/MM/yyyy'),'') from siga_baja_activo A where A.Id_Activo=S.Id_Activo and Estatus_Cancelacion<>1) as Fecha_Baja,  (SELECT MAX(CveWorkflow) FROM siga_workflow_activos W_A WHERE W_A.Id_Activo = S.Id_Activo AND (Id_Baja IS NULL AND Id_Activo_Reubicacion IS NULL)) AS WorkFlowPaso, 	(SELECT MAX(CveWorkflow) FROM siga_workflow WHERE ProcesoNombre = 'tablaactivos' AND Aplica = 1) AS WorkFlowPasoTotal,
+								(SELECT COUNT(*) FROM siga_activo_accesorio_consumible A_C WHERE A_C.Id_Activo = S.Id_Activo) AS CuentaAccesoriosConsumibles
+				FROM siga_activos S
+				LEFT JOIN siga_activo_proveedor P ON P.Id_Activo = S.Id_Activo
+				LEFT JOIN (SELECT * FROM siga_activos_contabilidad WHERE Fech_Inser IS NOT NULL) C ON S.Id_Activo = C.Id_Activo
+				  where 0=0  AND S.Estatus_Reg <> 3  and S.Id_Area=1  AND (
+							S.Id_Activo not in (select Id_Activo from siga_baja_activo)
+							OR
+							S.Id_Activo IN (
+								SELECT B_1.Id_Activo
+								FROM siga_baja_activo B_1
+								INNER JOIN 
+									(
+										/*-- https://stackoverflow.com/questions/28722276/sql-select-top-1-for-each-group/28727802 --*/
+										SELECT TOP 1 WITH TIES
+											Id_Activo, Fecha_Baja AS UltimoRegistro, Id_baja AS UltimoMovimiento
+										FROM siga_baja_activo
+										ORDER BY
+											ROW_NUMBER() OVER(PARTITION BY Id_Activo ORDER BY Fecha_Baja DESC, Id_baja DESC)
+									) B_2
+								ON B_1.Fecha_Baja = B_2.UltimoRegistro
+								AND B_1.Id_Activo = B_2.Id_Activo
+								AND B_1.Id_Baja = B_2.UltimoMovimiento
+								WHERE
+								/*-- Cancelados y que siguen en operación --*/
+								B_1.Estatus_Cancelacion = 1 AND B_1.EstatusBaja = 0
+							)
+						) )
+						SELECT *, NumRegistrosConsulta = COUNT(*) OVER() FROM TempResult  ORDER BY Fech_Inser DESC  OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY 
+
+2025-01-31 9:25:33 -->Codigo->22007 Error -> SQLSTATE[22007]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Error al convertir una cadena de caracteres en fecha y/u hora. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query('; WITH TempResu...')
+#1 C:\inetpub\expuestos\SIGA\modelos\simple_mvc\ActivoFijoInventarioConsultasModel.Class.php(690): SqlServer->execute('; WITH TempResu...')
+#2 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(276): ActivoFijoInventarioConsultasModel->ActivoFijoInventarioConsultasReportesDataTableGet(Object(ActivoFijoInventarioConsultasModel))
+#3 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(57): ActivoFijoInventarioReportesController->ActivoFijoInventarioLlenarDataTable()
+#4 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(317): ActivoFijoInventarioReportesController->__construct()
+#5 {main} Query-> ; WITH TempResult AS( SELECT S.Id_Activo,
+					S.AF_BC,
+					S.Foto,
+					S.Nombre_Activo,
+					S.Marca,
+					S.Modelo,
+					S.NumSerie,
+					S.Nombre_Completo,
+					(select Nom_Area from siga_catareas A where A.id_Area = S.Id_Area) AS Id_Area,
+					(select Desc_Clasificacion from siga_cat_clasificacion C where C.Id_Clasificacion=S.Id_Clasificacion) as Clasificacion,
+					(select Des_Departamento from siga_cat_departamento D where D.Id_Departamento=S.Id_Departamento) as Id_Departamento,
+					(select Desc_Propiedad from siga_cat_propiedad C where C.Id_Propiedad = S.Id_Propiedad) as Id_Propiedad,
+					(select Desc_Estatus from siga_cat_estatus C where C.Id_Estatus=S.Id_Situacion_Activo) as Id_Situacion_Activo,
+					(select Desc_Tipo_Activo from siga_cat_tipo_activo T where T.Id_Tipo_Activo=S.Id_Tipo_Activo) as TipoActivo,DescCorta,
+					(select Desc_Ubic_Prim from siga_cat_ubic_prim T where T.Id_Ubic_Prim=S.Id_Ubic_Prim) as Id_Ubic_Prim,
+					(select Desc_Ubic_Sec from siga_cat_ubic_sec T where T.Id_Ubic_Sec=S.Id_Ubic_Sec) as Id_Ubic_Sec,
+					S.Especifica AS UbicacionEspecifica,
+					--isnull(S.Fech_Inser,'') as FechaAlta,
+					--FORMAT(CAST(S.Fech_Inser AS DATE),'yyyy-MM-dd') as FechaAlta,
+					FORMAT(CAST(S.Fech_Inser AS DATE),'yyyy-MM-dd') as Fech_Inser,
+					--FORMAT(S.Fech_Inser,'yyyy-MM-dd') as FechaAlta,
+					--convert(varchar,S.Fech_Inser,23) as FechaAlta,
+					S.Fech_Inser as FechaAlta,
+
+					--S.Fech_Inser,
+					(SELECT F.Desc_Familia FROM siga_cat_familia F WHERE F.Id_Familia = S.Id_Familia) AS Id_Familia,
+					(SELECT S_F.Desc_Subfamilia FROM siga_cat_subfamilia S_F WHERE S_F.Id_Subfamilia = S.Id_Subfamilia) AS Id_SubFamilia,
+					(SELECT M_A.Desc_Motivo_Alta FROM siga_cat_motivo_alta M_A WHERE M_A.Id_Motivo_Alta = S.Id_Motivo_Alta) AS Id_Motivo_Alta,
+					S.DescLarga,
+					(CASE WHEN S.ParticipaCertificacion = 1 THEN 'Si' ELSE 'No' END) AS ParticipaCertificacion,
+					(CASE WHEN S.ParticipaSeguros = 1 THEN 'Si' ELSE 'No' END) AS ParticipaSeguros,
+					S.Num_Empleado,
+					(SELECT V.Desc_Tipo_Vale_Resg FROM siga_cat_tipo_vale_resg V WHERE V.Id_Tipo_Vale_Resg = S.Id_Tipo_Vale_Resg) AS Id_Tipo_Vale_Resg,
+					S.Garantia,
+					S.ExtGarantia,
+					(SELECT U.Nombre_Usuario FROM siga_usuarios U WHERE U.Id_Usuario = S.Usr_Inser) AS Usr_Inser,
+					(SELECT T_A.Desc_Tipo_Activo FROM siga_cat_tipo_activo T_A WHERE T_A.Id_Tipo_Activo = S.Id_Tipo_Activo) AS Id_Tipo_Activo,
+					ISNULL((SELECT siga_condicion_de_recepcion_descripcion FROM siga_cat_condicion_de_recepcion WHERE siga_condicion_de_recepcion_id=s.siga_activos_condicion_recepcion),'') AS siga_activos_condicion_recepcion,
+					FORMAT(CAST(S.siga_activos_fch_recepcion_equipo AS DATE),'yyyy-MM-dd') AS siga_activos_fch_recepcion_equipo,					
+					FORMAT(CAST(S.siga_activos_fch_operacion AS DATE),'yyyy-MM-dd') AS siga_activos_fch_operacion,
+					/* Proveedores */
+					P.NumOrdenCompra,
+					P.NumFactura,
+					P.FechaFactura,
+					P.UUID,
+					P.Folio_Fiscal,
+					P.NumContrato,
+					P.VidaUtilFabricante,
+					P.VidaUtilCHS,
+					P.Fecha_Vencimiento,
+					P.NombreProveedor,
+					P.Contacto,
+					P.Telefono,
+					P.DocRecibida,
+					P.Correo,
+					P.Link,
+
+					/* Contabilidad */
+					(SELECT C_C.Desc_Centro_de_costos FROM siga_cat_centro_de_costos C_C WHERE C_C.Id_Centros_de_costos = C.Centro_Costos) AS Centro_Costos,
+					C.No_Capex,
+					C.Prorrateo,
+					(CASE WHEN C.Participa_Depreciacion = 1 THEN 'Si' ELSE 'No' END) AS Participa_Depreciacion,
+					C.Fecha_Inicio_Depr,
+					C.Cuent_Cont_Act,
+					C.Cuent_Cont_Act_B10,
+					C.Cuent_Cont_Result,
+					C.Cuent_Cont_Result_B10,
+					C.Cuent_Cont_Dep,
+					C.Cuent_Cont_Dep_B10,
+					
+					/* Mantenimiento Preventivo */
+					(SELECT TOP 1
+						(SELECT TOP 1 Desc_Frecuencia FROM siga_cat_frecuencia WHERE siga_cat_frecuencia.Id_Frecuencia = siga_actividades.Id_Frecuencia)
+						FROM siga_actividades WHERE siga_actividades.Id_Area=S.Id_Area AND siga_actividades.Id_Activo=S.Id_Activo ORDER BY Fech_Inser DESC
+					) AS Frecuencia,
+					(SELECT TOP 1 Realiza FROM siga_actividades WHERE siga_actividades.Id_Area = S.Id_Area AND siga_actividades.Id_Activo = S.Id_Activo ORDER BY Fech_Inser DESC) AS Realiza, 	(select top 1 CAST(MontoFactura as NUMERIC(10,2)) from siga_activo_proveedor T where T.Id_Activo=S.Id_Activo) AS MontoFactura,
+								(select top 1 CAST(Monto_F as NUMERIC(10,2)) from siga_activo_proveedor T where T.Id_Activo=S.Id_Activo) AS Monto_F,
+								CONVERT(NUMERIC(10,2), ImporteSeguros) AS ImporteSeguros, 	'' AS UbicacionPrimariaProcedencia,
+									'' AS UbicacionSecundariaProcedencia,
+									'' as Id_AreaReu,(select isnull(FORMAT(Fecha_Baja,'dd/MM/yyyy'),'') from siga_baja_activo A where A.Id_Activo=S.Id_Activo and Estatus_Cancelacion<>1) as Fecha_Baja,  (SELECT MAX(CveWorkflow) FROM siga_workflow_activos W_A WHERE W_A.Id_Activo = S.Id_Activo AND (Id_Baja IS NULL AND Id_Activo_Reubicacion IS NULL)) AS WorkFlowPaso, 	(SELECT MAX(CveWorkflow) FROM siga_workflow WHERE ProcesoNombre = 'tablaactivos' AND Aplica = 1) AS WorkFlowPasoTotal,
+								(SELECT COUNT(*) FROM siga_activo_accesorio_consumible A_C WHERE A_C.Id_Activo = S.Id_Activo) AS CuentaAccesoriosConsumibles
+				FROM siga_activos S
+				LEFT JOIN siga_activo_proveedor P ON P.Id_Activo = S.Id_Activo
+				LEFT JOIN (SELECT * FROM siga_activos_contabilidad WHERE Fech_Inser IS NOT NULL) C ON S.Id_Activo = C.Id_Activo
+				  where 0=0  AND S.Estatus_Reg <> 3  and S.Id_Area=1  AND (
+							S.Id_Activo not in (select Id_Activo from siga_baja_activo)
+							OR
+							S.Id_Activo IN (
+								SELECT B_1.Id_Activo
+								FROM siga_baja_activo B_1
+								INNER JOIN 
+									(
+										/*-- https://stackoverflow.com/questions/28722276/sql-select-top-1-for-each-group/28727802 --*/
+										SELECT TOP 1 WITH TIES
+											Id_Activo, Fecha_Baja AS UltimoRegistro, Id_baja AS UltimoMovimiento
+										FROM siga_baja_activo
+										ORDER BY
+											ROW_NUMBER() OVER(PARTITION BY Id_Activo ORDER BY Fecha_Baja DESC, Id_baja DESC)
+									) B_2
+								ON B_1.Fecha_Baja = B_2.UltimoRegistro
+								AND B_1.Id_Activo = B_2.Id_Activo
+								AND B_1.Id_Baja = B_2.UltimoMovimiento
+								WHERE
+								/*-- Cancelados y que siguen en operación --*/
+								B_1.Estatus_Cancelacion = 1 AND B_1.EstatusBaja = 0
+							)
+						) )
+						SELECT *, NumRegistrosConsulta = COUNT(*) OVER() FROM TempResult  ORDER BY Fech_Inser DESC  OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY 
+
+2025-01-31 9:32:32 -->Codigo->22007 Error -> SQLSTATE[22007]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]Error al convertir una cadena de caracteres en fecha y/u hora. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query('; WITH TempResu...')
+#1 C:\inetpub\expuestos\SIGA\modelos\simple_mvc\ActivoFijoInventarioConsultasModel.Class.php(690): SqlServer->execute('; WITH TempResu...')
+#2 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(276): ActivoFijoInventarioConsultasModel->ActivoFijoInventarioConsultasReportesDataTableGet(Object(ActivoFijoInventarioConsultasModel))
+#3 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(57): ActivoFijoInventarioReportesController->ActivoFijoInventarioLlenarDataTable()
+#4 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoFijoInventarioReportesController.Class.php(317): ActivoFijoInventarioReportesController->__construct()
+#5 {main} Query-> ; WITH TempResult AS( SELECT S.Id_Activo,
+					S.AF_BC,
+					S.Foto,
+					S.Nombre_Activo,
+					S.Marca,
+					S.Modelo,
+					S.NumSerie,
+					S.Nombre_Completo,
+					(select Nom_Area from siga_catareas A where A.id_Area = S.Id_Area) AS Id_Area,
+					(select Desc_Clasificacion from siga_cat_clasificacion C where C.Id_Clasificacion=S.Id_Clasificacion) as Clasificacion,
+					(select Des_Departamento from siga_cat_departamento D where D.Id_Departamento=S.Id_Departamento) as Id_Departamento,
+					(select Desc_Propiedad from siga_cat_propiedad C where C.Id_Propiedad = S.Id_Propiedad) as Id_Propiedad,
+					(select Desc_Estatus from siga_cat_estatus C where C.Id_Estatus=S.Id_Situacion_Activo) as Id_Situacion_Activo,
+					(select Desc_Tipo_Activo from siga_cat_tipo_activo T where T.Id_Tipo_Activo=S.Id_Tipo_Activo) as TipoActivo,DescCorta,
+					(select Desc_Ubic_Prim from siga_cat_ubic_prim T where T.Id_Ubic_Prim=S.Id_Ubic_Prim) as Id_Ubic_Prim,
+					(select Desc_Ubic_Sec from siga_cat_ubic_sec T where T.Id_Ubic_Sec=S.Id_Ubic_Sec) as Id_Ubic_Sec,
+					S.Especifica AS UbicacionEspecifica,
+					--isnull(S.Fech_Inser,'') as FechaAlta,
+					--FORMAT(CAST(S.Fech_Inser AS DATE),'yyyy-MM-dd') as FechaAlta,
+					FORMAT(CAST(S.Fech_Inser AS DATE),'yyyy-MM-dd') as Fech_Inser,
+					--FORMAT(S.Fech_Inser,'yyyy-MM-dd') as FechaAlta,
+					--convert(varchar,S.Fech_Inser,23) as FechaAlta,
+					S.Fech_Inser as FechaAlta,
+
+					--S.Fech_Inser,
+					(SELECT F.Desc_Familia FROM siga_cat_familia F WHERE F.Id_Familia = S.Id_Familia) AS Id_Familia,
+					(SELECT S_F.Desc_Subfamilia FROM siga_cat_subfamilia S_F WHERE S_F.Id_Subfamilia = S.Id_Subfamilia) AS Id_SubFamilia,
+					(SELECT M_A.Desc_Motivo_Alta FROM siga_cat_motivo_alta M_A WHERE M_A.Id_Motivo_Alta = S.Id_Motivo_Alta) AS Id_Motivo_Alta,
+					S.DescLarga,
+					(CASE WHEN S.ParticipaCertificacion = 1 THEN 'Si' ELSE 'No' END) AS ParticipaCertificacion,
+					(CASE WHEN S.ParticipaSeguros = 1 THEN 'Si' ELSE 'No' END) AS ParticipaSeguros,
+					S.Num_Empleado,
+					(SELECT V.Desc_Tipo_Vale_Resg FROM siga_cat_tipo_vale_resg V WHERE V.Id_Tipo_Vale_Resg = S.Id_Tipo_Vale_Resg) AS Id_Tipo_Vale_Resg,
+					S.Garantia,
+					S.ExtGarantia,
+					(SELECT U.Nombre_Usuario FROM siga_usuarios U WHERE U.Id_Usuario = S.Usr_Inser) AS Usr_Inser,
+					(SELECT T_A.Desc_Tipo_Activo FROM siga_cat_tipo_activo T_A WHERE T_A.Id_Tipo_Activo = S.Id_Tipo_Activo) AS Id_Tipo_Activo,
+					ISNULL((SELECT siga_condicion_de_recepcion_descripcion FROM siga_cat_condicion_de_recepcion WHERE siga_condicion_de_recepcion_id=s.siga_activos_condicion_recepcion),'') AS siga_activos_condicion_recepcion,
+					FORMAT(CAST(S.siga_activos_fch_recepcion_equipo AS DATE),'yyyy-MM-dd') AS siga_activos_fch_recepcion_equipo,					
+					FORMAT(CAST(S.siga_activos_fch_operacion AS DATE),'yyyy-MM-dd') AS siga_activos_fch_operacion,
+					/* Proveedores */
+					P.NumOrdenCompra,
+					P.NumFactura,
+					P.FechaFactura,
+					P.UUID,
+					P.Folio_Fiscal,
+					P.NumContrato,
+					P.VidaUtilFabricante,
+					P.VidaUtilCHS,
+					P.Fecha_Vencimiento,
+					P.NombreProveedor,
+					P.Contacto,
+					P.Telefono,
+					P.DocRecibida,
+					P.Correo,
+					P.Link,
+
+					/* Contabilidad */
+					(SELECT C_C.Desc_Centro_de_costos FROM siga_cat_centro_de_costos C_C WHERE C_C.Id_Centros_de_costos = C.Centro_Costos) AS Centro_Costos,
+					C.No_Capex,
+					C.Prorrateo,
+					(CASE WHEN C.Participa_Depreciacion = 1 THEN 'Si' ELSE 'No' END) AS Participa_Depreciacion,
+					C.Fecha_Inicio_Depr,
+					C.Cuent_Cont_Act,
+					C.Cuent_Cont_Act_B10,
+					C.Cuent_Cont_Result,
+					C.Cuent_Cont_Result_B10,
+					C.Cuent_Cont_Dep,
+					C.Cuent_Cont_Dep_B10,
+					
+					/* Mantenimiento Preventivo */
+					(SELECT TOP 1
+						(SELECT TOP 1 Desc_Frecuencia FROM siga_cat_frecuencia WHERE siga_cat_frecuencia.Id_Frecuencia = siga_actividades.Id_Frecuencia)
+						FROM siga_actividades WHERE siga_actividades.Id_Area=S.Id_Area AND siga_actividades.Id_Activo=S.Id_Activo ORDER BY Fech_Inser DESC
+					) AS Frecuencia,
+					(SELECT TOP 1 Realiza FROM siga_actividades WHERE siga_actividades.Id_Area = S.Id_Area AND siga_actividades.Id_Activo = S.Id_Activo ORDER BY Fech_Inser DESC) AS Realiza, 	(select top 1 CAST(MontoFactura as NUMERIC(10,2)) from siga_activo_proveedor T where T.Id_Activo=S.Id_Activo) AS MontoFactura,
+								(select top 1 CAST(Monto_F as NUMERIC(10,2)) from siga_activo_proveedor T where T.Id_Activo=S.Id_Activo) AS Monto_F,
+								CONVERT(NUMERIC(10,2), ImporteSeguros) AS ImporteSeguros, 	'' AS UbicacionPrimariaProcedencia,
+									'' AS UbicacionSecundariaProcedencia,
+									'' as Id_AreaReu,(select isnull(FORMAT(Fecha_Baja,'dd/MM/yyyy'),'') from siga_baja_activo A where A.Id_Activo=S.Id_Activo and Estatus_Cancelacion<>1) as Fecha_Baja,  (SELECT MAX(CveWorkflow) FROM siga_workflow_activos W_A WHERE W_A.Id_Activo = S.Id_Activo AND (Id_Baja IS NULL AND Id_Activo_Reubicacion IS NULL)) AS WorkFlowPaso, 	(SELECT MAX(CveWorkflow) FROM siga_workflow WHERE ProcesoNombre = 'tablaactivos' AND Aplica = 1) AS WorkFlowPasoTotal,
+								(SELECT COUNT(*) FROM siga_activo_accesorio_consumible A_C WHERE A_C.Id_Activo = S.Id_Activo) AS CuentaAccesoriosConsumibles
+				FROM siga_activos S
+				LEFT JOIN siga_activo_proveedor P ON P.Id_Activo = S.Id_Activo
+				LEFT JOIN (SELECT * FROM siga_activos_contabilidad WHERE Fech_Inser IS NOT NULL) C ON S.Id_Activo = C.Id_Activo
+				  where 0=0  AND S.Estatus_Reg <> 3  and S.Id_Area=1  AND (
+							S.Id_Activo not in (select Id_Activo from siga_baja_activo)
+							OR
+							S.Id_Activo IN (
+								SELECT B_1.Id_Activo
+								FROM siga_baja_activo B_1
+								INNER JOIN 
+									(
+										/*-- https://stackoverflow.com/questions/28722276/sql-select-top-1-for-each-group/28727802 --*/
+										SELECT TOP 1 WITH TIES
+											Id_Activo, Fecha_Baja AS UltimoRegistro, Id_baja AS UltimoMovimiento
+										FROM siga_baja_activo
+										ORDER BY
+											ROW_NUMBER() OVER(PARTITION BY Id_Activo ORDER BY Fecha_Baja DESC, Id_baja DESC)
+									) B_2
+								ON B_1.Fecha_Baja = B_2.UltimoRegistro
+								AND B_1.Id_Activo = B_2.Id_Activo
+								AND B_1.Id_Baja = B_2.UltimoMovimiento
+								WHERE
+								/*-- Cancelados y que siguen en operación --*/
+								B_1.Estatus_Cancelacion = 1 AND B_1.EstatusBaja = 0
+							)
+						) )
+						SELECT *, NumRegistrosConsulta = COUNT(*) OVER() FROM TempResult  ORDER BY Fech_Inser DESC  OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY 
+
+2025-01-31 12:46:11 -->Codigo->21000 Error -> SQLSTATE[21000]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]La subconsulta ha devuelto más de un valor, lo que no es correcto cuando va a continuación de =, !=, <, <=, >, >= o cuando se utiliza como expresión. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query('EXEC sp_siga_ac...')
+#1 C:\inetpub\expuestos\SIGA\modelos\simple_mvc\ActivoModel.Class.php(247): SqlServer->execute('EXEC sp_siga_ac...')
+#2 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoController.Class.php(114): ActivoModel->ActivosReubicacionReasignacionMasiva(Object(ActivoModel))
+#3 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoController.Class.php(28): ActivoController->ReubicacionReasignacionMasiva()
+#4 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoController.Class.php(579): ActivoController->__construct('https')
+#5 {main} Query-> EXEC sp_siga_activo_reasignacion_reubicacion_add @Id_Area=2,@IdUsuarioReasignacion=807,@ComentarioReasignacion='Prueba tic',@Cad_Id_Activos='34269,39270,38789',@IdUsuarioActualiza=3017
+
+2025-01-31 12:54:55 -->Codigo->21000 Error -> SQLSTATE[21000]: [Microsoft][ODBC Driver 13 for SQL Server][SQL Server]La subconsulta ha devuelto más de un valor, lo que no es correcto cuando va a continuación de =, !=, <, <=, >, >= o cuando se utiliza como expresión. trace-> #0 C:\inetpub\expuestos\SIGA\datos\connect\SQLSERVER\SqlServer.Class.php(159): PDO->query('EXEC sp_siga_ac...')
+#1 C:\inetpub\expuestos\SIGA\modelos\simple_mvc\ActivoModel.Class.php(247): SqlServer->execute('EXEC sp_siga_ac...')
+#2 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoController.Class.php(114): ActivoModel->ActivosReubicacionReasignacionMasiva(Object(ActivoModel))
+#3 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoController.Class.php(28): ActivoController->ReubicacionReasignacionMasiva()
+#4 C:\inetpub\expuestos\SIGA\controladores\simple_mvc\ActivoController.Class.php(579): ActivoController->__construct('https')
+#5 {main} Query-> EXEC sp_siga_activo_reasignacion_reubicacion_add @Id_Area=2,@IdUsuarioReasignacion=807,@ComentarioReasignacion='Prueba tic',@Cad_Id_Activos='39270',@IdUsuarioActualiza=3017
+
