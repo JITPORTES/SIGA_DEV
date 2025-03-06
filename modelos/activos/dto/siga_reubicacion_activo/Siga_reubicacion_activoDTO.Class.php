@@ -2,10 +2,11 @@
  class Siga_reubicacion_activoDTO {
     private $Id_Activo_Reubicacion;
     private $Id_Activo;
-		private $Id_Area;
-		private $Id_Ubic_Prim;
+	private $Id_Area;
+	private $Id_Ubic_Prim;
     private $Id_Ubic_Sec;
-		private $Ubic_Especifica;
+	private $Id_Estatus_Activo; //Se agrega nuevo valor para el estatus
+    private $Ubic_Especifica;
     private $Id_Usuario_Responsable;
     private $Nom_Usuario_Reponsable;
     private $Centro_Costos;
@@ -47,7 +48,15 @@
     public function setId_Ubic_Sec($Id_Ubic_Sec){
         $this->Id_Ubic_Sec=$Id_Ubic_Sec;
     }
-		public function getUbic_Especifica(){
+    //MAuricio/Ignacio
+    public function getId_Estatus_Activo(){
+        return $this->Id_Estatus_Activo;
+    }
+    public function setId_Estatus_Activo($Id_Estatus_Activo){
+        $this->Id_Estatus_Activo=$Id_Estatus_Activo;
+    }
+    //Fin Mauricio/Ignacio
+	public function getUbic_Especifica(){
         return $this->Ubic_Especifica;
     }
     public function setUbic_Especifica($Ubic_Especifica){
@@ -125,6 +134,9 @@
 "Id_Area"=>$this->Id_Area,
 "Id_Ubic_Prim"=>$this->Id_Ubic_Prim,
 "Id_Ubic_Sec"=>$this->Id_Ubic_Sec,
+//Mauricio/Ignacio
+"Id_Estatus_Activo"=>$this->Id_Estatus_Activo,
+//Fin Mauricio/Ignacio
 "Ubic_Especifica"=>$this->Ubic_Especifica,
 "Id_Usuario_Responsable"=>$this->Id_Usuario_Responsable,
 "Nom_Usuario_Reponsable"=>$this->Nom_Usuario_Reponsable,

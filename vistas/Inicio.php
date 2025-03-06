@@ -188,6 +188,36 @@ include_once($_SERVER["DOCUMENT_ROOT"]."/SIGA/components/script.php");
 ?>
 
 <script>
+//Mauricio/Ignacio
+let offlineNotice;
+let onlineNotice;
+
+function showAlertConexion(titulo, mensaje, tipo, clase, hide) {
+  return new PNotify({
+    title: titulo,
+    text: mensaje,
+    type: tipo,
+    hide: hide, // No ocultar automáticamente
+    styling: 'bootstrap3',
+    addclass: clase,
+		delay: 10000
+  });
+}
+
+window.addEventListener('offline', function() {
+  if (onlineNotice) {
+    onlineNotice.remove();
+  }
+  offlineNotice = showAlertConexion('Desconexión', 'No se detectó conexión activa. <br>  <b><u>NO GUARDAR</u></b> hasta que se restablezca la conexión.', 'error', 'alert-danger', false);
+});
+
+window.addEventListener('online', function() {
+  if (offlineNotice) {
+    offlineNotice.remove();
+  }
+  onlineNotice = showAlertConexion('Conexión Restablecida', 'La conexión a internet ha sido restablecida.', 'success', 'alert-success', true);
+});
+//Mauricio/Ignacio
 
 var contador_entr_menu=0;
 

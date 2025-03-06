@@ -38,6 +38,10 @@ $sql.=",";
 $sql.="Id_Ubic_Prim";
 $sql.=",";
 $sql.="Id_Ubic_Sec";
+//Mauricio/Ignacio
+$sql.=",";
+$sql.="Id_Estatus_Activo";
+//Fin Mauricio/Ignacio
 $sql.=",";
 $sql.="Ubic_Especifica";
 $sql.=",";
@@ -72,6 +76,10 @@ $sql.=",";
 $sql.="'".$siga_reubicacion_activoDto->getId_Ubic_Prim()."'";
 $sql.=",";
 $sql.="'".$siga_reubicacion_activoDto->getId_Ubic_Sec()."'";
+//Mauricio/Ignacio
+$sql.=",";
+$sql.="'".$siga_reubicacion_activoDto->getId_Estatus_Activo()."'";
+//Mauricio/Ignacio
 $sql.=",";
 $sql.="'".$siga_reubicacion_activoDto->getUbic_Especifica()."'";
 $sql.=",";
@@ -131,24 +139,32 @@ $sql="UPDATE siga_reubicacion_activo SET ";
 
 if($siga_reubicacion_activoDto->getId_Activo()!=""){
 $sql.="Id_Activo='".$siga_reubicacion_activoDto->getId_Activo()."'";
-if(($siga_reubicacion_activoDto->getId_Area()!="") ||($siga_reubicacion_activoDto->getId_Ubic_Prim()!="") ||($siga_reubicacion_activoDto->getId_Ubic_Sec()!="") ||($siga_reubicacion_activoDto->getUbic_Especifica()!="") ||($siga_reubicacion_activoDto->getId_Usuario_Responsable()!="") ||($siga_reubicacion_activoDto->getNom_Usuario_Reponsable()!="") ||($siga_reubicacion_activoDto->getCentro_Costos()!="") ||($siga_reubicacion_activoDto->getJefe_Area()!="") ||($siga_reubicacion_activoDto->getMotivo_Reubicacion()!="") ||($siga_reubicacion_activoDto->getComentarios_Reubicacion()!="") ||($siga_reubicacion_activoDto->getFech_Inser()!="") ||($siga_reubicacion_activoDto->getUsr_Inser()!="") ||($siga_reubicacion_activoDto->getFech_Mod()!="") ||($siga_reubicacion_activoDto->getUsr_Mod()!="") ||($siga_reubicacion_activoDto->getEstatus_Reg()!="") ){
+if(($siga_reubicacion_activoDto->getId_Area()!="") ||($siga_reubicacion_activoDto->getId_Ubic_Prim()!="") ||($siga_reubicacion_activoDto->getId_Ubic_Sec()!="") ||($siga_reubicacion_activoDto->getId_Estatus_Activo()!="") ||($siga_reubicacion_activoDto->getUbic_Especifica()!="") ||($siga_reubicacion_activoDto->getId_Usuario_Responsable()!="") ||($siga_reubicacion_activoDto->getNom_Usuario_Reponsable()!="") ||($siga_reubicacion_activoDto->getCentro_Costos()!="") ||($siga_reubicacion_activoDto->getJefe_Area()!="") ||($siga_reubicacion_activoDto->getMotivo_Reubicacion()!="") ||($siga_reubicacion_activoDto->getComentarios_Reubicacion()!="") ||($siga_reubicacion_activoDto->getFech_Inser()!="") ||($siga_reubicacion_activoDto->getUsr_Inser()!="") ||($siga_reubicacion_activoDto->getFech_Mod()!="") ||($siga_reubicacion_activoDto->getUsr_Mod()!="") ||($siga_reubicacion_activoDto->getEstatus_Reg()!="") ){//Mauricio/Ignacio
 $sql.=",";
 }
 }
 if($siga_reubicacion_activoDto->getId_Area()!=""){
 $sql.="Id_Area='".$siga_reubicacion_activoDto->getId_Area()."'";
-if(($siga_reubicacion_activoDto->getId_Ubic_Prim()!="") ||($siga_reubicacion_activoDto->getId_Ubic_Sec()!="") ||($siga_reubicacion_activoDto->getUbic_Especifica()!="") ||($siga_reubicacion_activoDto->getId_Usuario_Responsable()!="") ||($siga_reubicacion_activoDto->getNom_Usuario_Reponsable()!="") ||($siga_reubicacion_activoDto->getCentro_Costos()!="") ||($siga_reubicacion_activoDto->getJefe_Area()!="") ||($siga_reubicacion_activoDto->getMotivo_Reubicacion()!="") ||($siga_reubicacion_activoDto->getComentarios_Reubicacion()!="") ||($siga_reubicacion_activoDto->getFech_Inser()!="") ||($siga_reubicacion_activoDto->getUsr_Inser()!="") ||($siga_reubicacion_activoDto->getFech_Mod()!="") ||($siga_reubicacion_activoDto->getUsr_Mod()!="") ||($siga_reubicacion_activoDto->getEstatus_Reg()!="") ){
+if(($siga_reubicacion_activoDto->getId_Ubic_Prim()!="") ||($siga_reubicacion_activoDto->getId_Ubic_Sec()!="") || ($siga_reubicacion_activoDto->getId_Estatus_Activo()!="") ||($siga_reubicacion_activoDto->getUbic_Especifica()!="") ||($siga_reubicacion_activoDto->getId_Usuario_Responsable()!="") ||($siga_reubicacion_activoDto->getNom_Usuario_Reponsable()!="") ||($siga_reubicacion_activoDto->getCentro_Costos()!="") ||($siga_reubicacion_activoDto->getJefe_Area()!="") ||($siga_reubicacion_activoDto->getMotivo_Reubicacion()!="") ||($siga_reubicacion_activoDto->getComentarios_Reubicacion()!="") ||($siga_reubicacion_activoDto->getFech_Inser()!="") ||($siga_reubicacion_activoDto->getUsr_Inser()!="") ||($siga_reubicacion_activoDto->getFech_Mod()!="") ||($siga_reubicacion_activoDto->getUsr_Mod()!="") ||($siga_reubicacion_activoDto->getEstatus_Reg()!="") ){//Mauricio/Ignacio
 $sql.=",";
 }
 }
 if($siga_reubicacion_activoDto->getId_Ubic_Prim()!=""){
 $sql.="Id_Ubic_Prim='".$siga_reubicacion_activoDto->getId_Ubic_Prim()."'";
-if(($siga_reubicacion_activoDto->getId_Ubic_Sec()!="") || ($siga_reubicacion_activoDto->getUbic_Especifica()!="") || ($siga_reubicacion_activoDto->getUbic_Especifica()!="") ||($siga_reubicacion_activoDto->getId_Usuario_Responsable()!="") ||($siga_reubicacion_activoDto->getNom_Usuario_Reponsable()!="") ||($siga_reubicacion_activoDto->getCentro_Costos()!="") ||($siga_reubicacion_activoDto->getJefe_Area()!="") ||($siga_reubicacion_activoDto->getMotivo_Reubicacion()!="") ||($siga_reubicacion_activoDto->getComentarios_Reubicacion()!="") ||($siga_reubicacion_activoDto->getFech_Inser()!="") ||($siga_reubicacion_activoDto->getUsr_Inser()!="") ||($siga_reubicacion_activoDto->getFech_Mod()!="") ||($siga_reubicacion_activoDto->getUsr_Mod()!="") ||($siga_reubicacion_activoDto->getEstatus_Reg()!="") ){
+if(($siga_reubicacion_activoDto->getId_Ubic_Sec()!="") || ($siga_reubicacion_activoDto->getId_Estatus_Activo()!="") || ($siga_reubicacion_activoDto->getUbic_Especifica()!="") || ($siga_reubicacion_activoDto->getUbic_Especifica()!="") ||($siga_reubicacion_activoDto->getId_Usuario_Responsable()!="") ||($siga_reubicacion_activoDto->getNom_Usuario_Reponsable()!="") ||($siga_reubicacion_activoDto->getCentro_Costos()!="") ||($siga_reubicacion_activoDto->getJefe_Area()!="") ||($siga_reubicacion_activoDto->getMotivo_Reubicacion()!="") ||($siga_reubicacion_activoDto->getComentarios_Reubicacion()!="") ||($siga_reubicacion_activoDto->getFech_Inser()!="") ||($siga_reubicacion_activoDto->getUsr_Inser()!="") ||($siga_reubicacion_activoDto->getFech_Mod()!="") ||($siga_reubicacion_activoDto->getUsr_Mod()!="") ||($siga_reubicacion_activoDto->getEstatus_Reg()!="") ){//Mauricio/Ignacio
 $sql.=",";
 }
 }
 if($siga_reubicacion_activoDto->getId_Ubic_Sec()!=""){
 $sql.="Id_Ubic_Sec='".$siga_reubicacion_activoDto->getId_Ubic_Sec()."'";
+//Mauricio/Ignacio
+if(($siga_reubicacion_activoDto->getId_Estatus_Activo()!="") || ($siga_reubicacion_activoDto->getUbic_Especifica()!="") || ($siga_reubicacion_activoDto->getId_Usuario_Responsable()!="") ||($siga_reubicacion_activoDto->getNom_Usuario_Reponsable()!="") ||($siga_reubicacion_activoDto->getCentro_Costos()!="") ||($siga_reubicacion_activoDto->getJefe_Area()!="") ||($siga_reubicacion_activoDto->getMotivo_Reubicacion()!="") ||($siga_reubicacion_activoDto->getComentarios_Reubicacion()!="") ||($siga_reubicacion_activoDto->getFech_Inser()!="") ||($siga_reubicacion_activoDto->getUsr_Inser()!="") ||($siga_reubicacion_activoDto->getFech_Mod()!="") ||($siga_reubicacion_activoDto->getUsr_Mod()!="") ||($siga_reubicacion_activoDto->getEstatus_Reg()!="") ){
+$sql.=",";
+}
+}
+if($siga_reubicacion_activoDto->getId_Estatus_Activo()!=""){
+$sql.="Id_Estatus_Activo='".$siga_reubicacion_activoDto->getId_Estatus_Activo()."'";
+//Fin Mauricio/Ignacio
 if(($siga_reubicacion_activoDto->getUbic_Especifica()!="") || ($siga_reubicacion_activoDto->getId_Usuario_Responsable()!="") ||($siga_reubicacion_activoDto->getNom_Usuario_Reponsable()!="") ||($siga_reubicacion_activoDto->getCentro_Costos()!="") ||($siga_reubicacion_activoDto->getJefe_Area()!="") ||($siga_reubicacion_activoDto->getMotivo_Reubicacion()!="") ||($siga_reubicacion_activoDto->getComentarios_Reubicacion()!="") ||($siga_reubicacion_activoDto->getFech_Inser()!="") ||($siga_reubicacion_activoDto->getUsr_Inser()!="") ||($siga_reubicacion_activoDto->getFech_Mod()!="") ||($siga_reubicacion_activoDto->getUsr_Mod()!="") ||($siga_reubicacion_activoDto->getEstatus_Reg()!="") ){
 $sql.=",";
 }

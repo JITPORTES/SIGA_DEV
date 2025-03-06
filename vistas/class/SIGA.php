@@ -871,7 +871,8 @@ class SIGA
 	   $db->disconnect($db_connect);
 	}
 	
-	public function actualizaReubicacion($Id_Activo,$Id_Area,$Id_Ubic_Prim,$Id_Ubic_Sec,$Ubic_Especifica,$Centro_Costos,$Id_Usuario_Sesion, $Id_Usuario_Responsable, $Nom_Usuario_Reponsable, $Responsable_Procedencia, $Id_Activo_Reubicacion)
+	//Se modifica funcion para recibir el estatus del equipo Mauricio/Ignacio
+	public function actualizaReubicacion($Id_Activo,$Id_Area,$Id_Ubic_Prim,$Id_Ubic_Sec,$Id_Estatus_Activo,$Ubic_Especifica,$Centro_Costos,$Id_Usuario_Sesion, $Id_Usuario_Responsable, $Nom_Usuario_Reponsable, $Responsable_Procedencia, $Id_Activo_Reubicacion)
 	{
 	   $db =  new Database();
 	   $db_connect = $db->connect();
@@ -881,14 +882,14 @@ class SIGA
 	   //echo $query_rs;
 	   sqlsrv_query($db_connect,$query_rs);*/
 	   
-	   $query_rs = "insert into siga_historico_reubicacion(Id_Activo,Id_Area,Id_Ubic_Prim,Id_Ubic_Sec,Ubic_Especifica,FechaReubicacion,Centro_Costos,Id_Usuario,Responsable_Activo_Procedencia, Id_Activo_Reubicacion) 
-	   select Id_Activo,Id_Area,Id_Ubic_Prim,Id_Ubic_Sec,Especifica,getDate(),
+	   $query_rs = "insert into siga_historico_reubicacion(Id_Activo,Id_Area,Id_Ubic_Prim,Id_Ubic_Sec,Id_Estatus_Activo,Ubic_Especifica,FechaReubicacion,Centro_Costos,Id_Usuario,Responsable_Activo_Procedencia, Id_Activo_Reubicacion) 
+	   select Id_Activo,Id_Area,Id_Ubic_Prim,Id_Ubic_Sec,Id_Estatus_Activo,Especifica,getDate(),
 	   (select Centro_Costos from siga_activos_contabilidad where Id_Activo=".$Id_Activo."),".$Id_Usuario_Sesion.",'".$Responsable_Procedencia."', ".$Id_Activo_Reubicacion." from siga_activos where Id_Activo=".$Id_Activo;
 	   //echo $query_rs;
 	   sqlsrv_query($db_connect,$query_rs);
 
 	   $query_rs = "update siga_activos set Id_Area=".$Id_Area."
-	   ,Id_Ubic_Prim=".$Id_Ubic_Prim.",Id_Ubic_Sec=".$Id_Ubic_Sec.", Especifica='".$Ubic_Especifica."', Num_Empleado=(select top 1 No_Usuario from siga_usuarios where id_usuario=".$Id_Usuario_Responsable."), Nombre_Completo='".$Nom_Usuario_Reponsable."' where Id_Activo=".$Id_Activo;
+	   ,Id_Ubic_Prim=".$Id_Ubic_Prim.",Id_Ubic_Sec=".$Id_Ubic_Sec.", Id_Estatus_Activo=".$Id_Estatus_Activo.", Especifica='".$Ubic_Especifica."', Num_Empleado=(select top 1 No_Usuario from siga_usuarios where id_usuario=".$Id_Usuario_Responsable."), Nombre_Completo='".$Nom_Usuario_Reponsable."' where Id_Activo=".$Id_Activo;
 	   //echo $query_rs;
 	   sqlsrv_query($db_connect,$query_rs);
 	   
@@ -903,7 +904,7 @@ class SIGA
 	   sqlsrv_query($db_connect,$query_rs);
 	   
 	   $query_rs = "update siga_activos set Id_Area=".$Id_Area."
-	   ,Id_Ubic_Prim=".$Id_Ubic_Prim.",Id_Ubic_Sec=".$Id_Ubic_Sec.", Especifica='".$Ubic_Especifica."' where Id_Activo in (select Id_Activo from siga_Activos where Id_ActivoPadre=".$Id_Activo.")";
+	   ,Id_Ubic_Prim=".$Id_Ubic_Prim.",Id_Ubic_Sec=".$Id_Ubic_Sec.", Id_Estatus_Activo=".$Id_Estatus_Activo.", Especifica='".$Ubic_Especifica."' where Id_Activo in (select Id_Activo from siga_Activos where Id_ActivoPadre=".$Id_Activo.")";
 	   sqlsrv_query($db_connect,$query_rs);
 	   /* Actualizamos los hijos*/	
 

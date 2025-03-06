@@ -147,6 +147,7 @@ return $year . "-" . $mes . "-" . $dia;
 @$Id_Area=$_POST["Id_Area"];
 @$Id_Ubic_Prim=$_POST["Id_Ubic_Prim"];
 @$Id_Ubic_Sec=$_POST["Id_Ubic_Sec"];
+@$Id_Estatus_Activo=$_POST["Id_Estatus_Activo"];//Mauricio/Ignacio
 @$Ubic_Especifica=$_POST["Ubic_Especifica"];
 @$Id_Usuario_Responsable=$_POST["Id_Usuario_Responsable"];
 @$Nom_Usuario_Reponsable=$_POST["Nom_Usuario_Reponsable"];
@@ -169,6 +170,7 @@ $siga_reubicacion_activoDto->setId_Activo($Id_Activo);
 $siga_reubicacion_activoDto->setId_Area($Id_Area);
 $siga_reubicacion_activoDto->setId_Ubic_Prim($Id_Ubic_Prim);
 $siga_reubicacion_activoDto->setId_Ubic_Sec($Id_Ubic_Sec);
+$siga_reubicacion_activoDto->setId_Estatus_Activo($Id_Estatus_Activo);//Mauricio/Ignacio
 
 $siga_reubicacion_activoDto->setUbic_Especifica($Ubic_Especifica);
 $siga_reubicacion_activoDto->setId_Usuario_Responsable($Id_Usuario_Responsable);

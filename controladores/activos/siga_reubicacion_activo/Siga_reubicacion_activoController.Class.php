@@ -12,6 +12,9 @@ $Siga_reubicacion_activoDto->setId_Activo_Reubicacion(strtoupper(str_ireplace("'
 $Siga_reubicacion_activoDto->setId_Area(strtoupper(str_ireplace("'","",trim($Siga_reubicacion_activoDto->getId_Area()))));
 $Siga_reubicacion_activoDto->setId_Ubic_Prim(strtoupper(str_ireplace("'","",trim($Siga_reubicacion_activoDto->getId_Ubic_Prim()))));
 $Siga_reubicacion_activoDto->setId_Ubic_Sec(strtoupper(str_ireplace("'","",trim($Siga_reubicacion_activoDto->getId_Ubic_Sec()))));
+//Cambio Mauricio/Ignacio
+$Siga_reubicacion_activoDto->setId_Estatus_Activo(strtoupper(str_ireplace("'","",trim($Siga_reubicacion_activoDto->getId_Estatus_Activo()))));
+//Fin Cambio Mauricio/Ignacio
 $Siga_reubicacion_activoDto->setId_Usuario_Responsable(strtoupper(str_ireplace("'","",trim($Siga_reubicacion_activoDto->getId_Usuario_Responsable()))));
 $Siga_reubicacion_activoDto->setNom_Usuario_Reponsable(strtoupper(str_ireplace("'","",trim($Siga_reubicacion_activoDto->getNom_Usuario_Reponsable()))));
 $Siga_reubicacion_activoDto->setCentro_Costos(strtoupper(str_ireplace("'","",trim($Siga_reubicacion_activoDto->getCentro_Costos()))));

@@ -765,10 +765,13 @@ include_once(dirname(__FILE__) . "/../modelos/simple_mvc/ActivoFijoInventarioRep
 		// Función que carga la estructura hmtl de una tabla de Inventarios. Junto con la estructura también se agrega la función javascript que dispara
 		// el componente de datatable para realizar la consulta de datos usando la versión del reporte el cual determina el listado de columnas dinamicas a mostrar
 		function generarTablaEncabezados(elemento) {
+			console.log("elemento: ",elemento);
 			// Determina si se trata del nombre de la tabla o un objeto que contiene toda la información necesaria para generar la cosnulta
 			// Nombre de la tabla
 			var NombreTabla = typeof(elemento) == "string" ? elemento : $(elemento).data("id-tabla");
 			// Versión del reporte en especifico
+			console.log("NombreTabla: ",NombreTabla);
+			
 			var Id_Reporte_Version = typeof(elemento) == "object" ? $(elemento).val() : null;
 			// Parametros necesarios para la carga de la vista parcial
 			var strJsonParametros = { accion: "ReportesInventarioTablaGet", Id_Area: $("#idareasesion").val(), NombreTabla: NombreTabla, Id_Reporte_Version: Id_Reporte_Version };
@@ -783,6 +786,7 @@ include_once(dirname(__FILE__) . "/../modelos/simple_mvc/ActivoFijoInventarioRep
 					// por lo tanto se cargará la primera consulta de la misma
 					if(NombreTabla == "tablaactivos" && typeof(elemento) == "string") {
 						generarInventario_tablaactivos();
+						console.log("entro");
 					}
 				}
 			});
@@ -1661,6 +1665,14 @@ include_once(dirname(__FILE__) . "/../modelos/simple_mvc/ActivoFijoInventarioRep
       include ("includecombo.php");	
 	  
 	  $nombrefuncion = "estatus";	
+	  $tabla = "Siga_cat_estatus";
+	  $id = "Id_Estatus";
+	  $desc = "Desc_Estatus";
+	  $nombre = "Estatus";
+	  $excepto = "";
+      include ("includecombo.php");	
+
+	  $nombrefuncion = "estatusreubicacionguar";	
 	  $tabla = "Siga_cat_estatus";
 	  $id = "Id_Estatus";
 	  $desc = "Desc_Estatus";
@@ -3708,6 +3720,7 @@ include_once(dirname(__FILE__) . "/../modelos/simple_mvc/ActivoFijoInventarioRep
 		var Cuenta_reubicacion=$.trim($("#Cuenta_reubicacion").val());
 		var Id_Area=$.trim($("#cmb_area_guardar").val());
 		var Id_Ubic_Prim=$.trim($("#cmb_ubic_prim_reub_guar").val());
+		var Id_Estatus_Activo=$.trim($("#cmbestatusreubicacionguar").val());
 		var Id_Ubic_Sec=$.trim($("#cmb_ubic_sec_reub_guar").val());
 		var responsable_procedencia=$.trim($("#responsable_procedencia").val());
 		var Id_UsuarioResponsableProcedencia = $.trim($("#Id_UsuarioResponsableProcedencia").val());
@@ -3722,9 +3735,16 @@ include_once(dirname(__FILE__) . "/../modelos/simple_mvc/ActivoFijoInventarioRep
 		//var Foto=$.trim($("#Url_Foto_Activo").val());
 		var strDatos=""; 
 		
+		
+		
 		if (Id_Activo.length <= 0) {
 			Agregar = false; 
 			mensaje_error += " -Selecciona un activo<br />";
+		}
+
+		if (Id_Estatus_Activo == "-1") {
+			Agregar = false; 
+			mensaje_error += " -Selecciona el estatus del equipo<br />";
 		}
 		
 		if (Id_Area == "-1") {
@@ -3781,6 +3801,7 @@ include_once(dirname(__FILE__) . "/../modelos/simple_mvc/ActivoFijoInventarioRep
 			
 			strDatos += "&Id_Area="+Id_Area; 
 			strDatos += "&Id_Ubic_Prim="+Id_Ubic_Prim;
+			strDatos += "&Id_Estatus_Activo="+Id_Estatus_Activo;
 			strDatos += "&Id_Ubic_Sec="+Id_Ubic_Sec;
 			strDatos += "&Ubic_Especifica="+Ubic_Especifica;
 			strDatos += "&Id_Usuario_Responsable="+Id_Usuario_Responsable;
@@ -6357,6 +6378,7 @@ $('#fechaDelR').datepicker({
 					lstFiltrosXActualizar = lstFiltrosTablaBajas;
 					break;
 				case "tablereubicacion":
+					console.log("Filtros:", lstFiltrosTablaReubicacion);
 					lstFiltrosXActualizar = lstFiltrosTablaReubicacion;
 					break;
 			}
