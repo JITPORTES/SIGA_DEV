@@ -1158,14 +1158,22 @@
 							activos+='<option value="'+json.data[i].Id_Activo+'">'+json.data[i].AF_BC+' '+json.data[i].Nombre_Activo+'</option>';
 						}
 						activos+='</optgroup>';
+						
+						$('#select-activos-search-global').html(activos);
+						
 						$('#select-activos-search').html(activos);
 						$('#select-activos-search-mensual').html(activos);
 
 						$("#gifcargando-search").hide();
 						$("#gifcargando-search-mensual").hide();
+						$("#select-activos-search-global").show();
 						$("#select-activos-search").show();
 						$("#select-activos-search-mensual").show();
 							
+						$('#select-activos-search-global').selectize({
+							//sortField: 'text'
+						});
+						
 						$('#select-activos-search').selectize({
 							//sortField: 'text'
 						});
@@ -1179,6 +1187,9 @@
 						activos+='<option>--Sin Resultados--</option>';
 						activos+='<optgroup label="Activos">';
 						activos+='</optgroup>';
+						$('#select-activos-search-global').html(activos);
+						$("#select-activos-search-global").show();
+						
 						$('#select-activos-search').html(activos);
 						$("#select-activos-search").show();
 
@@ -1189,6 +1200,7 @@
 			},
 			error: function (objeto, quepaso, otroobj) {
 				mensajesalerta("Oh No!", "Ocurrio un error al consultar.", "error", "dark");
+				$('#select-activos-search-global').append($('<option>', { value: "-1" }).text("Sin resultados"));
 				$('#select-activos-search').append($('<option>', { value: "-1" }).text("Sin resultados"));
 				$('#select-activos-search-mensual').append($('<option>', { value: "-1" }).text("Sin resultados"));
 			}
@@ -2680,8 +2692,21 @@ function pasar_valores_a_modal(id, fecha){
 		var Slc_Mostrar=$("#Slc_Mostrar").val();
 		
 		var Nombre_Rutina=$.trim($("#text_Nombre_Rutina").val());
+		var Marca_Global=$.trim($("#text_Marca_Global").val());
 		var Descripcion_Corta=$.trim($("#text_Descripcion_Corta").val());
-		
+		var cmbOrdenTipo=$.trim($("#cmbOrdenTipo").val());
+		var cmbOdernAscDesc=$.trim($("#cmbOdernAscDesc").val());
+
+		var $select_actGlobal = $('#select-activos-search-global').selectize({});	
+		var controlafbc = $select_actGlobal[0].selectize;
+		var AFBCGlobal="";
+		if(controlafbc.items.length > 0){
+			AFBCGlobal=controlafbc.items.toString();
+		}else{
+			AFBCGlobal="";
+		}
+
+
 		var $select_usuarios = $('#select-usuarios').selectize({});	
 		var control3 = $select_usuarios[0].selectize;
 		var Num_Empleado="";
@@ -2751,7 +2776,26 @@ function pasar_valores_a_modal(id, fecha){
 		}else{
 			Array_Param_G[9]="";
 		}
-		
+
+		if(Marca_Global!=""){
+			Array_Param_G[10]=Marca_Global;
+		}else{
+			Array_Param_G[10]="";
+		}
+		Array_Param_G[11]=AFBCGlobal;
+
+		if(cmbOrdenTipo!=""){
+			Array_Param_G[12]=cmbOrdenTipo;
+		}else{
+			Array_Param_G[12]="";
+		}
+
+		if(cmbOdernAscDesc!=""){
+			Array_Param_G[13]=cmbOdernAscDesc;
+		}else{
+			Array_Param_G[13]="";
+		}
+
 		if(anio_global_actual!=""){
 
 			$.ajax({
@@ -2818,23 +2862,31 @@ function pasar_valores_a_modal(id, fecha){
 						tabla+='<table class="table table-bordered display table-striped table">';
 						tabla+='  <thead>';
 						tabla+='	<tr>';
+						tabla+='	  <th style="color:#fff;font-size:11px;" class="text-center">Ubic. Primaria</th>';
 						tabla+='	  <th style="color:#fff;font-size:11px;" class="text-center">Usuario Responsable</th>';
-						tabla+='	  <th style="color:#fff;font-size:11px;" class="text-center">REALIZA</th>';
+						tabla+='	  <th style="color:#fff;font-size:11px;" class="text-center">Gestor Asignado</th>';
+						tabla+='	  <th style="color:#fff;font-size:11px;" class="text-center">Realiza</th>';
 						tabla+='	  <th style="color:#fff;font-size:11px;" class="text-center">AF/BC</th>';
-						tabla+='	  <th style="color:#fff;font-size:11px;" class="text-center">EQUIPO</th>';
-						tabla+='	  <th style="color:#fff;font-size:11px;" class="text-center">ACTIVIDADES</th>';
-						tabla+='	  <th style="color:#fff;font-size:11px;" class="text-center">PERIODO</th>';
+						tabla+='	  <th style="color:#fff;font-size:11px;" class="text-center">No. Serie</th>';
+						tabla+='	  <th style="color:#fff;font-size:11px;" class="text-center">Modelo</th>';
+						tabla+='	  <th style="color:#fff;font-size:11px;" class="text-center">Equipo</th>';
+						tabla+='	  <th style="color:#fff;font-size:11px;" class="text-center">Actividades</th>';
+						tabla+='	  <th style="color:#fff;font-size:11px;" class="text-center">Periodo</th>';
 						tabla+='	  <th colspan="24" style="color:#fff;font-size:11px;" class="text-center">MES</th>';
 						tabla+='	</tr>';
 						tabla+='  </thead>';
 						tabla+='  <tbody>';
 						tabla+='	<tr>';
-						tabla+='	  <td style="font-size:11px"  class="text-center"></td>';
-						tabla+='	  <td style="font-size:11px"  class="text-center"></td>';
-						tabla+='	  <td style="font-size:11px"  class="text-center"></td>';
-						tabla+='	  <td style="font-size:11px"  class="text-center"></td>';
-						tabla+='	  <td style="font-size:11px"  class="text-center"></td>';
-						tabla+='	  <td style="font-size:11px"  class="text-center"></td>';
+						tabla+='	  <td style="font-size:11px;" class="text-center"><div style="display: none">Ubic. Primaria</div></td>';
+						tabla+='	  <td style="font-size:11px;" class="text-center"><div style="display: none">Usuario Responsable</div></td>';
+						tabla+='	  <td style="font-size:11px;" class="text-center"><div style="display: none">Gestor Asignado</div></td>';
+						tabla+='	  <td style="font-size:11px;" class="text-center"><div style="display: none">Realiza</div></td>';
+						tabla+='	  <td style="font-size:11px;" class="text-center"><div style="display: none">AF/BC</div></td>';
+						tabla+='	  <td style="font-size:11px;" class="text-center"><div style="display: none">No. Serie</div></td>';
+						tabla+='	  <td style="font-size:11px;" class="text-center"><div style="display: none">Modelo</div></td>';
+						tabla+='	  <td style="font-size:11px;" class="text-center"><div style="display: none">Equipo</div></td>';
+						tabla+='	  <td style="font-size:11px;" class="text-center"><div style="display: none">Actividades</div></td>';
+						tabla+='	  <td style="font-size:11px;" class="text-center"><div style="display: none">Periodo</div></td>';
 						tabla+='	  <td style="font-size:11px" colspan="2" class="text-center">Ene</td>';
 						tabla+='	  <td style="font-size:11px" colspan="2" class="text-center">Feb</td>';
 						tabla+='	  <td style="font-size:11px" colspan="2" class="text-center">Mar</td>';
@@ -2854,9 +2906,13 @@ function pasar_valores_a_modal(id, fecha){
 							for(var k=0;k < data.totalCountActsinProgramar; k++){								
 								
 								tabla_excel+='	<tr onclick="pasar_activo('+data.dataActsinProgramar[k].Id_Activo+')">';
+								tabla_excel+='	  <td style="font-size:11px;color:#e40b0b"><strong>'+data.dataActsinProgramar[k].Desc_Ubic_Prim+'</strong></td>';
 								tabla_excel+='	  <td style="font-size:11px;color:#e40b0b"><strong>'+data.dataActsinProgramar[k].Nombre_Completo+'</strong></td>';
+								tabla_excel+='	  <td style="font-size:11px;color:#e40b0b"><strong>'+data.dataActsinProgramar[k].Nombre_Gestor+'</strong></td>';
 								tabla_excel+='	  <td style="font-size:11px;color:#e40b0b"><strong></strong></td>';
 								tabla_excel+='	  <td style="font-size:11px;color:#e40b0b"><strong>'+data.dataActsinProgramar[k].AF_BC+'</strong></td>';
+								tabla_excel+='	  <td style="font-size:11px;color:#e40b0b"><strong>'+data.dataActsinProgramar[k].NumSerie+'</strong></td>';
+								tabla_excel+='	  <td style="font-size:11px;color:#e40b0b"><strong>'+data.dataActsinProgramar[k].Modelo+'</strong></td>';
 								tabla_excel+='	  <td style="font-size:11px;color:#e40b0b" ><strong>'+data.dataActsinProgramar[k].Nombre_Activo+'</strong></td>';
 								tabla_excel+='	  <td style="font-size:11px;color:#e40b0b" ><strong></strong></td>';
 								tabla_excel+='	  <td style="font-size:11px;color:#e40b0b" ><strong></strong></td>';
@@ -2887,9 +2943,13 @@ function pasar_valores_a_modal(id, fecha){
 								tabla_excel+='	</tr>';
 								
 								tabla+='	<tr onclick="pasar_activo('+data.dataActsinProgramar[k].Id_Activo+')">';
+								tabla+='	  <td style="font-size:11px;color:#e40b0b"><strong>'+data.dataActsinProgramar[k].Desc_Ubic_Prim+'</strong></td>';
 								tabla+='	  <td style="font-size:11px;color:#e40b0b"><strong>'+data.dataActsinProgramar[k].Nombre_Completo+'</strong></td>';
+								tabla+='	  <td style="font-size:11px;color:#e40b0b"><strong>'+data.dataActsinProgramar[k].Nombre_Gestor+'</strong></td>';
 								tabla+='	  <td style="font-size:11px;color:#e40b0b"><strong></strong></td>';
 								tabla+='	  <td style="font-size:11px;color:#e40b0b"><strong>'+data.dataActsinProgramar[k].AF_BC+'</strong></td>';
+								tabla+='	  <td style="font-size:11px;color:#e40b0b" ><strong>'+data.dataActsinProgramar[k].NumSerie+'</strong></td>';
+								tabla+='	  <td style="font-size:11px;color:#e40b0b" ><strong>'+data.dataActsinProgramar[k].Modelo+'</strong></td>';
 								tabla+='	  <td style="font-size:11px;color:#e40b0b" ><strong>'+data.dataActsinProgramar[k].Nombre_Activo+'</strong></td>';
 								tabla+='	  <td style="font-size:11px;color:#e40b0b" ><strong></strong></td>';
 								tabla+='	  <td style="font-size:11px;color:#e40b0b" ><strong></strong></td>';
@@ -2925,9 +2985,13 @@ function pasar_valores_a_modal(id, fecha){
 							estatus_detalle=true;
 							for(var i=0;i < data.totalCount; i++){
 								tabla+='	<tr>';
+								tabla+='	  <td  style="font-size:11px;color:blue"><strong>'+data.data[i].Desc_Ubic_Prim+'</strong></td>';
 								tabla+='	  <td  style="font-size:11px;color:blue"><strong>'+data.data[i].Nombre_Completo+'</strong></td>';
+								tabla+='	  <td  style="font-size:11px;color:blue"><strong>'+data.data[i].Nombre_Gestor+'</strong></td>';
 								tabla+='	  <td  style="font-size:11px;color:blue"><strong>'+data.data[i].Realiza+'</strong></td>';
 								tabla+='	  <td  style="font-size:11px;color:blue"><strong>'+data.data[i].AF_BC+'</strong></td>';
+								tabla+='	  <td  style="font-size:11px;color:blue"><strong>'+data.data[i].NumSerie+'</strong></td>';
+								tabla+='	  <td  style="font-size:11px;color:blue"><strong>'+data.data[i].Modelo+'</strong></td>';
 								tabla+='	  <td  style="font-size:11px;color:blue" ><strong>'+data.data[i].Nombre_Activo+'</strong></td>';
 								tabla+='	  <td style="font-size:11px;color:#8B8B8E"><strong>';
 								
@@ -2984,6 +3048,10 @@ function pasar_valores_a_modal(id, fecha){
 								for(var j=0;j < Total_Actividades; j++){
 									
 									tabla+='	<tr>';
+									tabla+='	  <td style="font-size:11px"></td>';
+									tabla+='	  <td style="font-size:11px"></td>';
+									tabla+='	  <td style="font-size:11px"></td>';
+									tabla+='	  <td style="font-size:11px"></td>';
 									tabla+='	  <td style="font-size:11px"></td>';
 									tabla+='	  <td style="font-size:11px"></td>';
 									tabla+='	  <td style="font-size:11px"></td>';
@@ -3622,21 +3690,42 @@ function pasar_valores_a_modal(id, fecha){
 	*/
 
 	limpiar_global=function(cargar=""){
-		//$("#cmbprogramadas").val("-1");
-		//$("#cmbubicacionprim").val("-1");
+		$("#cmbprogramadas").val("1");
+		$("#cmbubicacionprim").val("-1");
+		$("#cmbubicacionsec").val("-1");
+		$("#cmbclase").val("-1");
+		$("#cmbclasificacion").val("-1");
+		$("#cmbfamilia").val("-1");
+		$("#cmbsubfamilia").val("-1");
+		$("#text_Marca_Global").val("");
+		$("#text_Nombre_Rutina").val("");
+		$("#text_Descripcion_Corta").val("");
+		$("#Slc_Mostrar").val("1");
+		$("#cmbOrdenTipo").val("UP.Desc_Ubic_Prim");
+		$("#cmbOdernAscDesc").val("Asc");
 		//$("#cmbclase").val("-1");
 		//$("#cmbubicacionsec").html('<option value="-1">--Ubicación Secundaria--</option>');
 		//$("#cmbclasificacion").html('<option value="-1">--Clasificación--</option>');
-	
-		//var Usuarios=$.trim($("#select-usuarios").val());
-		//if(Usuarios!=""){			
-		//	if(Usuarios.length > 0){
-		//		var $usr = $('#select-usuarios').selectize({});	
-		//		var usr2 = $usr[0].selectize;
-		//		usr2.clear();
-		//		usr2.enable();
-		//	}
-		//}
+		var activos_search=$.trim($("#select-activos-search-global").val());
+		if(activos_search!=""){			
+			if(activos_search.length > 0){
+				var $act = $('#select-activos-search-global').selectize({});	
+				var act2 = $act[0].selectize;
+				act2.clear();
+				act2.enable();
+			}
+		}
+
+
+		var Usuarios=$.trim($("#select-usuarios").val());
+		if(Usuarios!=""){			
+			if(Usuarios.length > 0){
+				var $usr = $('#select-usuarios').selectize({});	
+				var usr2 = $usr[0].selectize;
+				usr2.clear();
+				usr2.enable();
+			}
+		}
 		
 		$("#Slc_Mostrar").val(1);
 		if(cargar!=""){

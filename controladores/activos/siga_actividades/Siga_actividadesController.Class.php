@@ -1291,15 +1291,15 @@ public function Actividades_Global($Array_Param_G,$siga_actividadesDto, $Anio_Gl
 	$Data_Detalle_Envia2 = array();
 		
 	$cons="";
-		
-	if(($Array_Param_G[0]!="") ||($Array_Param_G[1]!="") ||($Array_Param_G[2]!="") ||($Array_Param_G[3]!="")||($Array_Param_G[4]!="")||($Array_Param_G[6]!="")||($Array_Param_G[7]!="")||($Array_Param_G[8]!="")||($Array_Param_G[9]!=""))
+	/*Ignacio/Mauricio*/	
+	if(($Array_Param_G[0]!="") ||($Array_Param_G[1]!="") ||($Array_Param_G[2]!="") ||($Array_Param_G[3]!="")||($Array_Param_G[4]!="")||($Array_Param_G[6]!="")||($Array_Param_G[7]!="")||($Array_Param_G[8]!="")||($Array_Param_G[9]!="")||($Array_Param_G[10]!="")||($Array_Param_G[11]!=""))
 	{
 		$cons.=" AND ";
 	}
 	
 	if($Array_Param_G[0]!=""){
 		$cons.=" A.Id_Ubic_Prim='".$Array_Param_G[0]."'";
-		if(($Array_Param_G[1]!="") ||($Array_Param_G[2]!="") ||($Array_Param_G[3]!="")||($Array_Param_G[4]!="")||($Array_Param_G[6]!="")||($Array_Param_G[7]!="")||($Array_Param_G[8]!="")||($Array_Param_G[9]!=""))
+		if(($Array_Param_G[1]!="") ||($Array_Param_G[2]!="") ||($Array_Param_G[3]!="")||($Array_Param_G[4]!="")||($Array_Param_G[6]!="")||($Array_Param_G[7]!="")||($Array_Param_G[8]!="")||($Array_Param_G[9]!="")||($Array_Param_G[10]!="")||($Array_Param_G[11]!=""))
 		{
 			$cons.=" AND ";
 		}
@@ -1308,7 +1308,7 @@ public function Actividades_Global($Array_Param_G,$siga_actividadesDto, $Anio_Gl
 	
 	if($Array_Param_G[1]!=""){
 		$cons.=" A.Id_Ubic_Sec='".$Array_Param_G[1]."'";
-		if(($Array_Param_G[2]!="") ||($Array_Param_G[3]!="")||($Array_Param_G[4]!="")||($Array_Param_G[6]!="")||($Array_Param_G[7]!="")||($Array_Param_G[8]!="")||($Array_Param_G[9]!=""))
+		if(($Array_Param_G[2]!="") ||($Array_Param_G[3]!="")||($Array_Param_G[4]!="")||($Array_Param_G[6]!="")||($Array_Param_G[7]!="")||($Array_Param_G[8]!="")||($Array_Param_G[9]!="")||($Array_Param_G[10]!="")||($Array_Param_G[11]!=""))
 		{
 			$cons.=" AND ";
 		}
@@ -1317,7 +1317,7 @@ public function Actividades_Global($Array_Param_G,$siga_actividadesDto, $Anio_Gl
 	
 	if($Array_Param_G[2]!=""){
 		$cons.=" A.Id_Clase='".$Array_Param_G[2]."'";
-		if(($Array_Param_G[3]!="")||($Array_Param_G[4]!="")||($Array_Param_G[6]!="")||($Array_Param_G[7]!="")||($Array_Param_G[8]!="")||($Array_Param_G[9]!=""))
+		if(($Array_Param_G[3]!="")||($Array_Param_G[4]!="")||($Array_Param_G[6]!="")||($Array_Param_G[7]!="")||($Array_Param_G[8]!="")||($Array_Param_G[9]!="")||($Array_Param_G[10]!="")||($Array_Param_G[11]!=""))
 		{
 			$cons.=" AND ";
 		}
@@ -1326,7 +1326,7 @@ public function Actividades_Global($Array_Param_G,$siga_actividadesDto, $Anio_Gl
 	
 	if($Array_Param_G[3]!=""){
 		$cons.=" A.Id_Clasificacion='".$Array_Param_G[3]."'";
-		if(($Array_Param_G[4]!="")||($Array_Param_G[6]!="")||($Array_Param_G[7]!="")||($Array_Param_G[8]!="")||($Array_Param_G[9]!=""))
+		if(($Array_Param_G[4]!="")||($Array_Param_G[6]!="")||($Array_Param_G[7]!="")||($Array_Param_G[8]!="")||($Array_Param_G[9]!="")||($Array_Param_G[10]!="")||($Array_Param_G[11]!=""))
 		{
 			$cons.=" AND ";
 		}
@@ -1335,7 +1335,7 @@ public function Actividades_Global($Array_Param_G,$siga_actividadesDto, $Anio_Gl
 	
 	if($Array_Param_G[4]!=""){
 		$cons.=" A.Num_Empleado='".$Array_Param_G[4]."'";
-		if(($Array_Param_G[6]!="")||($Array_Param_G[7]!="")||($Array_Param_G[8]!="")||($Array_Param_G[9]!=""))
+		if(($Array_Param_G[6]!="")||($Array_Param_G[7]!="")||($Array_Param_G[8]!="")||($Array_Param_G[9]!="")||($Array_Param_G[10]!="")||($Array_Param_G[11]!=""))
 		{
 			$cons.=" AND ";
 		}
@@ -1344,7 +1344,7 @@ public function Actividades_Global($Array_Param_G,$siga_actividadesDto, $Anio_Gl
 	
 	if($Array_Param_G[6]!=""){
 		$cons.=" A.Id_Familia='".$Array_Param_G[6]."'";
-		if(($Array_Param_G[7]!="")||($Array_Param_G[8]!="")||($Array_Param_G[9]!=""))
+		if(($Array_Param_G[7]!="")||($Array_Param_G[8]!="")||($Array_Param_G[9]!="")||($Array_Param_G[10]!="")||($Array_Param_G[11]!=""))
 		{
 			$cons.=" AND ";
 		}
@@ -1353,7 +1353,7 @@ public function Actividades_Global($Array_Param_G,$siga_actividadesDto, $Anio_Gl
 	
 	if($Array_Param_G[7]!=""){
 		$cons.=" A.Id_Subfamilia='".$Array_Param_G[7]."'";
-		if(($Array_Param_G[8]!="")||($Array_Param_G[9]!=""))
+		if(($Array_Param_G[8]!="")||($Array_Param_G[9]!="")||($Array_Param_G[10]!="")||($Array_Param_G[11]!=""))
 		{
 			$cons.=" AND ";
 		}
@@ -1362,7 +1362,7 @@ public function Actividades_Global($Array_Param_G,$siga_actividadesDto, $Anio_Gl
 	
 	if($Array_Param_G[8]!=""){
 		$cons.=" Ac.Nombre_Rutina like'%".$Array_Param_G[8]."%'";
-		if(($Array_Param_G[9]!=""))
+		if(($Array_Param_G[9]!="")||($Array_Param_G[10]!="")||($Array_Param_G[11]!=""))
 		{
 			$cons.=" AND ";
 		}
@@ -1371,7 +1371,24 @@ public function Actividades_Global($Array_Param_G,$siga_actividadesDto, $Anio_Gl
 	
 	if($Array_Param_G[9]!=""){
 		$cons.=" Ac.Descripcion like'%".$Array_Param_G[9]."%'";
-		
+		if(($Array_Param_G[10]!="")||($Array_Param_G[11]!=""))
+		{
+			$cons.=" AND ";
+		}
+		$Estatus_Filtro=true;
+	}
+
+	if($Array_Param_G[10]!=""){
+		$cons.=" A.Marca like'%".$Array_Param_G[10]."%'";
+		if(($Array_Param_G[11]!=""))
+		{
+			$cons.=" AND ";
+		}
+		$Estatus_Filtro=true;
+	}
+
+	if($Array_Param_G[11]!=""){
+		$cons.=" A.Id_Activo ='".$Array_Param_G[11]."'";
 		$Estatus_Filtro=true;
 	}
 		
@@ -1381,12 +1398,14 @@ public function Actividades_Global($Array_Param_G,$siga_actividadesDto, $Anio_Gl
 			$sql="
 				SELECT DISTINCT 
 					ac.Id_Activo
+					,UP.Desc_Ubic_Prim
 				FROM siga_actividades AC 
 				LEFT JOIN siga_det_actividades AD on AC.Id_Actividad=AD.Id_Actividad 
 				LEFT JOIN siga_activos A on AC.Id_Activo=A.Id_Activo 
 				LEFT JOIN siga_cat_clase CL on A.Id_Clase=CL.Id_Clase 
 				LEFT JOIN siga_cat_clasificacion CS on A.Id_Clasificacion=CS.Id_Clasificacion 
 				LEFT JOIN siga_cat_frecuencia FREC on AC.Id_Frecuencia=FREC.Id_Frecuencia 
+				LEFT JOIN siga_cat_ubic_prim UP on A.Id_Ubic_Prim=UP.Id_Ubic_Prim
 				WHERE AC.Estatus_Reg<>'3' 
 					and A.Estatus_Reg <> '3'
 					and A.Id_Situacion_Activo<>'12' 
@@ -1395,7 +1414,8 @@ public function Actividades_Global($Array_Param_G,$siga_actividadesDto, $Anio_Gl
 					and AD.Fecha_Programada>='".$Anio_Global."0101' and  AD.Fecha_Programada<='".$Anio_Global."1231'
 			";
 			$sql.=$cons;
-
+			$sql.=" Order by ".$Array_Param_G[12]." ".$Array_Param_G[13];
+			//echo $sql;
 		$proveedor->execute($sql);
 	
 		if (!$proveedor->error()){
@@ -1414,21 +1434,40 @@ public function Actividades_Global($Array_Param_G,$siga_actividadesDto, $Anio_Gl
 							AC.Id_Actividad,
 							A.Id_Activo,
 							A.AF_BC,
+							UP.Desc_Ubic_Prim,
 							A.Nombre_Activo,
 							A.Nombre_Completo,
+							A.NumSerie,
+							A.Modelo,
 							FREC.Desc_Frecuencia,
 							CASE 
 								WHEN AC.Realiza=0 
 									THEN 'Interno' 
 								WHEN AC.Realiza=1 
 									THEN 'Externo' 
-								END as Realiza
+							END as Realiza,
+							(
+								SELECT 
+									Nombre_Usuario 
+								FROM 
+									siga_usuarios 
+								WHERE 
+									id_usuario=(
+										SELECT 
+											TOP 1 Id_Gestor 
+										FROM 
+											siga_solicitud_tickets SST 
+										WHERE 
+											SST.Id_Actividad = AC.Id_Actividad
+									)
+							) as Nombre_Gestor	
 						FROM siga_actividades AC 
 						LEFT JOIN siga_det_actividades AD on AC.Id_Actividad=AD.Id_Actividad 
 						LEFT JOIN siga_activos A on AC.Id_Activo=A.Id_Activo 
 						LEFT JOIN siga_cat_clase CL on A.Id_Clase=CL.Id_Clase 
 						LEFT JOIN siga_cat_clasificacion CS on A.Id_Clasificacion=CS.Id_Clasificacion 
 						LEFT JOIN siga_cat_frecuencia FREC on AC.Id_Frecuencia=FREC.Id_Frecuencia 
+						LEFT JOIN siga_cat_ubic_prim UP on A.Id_Ubic_Prim=UP.Id_Ubic_Prim
 						WHERE AC.Estatus_Reg<>'3' 
 							and A.Estatus_Reg <> '3'
 							and A.Id_Situacion_Activo<>'12' 
@@ -1437,7 +1476,7 @@ public function Actividades_Global($Array_Param_G,$siga_actividadesDto, $Anio_Gl
 							and AC.Id_Activo in(".$row["Id_Activo"].") ".$cons."
 						ORDER BY AC.Id_Actividad desc
 					";
-					
+					//echo $sql;
 					$proveedor2->execute($sql);
 
 					if(!$proveedor2->error()){
@@ -1490,6 +1529,7 @@ public function Actividades_Global($Array_Param_G,$siga_actividadesDto, $Anio_Gl
 										AD.Valor_Referencia,
 										AD.Valor_Medido,
 										AD.Estatus_Actividad,
+										UP.Desc_Ubic_Prim,
 										AD.Fecha_Programada,
 										--AD.Fecha_Realizada,
 										(SELECT top 1 Fecha_Realizada FROM siga_det_actividades WHERE Id_Actividad=AD.Id_Actividad ORDER BY Fecha_Realizada DESC) AS Fecha_Realizada
@@ -1505,6 +1545,7 @@ public function Actividades_Global($Array_Param_G,$siga_actividadesDto, $Anio_Gl
 									LEFT JOIN siga_cat_clase CL 		on A.Id_Clase=CL.Id_Clase 
 									LEFT JOIN siga_cat_clasificacion CS on A.Id_Clasificacion=CS.Id_Clasificacion 
 									LEFT JOIN siga_cat_frecuencia FREC 	on AC.Id_Frecuencia=FREC.Id_Frecuencia 
+									LEFT JOIN siga_cat_ubic_prim UP on A.Id_Ubic_Prim=UP.Id_Ubic_Prim
 									WHERE AC.Estatus_Reg <> '3' 
 									and A.Estatus_Reg <> '3' 
 									and A.Id_Situacion_Activo <> '12' 
@@ -1539,12 +1580,19 @@ public function Actividades_Global($Array_Param_G,$siga_actividadesDto, $Anio_Gl
 									}				
 								$proveedor4->close();
 								//Fin Detalle Actividades
-								
+								$Nombre_Gestor="Por Asignar";
+								if($row2["Nombre_Gestor"]!=NULL){
+									$Nombre_Gestor=$row2["Nombre_Gestor"];
+								}
 								
 								$Data_Detalle= array(
 									"Id_Actividad" => $row2["Id_Actividad"],
 									"Id_Activo" => $row2["Id_Activo"],
+									"Nombre_Gestor"=>$Nombre_Gestor,
 									"AF_BC" => rtrim(ltrim($row2["AF_BC"])),
+									"Desc_Ubic_Prim"=> rtrim(ltrim($row2["Desc_Ubic_Prim"])),
+									"Modelo" => rtrim(ltrim($row2["Modelo"])),
+									"NumSerie" => rtrim(ltrim($row2["NumSerie"])),
 									"Nombre_Activo" => rtrim(ltrim($row2["Nombre_Activo"])),
 									"Nombre_Completo" => rtrim(ltrim($row2["Nombre_Completo"])),
 									"Desc_Frecuencia" => rtrim(ltrim($row2["Desc_Frecuencia"])),

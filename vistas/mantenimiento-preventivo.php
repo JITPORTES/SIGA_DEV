@@ -332,6 +332,19 @@ $sigaRutinas = $rutinasClass->sigaRutinas();
 			<div class="row">
 				<div class="col-md-10 col-md-offset-1">
 					<div class="row">
+						<!-- Ignacio/Mauricio -->
+						<div class="col-md-6">
+							<div class="form-group">
+								<label  class="control-label" style="font-size: 11px;">AF/BC</label>
+								<div id="muestro_select_global">
+									<select id="select-activos-search-global" class="demo-default" placeholder="AF/BC" style="display:none"></select>
+								</div>
+								<div id="gifcargando-search-global" style="display:none" align="center">
+									<img src="../dist/img/cargando-loading.gif" style="max-width: 25px; max-height: 25px" alt="cargando-loading-037.gif">
+								</div>
+							</div>
+						</div>
+						<!--Fin Ignacio/Mauricio -->
 						<div class="col-md-3">
 							<div class="form-group">
 								<span><font color="red">*</font></span><label class="control-label" style="font-size: 11px;">Ubicación Primaria</label>
@@ -396,6 +409,14 @@ $sigaRutinas = $rutinasClass->sigaRutinas();
 								</select>
 							</div>
 						</div>
+						<!-- Ignacio/Mauricio -->
+						<div class="col-md-3">
+							<div class="form-group">
+								<span><font color="red">*</font></span><label class="control-label" style="font-size: 11px;">Marca</label>
+								<input type="text" class="form-control" placeholder="Marca" id="text_Marca_Global">
+							</div>
+						</div>
+						<!--Fin Ignacio/Mauricio -->
 						<div class="col-md-3">
 							<div class="form-group">
 								<span><font color="red">*</font></span><label class="control-label" style="font-size: 11px;">Nombre Rutina</label>
@@ -414,6 +435,29 @@ $sigaRutinas = $rutinasClass->sigaRutinas();
 								<select class="form-control" id="Slc_Mostrar">
 									<option value="1">Primera Actividad</option>
 									<option value="2">Detalle Actividades</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-md-2">
+							<div class="form-group">
+								<span><font color="red">*</font></span><label class="control-label" style="font-size: 11px;">Ordenar Ubic. Prim</label>
+								<select class="form-control" id="cmbOrdenTipo">
+									<option value="UP.Desc_Ubic_Prim">Ubicación Primaria</option>
+									<!-- <option value="2">Usuario Responsable</option>
+									<option value="3">Gestor Asignado</option>
+									<option value="4">AF/BC</option>
+									<option value="5">No. Serie</option>
+									<option value="6">Modelo</option>
+									<option value="7">Equipo</option> -->
+								</select>
+							</div>
+						</div>
+						<div class="col-md-1">
+							<div class="form-group">
+								<span><font color="red">*</font></span><label class="control-label" style="font-size: 11px;">Asc/Desc</label>
+								<select class="form-control" id="cmbOdernAscDesc">
+									<option value="Asc">Ascendente</option>
+									<option value="Desc">Descendente</option>
 								</select>
 							</div>
 						</div>
