@@ -1788,7 +1788,7 @@ public function Tabla_Activos_Asis_Esp($siga_activosDto,$proveedor=null,$soloact
 	$proveedor = new Proveedor('sqlserver', 'activos');
 	$proveedor->connect();
 	$sql="
-		select Id_Activo,AF_BC, Nombre_Activo, Marca, Modelo, NumSerie, UP.Desc_Ubic_Prim, US.Desc_Ubic_Sec, Foto, (select top 1 SU.Nombre_Usuario from siga_usuarios SU where SU.No_Usuario=convert(varchar,SA.Num_Empleado)) as Nombre_Responsable 
+		select Id_Activo,AF_BC, Nombre_Activo, Marca, Modelo, NumSerie, UP.Desc_Ubic_Prim, US.Desc_Ubic_Sec, Foto, (select top 1 SU.Nombre_Usuario from siga_usuarios SU where SU.No_Usuario=convert(varchar,SA.Num_Empleado)) as Nombre_Responsable, SA.Id_Situacion_Activo
 		from siga_activos SA
 		left join siga_cat_ubic_prim UP on SA.Id_Ubic_Prim=UP.Id_Ubic_Prim
 		left join siga_cat_ubic_sec US on SA.Id_Ubic_Sec=US.Id_Ubic_Sec 
@@ -1820,6 +1820,7 @@ public function Tabla_Activos_Asis_Esp($siga_activosDto,$proveedor=null,$soloact
 					"Desc_Ubic_Prim" => rtrim(ltrim($row["Desc_Ubic_Prim"])),
 					"Desc_Ubic_Sec" => rtrim(ltrim($row["Desc_Ubic_Sec"])),
 					"Foto" => rtrim(ltrim($row["Foto"])),
+					"Id_Situacion_Activo"=>$row["Id_Situacion_Activo"],
 					"Nombre_Responsable"=> rtrim(ltrim($row["Nombre_Responsable"]))
 				);
 				

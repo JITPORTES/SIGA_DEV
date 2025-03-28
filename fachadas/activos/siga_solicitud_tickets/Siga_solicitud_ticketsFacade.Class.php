@@ -172,6 +172,13 @@ $jsonDto = new Encode_JSON();
 return $jsonDto->encode($Siga_solicitud_ticketsDto);
 }
 
+public function cambiarestatusactivo($Id_Activo, $Id_Situacion_Activo, $Usr_Mod){
+	$Siga_solicitud_ticketsController = new Siga_solicitud_ticketsController();
+	$Siga_solicitud_ticketsDto = $Siga_solicitud_ticketsController->cambiarestatusactivo($Id_Activo, $Id_Situacion_Activo, $Usr_Mod);
+	$jsonDto = new Encode_JSON();
+	return $jsonDto->encode($Siga_solicitud_ticketsDto);
+}
+
 public function accesorios_act_ext_nota_salida($Id_Solicitud){
 $Siga_solicitud_ticketsController = new Siga_solicitud_ticketsController();
 $Siga_solicitud_ticketsDto = $Siga_solicitud_ticketsController->accesorios_act_ext_nota_salida($Id_Solicitud);
@@ -600,7 +607,7 @@ return $year . "-" . $mes . "-" . $dia;
 @$array_accesorios_act_ext=$_POST["array_accesorios_act_ext"];
 @$array_eliminados_act_ext=$_POST["array_eliminados_act_ext"];
 
-
+@$Id_Situacion_Activo=$_POST["Id_Situacion_Activo"];
 @$Id_Ubic_Prim=$_POST["Id_Ubic_Prim"];
 @$Id_Ubic_Sec=$_POST["Id_Ubic_Sec"];
 @$EsApp=$_POST["EsApp"];
@@ -851,6 +858,9 @@ $siga_solicitud_ticketsDto=$siga_solicitud_ticketsFacade->accesorios_act_ext_mes
 echo $siga_solicitud_ticketsDto;
 }else if($accion=="Pausar_iniciar_SLA"){
 $siga_solicitud_ticketsDto=$siga_solicitud_ticketsFacade->Pausar_iniciar_SLA($Id_Solicitud, $Estatus_SLA, $Justificacion_Pausa_SLA, $Desc_Motivo_Pausa);
+echo $siga_solicitud_ticketsDto;
+}else if($accion=="cambiarestatusactivo"){
+$siga_solicitud_ticketsDto=$siga_solicitud_ticketsFacade->cambiarestatusactivo($Id_Activo, $Id_Situacion_Activo, $Usr_Mod);
 echo $siga_solicitud_ticketsDto;
 }
 

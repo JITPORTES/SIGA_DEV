@@ -1091,7 +1091,18 @@
 	
 	
 	}
-	
+	var estatus_activos=new Array();
+	carga_estatus_activos();
+	function carga_estatus_activos() {
+		var Solo_Juridico="";
+		data={
+			accion: "consultar",
+			Estatus_Reg:"1",
+			Solo_Juridico:Solo_Juridico
+			//,Id_Area:$("#idareasesion").val()
+		};
+		estatus_activos=cargo_cmb("../fachadas/activos/siga_cat_estatus/Siga_cat_estatusFacade.Class.php",false, data);
+    }
 	
    function carga_activos_vip(activos){
 		var num_empleado="";
@@ -1134,7 +1145,7 @@
 						tabla+='		<th>No. Serie</th>';
 						tabla+='		<th>Ubic. Primaria</th>';
 						tabla+='		<th>Ubic. Secundaria</th>';
-						tabla+='		<th>Elegir</th>';
+						tabla+='		<th>Elegir y cambiar Estatus del Activo</th>';
 						tabla+='	</tr>';
 						tabla+='	</thead>'; 
 						tabla+='	<tbody>';
@@ -1149,7 +1160,7 @@
 							tabla+=' <td class=" ">'+data.data[i].NumSerie+'</td>';
 							tabla+=' <td class=" ">'+data.data[i].Desc_Ubic_Prim+'</td>';
 							tabla+=' <td class=" ">'+data.data[i].Desc_Ubic_Sec+'</td>';
-							tabla+=' <td class=" "><div align="center"><input type="radio" name="radio_activos" onclick="selec_activo_radio(\'radio'+data.data[i].Id_Activo+'\',\''+data.data[i].Id_Activo+'\')" id="radio'+data.data[i].Id_Activo+'"></div></td>';
+							tabla+=' <td class=" "><div align="center"><input type="radio" name="radio_activos" onclick="selec_activo_radio(\'radio'+data.data[i].Id_Activo+'\',\''+data.data[i].Id_Activo+'\',\''+data.data[i].Id_Situacion_Activo+'\')" id="radio'+data.data[i].Id_Activo+'"><br><select style="display:none" class="form-control" name="EstatusActivocmb" id="cmbestatusActivo_'+data.data[i].Id_Activo+'"></select></div></td>';
 							tabla+='</tr>';
 						}
 						tabla+='	</tbody>'; 
@@ -1207,6 +1218,7 @@
 			
 			var Id_Solicitud=$.trim($("#Id_Solicitud").val());
 			var Id_Activo=$("#hidden_seleccion_activo").val();
+			var Id_Estatus_Activo=$("#cmbestatusActivo_"+Id_Activo).val();
 			
 			
 			//Usuario Sesion
@@ -1363,7 +1375,11 @@
 						$("#tap_sin_respuesta").click();
 						limpiarcampos();
 						$("#solicitar").show();
-						console.log(datos);
+						
+						
+						if(Id_Activo!=""){
+							cambio_estatus_activo(Id_Activo, Id_Estatus_Activo);
+						}	
 					},
 					error: function () {
 						$("#solicitar").show();
@@ -1405,7 +1421,35 @@
 				*/
 			}
 		});
-		
+		function cambio_estatus_activo(Id_Activo, Id_Estatus_Activo){
+			var strDatos="";
+			//Usuario Sesion
+			var Id_Usuario=$("#usuariosesion").val();
+			strDatos += "Id_Activo="+Id_Activo;
+			strDatos += "&Id_Situacion_Activo="+Id_Estatus_Activo;
+			strDatos += "&Usr_Mod="+Id_Usuario;
+			strDatos += "&accion=cambiarestatusactivo";
+			$.ajax({
+				type: "POST",
+				url: "../fachadas/activos/siga_solicitud_tickets/Siga_solicitud_ticketsFacade.Class.php",        
+				async: false,
+				data: strDatos,
+				dataType: "html",
+				beforeSend: function (xhr) {
+					
+				},
+				success: function (datos) {
+					$('select[name="EstatusActivocmb"] option').remove();
+					$('select[name="EstatusActivocmb"]').hide();
+				},
+				error: function () {
+					mensajesalerta("Oh No!", "Ocurrio un error al cambiar el estatus.", "error", "dark");
+					$('select[name="EstatusActivocmb"] option').remove();
+					$('select[name="EstatusActivocmb"]').hide();
+				}
+			});
+		}
+
 		//Tabla Sin Respuesta
 		$('#display_sin_respuesta').DataTable({
 			// Esqueleto del datatable completo (B: botones; l: longitud de cuantos resultados va a mostrar; f: filtros; <: agrega un div; "table-responsive" agrega la clase al div; t: tabla; >:cierra el div; i: información ; p: paginación)
@@ -1909,9 +1953,26 @@
 		
 		carga_activos_vip("mis_activos");	
 		
-		selec_activo_radio=function(nombre_radio, Id_Activo){
+		selec_activo_radio=function(nombre_radio, Id_Activo, Id_Situacion_Activo){
+			console.log(estatus_activos);
+			$('select[name="EstatusActivocmb"] option').remove();
+			$('select[name="EstatusActivocmb"]').hide();
+			$("#cmbestatusActivo_"+Id_Activo).show();
 			$("#hidden_seleccion_activo").val(Id_Activo);
-		}	
+
+			if(estatus_activos.totalCount>0){
+				for(var i = 0; i < estatus_activos.totalCount; i++)
+				{ 			
+					if(estatus_activos.data[i].Id_Estatus!="12"){
+						if(Id_Situacion_Activo==estatus_activos.data[i].Id_Estatus){
+							$("#cmbestatusActivo_"+Id_Activo).append($('<option selected>', { value: estatus_activos.data[i].Id_Estatus }).text(estatus_activos.data[i].Desc_Estatus));
+						}else{
+							$("#cmbestatusActivo_"+Id_Activo).append($('<option>', { value: estatus_activos.data[i].Id_Estatus }).text(estatus_activos.data[i].Desc_Estatus));
+						}
+					}
+				}
+			}
+		}
 		
 		habilita_solicitudes_mant();
 

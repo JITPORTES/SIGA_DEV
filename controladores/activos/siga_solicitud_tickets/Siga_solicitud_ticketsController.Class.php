@@ -2074,6 +2074,37 @@ public function Por_cerrar_a_seguimiento($Siga_solicitud_ticketsDto,$proveedor=n
 }
 
 
+//Función para cambiar de estatus al activo cuando se realiza la solicitu de un nuevo ticket o por asistencia especial
+//Ignacio/Mauricio
+public function cambiarestatusactivo($Id_Activo, $Id_Situacion_Activo, $Usr_Mod){
+	$respuesta = array();
+	$error=false;
+	
+	$proveedor = new Proveedor('sqlserver', 'activos');
+	$proveedor->connect();
+	
+	$sql="update siga_activos set  Id_Situacion_Activo=".$Id_Situacion_Activo.", Usr_Mod='".$Usr_Mod."', Fech_Mod=GETDATE() where Id_Activo=".$Id_Activo;
+	
+	$proveedor->execute($sql);
+		
+	if (!$proveedor->error()){
+			
+	}else{
+		$error=true;
+	}
+	
+	$proveedor->close();
+	
+	if($error==false){
+		$respuesta = array("totalCount" => "1", "data" => "","estatus" => "exito", "mensaje" => "Se ha realizado el cambio de estatus con éxito.");
+	}else{
+		$respuesta = array("totalCount" => "0", "data" => "","estatus" => "error", "mensaje" => "Ocurrio un error al cambiar de estatus");
+	}
+	
+	return $respuesta;
+}
+
+
 public function selectSiga_solicitud_tickets($Siga_solicitud_ticketsDto,$proveedor=null){
 $Siga_solicitud_ticketsDto=$this->validarSiga_solicitud_tickets($Siga_solicitud_ticketsDto);
 $Siga_solicitud_ticketsDao = new Siga_solicitud_ticketsDAO();

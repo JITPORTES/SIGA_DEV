@@ -2347,7 +2347,18 @@ $(document).ready(function(){
 							}
 });
 
-
+var estatus_activos=new Array();
+carga_estatus_activos();
+function carga_estatus_activos() {
+	var Solo_Juridico="";
+	data={
+		accion: "consultar",
+		Estatus_Reg:"1",
+		Solo_Juridico:Solo_Juridico
+		//,Id_Area:$("#idareasesion").val()
+	};
+	estatus_activos=cargo_cmb("../fachadas/activos/siga_cat_estatus/Siga_cat_estatusFacade.Class.php",false, data);
+}
 	
 //********************************************************************************************************************************************************************************************** */
 //********************************************************************************************************************************************************************************************** */
@@ -2896,6 +2907,7 @@ $("#ticket_actualizar_categoria").click(function() {
 		var Id_Subcategoria=$("#cmbsubcategoria_Asis_Esp").val();
 		var Titulo=$.trim($("#Descripcion_Asis_Esp").val());
 		var Id_Activo=$.trim($("#hidden_seleccion_activo").val());
+		var Id_Estatus_Activo=$("#cmbestatusActivo_"+Id_Activo).val();
 		var Desc_Categoria=$.trim($("#Descripcion_Det_Asis_Esp").val());
 		var Id_Gestor=$("#Id_Usuario_Gestor").val();
 		var Foto=$.trim($("#Url_Foto_Activo").val());
@@ -3036,6 +3048,10 @@ $("#ticket_actualizar_categoria").click(function() {
 									$("#tabNuevas").click();
 								}
 								
+								if(Id_Activo!=""){
+									cambio_estatus_activo(Id_Activo, Id_Estatus_Activo);
+								}
+
 							}else{
 								mensajesalerta("Oh No!", "Ocurrio un error al guardar comuniquese con el administrador.", "error", "dark");
 							}
@@ -3076,7 +3092,9 @@ $("#ticket_actualizar_categoria").click(function() {
 							}else{
 								$("#tabNuevas").click();
 							}
-							
+							if(Id_Activo!=""){
+								cambio_estatus_activo(Id_Activo, Id_Estatus_Activo);
+							}
 						}else{
 							mensajesalerta("Oh No!", "Ocurrio un error al guardar comuniquese con el administrador.", "error", "dark");
 						}
@@ -3089,7 +3107,32 @@ $("#ticket_actualizar_categoria").click(function() {
 			}
 		}
 	});	
-	
+	function cambio_estatus_activo(Id_Activo, Id_Estatus_Activo){
+		var strDatos="";
+		//Usuario Sesion
+		var Id_Usuario=$("#usuariosesion").val();
+		strDatos += "Id_Activo="+Id_Activo;
+		strDatos += "&Id_Situacion_Activo="+Id_Estatus_Activo;
+		strDatos += "&Usr_Mod="+Id_Usuario;
+		strDatos += "&accion=cambiarestatusactivo";
+		$.ajax({
+			type: "POST",
+			url: "../fachadas/activos/siga_solicitud_tickets/Siga_solicitud_ticketsFacade.Class.php",        
+			async: false,
+			data: strDatos,
+			dataType: "html",
+			beforeSend: function (xhr) {
+					
+			},
+			success: function (datos) {
+				$('select[name="EstatusActivocmb"] option').remove();
+			},
+			error: function () {
+				mensajesalerta("Oh No!", "Ocurrio un error al cambiar el estatus.", "error", "dark");
+				$('select[name="EstatusActivocmb"] option').remove();
+			}
+		});
+	}
 	usuarios_empleados_Asis_Esp();
 	
 	function usuarios_empleados_Asis_Esp(){
@@ -4432,7 +4475,7 @@ $("#ticket_actualizar_categoria").click(function() {
 					tabla+='		<th>No. Serie</th>';
 					tabla+='		<th>Ubic. Primaria</th>';
 					tabla+='		<th>Ubic. Secundaria</th>';
-					tabla+='		<th>Elegir</th>';
+					tabla+='		<th>Elegir y cambiar Estatus del Activo</th>';
 					tabla+='	</tr>';
 					tabla+='	</thead>'; 
 					tabla+='	<tbody>';
@@ -4454,7 +4497,7 @@ $("#ticket_actualizar_categoria").click(function() {
 						tabla+=' <td class=" ">'+data.data[i].Desc_Ubic_Prim+'</td>';
 						tabla+=' <td class=" ">'+data.data[i].Desc_Ubic_Sec+'</td>';
 						
-						tabla+=' <td class=" "><div align="center"><input type="radio" name="radio_activos" onclick="selec_activo_radio_asis_esp(\'radio'+data.data[i].Id_Activo+'\',\''+data.data[i].Id_Activo+'\')" id="radio'+data.data[i].Id_Activo+'"></div></td>';
+						tabla+=' <td class=" "><div align="center"><input type="radio" name="radio_activos" onclick="selec_activo_radio_asis_esp(\'radio'+data.data[i].Id_Activo+'\',\''+data.data[i].Id_Activo+'\',\''+data.data[i].Id_Situacion_Activo+'\')" id="radio'+data.data[i].Id_Activo+'"><br><select style="display:none" class="form-control" name="EstatusActivocmb" id="cmbestatusActivo_'+data.data[i].Id_Activo+'"></select></div></td>';
 						tabla+='</tr>';
 					}
 					tabla+='	</tbody>'; 
@@ -4491,8 +4534,25 @@ $("#ticket_actualizar_categoria").click(function() {
 		});
 	}
 	
-	selec_activo_radio_asis_esp=function(nombre_radio, Id_Activo){
+	selec_activo_radio_asis_esp=function(nombre_radio, Id_Activo, Id_Situacion_Activo){
+		$('select[name="EstatusActivocmb"] option').remove();
+		$('select[name="EstatusActivocmb"]').hide();
+		$("#cmbestatusActivo_"+Id_Activo).show();
 		$("#hidden_seleccion_activo").val(Id_Activo);
+
+		if(estatus_activos.totalCount>0){
+			for(var i = 0; i < estatus_activos.totalCount; i++)
+			{		
+				if(estatus_activos.data[i].Id_Estatus!="12"){
+					if(Id_Situacion_Activo==estatus_activos.data[i].Id_Estatus){
+						$("#cmbestatusActivo_"+Id_Activo).append($('<option selected>', { value: estatus_activos.data[i].Id_Estatus }).text(estatus_activos.data[i].Desc_Estatus));
+					}else{
+						$("#cmbestatusActivo_"+Id_Activo).append($('<option>', { value: estatus_activos.data[i].Id_Estatus }).text(estatus_activos.data[i].Desc_Estatus));
+					}
+				}
+			}
+		}
+
 	}
 	
 	cambiaSeccion_asis_esp=function(idseccion){
