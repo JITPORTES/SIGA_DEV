@@ -2870,7 +2870,7 @@ function pasar_valores_a_modal(id, fecha){
 						tabla+='	  <th style="color:#fff;font-size:11px;" class="text-center">No. Serie</th>';
 						tabla+='	  <th style="color:#fff;font-size:11px;" class="text-center">Modelo</th>';
 						tabla+='	  <th style="color:#fff;font-size:11px;" class="text-center">Equipo</th>';
-						tabla+='	  <th style="color:#fff;font-size:11px;" class="text-center">Actividades</th>';
+						tabla+='	  <th style="color:#fff;font-size:11px;" class="text-center">Ticket</th>';
 						tabla+='	  <th style="color:#fff;font-size:11px;" class="text-center">Periodo</th>';
 						tabla+='	  <th colspan="24" style="color:#fff;font-size:11px;" class="text-center">MES</th>';
 						tabla+='	</tr>';
@@ -2885,7 +2885,7 @@ function pasar_valores_a_modal(id, fecha){
 						tabla+='	  <td style="font-size:11px;" class="text-center"><div style="display: none">No. Serie</div></td>';
 						tabla+='	  <td style="font-size:11px;" class="text-center"><div style="display: none">Modelo</div></td>';
 						tabla+='	  <td style="font-size:11px;" class="text-center"><div style="display: none">Equipo</div></td>';
-						tabla+='	  <td style="font-size:11px;" class="text-center"><div style="display: none">Actividades</div></td>';
+						tabla+='	  <td style="font-size:11px;" class="text-center"><div style="display: none">Ticket</div></td>';
 						tabla+='	  <td style="font-size:11px;" class="text-center"><div style="display: none">Periodo</div></td>';
 						tabla+='	  <td style="font-size:11px" colspan="2" class="text-center">Ene</td>';
 						tabla+='	  <td style="font-size:11px" colspan="2" class="text-center">Feb</td>';
@@ -2951,7 +2951,7 @@ function pasar_valores_a_modal(id, fecha){
 								tabla+='	  <td style="font-size:11px;color:#e40b0b" ><strong>'+data.dataActsinProgramar[k].NumSerie+'</strong></td>';
 								tabla+='	  <td style="font-size:11px;color:#e40b0b" ><strong>'+data.dataActsinProgramar[k].Modelo+'</strong></td>';
 								tabla+='	  <td style="font-size:11px;color:#e40b0b" ><strong>'+data.dataActsinProgramar[k].Nombre_Activo+'</strong></td>';
-								tabla+='	  <td style="font-size:11px;color:#e40b0b" ><strong></strong></td>';
+								tabla+='	  <td style="font-size:11px;color:#e40b0b" ><strong>'+data.dataActsinProgramar[k].No_Ticket+'</strong></td>';
 								tabla+='	  <td style="font-size:11px;color:#e40b0b" ><strong></strong></td>';
 								tabla+='	  <td>P</td>';
 								tabla+='	  <td style="background-color:#f4f4f4;">R</td>';
@@ -2993,7 +2993,7 @@ function pasar_valores_a_modal(id, fecha){
 								tabla+='	  <td  style="font-size:11px;color:blue"><strong>'+data.data[i].NumSerie+'</strong></td>';
 								tabla+='	  <td  style="font-size:11px;color:blue"><strong>'+data.data[i].Modelo+'</strong></td>';
 								tabla+='	  <td  style="font-size:11px;color:blue" ><strong>'+data.data[i].Nombre_Activo+'</strong></td>';
-								tabla+='	  <td style="font-size:11px;color:#8B8B8E"><strong>';
+								tabla+='	  <td  style="font-size:11px;color:blue" ><strong>'+data.data[i].No_Ticket+'</strong></td>';
 								
 								tabla+='	  	</strong>';
 								tabla+='      </td>';
@@ -3056,7 +3056,7 @@ function pasar_valores_a_modal(id, fecha){
 									tabla+='	  <td style="font-size:11px"></td>';
 									tabla+='	  <td style="font-size:11px"></td>';
 									tabla+='	  <td style="font-size:11px"></td>';
-									tabla+='	  <td style="font-size:11px;color:#8B8B8E"><strong>'+data.data[i].Actividades[j].Num_Actividad+'-'+data.data[i].Actividades[j].Nombre_Actividad+'</strong></td>';
+									tabla+='	  <td style="font-size:11px;color:#8B8B8E"></td>';
 									tabla+='	  <td style="font-size:11px"></td>';
 									//Enero
 									tabla+='	  <td id="P1_'+data.data[i].Id_Activo+'_'+data.data[i].Actividades[j].Num_Actividad+'">';tabla+='</td>';

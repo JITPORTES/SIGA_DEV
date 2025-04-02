@@ -429,7 +429,7 @@ $sigaRutinas = $rutinasClass->sigaRutinas();
 								<input type="text" class="form-control" placeholder="Descripción Corta" id="text_Descripcion_Corta">
 							</div>
 						</div>
-						<div class="col-md-3">
+						<div class="col-md-3" style="display:none">
 							<div class="form-group">
 								<span><font color="red">*</font></span><label class="control-label" style="font-size: 11px;">Mostrar</label>
 								<select class="form-control" id="Slc_Mostrar">
@@ -438,7 +438,7 @@ $sigaRutinas = $rutinasClass->sigaRutinas();
 								</select>
 							</div>
 						</div>
-						<div class="col-md-2">
+						<div class="col-md-3">
 							<div class="form-group">
 								<span><font color="red">*</font></span><label class="control-label" style="font-size: 11px;">Ordenar Ubic. Prim</label>
 								<select class="form-control" id="cmbOrdenTipo">
@@ -452,7 +452,7 @@ $sigaRutinas = $rutinasClass->sigaRutinas();
 								</select>
 							</div>
 						</div>
-						<div class="col-md-1">
+						<div class="col-md-3">
 							<div class="form-group">
 								<span><font color="red">*</font></span><label class="control-label" style="font-size: 11px;">Asc/Desc</label>
 								<select class="form-control" id="cmbOdernAscDesc">

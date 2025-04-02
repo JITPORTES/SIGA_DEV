@@ -1447,20 +1447,27 @@ public function Actividades_Global($Array_Param_G,$siga_actividadesDto, $Anio_Gl
 									THEN 'Externo' 
 							END as Realiza,
 							(
-								SELECT 
-									Nombre_Usuario 
-								FROM 
-									siga_usuarios 
-								WHERE 
-									id_usuario=(
-										SELECT 
-											TOP 1 Id_Gestor 
-										FROM 
-											siga_solicitud_tickets SST 
-										WHERE 
-											SST.Id_Actividad = AC.Id_Actividad
+								SELECT STUFF(
+									(SELECT ', ' + SU.Nombre_Usuario  
+									FROM siga_usuarios SU
+									WHERE SU.id_usuario IN (
+										SELECT Id_Gestor 
+										FROM siga_solicitud_tickets SST 
+										WHERE SST.Id_Actividad = AC.Id_Actividad
 									)
-							) as Nombre_Gestor	
+									FOR XML PATH(''), TYPE).value('.', 'NVARCHAR(MAX)'), 
+									1, 2, ''
+								)
+							) as Nombre_Gestor,
+							(
+								SELECT STUFF(
+									(SELECT ', ' + CAST(Id_Solicitud AS VARCHAR) 
+									FROM siga_solicitud_tickets SST 
+									WHERE SST.Id_Actividad = AC.Id_Actividad
+									FOR XML PATH(''), TYPE).value('.', 'NVARCHAR(MAX)'), 
+									1, 2, ''
+								)
+							) as No_Ticket 
 						FROM siga_actividades AC 
 						LEFT JOIN siga_det_actividades AD on AC.Id_Actividad=AD.Id_Actividad 
 						LEFT JOIN siga_activos A on AC.Id_Activo=A.Id_Activo 
@@ -1476,7 +1483,6 @@ public function Actividades_Global($Array_Param_G,$siga_actividadesDto, $Anio_Gl
 							and AC.Id_Activo in(".$row["Id_Activo"].") ".$cons."
 						ORDER BY AC.Id_Actividad desc
 					";
-					//echo $sql;
 					$proveedor2->execute($sql);
 
 					if(!$proveedor2->error()){
@@ -1584,11 +1590,17 @@ public function Actividades_Global($Array_Param_G,$siga_actividadesDto, $Anio_Gl
 								if($row2["Nombre_Gestor"]!=NULL){
 									$Nombre_Gestor=$row2["Nombre_Gestor"];
 								}
+
+								$No_Ticket="";
+								if($row2["No_Ticket"]!=NULL){
+									$No_Ticket=$row2["No_Ticket"];
+								}
 								
 								$Data_Detalle= array(
 									"Id_Actividad" => $row2["Id_Actividad"],
 									"Id_Activo" => $row2["Id_Activo"],
 									"Nombre_Gestor"=>$Nombre_Gestor,
+									"No_Ticket"=>$No_Ticket,
 									"AF_BC" => rtrim(ltrim($row2["AF_BC"])),
 									"Desc_Ubic_Prim"=> rtrim(ltrim($row2["Desc_Ubic_Prim"])),
 									"Modelo" => rtrim(ltrim($row2["Modelo"])),
