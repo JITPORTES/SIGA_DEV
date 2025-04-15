@@ -3130,6 +3130,13 @@ $Siga_solicitud_ticketsDao = new Siga_solicitud_ticketsDAO();
 return $Siga_solicitud_ticketsDao->llenarDataTable($draw, $columns, $order, $start, $length, $search,$Id_Estatus_Proceso, $siga_solicitud_ticketsDto, $Gestor_Solicitante, $Id_Seccion, $Tipo_Gestor, $Medio_de_Envio, $EsApp, $Todos_Tickets, $Tickets_SLA_Vencidos);
 }
 
+public function DataTableTickets($Id_Estatus_Proceso,$siga_solicitud_ticketsDto,$Gestor_Solicitante, $Id_Seccion, $Tipo_Gestor, $Medio_de_Envio, $EsApp, $Todos_Tickets, $Tickets_SLA_Vencidos) {
+//echo 1;
+//print_r($siga_solicitud_ticketsDto);
+$Siga_solicitud_ticketsDao = new Siga_solicitud_ticketsDAO();
+return $Siga_solicitud_ticketsDao->DataTableTickets($Id_Estatus_Proceso,$siga_solicitud_ticketsDto,$Gestor_Solicitante, $Id_Seccion, $Tipo_Gestor, $Medio_de_Envio, $EsApp, $Todos_Tickets, $Tickets_SLA_Vencidos);
+}
+
 public function grafica_servicios_registrados($Siga_solicitud_ticketsDto, $Fecha_Inicial, $Fecha_Final, $proveedor=null){
 	$Total=0;
 	$Data = array();

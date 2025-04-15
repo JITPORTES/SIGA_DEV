@@ -197,6 +197,7 @@ input[class="super-sad03"]:focus + svg {
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
   <link rel="stylesheet" href="../plugins/datatables/dataTables.bootstrap.css">
+  <link rel="" href="https://cdn.datatables.net/fixedheader/3.1.6/css/fixedHeader.dataTables.min.css">
 	<link rel="stylesheet" href="/siga/plugins/sweetalert2/sweetalert2.css">
   <link rel="stylesheet" href="../plugins/fileinput/fileinput.css">
   <link rel="stylesheet" href="../dist/css/jquery-confirm.min.css">
@@ -1983,6 +1984,7 @@ input[class="super-sad03"]:focus + svg {
 	<script type="text/javascript" src="../dist/js/jquery.qrcode.js"></script>
 	<script type="text/javascript" src="../dist/js/qrcode.js"></script>
 	<script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+	<script src="https://cdn.datatables.net/fixedheader/3.1.6/js/dataTables.fixedHeader.min.js"></script>
 	<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.flash.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
@@ -3450,7 +3452,22 @@ $("#ticket_actualizar_categoria").click(function() {
         });
     
 	}
-	
+	// Agregar un input de búsqueda en cada columna del encabezado
+	$('#tablaNuevos thead tr').clone(true).appendTo('#tablaNuevos thead');
+	$('#tablaNuevos thead tr:eq(1) th').each(function (i) {
+		var title = $(this).text();
+		$(this).html('<input type="text" class="search-input" placeholder="Buscar ' + title + '" style="width: 100%;"/>');
+		$('.search-input').css('color', 'black');
+		// Agregar evento de búsqueda por columna
+		$('input', this).on('keyup change', function () {
+		if ($('#tablaNuevos').DataTable().column(i).search() !== this.value) {
+			$('#tablaNuevos').DataTable()
+			.column(i)
+			.search(this.value)
+			.draw();
+		}
+		});
+	});
 	
 	$('#tablaNuevos').DataTable({
 		"order": [[ 3, "desc" ]],
@@ -3467,7 +3484,9 @@ $("#ticket_actualizar_categoria").click(function() {
 	    "scrollY": 500,
         "scrollX": true,
         "processing": true,
-        "serverSide": true,
+        "serverSide": false,
+		"orderCellsTop": true,
+       	"fixedHeader": true,
 		"ajax": {
 			"url": "../fachadas/activos/siga_solicitud_tickets/Siga_solicitud_ticketsFacade.Class.php",
 			"type": "POST",
@@ -3486,14 +3505,15 @@ $("#ticket_actualizar_categoria").click(function() {
 				Id_Area:$("#idareasesion").val(),
 				Tipo_Gestor:$("#hddTipo_Gestor").val(),
 				Id_Seccion:$("#hddId_Seccion").val(),
-				Estatus_Proceso:'1'
+				Estatus_Proceso:'1',
+				accion: "DataTableTickets"
 			}
 		},
-		columnDefs: [
+		/* columnDefs: [
 				{ orderable: true,className: 'reorder', targets: 3 },
 				{ orderable: true, className: 'reorder', targets: 6 },
 				{ orderable: false, targets: '_all' }
-			],
+			], */
 		"columns": [
 		    { "width": "5%","data": "Id_Solicitud", "visible": false},
 			{ "width": "9%","data": function (obj) {
@@ -3623,6 +3643,23 @@ $("#ticket_actualizar_categoria").click(function() {
 		}
 	});
 
+	// Agregar un input de búsqueda en cada columna del encabezado
+	$('#tablaSeguimiento thead tr').clone(true).appendTo('#tablaSeguimiento thead');
+	$('#tablaSeguimiento thead tr:eq(1) th').each(function (i) {
+		var title = $(this).text();
+		$(this).html('<input type="text" class="search-input" placeholder="Buscar ' + title + '" style="width: 100%;"/>');
+		$('.search-input').css('color', 'black');
+		// Agregar evento de búsqueda por columna
+		$('input', this).on('keyup change', function () {
+		if ($('#tablaSeguimiento').DataTable().column(i).search() !== this.value) {
+			$('#tablaSeguimiento').DataTable()
+			.column(i)
+			.search(this.value)
+			.draw();
+		}
+		});
+	});
+
 	$('#tablaSeguimiento').DataTable({
 
 		"order": [[ 3, "desc" ]],
@@ -3639,7 +3676,9 @@ $("#ticket_actualizar_categoria").click(function() {
 	    "scrollY": 500,
         "scrollX": true,
         "processing": true,
-        "serverSide": true,
+        "serverSide": false,
+		"orderCellsTop": true,
+       	"fixedHeader": true,
 		"ajax": {
 			"url": "../fachadas/activos/siga_solicitud_tickets/Siga_solicitud_ticketsFacade.Class.php",
 			"type": "POST",
@@ -3656,15 +3695,16 @@ $("#ticket_actualizar_categoria").click(function() {
 				//Id_Gestor:$("#usuariosesion").val(),
 				Id_Area:$("#idareasesion").val(),
 				Id_Seccion:$("#hddId_Seccion").val(),
-				Estatus_Proceso:'2'
+				Estatus_Proceso:'2',
+				accion: "DataTableTickets"
 			}
 		},
-		columnDefs: [
+		/* columnDefs: [
 			{ orderable: true, className: 'reorder', targets: 3 },
 			{ orderable: true, className: 'reorder', targets: 7 },
 			{ orderable: true, className: 'reorder', targets: 8 },
 			{ orderable: false, targets: '_all' }
-		],
+		], */
 		"columns": [
 		    { "width": "5%","data": "Id_Solicitud", "visible": false},
 			{ "width": "12%","data": function (obj) {
@@ -3803,6 +3843,23 @@ $("#ticket_actualizar_categoria").click(function() {
 		}
 	});
 		
+	// Agregar un input de búsqueda en cada columna del encabezado
+	$('#tablaPorCerrar thead tr').clone(true).appendTo('#tablaPorCerrar thead');
+	$('#tablaPorCerrar thead tr:eq(1) th').each(function (i) {
+		var title = $(this).text();
+		$(this).html('<input type="text" class="search-input" placeholder="Buscar ' + title + '" style="width: 100%;"/>');
+		$('.search-input').css('color', 'black');
+		// Agregar evento de búsqueda por columna
+		$('input', this).on('keyup change', function () {
+		if ($('#tablaPorCerrar').DataTable().column(i).search() !== this.value) {
+			$('#tablaPorCerrar').DataTable()
+			.column(i)
+			.search(this.value)
+			.draw();
+		}
+		});
+	});
+
 	$('#tablaPorCerrar').DataTable({
 		"order": [[ 3, "desc" ]],
 		//"lengthMenu": [ [10, 25, 50, 100, 100000], [10, 25, 50,100,"Todos"] ] ,
@@ -3817,8 +3874,10 @@ $("#ticket_actualizar_categoria").click(function() {
         ],
 	    "scrollY": 500,
         "scrollX": true,
-        "processing": true,
-        "serverSide": true,
+        "processing": false,
+        "serverSide": false,
+		"orderCellsTop": true,
+       	"fixedHeader": true,
 		"ajax": {
 			"url": "../fachadas/activos/siga_solicitud_tickets/Siga_solicitud_ticketsFacade.Class.php",
 			"type": "POST",
@@ -3826,15 +3885,16 @@ $("#ticket_actualizar_categoria").click(function() {
 				//Id_Gestor:$("#usuariosesion").val(),
 				Id_Area:$("#idareasesion").val(),
 				Id_Seccion:$("#hddId_Seccion").val(),
-				Estatus_Proceso:'3'
+				Estatus_Proceso:'3',
+				accion: "DataTableTickets"
 			}
 		},
-		columnDefs: [
+		/* columnDefs: [
 			{ orderable: true, className: 'reorder', targets: 3 },
 			{ orderable: true, className: 'reorder', targets: 8 },
 			{ orderable: true, className: 'reorder', targets: 9 },
 			{ orderable: false, targets: '_all' }
-		],
+		], */
 		"columns": [
 		    { "width": "5%","data": "Id_Solicitud", "visible": false},
 			{ "width": "5%","data": function (obj) {
@@ -3967,6 +4027,24 @@ $("#ticket_actualizar_categoria").click(function() {
 		}
 	});
 	
+
+	// Agregar un input de búsqueda en cada columna del encabezado
+	$('#tablaCierre thead tr').clone(true).appendTo('#tablaCierre thead');
+	$('#tablaCierre thead tr:eq(1) th').each(function (i) {
+		var title = $(this).text();
+		$(this).html('<input type="text" class="search-input" placeholder="Buscar ' + title + '" style="width: 100%;"/>');
+		$('.search-input').css('color', 'black');
+		// Agregar evento de búsqueda por columna
+		$('input', this).on('keyup change', function () {
+		if ($('#tablaCierre').DataTable().column(i).search() !== this.value) {
+			$('#tablaCierre').DataTable()
+			.column(i)
+			.search(this.value)
+			.draw();
+		}
+		});
+	});
+
 	$('#tablaCierre').DataTable({
 		"order": [[ 3, "desc" ]],
 		//"lengthMenu": [ [10, 25, 50, 100, 100000], [10, 25, 50,100,"Todos"] ] ,
@@ -3982,7 +4060,12 @@ $("#ticket_actualizar_categoria").click(function() {
 	    "scrollY": 500,
         "scrollX": true,
         "processing": true,
-        "serverSide": true,
+        "serverSide": false,
+		"orderCellsTop": true,
+       	"fixedHeader": true,
+		initComplete: function(){
+			jsRemoveWindowLoad();
+		},
 		"ajax": {
 			"url": "../fachadas/activos/siga_solicitud_tickets/Siga_solicitud_ticketsFacade.Class.php",
 			"type": "POST",
@@ -3990,15 +4073,22 @@ $("#ticket_actualizar_categoria").click(function() {
 				//Id_Gestor:$("#usuariosesion").val(),
 				Id_Area:$("#idareasesion").val(),
 				Id_Seccion:$("#hddId_Seccion").val(),
-				Estatus_Proceso:'4'
+				Estatus_Proceso:'4',
+				accion: "DataTableTickets"
+			},
+			beforeSend: function() {
+				jsShowWindowLoad("Cargando Informaci&oacuten...");
+			},
+			complete: function() {
+				jsRemoveWindowLoad();
 			}
 		},
-		columnDefs: [
+		/* columnDefs: [
 			{ orderable: true, className: 'reorder', targets: 3 },
 			{ orderable: true, className: 'reorder', targets: 9 },
 			{ orderable: true, className: 'reorder', targets: 10 },
 			{ orderable: false, targets: '_all' }
-		],
+		], */
 		"columns": [
 		    { "width": "5%", "data": "Id_Solicitud", "visible": false},
 			{ "width": "5%", "data": function (obj) {
@@ -4103,6 +4193,8 @@ $("#ticket_actualizar_categoria").click(function() {
 		}
 	});
 	
+	
+
 	Pasar_val_cancelacion=function(Id_Solicitud, Id_Actividad){
 		$("#hdd_Id_Solicitud").val(Id_Solicitud);
 		$("#hdd_Id_Actividad").val(Id_Actividad);
@@ -6218,6 +6310,7 @@ validar_area(id);
 		$('#tablaSeguimiento').DataTable().ajax.reload();
 		$('#tablaCierre').DataTable().ajax.reload();
 		Carga_Perfil_Gestor();
+		
 	}
 	
 	//setInterval('cargachatentreintaseg()',30000);

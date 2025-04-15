@@ -482,6 +482,11 @@ public function llenarDataTable($draw,$columns,$order,$start,$length,$search,$Id
 $Siga_solicitud_ticketsController = new Siga_solicitud_ticketsController();
 return $Siga_solicitud_ticketsController->llenarDataTable($draw,$columns,$order,$start,$length,$search,$Id_Estatus_Proceso, $siga_solicitud_ticketsDto, $Gestor_Solicitante, $Id_Seccion, $Tipo_Gestor, $Medio_de_Envio, $EsApp, $Todos_Tickets, $Tickets_SLA_Vencidos);
 }
+
+public function DataTableTickets($Id_Estatus_Proceso,$siga_solicitud_ticketsDto,$Gestor_Solicitante, $Id_Seccion, $Tipo_Gestor, $Medio_de_Envio, $EsApp, $Todos_Tickets, $Tickets_SLA_Vencidos) {
+$Siga_solicitud_ticketsController = new Siga_solicitud_ticketsController();
+return $Siga_solicitud_ticketsController->DataTableTickets($Id_Estatus_Proceso,$siga_solicitud_ticketsDto,$Gestor_Solicitante, $Id_Seccion, $Tipo_Gestor, $Medio_de_Envio, $EsApp, $Todos_Tickets, $Tickets_SLA_Vencidos);
+}
 public function updateSiga_solicitud_tickets($Siga_solicitud_ticketsDto){
 $Siga_solicitud_ticketsController = new Siga_solicitud_ticketsController();
 $Siga_solicitud_ticketsDto = $Siga_solicitud_ticketsController->updateSiga_solicitud_tickets($Siga_solicitud_ticketsDto);
@@ -861,6 +866,10 @@ $siga_solicitud_ticketsDto=$siga_solicitud_ticketsFacade->Pausar_iniciar_SLA($Id
 echo $siga_solicitud_ticketsDto;
 }else if($accion=="cambiarestatusactivo"){
 $siga_solicitud_ticketsDto=$siga_solicitud_ticketsFacade->cambiarestatusactivo($Id_Activo, $Id_Situacion_Activo, $Usr_Mod);
+echo $siga_solicitud_ticketsDto;
+}else if($accion=="DataTableTickets"){
+$Id_Estatus_Proceso = isset($_POST["Estatus_Proceso"])?$_POST["Estatus_Proceso"]:'';
+$siga_solicitud_ticketsDto=$siga_solicitud_ticketsFacade->DataTableTickets($Id_Estatus_Proceso,$siga_solicitud_ticketsDto,$Gestor_Solicitante, $Id_Seccion, $Tipo_Gestor, $Medio_de_Envio, $EsApp, $Todos_Tickets, $Tickets_SLA_Vencidos);
 echo $siga_solicitud_ticketsDto;
 }
 

@@ -1527,7 +1527,7 @@ public function Actividades_Global($Array_Param_G,$siga_actividadesDto, $Anio_Gl
 								$Data_Det_Actividades_Envia = array();
 
 								$sql="
-									SELECT 
+									SELECT top 1
 										AD.Id_Det_Actividad, 
 										AD.Id_Actividad, 
 										AD.Num_Actividad,
@@ -1568,12 +1568,38 @@ public function Actividades_Global($Array_Param_G,$siga_actividadesDto, $Anio_Gl
 									if(!$proveedor4->error()){
 										if ($proveedor4->rows($proveedor4->stmt) > 0) {
 											while ($row4 = $proveedor4->fetch_array($proveedor4->stmt, 0)) {
+												//Mau/Ignacio Mostrar los tickets de laactividad
+												$Id_Ticket="";
+												$Estatus_Ticket="";
+												if(rtrim(ltrim($row4["Fecha_Realizada"]))!="" || rtrim(ltrim($row4["Fecha_Realizada"]))!=null){
+													$sql="
+														SELECT Id_Solicitud, Estatus_Proceso
+														FROM siga_solicitud_tickets SST 
+														WHERE SST.Id_Det_Actividad = ".$row4['Id_Det_Actividad']."
+													";
+													$proveedor5 = new Proveedor('sqlserver', 'activos');
+													$proveedor5->connect();
+													$proveedor5->execute($sql);
+													if(!$proveedor5->error()){
+														if ($proveedor5->rows($proveedor5->stmt) > 0) {
+															while ($row5 = $proveedor4->fetch_array($proveedor5->stmt, 0)) {
+																$Id_Ticket= $row5["Id_Solicitud"];
+																$Estatus_Ticket= $row5["Estatus_Proceso"];
+															}
+														}
+													}		
+													$proveedor5->close();
+												}
+												//Fin Mau/Ignacio Mostrar los tickets de laactividad
+												
 												$Data_Det_Actividades= array(
 													"Id_Det_Actividad" => $row4["Id_Det_Actividad"],
 													"Id_Actividad" => $row4["Id_Actividad"],
 													//"Nombre_Actividad" => rtrim(ltrim($row3["Nombre_Actividad"])),
 													"Num_Actividad" => $row4["Num_Actividad"],
 													"Estatus_Actividad" => $row4["Estatus_Actividad"],
+													"Id_Solicitud" => $Id_Ticket,
+													"Estatus_Proceso"=> $Estatus_Ticket,
 													"Fecha_Programada" => rtrim(ltrim($row4["Fecha_Programada"])),
 													"Fecha_Realizada" => rtrim(ltrim($row4["Fecha_Realizada"]))
 													//"Fecha_Realizada" => rtrim(ltrim($row4["Fecha_Realizada"]))

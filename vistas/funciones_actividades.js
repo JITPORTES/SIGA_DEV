@@ -2870,7 +2870,7 @@ function pasar_valores_a_modal(id, fecha){
 						tabla+='	  <th style="color:#fff;font-size:11px;" class="text-center">No. Serie</th>';
 						tabla+='	  <th style="color:#fff;font-size:11px;" class="text-center">Modelo</th>';
 						tabla+='	  <th style="color:#fff;font-size:11px;" class="text-center">Equipo</th>';
-						tabla+='	  <th style="color:#fff;font-size:11px;" class="text-center">Ticket</th>';
+						//tabla+='	  <th style="color:#fff;font-size:11px;" class="text-center">Ticket</th>';
 						tabla+='	  <th style="color:#fff;font-size:11px;" class="text-center">Periodo</th>';
 						tabla+='	  <th colspan="24" style="color:#fff;font-size:11px;" class="text-center">MES</th>';
 						tabla+='	</tr>';
@@ -2885,7 +2885,7 @@ function pasar_valores_a_modal(id, fecha){
 						tabla+='	  <td style="font-size:11px;" class="text-center"><div style="display: none">No. Serie</div></td>';
 						tabla+='	  <td style="font-size:11px;" class="text-center"><div style="display: none">Modelo</div></td>';
 						tabla+='	  <td style="font-size:11px;" class="text-center"><div style="display: none">Equipo</div></td>';
-						tabla+='	  <td style="font-size:11px;" class="text-center"><div style="display: none">Ticket</div></td>';
+						//tabla+='	  <td style="font-size:11px;" class="text-center"><div style="display: none">Ticket</div></td>';
 						tabla+='	  <td style="font-size:11px;" class="text-center"><div style="display: none">Periodo</div></td>';
 						tabla+='	  <td style="font-size:11px" colspan="2" class="text-center">Ene</td>';
 						tabla+='	  <td style="font-size:11px" colspan="2" class="text-center">Feb</td>';
@@ -2914,7 +2914,7 @@ function pasar_valores_a_modal(id, fecha){
 								tabla_excel+='	  <td style="font-size:11px;color:#e40b0b"><strong>'+data.dataActsinProgramar[k].NumSerie+'</strong></td>';
 								tabla_excel+='	  <td style="font-size:11px;color:#e40b0b"><strong>'+data.dataActsinProgramar[k].Modelo+'</strong></td>';
 								tabla_excel+='	  <td style="font-size:11px;color:#e40b0b" ><strong>'+data.dataActsinProgramar[k].Nombre_Activo+'</strong></td>';
-								tabla_excel+='	  <td style="font-size:11px;color:#e40b0b" ><strong></strong></td>';
+								//tabla_excel+='	  <td style="font-size:11px;color:#e40b0b" ><strong></strong></td>';
 								tabla_excel+='	  <td style="font-size:11px;color:#e40b0b" ><strong></strong></td>';
 								tabla_excel+='	  <td>P</td>';
 								tabla_excel+='	  <td style="background-color:#f4f4f4;">R</td>';
@@ -2951,7 +2951,7 @@ function pasar_valores_a_modal(id, fecha){
 								tabla+='	  <td style="font-size:11px;color:#e40b0b" ><strong>'+data.dataActsinProgramar[k].NumSerie+'</strong></td>';
 								tabla+='	  <td style="font-size:11px;color:#e40b0b" ><strong>'+data.dataActsinProgramar[k].Modelo+'</strong></td>';
 								tabla+='	  <td style="font-size:11px;color:#e40b0b" ><strong>'+data.dataActsinProgramar[k].Nombre_Activo+'</strong></td>';
-								tabla+='	  <td style="font-size:11px;color:#e40b0b" ><strong>'+data.dataActsinProgramar[k].No_Ticket+'</strong></td>';
+								//tabla+='	  <td style="font-size:11px;color:#e40b0b" ><strong>'+data.dataActsinProgramar[k].No_Ticket+'</strong></td>';
 								tabla+='	  <td style="font-size:11px;color:#e40b0b" ><strong></strong></td>';
 								tabla+='	  <td>P</td>';
 								tabla+='	  <td style="background-color:#f4f4f4;">R</td>';
@@ -2993,10 +2993,10 @@ function pasar_valores_a_modal(id, fecha){
 								tabla+='	  <td  style="font-size:11px;color:blue"><strong>'+data.data[i].NumSerie+'</strong></td>';
 								tabla+='	  <td  style="font-size:11px;color:blue"><strong>'+data.data[i].Modelo+'</strong></td>';
 								tabla+='	  <td  style="font-size:11px;color:blue" ><strong>'+data.data[i].Nombre_Activo+'</strong></td>';
-								tabla+='	  <td  style="font-size:11px;color:blue" ><strong>'+data.data[i].No_Ticket+'</strong></td>';
+								//tabla+='	  <td  style="font-size:11px;color:blue" ><strong>'+data.data[i].No_Ticket+'</strong></td>';
 								
-								tabla+='	  	</strong>';
-								tabla+='      </td>';
+								//tabla+='	  	</strong>';
+								//tabla+='      </td>';
 								tabla+='	  <td style="font-size:11px;color:blue" ><strong>'+data.data[i].Desc_Frecuencia+'</strong></td>';
 								
 								//Enero
@@ -3044,58 +3044,58 @@ function pasar_valores_a_modal(id, fecha){
 								}else{
 									Total_Actividades=data.data[i].Total_Actividades;
 								}
-								
-								for(var j=0;j < Total_Actividades; j++){
-									
-									tabla+='	<tr>';
-									tabla+='	  <td style="font-size:11px"></td>';
-									tabla+='	  <td style="font-size:11px"></td>';
-									tabla+='	  <td style="font-size:11px"></td>';
-									tabla+='	  <td style="font-size:11px"></td>';
-									tabla+='	  <td style="font-size:11px"></td>';
-									tabla+='	  <td style="font-size:11px"></td>';
-									tabla+='	  <td style="font-size:11px"></td>';
-									tabla+='	  <td style="font-size:11px"></td>';
-									tabla+='	  <td style="font-size:11px;color:#8B8B8E"></td>';
-									tabla+='	  <td style="font-size:11px"></td>';
-									//Enero
-									tabla+='	  <td id="P1_'+data.data[i].Id_Activo+'_'+data.data[i].Actividades[j].Num_Actividad+'">';tabla+='</td>';
-									tabla+='	  <td id="R1_'+data.data[i].Id_Activo+'_'+data.data[i].Actividades[j].Num_Actividad+'"style="background-color:#f4f4f4;">';tabla+='</td>';
-									//Febrero
-									tabla+='	  <td id="P2_'+data.data[i].Id_Activo+'_'+data.data[i].Actividades[j].Num_Actividad+'">';tabla+='</td>';
-									tabla+='	  <td id="R2_'+data.data[i].Id_Activo+'_'+data.data[i].Actividades[j].Num_Actividad+'"style="background-color:#f4f4f4;">';tabla+='</td>';
-									//Marzo
-									tabla+='	  <td id="P3_'+data.data[i].Id_Activo+'_'+data.data[i].Actividades[j].Num_Actividad+'">';tabla+='</td>';
-									tabla+='	  <td id="R3_'+data.data[i].Id_Activo+'_'+data.data[i].Actividades[j].Num_Actividad+'"style="background-color:#f4f4f4;">';tabla+='</td>';
-									//Abril
-									tabla+='	  <td id="P4_'+data.data[i].Id_Activo+'_'+data.data[i].Actividades[j].Num_Actividad+'">';tabla+='</td>';
-									tabla+='	  <td id="R4_'+data.data[i].Id_Activo+'_'+data.data[i].Actividades[j].Num_Actividad+'"style="background-color:#f4f4f4;">';tabla+='</td>';
-									//Mayo
-									tabla+='	  <td id="P5_'+data.data[i].Id_Activo+'_'+data.data[i].Actividades[j].Num_Actividad+'">';tabla+='</td>';
-									tabla+='	  <td id="R5_'+data.data[i].Id_Activo+'_'+data.data[i].Actividades[j].Num_Actividad+'"style="background-color:#f4f4f4;">';tabla+='</td>';
-									//Junio
-									tabla+='	  <td id="P6_'+data.data[i].Id_Activo+'_'+data.data[i].Actividades[j].Num_Actividad+'">';tabla+='</td>';
-									tabla+='	  <td id="R6_'+data.data[i].Id_Activo+'_'+data.data[i].Actividades[j].Num_Actividad+'"style="background-color:#f4f4f4;">';tabla+='</td>';
-									//Julio
-									tabla+='	  <td id="P7_'+data.data[i].Id_Activo+'_'+data.data[i].Actividades[j].Num_Actividad+'">';tabla+='</td>';
-									tabla+='	  <td id="R7_'+data.data[i].Id_Activo+'_'+data.data[i].Actividades[j].Num_Actividad+'"style="background-color:#f4f4f4;">';tabla+='</td>';
-									//Agosto
-									tabla+='	  <td id="P8_'+data.data[i].Id_Activo+'_'+data.data[i].Actividades[j].Num_Actividad+'">';tabla+='</td>';
-									tabla+='	  <td id="R8_'+data.data[i].Id_Activo+'_'+data.data[i].Actividades[j].Num_Actividad+'"style="background-color:#f4f4f4;">';tabla+='</td>';
-									//Septimbre
-									tabla+='	  <td id="P9_'+data.data[i].Id_Activo+'_'+data.data[i].Actividades[j].Num_Actividad+'">';tabla+='</td>';
-									tabla+='	  <td id="R9_'+data.data[i].Id_Activo+'_'+data.data[i].Actividades[j].Num_Actividad+'"style="background-color:#f4f4f4;">';tabla+='</td>';
-									//Octubre
-									tabla+='	  <td id="P10_'+data.data[i].Id_Activo+'_'+data.data[i].Actividades[j].Num_Actividad+'">';tabla+='</td>';
-									tabla+='	  <td id="R10_'+data.data[i].Id_Activo+'_'+data.data[i].Actividades[j].Num_Actividad+'"style="background-color:#f4f4f4;">';tabla+='</td>';
-									//Noviembre
-									tabla+='	  <td><div id="P11_'+data.data[i].Id_Activo+'_'+data.data[i].Actividades[j].Num_Actividad+'">';tabla+='</div></td>';
-									tabla+='	  <td id="R11_'+data.data[i].Id_Activo+'_'+data.data[i].Actividades[j].Num_Actividad+'"style="background-color:#f4f4f4;">';tabla+='</td>';
-									//Diciembre
-									tabla+='	  <td id="P12_'+data.data[i].Id_Activo+'_'+data.data[i].Actividades[j].Num_Actividad+'">';tabla+='</td>';
-									tabla+='	  <td id="R12_'+data.data[i].Id_Activo+'_'+data.data[i].Actividades[j].Num_Actividad+'"style="background-color:#f4f4f4;">';tabla+='</td>';
-									tabla+='	</tr>';
-									
+								if(data.data[i].Total_Actividades>0){
+									for(var j=0;j < Total_Actividades; j++){
+										tabla+='	<tr>';
+										tabla+='	  <td style="font-size:11px"></td>';
+										tabla+='	  <td style="font-size:11px"></td>';
+										tabla+='	  <td style="font-size:11px"></td>';
+										tabla+='	  <td style="font-size:11px"></td>';
+										tabla+='	  <td style="font-size:11px"></td>';
+										tabla+='	  <td style="font-size:11px"></td>';
+										tabla+='	  <td style="font-size:11px"></td>';
+										//tabla+='	  <td style="font-size:11px"></td>';
+										tabla+='	  <td style="font-size:11px;color:#8B8B8E"></td>';
+										tabla+='	  <td style="font-size:11px"></td>';
+										//Enero
+										tabla+='	  <td id="P1_'+data.data[i].Id_Activo+'_'+data.data[i].Actividades[j].Num_Actividad+'">';tabla+='</td>';
+										tabla+='	  <td id="R1_'+data.data[i].Id_Activo+'_'+data.data[i].Actividades[j].Num_Actividad+'"style="background-color:#f4f4f4;">';tabla+='</td>';
+										//Febrero
+										tabla+='	  <td id="P2_'+data.data[i].Id_Activo+'_'+data.data[i].Actividades[j].Num_Actividad+'">';tabla+='</td>';
+										tabla+='	  <td id="R2_'+data.data[i].Id_Activo+'_'+data.data[i].Actividades[j].Num_Actividad+'"style="background-color:#f4f4f4;">';tabla+='</td>';
+										//Marzo
+										tabla+='	  <td id="P3_'+data.data[i].Id_Activo+'_'+data.data[i].Actividades[j].Num_Actividad+'">';tabla+='</td>';
+										tabla+='	  <td id="R3_'+data.data[i].Id_Activo+'_'+data.data[i].Actividades[j].Num_Actividad+'"style="background-color:#f4f4f4;">';tabla+='</td>';
+										//Abril
+										tabla+='	  <td id="P4_'+data.data[i].Id_Activo+'_'+data.data[i].Actividades[j].Num_Actividad+'">';tabla+='</td>';
+										tabla+='	  <td id="R4_'+data.data[i].Id_Activo+'_'+data.data[i].Actividades[j].Num_Actividad+'"style="background-color:#f4f4f4;">';tabla+='</td>';
+										//Mayo
+										tabla+='	  <td id="P5_'+data.data[i].Id_Activo+'_'+data.data[i].Actividades[j].Num_Actividad+'">';tabla+='</td>';
+										tabla+='	  <td id="R5_'+data.data[i].Id_Activo+'_'+data.data[i].Actividades[j].Num_Actividad+'"style="background-color:#f4f4f4;">';tabla+='</td>';
+										//Junio
+										tabla+='	  <td id="P6_'+data.data[i].Id_Activo+'_'+data.data[i].Actividades[j].Num_Actividad+'">';tabla+='</td>';
+										tabla+='	  <td id="R6_'+data.data[i].Id_Activo+'_'+data.data[i].Actividades[j].Num_Actividad+'" style="background-color:#f4f4f4;">';tabla+='</td>';
+										//Julio
+										tabla+='	  <td id="P7_'+data.data[i].Id_Activo+'_'+data.data[i].Actividades[j].Num_Actividad+'">';tabla+='</td>';
+										tabla+='	  <td id="R7_'+data.data[i].Id_Activo+'_'+data.data[i].Actividades[j].Num_Actividad+'"style="background-color:#f4f4f4;">';tabla+='</td>';
+										//Agosto
+										tabla+='	  <td id="P8_'+data.data[i].Id_Activo+'_'+data.data[i].Actividades[j].Num_Actividad+'">';tabla+='</td>';
+										tabla+='	  <td id="R8_'+data.data[i].Id_Activo+'_'+data.data[i].Actividades[j].Num_Actividad+'"style="background-color:#f4f4f4;">';tabla+='</td>';
+										//Septimbre
+										tabla+='	  <td id="P9_'+data.data[i].Id_Activo+'_'+data.data[i].Actividades[j].Num_Actividad+'">';tabla+='</td>';
+										tabla+='	  <td id="R9_'+data.data[i].Id_Activo+'_'+data.data[i].Actividades[j].Num_Actividad+'"style="background-color:#f4f4f4;">';tabla+='</td>';
+										//Octubre
+										tabla+='	  <td id="P10_'+data.data[i].Id_Activo+'_'+data.data[i].Actividades[j].Num_Actividad+'">';tabla+='</td>';
+										tabla+='	  <td id="R10_'+data.data[i].Id_Activo+'_'+data.data[i].Actividades[j].Num_Actividad+'"style="background-color:#f4f4f4;">';tabla+='</td>';
+										//Noviembre
+										tabla+='	  <td><div id="P11_'+data.data[i].Id_Activo+'_'+data.data[i].Actividades[j].Num_Actividad+'">';tabla+='</div></td>';
+										tabla+='	  <td id="R11_'+data.data[i].Id_Activo+'_'+data.data[i].Actividades[j].Num_Actividad+'"style="background-color:#f4f4f4;">';tabla+='</td>';
+										//Diciembre
+										tabla+='	  <td id="P12_'+data.data[i].Id_Activo+'_'+data.data[i].Actividades[j].Num_Actividad+'">';tabla+='</td>';
+										tabla+='	  <td id="R12_'+data.data[i].Id_Activo+'_'+data.data[i].Actividades[j].Num_Actividad+'"style="background-color:#f4f4f4;">';tabla+='</td>';
+										tabla+='	</tr>';
+										
+									}
 								}
 								
 								
@@ -3265,23 +3265,23 @@ function pasar_valores_a_modal(id, fecha){
 									if(data.data[m].Actividades_Detalle[n].Fecha_Realizada!=""){
 										
 										if(data.data[m].Actividades_Detalle[n].Fecha_Realizada.substring(4, 6)=="01"){
-											act_realizadas('1',data.data[m].Id_Activo,data.data[m].Actividades_Detalle[n].Num_Actividad, data.data[m].Actividades_Detalle[n].Fecha_Realizada.substring(6, 8));
+											act_realizadas('1',data.data[m].Id_Activo,data.data[m].Actividades_Detalle[n].Num_Actividad, data.data[m].Actividades_Detalle[n].Fecha_Realizada.substring(6, 8), data.data[m].Actividades_Detalle[n].Id_Solicitud, data.data[m].Actividades_Detalle[n].Estatus_Proceso);
 										}
 										if(data.data[m].Actividades_Detalle[n].Fecha_Realizada.substring(4, 6)=="02"){
-											act_realizadas('2',data.data[m].Id_Activo,data.data[m].Actividades_Detalle[n].Num_Actividad, data.data[m].Actividades_Detalle[n].Fecha_Realizada.substring(6, 8));
+											act_realizadas('2',data.data[m].Id_Activo,data.data[m].Actividades_Detalle[n].Num_Actividad, data.data[m].Actividades_Detalle[n].Fecha_Realizada.substring(6, 8), data.data[m].Actividades_Detalle[n].Id_Solicitud, data.data[m].Actividades_Detalle[n].Estatus_Proceso);
 										}
 										if(data.data[m].Actividades_Detalle[n].Fecha_Realizada.substring(4, 6)=="03"){
-											act_realizadas('3',data.data[m].Id_Activo,data.data[m].Actividades_Detalle[n].Num_Actividad, data.data[m].Actividades_Detalle[n].Fecha_Realizada.substring(6, 8));
+											act_realizadas('3',data.data[m].Id_Activo,data.data[m].Actividades_Detalle[n].Num_Actividad, data.data[m].Actividades_Detalle[n].Fecha_Realizada.substring(6, 8), data.data[m].Actividades_Detalle[n].Id_Solicitud, data.data[m].Actividades_Detalle[n].Estatus_Proceso);
 										}
 										if(data.data[m].Actividades_Detalle[n].Fecha_Realizada.substring(4, 6)=="04"){
-											act_realizadas('4',data.data[m].Id_Activo,data.data[m].Actividades_Detalle[n].Num_Actividad, data.data[m].Actividades_Detalle[n].Fecha_Realizada.substring(6, 8));
+											act_realizadas('4',data.data[m].Id_Activo,data.data[m].Actividades_Detalle[n].Num_Actividad, data.data[m].Actividades_Detalle[n].Fecha_Realizada.substring(6, 8), data.data[m].Actividades_Detalle[n].Id_Solicitud, data.data[m].Actividades_Detalle[n].Estatus_Proceso);
 										}
 										if(data.data[m].Actividades_Detalle[n].Fecha_Realizada.substring(4, 6)=="05"){
-											act_realizadas('5',data.data[m].Id_Activo,data.data[m].Actividades_Detalle[n].Num_Actividad, data.data[m].Actividades_Detalle[n].Fecha_Realizada.substring(6, 8));
+											act_realizadas('5',data.data[m].Id_Activo,data.data[m].Actividades_Detalle[n].Num_Actividad, data.data[m].Actividades_Detalle[n].Fecha_Realizada.substring(6, 8), data.data[m].Actividades_Detalle[n].Id_Solicitud, data.data[m].Actividades_Detalle[n].Estatus_Proceso);
 										}
 										
 										if(data.data[m].Actividades_Detalle[n].Fecha_Realizada.substring(4, 6)=="06"){
-											act_realizadas('6',data.data[m].Id_Activo,data.data[m].Actividades_Detalle[n].Num_Actividad, data.data[m].Actividades_Detalle[n].Fecha_Realizada.substring(6, 8));
+											act_realizadas('6',data.data[m].Id_Activo,data.data[m].Actividades_Detalle[n].Num_Actividad, data.data[m].Actividades_Detalle[n].Fecha_Realizada.substring(6, 8), data.data[m].Actividades_Detalle[n].Id_Solicitud, data.data[m].Actividades_Detalle[n].Estatus_Proceso);
 											/*
 											var valR6 = $('#R6_'+data.data[m].Id_Activo+'_'+data.data[m].Actividades_Detalle[n].Num_Actividad+'').is(':empty');
 											if(valR6==true){ 
@@ -3297,22 +3297,22 @@ function pasar_valores_a_modal(id, fecha){
 										}
 
 										if(data.data[m].Actividades_Detalle[n].Fecha_Realizada.substring(4, 6)=="07"){
-											act_realizadas('7',data.data[m].Id_Activo,data.data[m].Actividades_Detalle[n].Num_Actividad, data.data[m].Actividades_Detalle[n].Fecha_Realizada.substring(6, 8));
+											act_realizadas('7',data.data[m].Id_Activo,data.data[m].Actividades_Detalle[n].Num_Actividad, data.data[m].Actividades_Detalle[n].Fecha_Realizada.substring(6, 8), data.data[m].Actividades_Detalle[n].Id_Solicitud, data.data[m].Actividades_Detalle[n].Estatus_Proceso);
 										}
 										if(data.data[m].Actividades_Detalle[n].Fecha_Realizada.substring(4, 6)=="08"){
-											act_realizadas('8',data.data[m].Id_Activo,data.data[m].Actividades_Detalle[n].Num_Actividad, data.data[m].Actividades_Detalle[n].Fecha_Realizada.substring(6, 8));
+											act_realizadas('8',data.data[m].Id_Activo,data.data[m].Actividades_Detalle[n].Num_Actividad, data.data[m].Actividades_Detalle[n].Fecha_Realizada.substring(6, 8), data.data[m].Actividades_Detalle[n].Id_Solicitud, data.data[m].Actividades_Detalle[n].Estatus_Proceso);
 										}
 										if(data.data[m].Actividades_Detalle[n].Fecha_Realizada.substring(4, 6)=="09"){
-											act_realizadas('9',data.data[m].Id_Activo,data.data[m].Actividades_Detalle[n].Num_Actividad, data.data[m].Actividades_Detalle[n].Fecha_Realizada.substring(6, 8));
+											act_realizadas('9',data.data[m].Id_Activo,data.data[m].Actividades_Detalle[n].Num_Actividad, data.data[m].Actividades_Detalle[n].Fecha_Realizada.substring(6, 8), data.data[m].Actividades_Detalle[n].Id_Solicitud, data.data[m].Actividades_Detalle[n].Estatus_Proceso);
 										}
 										if(data.data[m].Actividades_Detalle[n].Fecha_Realizada.substring(4, 6)=="10"){
-											act_realizadas('10',data.data[m].Id_Activo,data.data[m].Actividades_Detalle[n].Num_Actividad, data.data[m].Actividades_Detalle[n].Fecha_Realizada.substring(6, 8));
+											act_realizadas('10',data.data[m].Id_Activo,data.data[m].Actividades_Detalle[n].Num_Actividad, data.data[m].Actividades_Detalle[n].Fecha_Realizada.substring(6, 8), data.data[m].Actividades_Detalle[n].Id_Solicitud, data.data[m].Actividades_Detalle[n].Estatus_Proceso);
 										}
 										if(data.data[m].Actividades_Detalle[n].Fecha_Realizada.substring(4, 6)=="11"){
-											act_realizadas('11',data.data[m].Id_Activo,data.data[m].Actividades_Detalle[n].Num_Actividad, data.data[m].Actividades_Detalle[n].Fecha_Realizada.substring(6, 8));
+											act_realizadas('11',data.data[m].Id_Activo,data.data[m].Actividades_Detalle[n].Num_Actividad, data.data[m].Actividades_Detalle[n].Fecha_Realizada.substring(6, 8), data.data[m].Actividades_Detalle[n].Id_Solicitud, data.data[m].Actividades_Detalle[n].Estatus_Proceso);
 										}
 										if(data.data[m].Actividades_Detalle[n].Fecha_Realizada.substring(4, 6)=="12"){
-											act_realizadas('12',data.data[m].Id_Activo,data.data[m].Actividades_Detalle[n].Num_Actividad, data.data[m].Actividades_Detalle[n].Fecha_Realizada.substring(6, 8));
+											act_realizadas('12',data.data[m].Id_Activo,data.data[m].Actividades_Detalle[n].Num_Actividad, data.data[m].Actividades_Detalle[n].Fecha_Realizada.substring(6, 8), data.data[m].Actividades_Detalle[n].Id_Solicitud, data.data[m].Actividades_Detalle[n].Estatus_Proceso);
 										}
 										
 									
@@ -3335,9 +3335,19 @@ function pasar_valores_a_modal(id, fecha){
 		}
 	}
 	
-	act_realizadas=function(Id_Div, Id_Activo, Num_Actividad, Fecha_Realizada){
-		var div_realizado='<div style="background-color:#00a65a;">';
-		var div_realizado_cerrar='</div>';
+	act_realizadas=function(Id_Div, Id_Activo, Num_Actividad, Fecha_Realizada, Id_Solicitud, Estatus_Proceso){
+		var title="";
+		if(Id_Solicitud!=""){
+			title=' title="Ticket '+Id_Solicitud+'"';
+		}
+		var href=' href="#noir" ';
+		var style="color: black; text-decoration: none;";
+		if(Estatus_Proceso=="4" && Id_Solicitud!=""){
+			href=' target="_blank" href="../controladores/activos/siga_solicitud_tickets/Reporte-Ticket.php?Id_Solicitud='+Id_Solicitud+'" ';
+		}
+
+		var div_realizado='<a style="background-color:#00a65a;'+style+'" '+title+' '+href+'>';
+		var div_realizado_cerrar='</a>';
 		
 		var valR = $('#R'+Id_Div+'_'+Id_Activo+'_'+Num_Actividad+'').is(':empty');
 		if(valR==true){ 
