@@ -6838,10 +6838,17 @@ public function Reporte_Mesa_de_Ayuda($Siga_solicitud_ticketsDto, $Fecha_Inicial
 	
 	$sql_search="";
 	
-	if(($Ubic_Prim!="-1")||($Ubic_Sec!="-1")||($Clase!="-1")||($Clasificacion!="-1")||($Familia!="-1")||($Subfamilia!="-1")||($Siga_solicitud_ticketsDto->getSeccion()!="-1")||($Siga_solicitud_ticketsDto->getId_Categoria()!="-1")||($Siga_solicitud_ticketsDto->getId_Subcategoria()!="-1")||($Anio!="")){
+	if(($Siga_solicitud_ticketsDto->getId_Activo()!="-1")||($Ubic_Prim!="-1")||($Ubic_Sec!="-1")||($Clase!="-1")||($Clasificacion!="-1")||($Familia!="-1")||($Subfamilia!="-1")||($Siga_solicitud_ticketsDto->getSeccion()!="-1")||($Siga_solicitud_ticketsDto->getId_Categoria()!="-1")||($Siga_solicitud_ticketsDto->getId_Subcategoria()!="-1")||($Anio!="")){
 		$sql_search.=" and ";
 	}
 	
+	if(($Siga_solicitud_ticketsDto->getId_Activo()!="-1")){
+		$sql_search.=" ST.Id_Activo=".$Siga_solicitud_ticketsDto->getId_Activo()."";
+		if(($Ubic_Sec!="-1")||($Clase!="-1")||($Clasificacion!="-1")||($Familia!="-1")||($Subfamilia!="-1")||($Siga_solicitud_ticketsDto->getSeccion()!="-1")||($Siga_solicitud_ticketsDto->getId_Categoria()!="-1")||($Siga_solicitud_ticketsDto->getId_Subcategoria()!="-1")||($Anio!="")){
+			$sql_search.=" and ";
+		}
+	}
+
 	if(($Ubic_Prim!="-1")){
 		$sql_search.=" A.Id_Ubic_Prim='".$Ubic_Prim."'";
 		if(($Ubic_Sec!="-1")||($Clase!="-1")||($Clasificacion!="-1")||($Familia!="-1")||($Subfamilia!="-1")||($Siga_solicitud_ticketsDto->getSeccion()!="-1")||($Siga_solicitud_ticketsDto->getId_Categoria()!="-1")||($Siga_solicitud_ticketsDto->getId_Subcategoria()!="-1")||($Anio!="")){
@@ -6938,8 +6945,8 @@ public function Reporte_Mesa_de_Ayuda($Siga_solicitud_ticketsDto, $Fecha_Inicial
 			Desc_Ubic_Prim,"; 
 
 	}else{
-	$sql.="	UP.Desc_Ubic_Prim,";
-}
+		$sql.="	UP.Desc_Ubic_Prim,";
+	}
 		
 	$Tipo_Fecha="Fech_Cierre";
 	if($Tipo_Seg_Fecha!=""){
@@ -6950,7 +6957,7 @@ public function Reporte_Mesa_de_Ayuda($Siga_solicitud_ticketsDto, $Fecha_Inicial
 		
 	}
 	
-$sql.="
+	$sql.="
 			US.Desc_Ubic_Sec,
 			Cl.Desc_Clase,
 			Clasif.Desc_Clasificacion,
@@ -6963,6 +6970,9 @@ $sql.="
 			ST.No_Serie_Act_Ext,
 			ST.Nombre_Act_Ext,
 			ST.Activo_Externo,
+			ST.Titulo, 
+			ST.Desc_Motivo_Reporte,
+			(SELECT z.Desc_Estatus FROM siga_cat_estatus as z WHERE z.Id_Estatus= ST.Id_Est_Equipo) as Estatus_Equipo,
 			Prop.Desc_Propiedad,
 				CASE when Act.Tipo_Actividad=1 
 					THEN 'Mto. Predictivo' WHEN Act.Tipo_Actividad=2 
@@ -7038,7 +7048,10 @@ $sql.="
 				}
 				$Data= array(
 					"AF_BC" => $AF_BC,
-          "Desc_Ubic_Prim" => $row_c["Desc_Ubic_Prim"],
+          			"Desc_Ubic_Prim" => $row_c["Desc_Ubic_Prim"],
+					"Titulo"=>$row_c["Titulo"],
+					"Desc_Motivo_Reporte"=>$row_c["Desc_Motivo_Reporte"],
+					"Estatus_Equipo"=>$row_c["Estatus_Equipo"],
 					"Desc_Ubic_Sec" => $row_c["Desc_Ubic_Sec"],
 					"Desc_Clase" => $row_c["Desc_Clase"],
 					"Desc_Clasificacion" => $row_c["Desc_Clasificacion"],
