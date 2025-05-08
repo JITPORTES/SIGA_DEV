@@ -1816,10 +1816,28 @@ public function Archivos_Chat_Otros($Siga_solicitud_ticketsDto, $proveedor=null)
 	$proveedor = new Proveedor('sqlserver', 'activos');
 	$proveedor->connect();
 	
-	$sql="
-		select * from siga_cat_ticket_adjuntos where Id_Chat in(
-		select Id_Chat from siga_ticket_chat where Id_Solicitud='".$Siga_solicitud_ticketsDto->getId_Solicitud()."' and Estatus_Reg<>'3' and Url_Adjunto is not null
-		) and (Url_Adjunto not like '%.png%' and Url_Adjunto not like '%.jpg%')
+	$sql="		
+		SELECT Url_Adjunto AS Url_Adjunto, '/Archivos/Archivos-Chat/' as Url
+		FROM siga_cat_ticket_adjuntos 
+		WHERE Id_Chat IN (
+				SELECT Id_Chat 
+				FROM siga_ticket_chat 
+				WHERE Id_Solicitud = ".$Siga_solicitud_ticketsDto->getId_Solicitud()." 
+					AND Estatus_Reg <> '3' 
+					AND Url_Adjunto IS NOT NULL
+		) 
+		AND Url_Adjunto NOT LIKE '%.png%' 
+		AND Url_Adjunto NOT LIKE '%.jpg%'
+		UNION
+		SELECT Url_Adjunto.value('.', 'VARCHAR(MAX)') AS Url_Adjunto, '/Archivos/Archivos-Mesa/' as Url
+		FROM (
+				SELECT CAST('<f>' + 
+										REPLACE(CAST(Url_archivo AS VARCHAR(MAX)), '---', '</f><f>') + 
+										'</f>' AS XML) AS files_xml
+				FROM siga_solicitud_tickets
+				WHERE Id_Solicitud = ".$Siga_solicitud_ticketsDto->getId_Solicitud()."
+		) AS xmlsource
+		CROSS APPLY files_xml.nodes('/f') AS x(Url_Adjunto);
 	";
 	$proveedor->execute($sql);
 	
@@ -1830,6 +1848,7 @@ public function Archivos_Chat_Otros($Siga_solicitud_ticketsDto, $proveedor=null)
 			while ($row_c = $proveedor->fetch_array($proveedor->stmt, 0)) {
 				$Data= array(
 					"Url_Adjunto"=>rtrim(ltrim($row_c["Url_Adjunto"])),
+					"Url"=>rtrim(ltrim($row_c["Url"]))
 				);
 				array_push($Data_Envia, $Data);
 			}

@@ -3,8 +3,12 @@ if (!isset($_GET['file'])) {
     die('Archivo no especificado.');
 }
 
+if (!isset($_GET['url'])) {
+    die('Ruta no especificada.');
+}
+$url=$_GET['url'];
 $filename = basename($_GET['file']);
-$path = __DIR__ . '/Archivos/Archivos-Chat/' . $filename;
+$path = __DIR__ . $url . $filename;
 
 if (!file_exists($path)) {
     die('Archivo no encontrado.');

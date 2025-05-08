@@ -1046,7 +1046,6 @@ if($Respuesta["data"][0]["Id_Actividad"]==''){
 				<tbody class="tbody">
 					<?php 
 						if($Archivos_Chat_Otros["totalCount"] > 0) {
-							
 							for($m = 0; $m < $Archivos_Chat_Otros["totalCount"]; $m++) {
 								if($Archivos_Chat_Otros["data"][$m]["Url_Adjunto"] != null && $Archivos_Chat_Otros["data"][$m]["Url_Adjunto"] != "") {
 									$cont_arch = $cont_arch + 1;
@@ -1057,7 +1056,9 @@ if($Respuesta["data"][0]["Id_Actividad"]==''){
 													 target="_blank">
 													 Archivo <?php echo $cont_arch; ?>
 												</a>-->
-												<a href="https://apps2.hospitalsatelite.com/siga/descargar.php?file=<?php echo urlencode($Archivos_Chat_Otros["data"][$m]["Url_Adjunto"]); ?>" target="_blank">
+												
+												<!--Ya se muestran los archivos, falta incluir los archivos de los mantenimientos-->
+												<a href="https://apps2.hospitalsatelite.com/siga/descargar.php?file=<?php echo urlencode($Archivos_Chat_Otros["data"][$m]["Url_Adjunto"]); ?>&url=<?php echo $Archivos_Chat_Otros["data"][$m]["Url"]; ?>" target="_blank">
 														Archivo <?php echo $cont_arch; ?>
 												</a>
 												<br/>
