@@ -1805,6 +1805,49 @@ public function Archivos_Chat($Siga_solicitud_ticketsDto, $proveedor=null){
 	return $respuesta;
 }
 
+public function Archivos_Chat_Otros($Siga_solicitud_ticketsDto, $proveedor=null){
+	$Total=0;
+	$Data = array();
+	$Data_Envia = array();
+	
+	$respuesta = array();
+	$error=false;
+	
+	$proveedor = new Proveedor('sqlserver', 'activos');
+	$proveedor->connect();
+	
+	$sql="
+		select * from siga_cat_ticket_adjuntos where Id_Chat in(
+		select Id_Chat from siga_ticket_chat where Id_Solicitud='".$Siga_solicitud_ticketsDto->getId_Solicitud()."' and Estatus_Reg<>'3' and Url_Adjunto is not null
+		) and (Url_Adjunto not like '%.png%' and Url_Adjunto not like '%.jpg%')
+	";
+	$proveedor->execute($sql);
+	
+	
+	if (!$proveedor->error()){
+		//La posicion cero no se toma
+		if ($proveedor->rows($proveedor->stmt) > 0) {
+			while ($row_c = $proveedor->fetch_array($proveedor->stmt, 0)) {
+				$Data= array(
+					"Url_Adjunto"=>rtrim(ltrim($row_c["Url_Adjunto"])),
+				);
+				array_push($Data_Envia, $Data);
+			}
+			
+		}	
+	}else{
+		$error=true;
+	}
+	
+	$proveedor->close();
+	if($error==false){
+		$respuesta = array("totalCount" => count($Data_Envia),"data" => $Data_Envia,"estatus" => "ok", "mensaje" => "Registros Encontrados");
+	}else{
+		$respuesta = array("totalCount" => "0", "data" => "","estatus" => "error", "mensaje" => "No se Encontraron Registros");
+	}
+	return $respuesta;
+}
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 

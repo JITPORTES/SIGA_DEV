@@ -468,6 +468,14 @@ public function Archivos_Chat($Siga_solicitud_ticketsDto){
 	return $jsonDto->encode($Siga_solicitud_ticketsDto);
 }
 
+public function Archivos_Chat_Otros($Siga_solicitud_ticketsDto){
+	$Siga_solicitud_ticketsController = new Siga_solicitud_ticketsController();
+	$Siga_solicitud_ticketsDto = $Siga_solicitud_ticketsController->Archivos_Chat_Otros($Siga_solicitud_ticketsDto);
+
+	$jsonDto = new Encode_JSON();
+	return $jsonDto->encode($Siga_solicitud_ticketsDto);
+}
+
 public function insertSiga_solicitud_tickets($Siga_solicitud_ticketsDto){
 $Siga_solicitud_ticketsController = new Siga_solicitud_ticketsController();
 $Siga_solicitud_ticketsDto = $Siga_solicitud_ticketsController->insertSiga_solicitud_tickets($Siga_solicitud_ticketsDto);
