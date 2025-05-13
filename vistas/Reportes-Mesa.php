@@ -17,7 +17,7 @@
 					<div class="col-md-3 col-sm-12 col-xs-12">
 						<div class="form-group">
 							<div>
-								<label class="control-label" style="font-size: 11px;">Ubicaci&oacute;n Primaria</label>
+								<label class="control-label" style="font-size: 11px;">Tipo de Fecha</label>
 								<select id="cmb_fecha_seguimiento" class="demo-default" placeholder="Fecha Seguimiento" style="display:none">
 									<option value="1">Fecha Solicitud</option>
 									<option value="2">Fecha Seguimiento</option>

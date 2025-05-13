@@ -1040,7 +1040,7 @@ if($Respuesta["data"][0]["Id_Actividad"]==''){
 			<table class="tbl-contenedor" cellpadding="10" cellspacing="0">
 				<thead class="thead">
 					<tr>
-						<th>ARCHIVOS CHAT</th>
+						<th>ARCHIVOS ADJUNTOS</th>
 					</tr>
 				</thead>
 				<tbody class="tbody">
