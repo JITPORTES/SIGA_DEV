@@ -324,7 +324,7 @@
 												</div><!-- columna#3 -->
 												<div class="col-md-4">
 													<div id="divFoto_lista"></div>
-													<button type="button" class="btn btn-primary" onclick="guardar_adjuntos()" id="guardar_adjuntos">Guardar</button>
+													<button type="button" class="btn btn-primary" onclick="guardar_adjuntos()" id="guardar_adjuntos" style="display:none">Guardar</button>
 												</div>
 										</div>
 									</div>
@@ -460,7 +460,7 @@ $(document).ready(function(){
 	//historial_notas_salida();
 	
 	
- Cancelar_Nota=function(){
+ 	Cancelar_Nota=function(){
 		if($("#Motivo_Cancelacion").val()!=""){
 			//Se Cancela cuando solo es una solicitud
 			if($("#hdd_Id_Solicitud").val()!=""){
@@ -1814,7 +1814,7 @@ $(document).ready(function(){
 		pasar_valores(Id_Nota_Salida);
 	}
 	
-  Generar_Nota_Activos =function(tipo){
+  	Generar_Nota_Activos =function(tipo){
 		$("#li_tab_firma").removeClass("active");
 		$("#Firma").removeClass("active");
 		$("#li_tab_adjuntos").removeClass("active");
@@ -2351,13 +2351,13 @@ $(document).ready(function(){
 				arch=arch+"---"+response.initialPreviewConfig[0].caption;
 				$('#'+url_hidden).val(arch);
 				//Muestra en un div el listado de los archivos Adjuntos
-				mostrar_archivos_lista(arch, div_lista, url_upload, Todos, url_hidden,"");
+				lista_adjuntos_nota_salida(arch, div_lista, url_upload, Todos, url_hidden,"");
 
 				
 			}else{
 				Todos="no";
 				$('#'+url_hidden).val(response.initialPreviewConfig[0].caption);
-				mostrar_archivos_lista(response.initialPreviewConfig[0].caption, div_lista, url_upload, Todos, url_hidden,"");
+				lista_adjuntos_nota_salida(response.initialPreviewConfig[0].caption, div_lista, url_upload, Todos, url_hidden,"");
 			
 			}
 			
@@ -2415,7 +2415,7 @@ $(document).ready(function(){
 						resultado_cadena=resultado_cadena.substring(0, resultado_cadena.length-3)
 						$('#'+url_hidden).val(resultado_cadena);
 						//Muestra en un div el listado de los archivos Adjuntos
-						//mostrar_archivos_lista(resultado_cadena, div_lista, url_upload, "si", url_hidden);
+						//lista_adjuntos_nota_salida(resultado_cadena, div_lista, url_upload, "si", url_hidden);
 					}
 				}else{
 					$('#'+url_hidden).val("");
@@ -2426,9 +2426,9 @@ $(document).ready(function(){
 				if($('#'+url_hidden).val()!=""){
 					var encontrado = $('#'+url_hidden).val().indexOf("---");
 					if(encontrado!=-1){
-						mostrar_archivos_lista($('#'+url_hidden).val(), div_lista, url_upload, "si", url_hidden,"");
+						lista_adjuntos_nota_salida($('#'+url_hidden).val(), div_lista, url_upload, "si", url_hidden,"");
 					}else{
-						mostrar_archivos_lista($('#'+url_hidden).val(), div_lista, url_upload, "no", url_hidden,"");
+						lista_adjuntos_nota_salida($('#'+url_hidden).val(), div_lista, url_upload, "no", url_hidden,"");
 					}
 				}else{
 					$('#'+div_lista).html("");
@@ -2447,10 +2447,10 @@ $(document).ready(function(){
 		var Id_Nota_Salida=$("#hdd_id_nota_salida").val();
 		var Url_Adjuntos=$.trim($("#Url_Adjuntos").val());
 	
-		if(Url_Adjuntos.length <= 0){
-			Agregar = false; 
-			mensaje_error += " -Adjunta por lo menos una Imagen<br />";
-		}
+		//if(Url_Adjuntos.length <= 0){
+		//	Agregar = false; 
+		//	mensaje_error += " -Adjunta por lo menos una Imagen<br />";
+		//}
 		
 		if (!Agregar) {
 			mensajesalerta("Informaci&oacute;n", mensaje_error, "", "dark");			
@@ -2476,7 +2476,7 @@ $(document).ready(function(){
 					if(json.totalCount>0){
 						//limpiar_campos();
 						//pasar_valores(Id_Nota_Salida);
-						mensajesalerta("&Eacute;xito", "Se han guardado los adjuntos correctamente", "success", "dark");
+						//mensajesalerta("&Eacute;xito", "Se han guardado los adjuntos correctamente", "success", "dark");
 					}else{
 						mensajesalerta("Oh No!", "Ocurrio un error al guardar.", "error", "dark");
 					}
@@ -2806,10 +2806,10 @@ $(document).ready(function(){
 									if(Foto_Activo!=-1){
 										var result=$('#Url_Adjuntos').val().split('---');
 										
-										mostrar_archivos_lista($('#Url_Adjuntos').val(), "divFoto_lista", "../Archivos/Archivos-Nota-Salida", "si", "Url_Adjuntos", "");
+										lista_adjuntos_nota_salida($('#Url_Adjuntos').val(), "divFoto_lista", "../Archivos/Archivos-Nota-Salida", "si", "Url_Adjuntos", "");
 										
 									}else{
-										mostrar_archivos_lista($('#Url_Adjuntos').val(), "divFoto_lista", "../Archivos/Archivos-Nota-Salida", "no", "Url_Adjuntos", "");
+										lista_adjuntos_nota_salida($('#Url_Adjuntos').val(), "divFoto_lista", "../Archivos/Archivos-Nota-Salida", "no", "Url_Adjuntos", "");
 									}
 								}
 							}
@@ -3096,15 +3096,232 @@ $(document).ready(function(){
 	
 	function Img_Activo(){
 		var Adjuntos="";
-		Adjuntos='<label for="attach-1" class="control-label" id="documentos_adjuntos_FILELabel" style="font-size: 11px;">Adjuntar Imagenes (.png, .jpg)</label>';			  
+		Adjuntos='<label for="documentos_adjuntos_FILE" class="control-label" id="documentos_adjuntos_FILELabel" style="font-size: 11px;">Adjuntar Imagenes (.png, .jpg, .jpeg, .heic)</label>';			  
         Adjuntos+='<input id="documentos_adjuntos_FILE" name="imagenes[]" type="file" multiple="multiple" class="file-loading">';
 		Adjuntos+='<input type="hidden" id="Url_Adjuntos">';
 		
 		$("#divFoto").html(Adjuntos);
 		$("#divFoto_lista").html("");
-		carga_imagenes_multiple("documentos_adjuntos_FILE", "divFoto", "divFoto_lista","Url_Adjuntos","../Archivos/Archivos-Nota-Salida",false,true,"", "Adjuntar Imagenes  (.png, .jpg)");
-  }
+		//carga_imagenes_multiple("documentos_adjuntos_FILE", "divFoto", "divFoto_lista","Url_Adjuntos","../Archivos/Archivos-Nota-Salida",true,false,"", "Adjuntar Imagenes  (.png, .jpg)");
+		carga_arch_notasalida("documentos_adjuntos_FILE", "Url_Adjuntos","../Archivos/Archivos-Nota-Salida",false,true);
+	}
+
+	function lista_adjuntos_nota_salida(Url_Concatenada, div_lista, Ruta_Archivo, Todos, url_hidden, elimina_archivos){
+		var elimina_archivos_ = "";
+		if(elimina_archivos.length > 0) { elimina_archivos_ = elimina_archivos; }
+		var ul = new Array();
+
+		if(Todos == "si") {
+			//Partimos nustra cadena 
+			var array_arch = Url_Concatenada.split("---");
+			//Recorremos la cadena convertida en array
+			var Cadena_Arch = "";
+			ul.push("<ul class='lista_" + div_lista + "'>");
+			if(array_arch.length > 0) {
+				for(var i = 0; i < array_arch.length; i++) {
+					if (array_arch.length > 1) {
+						if (array_arch[i]!=data) {
+							var id_ul = array_arch[i].split(".");
+							ul.push('<li id="'+id_ul[0]+'">&nbsp;&nbsp;&nbsp;<a rel="author" href="' + Ruta_Archivo + "/" + array_arch[i] + '" target="_blank">Ver Archivo ' + (i + 1) + '</a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="span-img-borrar" onclick="eliminar_adjunto_not_salid(\''+Ruta_Archivo+"/"+array_arch[i]+'\',\''+url_hidden+'\',\''+array_arch[i]+'\',\''+elimina_archivos_+'\')")"><i class="fa fa-trash" aria-hidden="true" style="color:red"></i></span><br>');
+						}
+						// Muestra la primera imagen de la lista
+						if (div_lista == "divFoto_lista") {
+							if(i == 0) {
+								$("#Carrusel_Fotos").html('<img src="' + Ruta_Archivo + "/" + array_arch[i] + '" class="img-inventario-tabla">');
+							}
+						}
+					}
+				}
+			}
+			ul.push("</ul>");
+		}
+		else {
+			var id_ul = Url_Concatenada.split(".");
+			ul.push("<ul class='lista_" + div_lista + "'>");
+			ul.push('<li id="' + id_ul[0] + '">&nbsp;&nbsp;&nbsp;<a rel="author" href="'+Ruta_Archivo+"/"+Url_Concatenada+'" target="_blank">Ver Archivo '+(1)+'</a>&nbsp;<span class="span-img-borrar" onclick="eliminar_adjunto_not_salid(\''+Ruta_Archivo+"/"+Url_Concatenada+'\',\''+url_hidden+'\',\''+Url_Concatenada+'\',\''+elimina_archivos_+'\')"><i class="fa fa-trash" aria-hidden="true" style="color:red"></i></span><br>');
+			ul.push("</ul>");
+			if(div_lista == "divFoto_lista") {
+				// Muesta la única imagen
+				$("#Carrusel_Fotos").html('<img src="'+Ruta_Archivo+"/"+Url_Concatenada+'" class="img-inventario-tabla">');
+			}
+		}
+		$('#' + div_lista).html(ul.join(""));
+	}
+
+	eliminar_adjunto_not_salid=function(url_archivo, url_hidden, solo_archivo, elimina_archivos){
+		if (confirm("Esta Seguro de eliminar el archivo")) {
+			var eliminadoadj=false;
+			if(elimina_archivos!="no")
+			{
+				$.ajax({
+					type: "POST",
+					url: "../Archivos/borrar_archivo.php",        
+					async: false,
+					data: {
+						url:url_archivo,
+						accion:"borrar_archivo"
+					},
+					dataType: "html",
+					beforeSend: function (xhr) {
+				
+					},
+					success: function (data) {
+						var json;
+						json = eval("(" + data + ")"); //Parsear JSON
+						
+						if(json.totalCount > 0){
+							mensajesalerta("&Eacute;xito", json.text, "success", "dark");	
+							const cadena = $.trim($("#Url_Adjuntos").val());
+							const imagenAEliminar = solo_archivo;
+							console.log("Archivo a eliminar: ",solo_archivo)
+							let imagenes = cadena.split('---');
+
+							// 2. Filtrar la imagen a eliminar
+							imagenes = imagenes.filter(img => img !== imagenAEliminar);
+
+							// 3. Unir de nuevo en cadena
+							const nuevaCadena = imagenes.join('---');
+
+							console.log("Nueva Cadena Img: ",nuevaCadena);
+							//$("#Url_Adjuntos").val(nuevaCadena);
+							eliminadoadj=true;
+							
+						}else{
+							mensajesalerta("Oh No!", json.text, "error", "dark");
+						}
+					},
+					error: function () {
+						mensajesalerta("Oh No!", "Ocurrio un error al eliminar.", "error", "dark");
+					}
+				});
+			}
+			//Elimina la url del textbox
+			var valor=$('#'+url_hidden).val();
+			if(valor.length>0){
+				//Partimoa nustra cadena 
+				var arreglo = valor.split("---");
+				//Recorremos la cadena convertida en array
+				var resultado_cadena="";
+				for(var i=0; i<arreglo.length;i++){
+					if(arreglo.length>1){
+						if(arreglo[i]!=solo_archivo){
+							resultado_cadena=arreglo[i]+"---"+resultado_cadena;
+						}
+					}else{
+						$('#'+url_hidden).val("");
+					}
+				}
+				
+				
+				if(resultado_cadena!=""){
+					resultado_cadena=resultado_cadena.substring(0, resultado_cadena.length-3)
+					$('#'+url_hidden).val(resultado_cadena);
+					//Muestra en un div el listado de los archivos Adjuntos
+					//mostrar_archivos_lista(resultado_cadena, div_lista, url_upload, "si", url_hidden);
+				}
+			}else{
+				$('#'+url_hidden).val("");
+			}
+			
+			//Se borra el ul del div lista
+			var id_ul=solo_archivo.split(".");
+			$("#"+id_ul[0]).remove();
+			if(eliminadoadj){
+				guardar_adjuntos();
+			}
+		}
+	}
 	
+	function carga_arch_notasalida(name_upload, url_hidden, url_upload,vista_imagen,Show_upload){
+		//inicializar el file upload
+		var Todos="";
+		$('#'+name_upload).fileinput({
+			uploadUrl: "../Archivos/upload.php?carpeta="+url_upload+"",
+			uploadAsync: true,
+			showUpload: Show_upload,
+			showRemove: false,
+			showZoom: false,
+			showPreview: vista_imagen,
+			previewFileType: "text",
+			allowedFileExtensions: ["jpg", "jpeg", "png", "heic", "JPG", "JPEG", "PNG", "HEIC"],
+		//allowedFileExtensions: ["jpg", "png", "bmp", "gif", "pdf", "docx", "doc", "xls", "xlsx", "ppt","pptx", "heic", "HEIC"],
+			browseClass: "btn chs",
+			//validateInitialCount: true,
+			language: 'es',
+			initialPreviewAsData: true, // defaults markup
+			initialPreviewFileType: 'image' // image is the default and can be overridden in config below
+		
+		}).on("filebatchselected", function (event, files) {
+			$('.kv-file-upload').click();
+			mensajesalerta("&Eacute;xito", "Se ha cargado el Archivo con Éxito.", "success", "dark");
+			const boton = document.querySelector('.fileinput-upload-button');
+			if (boton) {
+				boton.style.display = 'none';
+			}
+			$('.fileinput-upload-button').click();
+		});
+		//Cargar Archivo
+		$('#'+name_upload).on('fileuploaded', function (event, data, previewId, index) {
+			var arch=$('#'+url_hidden).val();
+			
+			var form = data.form, files = data.files, extra = data.extra,
+			response = data.response, reader = data.reader;
+			if(arch.length>0){
+				Todos="si";
+				arch=arch+"---"+response.initialPreviewConfig[0].caption;
+				//Img_Activo();
+				$('#'+url_hidden).val(arch);
+				lista_adjuntos_nota_salida(arch, "divFoto_lista", url_upload, Todos, url_hidden,"");
+			}else{
+				Todos="no";
+				//Img_Activo();
+				$('#'+url_hidden).val(response.initialPreviewConfig[0].caption);
+				lista_adjuntos_nota_salida(response.initialPreviewConfig[0].caption, "divFoto_lista", url_upload, Todos, url_hidden,"");
+			}
+			console.log("img nota salida: ", $('#'+url_hidden).val());
+			$("#botonEnviar").html("Enviar Archivo");
+			guardar_adjuntos();
+		});
+		
+		$('#'+name_upload).on("filepredelete", function(event, data, previewId, index) {
+			
+			var abort = true;
+			if (confirm("Esta Seguro de eliminar el archivo")) {
+				
+				var valor=$('#'+url_hidden).val();
+				if(valor.length>0){
+					
+					//Partimoa nustra cadena 
+					var arreglo = valor.split("---");
+					//Recorremos la cadena convertida en array
+					
+					var resultado_cadena="";
+					for(var i=0; i<arreglo.length;i++){
+						if(arreglo.length>1){
+							if(arreglo[i]!=data){
+								resultado_cadena=arreglo[i]+"---"+resultado_cadena;
+							}
+						}else{
+							$('#'+url_hidden).val("");
+						}
+					}
+					
+					if(resultado_cadena!=""){
+						resultado_cadena=resultado_cadena.substring(0, resultado_cadena.length-3)
+						$('#'+url_hidden).val(resultado_cadena);
+					}
+					
+				}else{
+					$('#'+url_hidden).val("");
+				}
+				abort = false;
+			}
+			return abort;
+		});
+	
+		
+	}
+
 	finalizar_nota=function(){
 		var Agregar = true;
 		var mensaje_error = "";

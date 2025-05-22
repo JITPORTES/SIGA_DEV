@@ -3627,16 +3627,17 @@ $("#ticket_actualizar_categoria").click(function() {
 			//{ "width": "4%","data": "Nom_Area"}
 			
 			
-		], "language": {
-			"lengthMenu": "Mostrando _MENU_ registros por p&aacute;gina",
-			"zeroRecords": "Sin Resultados",
-			"info": "Monstrando p&aacute;gina _PAGE_ de _PAGES_ , total de registros: _MAX_",
-			"infoEmpty": "Sin Resultados",
-			"infoFiltered": "(Monstrando  _MAX_ del total de registros)",
-			"search": "Busqueda: ",
+		], 
+		"language": {
+			"lengthMenu": "Mostrando _MENU_ registros por página",
+			"zeroRecords": "Sin resultados",
+			"info": "Mostrando página _PAGE_ de _PAGES_, resultados filtrados: _TOTAL_ de _MAX_ registros",
+			"infoEmpty": "Sin resultados",
+			"infoFiltered": "",
+			"search": "Búsqueda: ",
 			"paginate": {
 				"first": "Primera",
-				"last": "Ultima",
+				"last": "Última",
 				"next": "Siguiente",
 				"previous": "Anterior"
 			}
@@ -3827,16 +3828,18 @@ $("#ticket_actualizar_categoria").click(function() {
 			}
 			//{ "width": "4%","data": "Nom_Area"}
 			
-		], "language": {
-			"lengthMenu": "Mostrando _MENU_ registros por p&aacute;gina",
-			"zeroRecords": "Sin Resultados",
-			"info": "Monstrando p&aacute;gina _PAGE_ de _PAGES_ , total de registros: _MAX_",
-			"infoEmpty": "Sin Resultados",
-			"infoFiltered": "(Monstrando  _MAX_ del total de registros)",
-			"search": "Busqueda: ",
+
+		], 
+		"language": {
+			"lengthMenu": "Mostrando _MENU_ registros por página",
+			"zeroRecords": "Sin resultados",
+			"info": "Mostrando página _PAGE_ de _PAGES_, resultados filtrados: _TOTAL_ de _MAX_ registros",
+			"infoEmpty": "Sin resultados",
+			"infoFiltered": "",
+			"search": "Búsqueda: ",
 			"paginate": {
 				"first": "Primera",
-				"last": "Ultima",
+				"last": "Última",
 				"next": "Siguiente",
 				"previous": "Anterior"
 			}
@@ -4011,16 +4014,17 @@ $("#ticket_actualizar_categoria").click(function() {
 			}
 			//{ "width": "4%","data": "Nom_Area"}
 			
-		], "language": {
-			"lengthMenu": "Mostrando _MENU_ registros por p&aacute;gina",
-			"zeroRecords": "Sin Resultados",
-			"info": "Monstrando p&aacute;gina _PAGE_ de _PAGES_ , total de registros: _MAX_",
-			"infoEmpty": "Sin Resultados",
-			"infoFiltered": "(Monstrando  _MAX_ del total de registros)",
-			"search": "Busqueda: ",
+		],
+		"language": {
+			"lengthMenu": "Mostrando _MENU_ registros por página",
+			"zeroRecords": "Sin resultados",
+			"info": "Mostrando página _PAGE_ de _PAGES_, resultados filtrados: _TOTAL_ de _MAX_ registros",
+			"infoEmpty": "Sin resultados",
+			"infoFiltered": "",
+			"search": "Búsqueda: ",
 			"paginate": {
 				"first": "Primera",
-				"last": "Ultima",
+				"last": "Última",
 				"next": "Siguiente",
 				"previous": "Anterior"
 			}
@@ -4177,16 +4181,17 @@ $("#ticket_actualizar_categoria").click(function() {
 			},
 			{ "width": "4%","data": "Desc_Est_Equipo"}
 			
-		], "language": {
-			"lengthMenu": "Mostrando _MENU_ registros por p&aacute;gina",
-			"zeroRecords": "Sin Resultados",
-			"info": "Monstrando p&aacute;gina _PAGE_ de _PAGES_ , total de registros: _MAX_",
-			"infoEmpty": "Sin Resultados",
-			"infoFiltered": "(Monstrando  _MAX_ del total de registros)",
-			"search": "Busqueda: ",
+		],
+		"language": {
+			"lengthMenu": "Mostrando _MENU_ registros por página",
+			"zeroRecords": "Sin resultados",
+			"info": "Mostrando página _PAGE_ de _PAGES_, resultados filtrados: _TOTAL_ de _MAX_ registros",
+			"infoEmpty": "Sin resultados",
+			"infoFiltered": "",
+			"search": "Búsqueda: ",
 			"paginate": {
 				"first": "Primera",
-				"last": "Ultima",
+				"last": "Última",
 				"next": "Siguiente",
 				"previous": "Anterior"
 			}
