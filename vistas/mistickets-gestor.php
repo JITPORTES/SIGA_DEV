@@ -3486,7 +3486,7 @@ $("#ticket_actualizar_categoria").click(function() {
         "processing": true,
         "serverSide": false,
 		"orderCellsTop": true,
-       	"fixedHeader": true,
+       	"fixedHeader": false,
 		"ajax": {
 			"url": "../fachadas/activos/siga_solicitud_tickets/Siga_solicitud_ticketsFacade.Class.php",
 			"type": "POST",
@@ -3679,7 +3679,7 @@ $("#ticket_actualizar_categoria").click(function() {
         "processing": true,
         "serverSide": false,
 		"orderCellsTop": true,
-       	"fixedHeader": true,
+       	"fixedHeader": false,
 		"ajax": {
 			"url": "../fachadas/activos/siga_solicitud_tickets/Siga_solicitud_ticketsFacade.Class.php",
 			"type": "POST",
@@ -3880,7 +3880,7 @@ $("#ticket_actualizar_categoria").click(function() {
         "processing": false,
         "serverSide": false,
 		"orderCellsTop": true,
-       	"fixedHeader": true,
+       	"fixedHeader": false,
 		"ajax": {
 			"url": "../fachadas/activos/siga_solicitud_tickets/Siga_solicitud_ticketsFacade.Class.php",
 			"type": "POST",
@@ -4066,7 +4066,7 @@ $("#ticket_actualizar_categoria").click(function() {
         "processing": true,
         "serverSide": false,
 		"orderCellsTop": true,
-       	"fixedHeader": true,
+       	"fixedHeader": false,
 		initComplete: function(){
 			jsRemoveWindowLoad();
 		},
